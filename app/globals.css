@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
+/*
+ * Fallback token values so the page still renders correctly if a route
+ * ever forgets to apply an alliance theme. The real values are set as
+ * inline custom properties on <html> in app/layout.tsx, driven by
+ * config/alliances/*.ts — never hardcode a color here.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0d0a;
+  --surface: #1a1c14;
+  --surface-raised: #232519;
+  --border: #33351f;
+  --text-primary: #e8e4d8;
+  --text-secondary: #a8a38c;
+  --accent: #c4491d;
+  --accent-bright: #f2762e;
+  --toxic: #7c9a3f;
+  --tip: #4e8b6b;
+  --warning: #d97706;
+  --lore: #5b4a6b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-toxic: var(--toxic);
+  --color-tip: var(--tip);
+  --color-warning: var(--warning);
+  --color-lore: var(--lore);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-oswald), sans-serif;
+  --font-body: var(--font-plex-sans), sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+/*
+ * Base atmosphere layer — applied once here so every page inherits it
+ * automatically. Film grain (feTurbulence data-URI, overlay blend) plus a
+ * radial vignette darkening the edges. Fixed + pointer-events:none so it
+ * never intercepts clicks or scrolls with content.
+ */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+body::before {
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+body::after {
+  background: radial-gradient(ellipse at 50% 0%, transparent 45%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* Shared hover feedback for interactive surfaces (buttons, future cards):
+   a small lift plus an accent-colored glow. Border/background color changes
+   are handled per-component via Tailwind's hover: variants. */
+.interactive-lift {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.interactive-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--color-accent-bright) 60%, transparent);
+}
+
+/* Baseline styling for guide body copy that MDX doesn't route through a
+   custom component override (Callout/Figure/table/h2/h3 are handled by
+   components/mdx/*). */
+.prose-guide {
+  line-height: 1.75;
+}
+
+.prose-guide p {
+  margin: 1.25em 0;
+  color: var(--color-text-secondary);
+}
+
+.prose-guide a {
+  color: var(--color-accent-bright);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-guide strong {
+  color: var(--color-text-primary);
+}
+
+.prose-guide ul,
+.prose-guide ol {
+  margin: 1.25em 0;
+  padding-left: 1.5em;
+  color: var(--color-text-secondary);
+}
+
+.prose-guide ul {
+  list-style-type: disc;
+}
+
+.prose-guide ol {
+  list-style-type: decimal;
+}
+
+.prose-guide li {
+  margin: 0.4em 0;
+}
+
+.prose-guide li::marker {
+  color: var(--color-accent);
+}
+
+.prose-guide code {
+  background: var(--color-surface-raised);
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+  color: var(--color-toxic);
+}
+
+.prose-guide hr {
+  margin: 2.5em 0;
+  border-color: var(--color-border);
+}
+
+.prose-guide blockquote {
+  margin: 1.5em 0;
+  border-left: 3px solid var(--color-border);
+  padding-left: 1em;
+  color: var(--color-text-secondary);
+  font-style: italic;
 }
