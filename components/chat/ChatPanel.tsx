@@ -5,6 +5,7 @@ import type { ChannelRow } from "@/lib/supabase/types";
 import { ChannelSidebar } from "./ChannelSidebar";
 import { MessageList } from "./MessageList";
 import { MessageComposer } from "./MessageComposer";
+import { PresenceList } from "./PresenceList";
 
 interface ChatPanelProps {
   alliance: string;
@@ -37,6 +38,7 @@ export function ChatPanel({ alliance }: ChatPanelProps) {
           <p className="p-4 text-text-secondary">No channels available.</p>
         )}
       </div>
+      {selectedChannel && <PresenceList alliance={alliance} channelSlug={selectedChannel.slug} />}
     </div>
   );
 }
