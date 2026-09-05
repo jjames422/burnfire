@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/config/site";
 import { AuthGate } from "@/components/auth/AuthGate";
+import { ChatPanel } from "@/components/chat/ChatPanel";
 
 export const metadata: Metadata = {
   title: "Chat",
@@ -8,14 +9,12 @@ export const metadata: Metadata = {
 
 export default function ChatPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-12">
       <h1 className="mb-8 font-display text-3xl font-bold text-text-primary">
         {site.alliance.name} Chat
       </h1>
       <AuthGate alliance={site.activeAlliance}>
-        <p className="border border-border bg-surface p-4 text-text-secondary">
-          You&apos;re signed in and your profile is set up. Channels and messaging land in M6.
-        </p>
+        <ChatPanel alliance={site.activeAlliance} />
       </AuthGate>
     </main>
   );

@@ -35,6 +35,25 @@ export type ProfileRow = {
   created_at: string;
 };
 
+export type ChannelRow = {
+  id: string;
+  alliance: string;
+  slug: string;
+  name: string;
+  topic: string | null;
+  min_role: PermissionRole;
+  sort_order: number;
+};
+
+export type MessageRow = {
+  id: string;
+  channel_id: string;
+  author_id: string;
+  body: string;
+  created_at: string;
+  deleted_at: string | null;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -57,6 +76,19 @@ export type Database = {
         Insert: Pick<ProfileRow, "id" | "alliance" | "display_name"> &
           Partial<Pick<ProfileRow, "display_rank" | "permission_role">>;
         Update: Partial<ProfileRow>;
+        Relationships: [];
+      };
+      channels: {
+        Row: ChannelRow;
+        Insert: Pick<ChannelRow, "alliance" | "slug" | "name"> &
+          Partial<Pick<ChannelRow, "topic" | "min_role" | "sort_order">>;
+        Update: Partial<ChannelRow>;
+        Relationships: [];
+      };
+      messages: {
+        Row: MessageRow;
+        Insert: Pick<MessageRow, "channel_id" | "author_id" | "body">;
+        Update: Partial<MessageRow>;
         Relationships: [];
       };
     };
