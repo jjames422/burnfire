@@ -3,11 +3,15 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { CommentRow } from "@/lib/supabase/types";
+import { TurnstileWidget } from "./TurnstileWidget";
 
 interface CommentSectionProps {
   alliance: string;
   guideSlug: string;
 }
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const isTurnstileConfigured = Boolean(TURNSTILE_SITE_KEY);
 
 export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
   const [comments, setComments] = useState<CommentRow[]>([]);
@@ -17,6 +21,8 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [widgetKey, setWidgetKey] = useState(0);
 
   useEffect(() => {
     if (!supabase) {
@@ -46,12 +52,39 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
     };
   }, [alliance, guideSlug]);
 
+  function resetTurnstile() {
+    setTurnstileToken(null);
+    setWidgetKey((key) => key + 1);
+  }
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (!supabase) return;
 
     setSubmitting(true);
     setError(null);
+
+    if (isTurnstileConfigured) {
+      if (!turnstileToken) {
+        setSubmitting(false);
+        setError("Please complete the verification.");
+        return;
+      }
+
+      const verifyResponse = await fetch("/api/verify-turnstile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: turnstileToken }),
+      });
+      const verifyResult = await verifyResponse.json();
+
+      if (!verifyResult.success) {
+        setSubmitting(false);
+        setError("Verification failed — please try again.");
+        resetTurnstile();
+        return;
+      }
+    }
 
     const { data, error: insertError } = await supabase
       .from("comments")
@@ -66,6 +99,8 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
       .single();
 
     setSubmitting(false);
+
+    if (isTurnstileConfigured) resetTurnstile(); // tokens are single-use either way
 
     if (insertError) {
       setError(insertError.message);
@@ -118,10 +153,20 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
               onChange={(event) => setBody(event.target.value)}
               className="mb-3 w-full border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
             />
+            {isTurnstileConfigured && (
+              <div className="mb-3">
+                <TurnstileWidget
+                  key={widgetKey}
+                  siteKey={TURNSTILE_SITE_KEY!}
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
+            )}
             {error && <p className="mb-3 text-sm text-warning">{error}</p>}
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || (isTurnstileConfigured && !turnstileToken)}
               className="interactive-lift border border-accent bg-accent px-4 py-2 font-display text-sm font-semibold text-text-primary hover:border-accent-bright hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitting ? "Posting…" : "Post comment"}
