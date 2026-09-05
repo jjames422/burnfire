@@ -5,8 +5,8 @@
 -- Built up incrementally as milestones land:
 --   M3 — comments
 --   M4 — reactions + increment_reaction RPC
---   M5 — profiles + auth (this file, so far)
---   M6 — channels + messages
+--   M5 — profiles + auth
+--   M6 — channels + messages (this file, so far)
 -- Re-running this whole file after an appended section is safe — every
 -- statement is idempotent (create table/policy "if not exists" or
 -- drop-then-create).
@@ -135,17 +135,41 @@ create table if not exists public.profiles (
 
 grant select, insert on public.profiles to authenticated;
 
+-- role_rank/my_role/my_alliance are security-definer helpers so RLS policies
+-- (here and in the channels/messages section below) can check "does this
+-- user's role/alliance qualify" without needing a broader read grant on
+-- profiles than the policy below actually allows. Defined here, right after
+-- profiles exists and before anything references them, since this file runs
+-- top-to-bottom.
+create or replace function public.role_rank(r permission_role) returns int
+language sql immutable as $$
+  select case r when 'member' then 1 when 'officer' then 2 when 'admin' then 3 end;
+$$;
+
+create or replace function public.my_role(p_alliance text) returns permission_role
+language sql stable security definer set search_path = public, pg_temp as $$
+  select permission_role from public.profiles where id = auth.uid() and alliance = p_alliance;
+$$;
+
+create or replace function public.my_alliance() returns text
+language sql stable security definer set search_path = public, pg_temp as $$
+  select alliance from public.profiles where id = auth.uid();
+$$;
+
 alter table public.profiles enable row level security;
 
--- A user can only ever see their own profile row for now — nothing in M5
--- needs to show another member's identity yet. M6 (chat) will need to widen
--- this so message authors' display_name/display_rank are visible to other
--- channel members; revisit then rather than opening it prematurely now.
+-- Members can see every profile in their own alliance (not just their own
+-- row) — needed from M6 onward so a message list can show who sent each
+-- message. Scoped through my_alliance() below rather than a raw subquery on
+-- profiles itself, to avoid the policy referencing the table it's attached
+-- to (works, but the security-definer helper is the same pattern my_role()
+-- already uses and is easier to reason about).
 drop policy if exists "users read their own profile" on public.profiles;
-create policy "users read their own profile"
+drop policy if exists "members read profiles in their alliance" on public.profiles;
+create policy "members read profiles in their alliance"
 on public.profiles for select
 to authenticated
-using (id = auth.uid());
+using (alliance = public.my_alliance());
 
 -- with check forces permission_role = 'member' regardless of what a client
 -- sends — this is the entire security boundary the plan calls out: without
@@ -162,3 +186,97 @@ with check (id = auth.uid() and permission_role = 'member');
 -- by an admin, same "moderate via table editor" pattern as comments. No
 -- self-service profile editing in v1 either (display_name/display_rank are
 -- set once at onboarding).
+
+-- === Channels + messages (M6) ==============================================
+
+create table if not exists public.channels (
+  id uuid primary key default gen_random_uuid(),
+  alliance text not null,
+  slug text not null,
+  name text not null,
+  topic text,
+  min_role permission_role not null default 'member',
+  sort_order int not null default 0,
+  unique (alliance, slug)
+);
+
+grant select on public.channels to authenticated;
+
+alter table public.channels enable row level security;
+
+-- role_rank comparison is numeric so higher roles automatically satisfy a
+-- lower-gated channel (an officer can see 'member'-gated channels too).
+drop policy if exists "members see channels they're allowed in" on public.channels;
+create policy "members see channels they're allowed in"
+on public.channels for select
+to authenticated
+using (role_rank(my_role(alliance)) >= role_rank(min_role));
+
+create table if not exists public.messages (
+  id uuid primary key default gen_random_uuid(),
+  channel_id uuid not null references public.channels (id) on delete cascade,
+  author_id uuid not null references auth.users (id),
+  body text not null check (char_length(body) between 1 and 2000),
+  created_at timestamptz not null default now(),
+  deleted_at timestamptz
+);
+
+create index if not exists messages_channel_idx
+  on public.messages (channel_id, created_at desc);
+
+grant select, insert, delete on public.messages to authenticated;
+
+alter table public.messages enable row level security;
+
+drop policy if exists "members read messages in channels they can access" on public.messages;
+create policy "members read messages in channels they can access"
+on public.messages for select
+to authenticated
+using (
+  deleted_at is null
+  and exists (
+    select 1 from public.channels c
+    where c.id = messages.channel_id
+    and role_rank(my_role(c.alliance)) >= role_rank(c.min_role)
+  )
+);
+
+drop policy if exists "members post in channels they can access" on public.messages;
+create policy "members post in channels they can access"
+on public.messages for insert
+to authenticated
+with check (
+  author_id = auth.uid()
+  and exists (
+    select 1 from public.channels c
+    where c.id = messages.channel_id
+    and role_rank(my_role(c.alliance)) >= role_rank(c.min_role)
+  )
+);
+
+drop policy if exists "authors delete their own messages" on public.messages;
+create policy "authors delete their own messages"
+on public.messages for delete
+to authenticated
+using (author_id = auth.uid());
+
+-- Postgres Changes (Realtime) only streams tables explicitly added to this
+-- publication — easy to forget, and nothing below breaks without it, it just
+-- silently never fires.
+do $$
+begin
+  alter publication supabase_realtime add table public.messages;
+exception
+  when duplicate_object then null;
+end $$;
+
+-- BurnFire's day-one channels. ON CONFLICT makes this safe to re-run; it
+-- deliberately does not update name/topic/min_role/sort_order on conflict,
+-- so hand edits made later via the table editor aren't clobbered by re-runs
+-- of this file.
+insert into public.channels (alliance, slug, name, topic, min_role, sort_order) values
+  ('burnfire', 'general', 'General', 'Alliance-wide chat', 'member', 0),
+  ('burnfire', 'pvp', 'PVP', 'Arena and rally coordination', 'member', 1),
+  ('burnfire', 'recruitment', 'Recruitment', 'Recruiting and applications', 'member', 2),
+  ('burnfire', 'officer', 'Officer', 'Officer+ only', 'officer', 3)
+on conflict (alliance, slug) do nothing;
