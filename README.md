@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BurnFire Guide Site
 
-## Getting Started
+The guide + live chat site for BurnFire, an alliance in *Last Asylum: Plague*. Live at
+[lastasylumplague.org](https://lastasylumplague.org).
 
-First, run the development server:
+Built to run at **$0 ongoing cost**, maintainable by one developer, and structured so a second
+alliance could get its own guide section and chat channels later without a rebuild. The original
+implementation plan (`quizzical-questing-starlight.md`, repo root) has the full reasoning behind
+every architectural decision below — read that first for *why*, this README is the *what/how*.
+
+## Stack
+
+- **Next.js 16** (App Router) + React 19 + TypeScript, deployed on **Vercel** (auto-builds from
+  GitHub on every push to `main`).
+- **Tailwind CSS v4** (CSS-first `@theme`, no `tailwind.config.ts`).
+- Content is **git-based MDX** — guides are files in `content/<alliance>/guides/`, not a hosted
+  CMS.
+- **Supabase** (free tier) for everything dynamic: comments/reactions (anonymous), auth
+  (magic-link), chat (channels/messages/presence) — all called directly from the browser with the
+  anon key, secured by Row Level Security, not by a backend server.
+- **Cloudflare Turnstile** for spam protection on the comment form (the one thing that needs a
+  server: `app/api/verify-turnstile/route.ts`).
+- **Resend** for outbound auth emails (magic-link), so they send from the real domain instead of
+  Supabase's generic shared sender.
+
+## Local setup
 
 ```bash
+npm install
+cp .env.local.example .env.local   # fill in the values below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`.env.local` needs:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Var | Where to get it |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project → Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same page — the anon/publishable key (safe to expose; RLS is the real boundary) |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare dashboard → Application Security → Turnstile → your widget |
+| `TURNSTILE_SECRET_KEY` | Same page — **server-only**, never prefix this with `NEXT_PUBLIC_` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Without Supabase configured, comments/reactions/chat gracefully show a "not configured" state
+instead of crashing — the guide content itself works with zero env vars. Without Turnstile
+configured, comments just skip the verification step entirely (useful for local dev, since
+Turnstile widgets are tied to registered hostnames and won't render on `localhost` anyway — see
+the note in `app/api/verify-turnstile/route.ts`).
 
-## Learn More
+Database schema lives in `supabase/schema.sql` — run the whole file in your Supabase project's SQL
+Editor. It's additive and idempotent (safe to re-run after pulling changes that add a new section).
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Multi-tenancy seam:** `config/alliances/<slug>.ts` holds one alliance's identity (name, theme
+colors, domain). `config/site.ts` picks the active one — every component reads through `site`,
+never a literal alliance name or hardcoded color. Routing stays single-alliance (`/guides/[slug]`,
+not `/[alliance]/guides/[slug]`) for now; see `docs/adding-an-alliance.md` for what onboarding a
+second alliance actually involves.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Content model:** `content/<alliance>/guides/*.mdx`, frontmatter validated with `zod`
+(`lib/content/types.ts`), loaded via `lib/content/guides.ts`. Custom MDX components
+(`components/mdx/`) handle Callout/Figure/table/heading-anchor rendering — see
+`docs/adding-a-guide.md` for the author-facing side of this.
 
-## Deploy on Vercel
+**Design system:** dark, flat-corner (no `border-radius` anywhere, deliberately), gritty theme —
+see the design-system notes inline in `app/globals.css` and `components/mdx/Callout.tsx` for the
+specific rules (they exist because a plain color-token table alone kept producing a generic,
+default-Tailwind look).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Supabase tables** (all in `supabase/schema.sql`, RLS-locked, no custom backend server):
+`comments`/`reactions` (anonymous, guide-scoped), `profiles`/`channels`/`messages` (chat, requires
+magic-link auth). See `docs/managing-roles-and-channels.md` for promoting a member to
+officer/admin or adding a channel — both are Table Editor operations, not code changes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy model
+
+- Code is developed and committed from wherever you're working, pushed to
+  [github.com/jjames422/burnfire](https://github.com/jjames422/burnfire).
+- Vercel auto-builds and deploys `main` on every push — no manual deploy step, no static-export
+  workaround (this runs as a real Next.js app, so `next/image` and the Turnstile route handler
+  both work natively).
+- Domains: `lastasylumplague.org` is canonical (`config/alliances/burnfire.ts` → `domain`);
+  `.us`/`.store`/`.info` are configured in Vercel's dashboard as redirects to `.org`. DNS lives at
+  the registrar (IONOS), pointed at Vercel via A records — not migrated to Vercel's nameservers.
+- Supabase Auth's Site URL / Redirect URLs must include the production domain (and `localhost` for
+  dev) or magic-link sign-in breaks on whichever one is missing.
+
+**Honest limits, stated plainly (not blockers, just worth knowing):** Vercel's free Hobby tier is
+scoped for non-commercial use. Supabase's free tier caps at 200 concurrent Realtime connections and
+pauses a project after 7 days of zero traffic (auto-resumes, first request after is just slow).
+Comfortable for one alliance; the metric to watch if this ever hosts several at once is concurrent
+connections.
+
+## Other docs
+
+- `docs/adding-a-guide.md` — writing and publishing a guide (non-developer-facing).
+- `docs/adding-an-alliance.md` — onboarding a second alliance (developer-facing).
+- `docs/managing-roles-and-channels.md` — promoting members, adding chat channels.
