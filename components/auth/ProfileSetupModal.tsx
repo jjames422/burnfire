@@ -29,21 +29,40 @@ export function ProfileSetupModal({ alliance, userId, onComplete }: ProfileSetup
     setSubmitting(true);
     setError(null);
 
-    const { data, error: insertError } = await supabase
+    // Deliberately not `.insert(...).select().single()` — chaining .select()
+    // makes Postgres also satisfy the SELECT policy via RETURNING, in the
+    // same statement as the insert. Our SELECT policy checks
+    // `alliance = my_alliance()`, which itself queries profiles — a
+    // self-referential check against the row being inserted, in the same
+    // statement. That combination is a known rough RLS edge that can fail
+    // even though the insert itself succeeds, and Postgres reports it with
+    // the exact same "new row violates row-level security policy" message
+    // as a real WITH CHECK failure. Splitting into a plain insert (only
+    // needs the INSERT policy) plus a separate follow-up select (evaluated
+    // fresh, after the row is already committed) avoids it entirely.
+    const { error: insertError } = await supabase.from("profiles").insert({
+      id: userId,
+      alliance,
+      display_name: displayName.trim(),
+      display_rank: displayRank.trim() || null,
+    });
+
+    if (insertError) {
+      setSubmitting(false);
+      setError(insertError.message);
+      return;
+    }
+
+    const { data, error: selectError } = await supabase
       .from("profiles")
-      .insert({
-        id: userId,
-        alliance,
-        display_name: displayName.trim(),
-        display_rank: displayRank.trim() || null,
-      })
-      .select()
+      .select("*")
+      .eq("id", userId)
       .single();
 
     setSubmitting(false);
 
-    if (insertError) {
-      setError(insertError.message);
+    if (selectError) {
+      setError(selectError.message);
       return;
     }
 
