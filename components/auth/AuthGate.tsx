@@ -107,40 +107,40 @@ export function AuthGate({
   }
 
   if (loading) {
-    return <p className="text-text-secondary">Loading…</p>;
+    return <div className="auth-loading"><span />Igniting secure connection…</div>;
   }
 
   if (!session) {
     return (
-      <div className="mx-auto max-w-sm border border-border bg-surface p-6">
-        <h2 className="mb-4 font-display text-xl font-semibold text-text-primary">
-          Sign in
-        </h2>
+      <div className="auth-card">
+        <div className="auth-mascot"><img src="/images/burnfire/logo.png" alt="BurnFire mascot" /></div>
+        <span className="eyebrow">Kingdom #324 community access</span>
+        <h2>Enter the survivor network</h2>
+        <p className="auth-intro">One secure link. No password to remember. Your in-game identity follows you everywhere on the site.</p>
         {sent ? (
-          <p className="text-sm text-text-secondary">
-            Check your email for a sign-in link — it&apos;ll bring you right
-            back here.
-          </p>
+          <div className="auth-sent"><span>✦</span><strong>Check your email</strong><p>Your secure link will return you directly to the community chat.</p></div>
         ) : (
           <form onSubmit={handleSendMagicLink}>
+            <label className="auth-label">Email address</label>
             <input
               type="email"
               required
               placeholder="you@example.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="mb-3 w-full border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
+              className="auth-input"
             />
-            {error && <p className="mb-3 text-sm text-warning">{error}</p>}
+            {error && <p className="auth-error">{error}</p>}
             <button
               type="submit"
               disabled={sending}
-              className="interactive-lift w-full border border-accent bg-accent px-4 py-2 font-display text-sm font-semibold text-text-primary hover:border-accent-bright hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-50"
+              className="auth-submit"
             >
-              {sending ? "Sending…" : "Send magic link"}
+              {sending ? "Sending secure link…" : "Continue with magic link"}
             </button>
           </form>
         )}
+        <small className="auth-host">Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community</small>
       </div>
     );
   }
