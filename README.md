@@ -21,20 +21,24 @@ every architectural decision below — read that first for *why*, this README is
 - **Resend** for outbound auth emails (magic-link), so they send from the real domain instead of
   Supabase's generic shared sender.
 
-## Local setup
+## Private environment setup
+
+> **Security note:** `.env.local.example` is an intentionally public template containing variable
+> names and blank values only. Real credentials belong in `.env.local`, which is ignored by Git.
+> Never paste a real key into this README or commit any `.env*` file other than the blank example.
 
 ```bash
 npm install
-cp .env.local.example .env.local   # fill in the values below
+cp .env.local.example .env.local   # the new file stays private on this machine
 npm run dev
 ```
 
-`.env.local` needs:
+Fill the private `.env.local` with:
 
 | Var | Where to get it |
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project → Settings → API |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same page — the anon/publishable key (safe to expose; RLS is the real boundary) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same page — Supabase's browser publishable key; RLS remains the authorization boundary |
 Without Supabase configured, comments/reactions/chat gracefully show a "not configured" state
 instead of crashing — the guide content itself works with zero env vars.
 
