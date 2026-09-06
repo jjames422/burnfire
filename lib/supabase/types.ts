@@ -77,12 +77,17 @@ export type AllianceRow = {
 
 export type ChannelRow = {
   id: string;
-  alliance: string;
+  alliance: string | null;
   slug: string;
   name: string;
   topic: string | null;
   min_role: PermissionRole;
   sort_order: number;
+  scope: "community" | "alliance";
+  category_id: string | null;
+  slow_mode_seconds: number;
+  is_archived: boolean;
+  allow_threads: boolean;
 };
 
 export type MessageRow = {
@@ -92,6 +97,56 @@ export type MessageRow = {
   body: string;
   created_at: string;
   deleted_at: string | null;
+  edited_at: string | null;
+  parent_message_id: string | null;
+  thread_root_id: string | null;
+  deleted_by: string | null;
+  delete_reason: string | null;
+};
+
+export type ChatMessageRow = Pick<
+  MessageRow,
+  | "id"
+  | "channel_id"
+  | "author_id"
+  | "body"
+  | "created_at"
+  | "edited_at"
+  | "parent_message_id"
+  | "thread_root_id"
+> & {
+  identity_label: string;
+  reactions: Record<string, number>;
+};
+
+export type MessageReactionRow = {
+  message_id: string;
+  user_id: string;
+  emoji: string;
+  created_at: string;
+};
+export type NotificationRow = {
+  id: string;
+  user_id: string;
+  kind: string;
+  title: string;
+  body: string;
+  data: Record<string, unknown>;
+  read_at: string | null;
+  created_at: string;
+};
+export type AllianceInvitationRow = {
+  id: string;
+  alliance: string;
+  invitee_id: string;
+  invited_by: string;
+  game_rank: GameRank;
+  alliance_title: AllianceTitle | null;
+  permission_role: PermissionRole;
+  status: string;
+  expires_at: string;
+  created_at: string;
+  responded_at: string | null;
 };
 
 export type Database = {
@@ -162,6 +217,24 @@ export type Database = {
         Update: Partial<ChannelRow>;
         Relationships: [];
       };
+      message_reactions: {
+        Row: MessageReactionRow;
+        Insert: Pick<MessageReactionRow, "message_id" | "user_id" | "emoji">;
+        Update: never;
+        Relationships: [];
+      };
+      notifications: {
+        Row: NotificationRow;
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      alliance_invitations: {
+        Row: AllianceInvitationRow;
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
       messages: {
         Row: MessageRow;
         Insert: Pick<MessageRow, "channel_id" | "author_id" | "body">;
@@ -178,6 +251,31 @@ export type Database = {
       update_in_game_name: {
         Args: { p_in_game_name: string };
         Returns: ProfileRow;
+      };
+      get_channel_messages: {
+        Args: { p_channel_id: string; p_limit?: number };
+        Returns: ChatMessageRow[];
+      };
+      post_channel_message: {
+        Args: {
+          p_channel_id: string;
+          p_body: string;
+          p_parent_message_id?: string | null;
+          p_mentioned_user_ids?: string[];
+        };
+        Returns: string;
+      };
+      edit_message: {
+        Args: { p_message_id: string; p_body: string };
+        Returns: MessageRow;
+      };
+      mark_notification_read: {
+        Args: { p_notification_id: string };
+        Returns: undefined;
+      };
+      respond_to_alliance_invitation: {
+        Args: { p_invitation_id: string; p_accept: boolean };
+        Returns: AllianceInvitationRow;
       };
     };
   };
