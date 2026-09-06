@@ -53,6 +53,7 @@ export type ProfileRow = {
 };
 
 export type AllianceMemberRow = {
+  // Database primary key: one membership per authenticated account.
   alliance: string;
   user_id: string;
   permission_role: PermissionRole;
