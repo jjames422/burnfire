@@ -6,9 +6,26 @@ import type { MessageRow } from "@/lib/supabase/types";
 
 interface MessageListProps {
   channelId: string;
+  alliance: string;
 }
 
-type ProfileInfo = { display_name: string; display_rank: string | null };
+type ProfileInfo = { display_name: string; rank_label: string };
+
+const RANK_LABELS = {
+  r1: "R1 · Recruit",
+  r2: "R2 · Member",
+  r3: "R3 · Elder",
+  r4: "R4 · Officer",
+  r5: "R5 · Alliance Leader",
+} as const;
+
+const TITLE_LABELS = {
+  diplomat: "Diplomat",
+  recruiter: "Recruiter",
+  goddess: "Goddess",
+  god_of_war: "God of War",
+  alliance_leader: "Alliance Leader",
+} as const;
 
 /**
  * Fetches recent messages, then subscribes to Realtime Postgres Changes for
@@ -17,12 +34,15 @@ type ProfileInfo = { display_name: string; display_rank: string | null };
  * PostgREST can't embed the join) — profiles for authors are fetched
  * separately and cached by id in a ref, not re-fetched per message.
  */
-export function MessageList({ channelId }: MessageListProps) {
+export function MessageList({ channelId, alliance }: MessageListProps) {
   const [messages, setMessages] = useState<MessageRow[]>([]);
   const [profiles, setProfiles] = useState<Record<string, ProfileInfo>>({});
   const [loading, setLoading] = useState(true);
   const knownProfileIds = useRef(new Set<string>());
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const shouldFollowRef = useRef(true);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     if (!supabase) return;
@@ -37,15 +57,28 @@ export function MessageList({ channelId }: MessageListProps) {
     async function loadProfilesFor(authorIds: string[]) {
       const missing = authorIds.filter((id) => !knownProfileIds.current.has(id));
       if (missing.length === 0) return;
-      missing.forEach((id) => knownProfileIds.current.add(id));
+      const [{ data, error }, { data: memberships, error: membershipError }] = await Promise.all([
+        client.from("profiles").select("id, display_name").in("id", missing),
+        client
+          .from("alliance_members")
+          .select("user_id, game_rank, alliance_title")
+          .eq("alliance", alliance)
+          .in("user_id", missing),
+      ]);
 
-      const { data } = await client.from("profiles").select("id, display_name, display_rank").in("id", missing);
-
-      if (cancelled || !data) return;
+      if (cancelled || error || membershipError || !data || !memberships) return;
+      data.forEach((row) => knownProfileIds.current.add(row.id));
+      const membershipByUser = new Map(memberships.map((row) => [row.user_id, row]));
       setProfiles((prev) => {
         const next = { ...prev };
         for (const row of data) {
-          next[row.id] = { display_name: row.display_name, display_rank: row.display_rank };
+          const membership = membershipByUser.get(row.id);
+          const rank = membership ? RANK_LABELS[membership.game_rank] : "Unverified";
+          const title = membership?.alliance_title ? TITLE_LABELS[membership.alliance_title] : null;
+          next[row.id] = {
+            display_name: row.display_name,
+            rank_label: title ? `${rank} · ${title}` : rank,
+          };
         }
         return next;
       });
@@ -56,13 +89,14 @@ export function MessageList({ channelId }: MessageListProps) {
         .from("messages")
         .select("*")
         .eq("channel_id", channelId)
-        .order("created_at", { ascending: true })
+        .order("created_at", { ascending: false })
         .limit(100);
 
       if (cancelled) return;
       if (data) {
-        setMessages(data);
-        await loadProfilesFor([...new Set(data.map((message) => message.author_id))]);
+        const chronological = [...data].reverse();
+        setMessages(chronological);
+        await loadProfilesFor([...new Set(chronological.map((message) => message.author_id))]);
       }
       setLoading(false);
     }
@@ -76,7 +110,11 @@ export function MessageList({ channelId }: MessageListProps) {
         { event: "INSERT", schema: "public", table: "messages", filter: `channel_id=eq.${channelId}` },
         (payload) => {
           const message = payload.new as MessageRow;
-          setMessages((prev) => [...prev, message]);
+          setMessages((prev) => {
+            if (prev.some((item) => item.id === message.id)) return prev;
+            return [...prev, message];
+          });
+          if (!shouldFollowRef.current) setUnreadCount((count) => count + 1);
           loadProfilesFor([message.author_id]);
         },
       )
@@ -86,16 +124,30 @@ export function MessageList({ channelId }: MessageListProps) {
       cancelled = true;
       client.removeChannel(realtimeChannel);
     };
-  }, [channelId]);
+  }, [alliance, channelId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (shouldFollowRef.current) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
+
+  function handleScroll() {
+    const list = listRef.current;
+    if (!list) return;
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+    shouldFollowRef.current = nearBottom;
+    if (nearBottom) setUnreadCount(0);
+  }
+
+  function jumpToLatest() {
+    shouldFollowRef.current = true;
+    setUnreadCount(0);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
   if (loading) return <p className="flex-1 p-4 text-text-secondary">Loading messages…</p>;
 
   return (
-    <div className="flex-1 space-y-3 overflow-y-auto p-4">
+    <div ref={listRef} onScroll={handleScroll} className="relative flex-1 space-y-3 overflow-y-auto p-4">
       {messages.length === 0 && <p className="text-text-secondary">No messages yet — say something.</p>}
       {messages.map((message) => {
         const profile = profiles[message.author_id];
@@ -105,8 +157,8 @@ export function MessageList({ channelId }: MessageListProps) {
               <span className="font-display font-semibold text-text-primary">
                 {profile?.display_name ?? "…"}
               </span>
-              {profile?.display_rank && (
-                <span className="ml-1 text-xs text-text-secondary">· {profile.display_rank}</span>
+              {profile?.rank_label && (
+                <span className="ml-1 text-xs text-text-secondary">· {profile.rank_label}</span>
               )}
               <span className="ml-2 text-xs text-text-secondary/70">
                 {new Date(message.created_at).toLocaleTimeString()}
@@ -117,6 +169,15 @@ export function MessageList({ channelId }: MessageListProps) {
         );
       })}
       <div ref={bottomRef} />
+      {unreadCount > 0 && (
+        <button
+          type="button"
+          onClick={jumpToLatest}
+          className="sticky bottom-2 left-1/2 -translate-x-1/2 border border-accent bg-bg px-3 py-1.5 text-xs font-semibold text-accent-bright shadow-lg"
+        >
+          {unreadCount} new {unreadCount === 1 ? "message" : "messages"}
+        </button>
+      )}
     </div>
   );
 }

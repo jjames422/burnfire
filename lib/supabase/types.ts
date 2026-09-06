@@ -4,6 +4,7 @@
 // `interface` here, every table generic silently collapsed to `never`.
 export type CommentRow = {
   id: string;
+  author_id: string | null;
   alliance: string;
   guide_slug: string;
   author_name: string;
@@ -24,7 +25,23 @@ export type ReactionRow = {
   updated_at: string;
 };
 
+export type GuideReactionRow = {
+  id: string;
+  alliance: string;
+  guide_slug: string;
+  reaction_type: ReactionType;
+  user_id: string;
+  created_at: string;
+};
+
 export type PermissionRole = "member" | "officer" | "admin";
+export type GameRank = "r1" | "r2" | "r3" | "r4" | "r5";
+export type AllianceTitle =
+  | "diplomat"
+  | "recruiter"
+  | "goddess"
+  | "god_of_war"
+  | "alliance_leader";
 
 export type ProfileRow = {
   id: string;
@@ -33,6 +50,18 @@ export type ProfileRow = {
   display_rank: string | null;
   permission_role: PermissionRole;
   created_at: string;
+};
+
+export type AllianceMemberRow = {
+  // Database primary key: one membership per authenticated account.
+  alliance: string;
+  user_id: string;
+  permission_role: PermissionRole;
+  game_rank: GameRank;
+  alliance_title: AllianceTitle | null;
+  verified_at: string | null;
+  verified_by: string | null;
+  joined_at: string;
 };
 
 export type ChannelRow = {
@@ -59,8 +88,8 @@ export type Database = {
     Tables: {
       comments: {
         Row: CommentRow;
-        Insert: Pick<CommentRow, "alliance" | "guide_slug" | "author_name" | "body"> &
-          Partial<Pick<CommentRow, "author_rank" | "status">>;
+        Insert: Pick<CommentRow, "alliance" | "guide_slug" | "body"> &
+          Partial<Pick<CommentRow, "author_id" | "author_name" | "author_rank" | "status">>;
         Update: Partial<CommentRow>;
         Relationships: [];
       };
@@ -71,11 +100,26 @@ export type Database = {
         Update: Partial<ReactionRow>;
         Relationships: [];
       };
+      guide_reactions: {
+        Row: GuideReactionRow;
+        Insert: Pick<GuideReactionRow, "alliance" | "guide_slug" | "reaction_type" | "user_id">;
+        Update: never;
+        Relationships: [];
+      };
       profiles: {
         Row: ProfileRow;
         Insert: Pick<ProfileRow, "id" | "alliance" | "display_name"> &
           Partial<Pick<ProfileRow, "display_rank" | "permission_role">>;
         Update: Partial<ProfileRow>;
+        Relationships: [];
+      };
+      alliance_members: {
+        Row: AllianceMemberRow;
+        Insert: Pick<AllianceMemberRow, "alliance" | "user_id"> &
+          Partial<
+            Pick<AllianceMemberRow, "permission_role" | "game_rank" | "alliance_title">
+          >;
+        Update: Partial<AllianceMemberRow>;
         Relationships: [];
       };
       channels: {
@@ -93,15 +137,6 @@ export type Database = {
       };
     };
     Views: Record<string, never>;
-    Functions: {
-      increment_reaction: {
-        Args: {
-          p_alliance: string;
-          p_guide_slug: string;
-          p_reaction_type: string;
-        };
-        Returns: ReactionRow;
-      };
-    };
+    Functions: Record<string, never>;
   };
 };

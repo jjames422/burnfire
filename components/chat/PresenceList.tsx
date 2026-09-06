@@ -12,14 +12,16 @@ interface PresenceListProps {
 interface PresenceEntry {
   user_id: string;
   display_name: string;
-  display_rank: string | null;
+  rank_label: string;
 }
+
+const RANK_LABELS = { r1: "R1 · Recruit", r2: "R2 · Member", r3: "R3 · Elder", r4: "R4 · Officer", r5: "R5 · Alliance Leader" } as const;
+const TITLE_LABELS = { diplomat: "Diplomat", recruiter: "Recruiter", goddess: "Goddess", god_of_war: "God of War", alliance_leader: "Alliance Leader" } as const;
 
 /**
  * Realtime Presence, not a table — per-channel topic
- * `presence:<alliance>:<channel-slug>`. Ephemeral: join/leave/sync are
- * broadcast live, nothing is persisted, no RLS involved (this is a plain
- * Realtime channel, not tied to Postgres Changes).
+ * `presence:<alliance>:<channel-slug>`. The channel is private and the
+ * matching realtime.messages policies authorize both listening and tracking.
  */
 export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
   const [users, setUsers] = useState<PresenceEntry[]>([]);
@@ -37,16 +39,22 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
       } = await client.auth.getUser();
       if (!user || cancelled) return;
 
-      const { data: profile } = await client
-        .from("profiles")
-        .select("display_name, display_rank")
-        .eq("id", user.id)
-        .single();
+      await client.realtime.setAuth();
+
+      const [{ data: profile }, { data: membership }] = await Promise.all([
+        client.from("profiles").select("display_name").eq("id", user.id).single(),
+        client
+          .from("alliance_members")
+          .select("game_rank, alliance_title")
+          .eq("alliance", alliance)
+          .eq("user_id", user.id)
+          .single(),
+      ]);
 
       if (cancelled) return;
 
       const presenceChannel = client.channel(`presence:${alliance}:${channelSlug}`, {
-        config: { presence: { key: user.id } },
+        config: { private: true, presence: { key: user.id } },
       });
 
       presenceChannel
@@ -59,7 +67,9 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
             await presenceChannel.track({
               user_id: user.id,
               display_name: profile?.display_name ?? "Unknown",
-              display_rank: profile?.display_rank ?? null,
+              rank_label: membership
+                ? `${RANK_LABELS[membership.game_rank]}${membership.alliance_title ? ` · ${TITLE_LABELS[membership.alliance_title]}` : ""}`
+                : "Unverified",
             });
           }
         });
@@ -93,8 +103,8 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
             <span className="h-2 w-2 shrink-0 bg-toxic" aria-hidden="true" />
             <span>
               {entry.display_name}
-              {entry.display_rank && (
-                <span className="ml-1 text-xs text-text-secondary">· {entry.display_rank}</span>
+              {entry.rank_label && (
+                <span className="ml-1 text-xs text-text-secondary">· {entry.rank_label}</span>
               )}
             </span>
           </li>
