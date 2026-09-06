@@ -104,21 +104,17 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
   }, [alliance, channelSlug]);
 
   return (
-    <div className="w-full shrink-0 border border-border bg-surface p-4 sm:w-48">
-      <h3 className="mb-3 font-display text-xs font-semibold tracking-wide text-text-secondary uppercase">
-        Online — {users.length}
-      </h3>
-      <ul className="space-y-1.5">
+    <aside className="presence-rail">
+      <h3>Online <span>{users.length}</span></h3>
+      <ul>
         {users.map((entry) => (
-          <li
-            key={entry.user_id}
-            className="flex items-center gap-2 text-sm text-text-primary"
-          >
-            <span className="h-2 w-2 shrink-0 bg-toxic" aria-hidden="true" />
-            <span>{entry.identity_label}</span>
+          <li key={entry.user_id}>
+            <span className="presence-avatar">{entry.identity_label.slice(0, 1).toUpperCase()}<i /></span>
+            <span>{entry.identity_label}<small>Online</small></span>
           </li>
         ))}
       </ul>
-    </div>
+      {users.length === 0 && <p>The fire is quiet.<br />Others will appear here.</p>}
+    </aside>
   );
 }
