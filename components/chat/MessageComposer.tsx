@@ -1,68 +1,63 @@
 "use client";
-
 import { useState, type FormEvent } from "react";
 import { supabase } from "@/lib/supabase/client";
-
-interface MessageComposerProps {
+export function MessageComposer({
+  channelId,
+  replyTo,
+  onCancelReply,
+  onSent,
+}: {
   channelId: string;
-}
-
-/**
- * No optimistic local append here — the message we just inserted comes back
- * through the same Realtime subscription MessageList is already using, so
- * there's one source of truth instead of a local copy that could drift.
- */
-export function MessageComposer({ channelId }: MessageComposerProps) {
-  const [body, setBody] = useState("");
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  replyTo: { id: string; label: string } | null;
+  onCancelReply: () => void;
+  onSent: () => void;
+}) {
+  const [body, setBody] = useState(""),
+    [sending, setSending] = useState(false),
+    [error, setError] = useState<string | null>(null);
+  async function submit(e: FormEvent) {
+    e.preventDefault();
     if (!supabase || !body.trim()) return;
-
     setSending(true);
     setError(null);
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      setSending(false);
-      setError("Not signed in.");
-      return;
-    }
-
-    const { error: insertError } = await supabase.from("messages").insert({
-      channel_id: channelId,
-      author_id: user.id,
-      body: body.trim(),
+    const { error } = await supabase.rpc("post_channel_message", {
+      p_channel_id: channelId,
+      p_body: body.trim(),
+      p_parent_message_id: replyTo?.id ?? null,
+      p_mentioned_user_ids: [],
     });
-
     setSending(false);
-
-    if (insertError) setError(insertError.message);
-    else setBody("");
+    if (error) setError(error.message);
+    else {
+      setBody("");
+      onSent();
+    }
   }
-
   return (
-    <form onSubmit={handleSubmit} className="border-t border-border p-3">
+    <form onSubmit={submit} className="border-t border-border p-3">
+      {replyTo && (
+        <div className="mb-2 flex justify-between text-xs text-text-secondary">
+          <span>Replying to {replyTo.label}</span>
+          <button type="button" onClick={onCancelReply}>
+            Cancel
+          </button>
+        </div>
+      )}
       <div className="flex gap-2">
-        <input
-          required
+        <textarea
+          rows={1}
           maxLength={2000}
-          placeholder="Message…"
+          required
           value={body}
-          onChange={(event) => setBody(event.target.value)}
-          className="flex-1 border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
+          onChange={(e) => setBody(e.target.value)}
+          placeholder="Message…"
+          className="min-h-10 flex-1 resize-none border border-border bg-bg px-3 py-2 text-sm"
         />
         <button
-          type="submit"
           disabled={sending}
-          className="interactive-lift border border-accent bg-accent px-4 py-2 font-display text-sm font-semibold text-text-primary hover:border-accent-bright hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-accent px-4 py-2 font-semibold disabled:opacity-50"
         >
-          Send
+          {sending ? "Sending…" : "Send"}
         </button>
       </div>
       {error && <p className="mt-2 text-sm text-warning">{error}</p>}
