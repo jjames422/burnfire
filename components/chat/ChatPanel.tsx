@@ -31,7 +31,7 @@ export function ChatPanel({ alliance }: ChatPanelProps) {
                 <p className="text-xs text-text-secondary">{selectedChannel.topic}</p>
               )}
             </header>
-            <MessageList channelId={selectedChannel.id} />
+            <MessageList channelId={selectedChannel.id} alliance={alliance} />
             <MessageComposer channelId={selectedChannel.id} />
           </>
         ) : (
