@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
-import { site } from "@/config/site";
+import Link from "next/link";
 import { AuthGate } from "@/components/auth/AuthGate";
 import { ChatPanel } from "@/components/chat/ChatPanel";
+import { site } from "@/config/site";
 
-export const metadata: Metadata = {
-  title: "Chat",
-};
+export const metadata: Metadata = { title: "Community Chat" };
 
 export default function ChatPage() {
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-12">
-      <h1 className="mb-8 font-display text-3xl font-bold text-text-primary">
-        {site.alliance.name} Chat
-      </h1>
-      <AuthGate>
-        <ChatPanel alliance={site.activeAlliance} />
-      </AuthGate>
+    <main className="chat-page">
+      <div className="ember-glow ember-glow-one" />
+      <div className="ember-glow ember-glow-two" />
+      <header className="site-strip">
+        <Link href="/" className="wordmark"><span>LAST ASYLUM</span><strong>PLAGUE</strong></Link>
+        <nav><Link href="/guides">Guides</Link><Link href="/chat" className="active">Community</Link></nav>
+        <span className="host-mark">Brought to you by <strong>BurnFire Alliance</strong> · Kingdom #324</span>
+      </header>
+      <section className="chat-stage">
+        <AuthGate featureName="Community chat" redirectPath="/chat">
+          <ChatPanel alliance={site.activeAlliance} />
+        </AuthGate>
+      </section>
     </main>
   );
 }
