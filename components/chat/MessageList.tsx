@@ -6,9 +6,26 @@ import type { MessageRow } from "@/lib/supabase/types";
 
 interface MessageListProps {
   channelId: string;
+  alliance: string;
 }
 
-type ProfileInfo = { display_name: string; display_rank: string | null };
+type ProfileInfo = { display_name: string; rank_label: string };
+
+const RANK_LABELS = {
+  r1: "R1 · Recruit",
+  r2: "R2 · Member",
+  r3: "R3 · Elder",
+  r4: "R4 · Officer",
+  r5: "R5 · Alliance Leader",
+} as const;
+
+const TITLE_LABELS = {
+  diplomat: "Diplomat",
+  recruiter: "Recruiter",
+  goddess: "Goddess",
+  god_of_war: "God of War",
+  alliance_leader: "Alliance Leader",
+} as const;
 
 /**
  * Fetches recent messages, then subscribes to Realtime Postgres Changes for
@@ -17,7 +34,7 @@ type ProfileInfo = { display_name: string; display_rank: string | null };
  * PostgREST can't embed the join) — profiles for authors are fetched
  * separately and cached by id in a ref, not re-fetched per message.
  */
-export function MessageList({ channelId }: MessageListProps) {
+export function MessageList({ channelId, alliance }: MessageListProps) {
   const [messages, setMessages] = useState<MessageRow[]>([]);
   const [profiles, setProfiles] = useState<Record<string, ProfileInfo>>({});
   const [loading, setLoading] = useState(true);
@@ -40,17 +57,28 @@ export function MessageList({ channelId }: MessageListProps) {
     async function loadProfilesFor(authorIds: string[]) {
       const missing = authorIds.filter((id) => !knownProfileIds.current.has(id));
       if (missing.length === 0) return;
-      const { data, error } = await client
-        .from("profiles")
-        .select("id, display_name, display_rank")
-        .in("id", missing);
+      const [{ data, error }, { data: memberships, error: membershipError }] = await Promise.all([
+        client.from("profiles").select("id, display_name").in("id", missing),
+        client
+          .from("alliance_members")
+          .select("user_id, game_rank, alliance_title")
+          .eq("alliance", alliance)
+          .in("user_id", missing),
+      ]);
 
-      if (cancelled || error || !data) return;
+      if (cancelled || error || membershipError || !data || !memberships) return;
       data.forEach((row) => knownProfileIds.current.add(row.id));
+      const membershipByUser = new Map(memberships.map((row) => [row.user_id, row]));
       setProfiles((prev) => {
         const next = { ...prev };
         for (const row of data) {
-          next[row.id] = { display_name: row.display_name, display_rank: row.display_rank };
+          const membership = membershipByUser.get(row.id);
+          const rank = membership ? RANK_LABELS[membership.game_rank] : "Unverified";
+          const title = membership?.alliance_title ? TITLE_LABELS[membership.alliance_title] : null;
+          next[row.id] = {
+            display_name: row.display_name,
+            rank_label: title ? `${rank} · ${title}` : rank,
+          };
         }
         return next;
       });
@@ -96,7 +124,7 @@ export function MessageList({ channelId }: MessageListProps) {
       cancelled = true;
       client.removeChannel(realtimeChannel);
     };
-  }, [channelId]);
+  }, [alliance, channelId]);
 
   useEffect(() => {
     if (shouldFollowRef.current) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -129,8 +157,8 @@ export function MessageList({ channelId }: MessageListProps) {
               <span className="font-display font-semibold text-text-primary">
                 {profile?.display_name ?? "…"}
               </span>
-              {profile?.display_rank && (
-                <span className="ml-1 text-xs text-text-secondary">· {profile.display_rank}</span>
+              {profile?.rank_label && (
+                <span className="ml-1 text-xs text-text-secondary">· {profile.rank_label}</span>
               )}
               <span className="ml-2 text-xs text-text-secondary/70">
                 {new Date(message.created_at).toLocaleTimeString()}

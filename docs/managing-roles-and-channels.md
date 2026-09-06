@@ -4,25 +4,36 @@ There's no admin UI in the app for this (deliberately deferred — see the botto
 Both tasks below happen directly in **Supabase's Table Editor**: dashboard for your project →
 **Table Editor** in the left sidebar.
 
-## Promoting a member to Officer or Admin
+## Verifying a member's game rank and title
 
-A member's access to gated channels (currently just `#officer`) is controlled entirely by the
-`permission_role` column on their row in the **`profiles`** table — nothing else. Changing it
-takes effect immediately; the member doesn't need to log out/in, just reload the chat page.
+A new account starts at `R1 · Recruit`. Rank and title are stored on the member's row in
+**`alliance_members`**, not accepted from the signup form.
 
-1. Table Editor → **`profiles`** table.
-2. Find the row for the person you want to promote. The easiest way to identify them is by
-   `display_name` (what they set during onboarding) — if you need to be sure, cross-check against
-   **Authentication → Users** in the sidebar, which shows the email tied to each account, and
-   matches `profiles.id` to `auth.users.id`.
-3. Click into that row's `permission_role` cell → change it from `member` to `officer` or `admin`.
+1. Find the person in **`profiles`** and copy their `id`. Cross-check it against
+   **Authentication → Users** if needed.
+2. Open **`alliance_members`** and find the row with the matching `user_id` and alliance.
+3. Set `game_rank` to `r1`, `r2`, `r3`, `r4`, or `r5`.
+4. Optionally set `alliance_title`. R4 members may be `diplomat`, `recruiter`, `goddess`, or
+   `god_of_war`. The R5 must have `alliance_leader`. Every title and R5 are unique per alliance;
+   the database rejects a second holder.
+5. Set `verified_at` to the current time and `verified_by` to the verifying officer's user ID.
+6. Set website access in `permission_role`: normally `member` for R1-R3, `officer` for R4, and
+   `admin` for the R5 Alliance Leader.
+7. Save.
+
+The in-game rank and website permission are separate fields deliberately. This preserves an
+audit-friendly distinction between what someone is in the game and what they may administer on
+the site.
+
+## Changing website access
+
+Channel access is controlled by `permission_role` on **`alliance_members`**. Change it to
+`member`, `officer`, or `admin`; the change takes effect after the member reloads chat.
+
+1. Table Editor → **`alliance_members`**.
+2. Find the member's alliance/user row.
+3. Change `permission_role`.
 4. Save.
-
-That's it — no other table needs to change. `display_name` and `display_rank` are separate,
-self-reported, cosmetic fields; changing `permission_role` doesn't touch them, and vice versa.
-
-**Demoting** someone works the same way in reverse — set `permission_role` back to `member`
-(or whatever's appropriate). They'll lose access to gated channels on their next reload.
 
 ## Adding a new channel
 

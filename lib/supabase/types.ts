@@ -35,6 +35,13 @@ export type GuideReactionRow = {
 };
 
 export type PermissionRole = "member" | "officer" | "admin";
+export type GameRank = "r1" | "r2" | "r3" | "r4" | "r5";
+export type AllianceTitle =
+  | "diplomat"
+  | "recruiter"
+  | "goddess"
+  | "god_of_war"
+  | "alliance_leader";
 
 export type ProfileRow = {
   id: string;
@@ -43,6 +50,17 @@ export type ProfileRow = {
   display_rank: string | null;
   permission_role: PermissionRole;
   created_at: string;
+};
+
+export type AllianceMemberRow = {
+  alliance: string;
+  user_id: string;
+  permission_role: PermissionRole;
+  game_rank: GameRank;
+  alliance_title: AllianceTitle | null;
+  verified_at: string | null;
+  verified_by: string | null;
+  joined_at: string;
 };
 
 export type ChannelRow = {
@@ -92,6 +110,15 @@ export type Database = {
         Insert: Pick<ProfileRow, "id" | "alliance" | "display_name"> &
           Partial<Pick<ProfileRow, "display_rank" | "permission_role">>;
         Update: Partial<ProfileRow>;
+        Relationships: [];
+      };
+      alliance_members: {
+        Row: AllianceMemberRow;
+        Insert: Pick<AllianceMemberRow, "alliance" | "user_id"> &
+          Partial<
+            Pick<AllianceMemberRow, "permission_role" | "game_rank" | "alliance_title">
+          >;
+        Update: Partial<AllianceMemberRow>;
         Relationships: [];
       };
       channels: {
