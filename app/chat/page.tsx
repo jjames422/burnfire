@@ -11,6 +11,9 @@ export default function ChatPage() {
     <main className="chat-page">
       <div className="ember-glow ember-glow-one" />
       <div className="ember-glow ember-glow-two" />
+      <div className="ember-field" aria-hidden="true">
+        {Array.from({ length: 14 }, (_, index) => <i key={index} />)}
+      </div>
       <header className="site-strip">
         <Link href="/" className="wordmark"><span>LAST ASYLUM</span><strong>PLAGUE</strong></Link>
         <nav><Link href="/guides">Guides</Link><Link href="/chat" className="active">Community</Link></nav>
