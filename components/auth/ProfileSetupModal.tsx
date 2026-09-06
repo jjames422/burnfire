@@ -11,14 +11,11 @@ interface ProfileSetupModalProps {
 }
 
 /**
- * One-time first-login step. Only display_name/display_rank are collected
- * here — permission_role is never sent from the client at all, so there's
- * nothing for a user to tamper with even before the insert-policy check
- * (see schema.sql) rejects anything but 'member'.
+ * One-time first-login step. Only the in-game name is self-reported.
+ * Rank, unique title, and permissions are officer-managed membership data.
  */
 export function ProfileSetupModal({ alliance, userId, onComplete }: ProfileSetupModalProps) {
   const [displayName, setDisplayName] = useState("");
-  const [displayRank, setDisplayRank] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,7 +41,6 @@ export function ProfileSetupModal({ alliance, userId, onComplete }: ProfileSetup
       id: userId,
       alliance,
       display_name: displayName.trim(),
-      display_rank: displayRank.trim() || null,
     });
 
     if (insertError) {
@@ -86,13 +82,9 @@ export function ProfileSetupModal({ alliance, userId, onComplete }: ProfileSetup
           onChange={(event) => setDisplayName(event.target.value)}
           className="mb-3 w-full border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
         />
-        <input
-          maxLength={40}
-          placeholder="Rank / title (optional)"
-          value={displayRank}
-          onChange={(event) => setDisplayRank(event.target.value)}
-          className="mb-3 w-full border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
-        />
+        <p className="mb-3 text-xs text-text-secondary">
+          You&apos;ll begin as R1 Recruit. An officer verifies rank and special titles.
+        </p>
         {error && <p className="mb-3 text-sm text-warning">{error}</p>}
         <button
           type="submit"
