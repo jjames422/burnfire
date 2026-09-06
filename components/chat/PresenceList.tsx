@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
+import { formatMemberIdentity } from "@/lib/identity";
 
 interface PresenceListProps {
   alliance: string;
@@ -11,12 +12,8 @@ interface PresenceListProps {
 
 interface PresenceEntry {
   user_id: string;
-  display_name: string;
-  rank_label: string;
+  identity_label: string;
 }
-
-const RANK_LABELS = { r1: "R1 · Recruit", r2: "R2 · Member", r3: "R3 · Elder", r4: "R4 · Officer", r5: "R5 · Alliance Leader" } as const;
-const TITLE_LABELS = { diplomat: "Diplomat", recruiter: "Recruiter", goddess: "Goddess", god_of_war: "God of War", alliance_leader: "Alliance Leader" } as const;
 
 /**
  * Realtime Presence, not a table — per-channel topic
@@ -41,21 +38,33 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
 
       await client.realtime.setAuth();
 
-      const [{ data: profile }, { data: membership }] = await Promise.all([
-        client.from("profiles").select("display_name").eq("id", user.id).single(),
+      const [
+        { data: profile },
+        { data: membership },
+        { data: allianceRecord },
+      ] = await Promise.all([
+        client
+          .from("profiles")
+          .select("in_game_name")
+          .eq("id", user.id)
+          .single(),
         client
           .from("alliance_members")
           .select("game_rank, alliance_title")
           .eq("alliance", alliance)
           .eq("user_id", user.id)
           .single(),
+        client.from("alliances").select("code").eq("slug", alliance).single(),
       ]);
 
       if (cancelled) return;
 
-      const presenceChannel = client.channel(`presence:${alliance}:${channelSlug}`, {
-        config: { private: true, presence: { key: user.id } },
-      });
+      const presenceChannel = client.channel(
+        `presence:${alliance}:${channelSlug}`,
+        {
+          config: { private: true, presence: { key: user.id } },
+        },
+      );
 
       presenceChannel
         .on("presence", { event: "sync" }, () => {
@@ -66,10 +75,12 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
           if (status === "SUBSCRIBED" && !cancelled) {
             await presenceChannel.track({
               user_id: user.id,
-              display_name: profile?.display_name ?? "Unknown",
-              rank_label: membership
-                ? `${RANK_LABELS[membership.game_rank]}${membership.alliance_title ? ` · ${TITLE_LABELS[membership.alliance_title]}` : ""}`
-                : "Unverified",
+              identity_label: formatMemberIdentity({
+                inGameName: profile?.in_game_name ?? "Unknown",
+                allianceCode: membership ? allianceRecord?.code : null,
+                gameRank: membership?.game_rank,
+                allianceTitle: membership?.alliance_title,
+              }),
             });
           }
         });
@@ -99,14 +110,12 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
       </h3>
       <ul className="space-y-1.5">
         {users.map((entry) => (
-          <li key={entry.user_id} className="flex items-center gap-2 text-sm text-text-primary">
+          <li
+            key={entry.user_id}
+            className="flex items-center gap-2 text-sm text-text-primary"
+          >
             <span className="h-2 w-2 shrink-0 bg-toxic" aria-hidden="true" />
-            <span>
-              {entry.display_name}
-              {entry.rank_label && (
-                <span className="ml-1 text-xs text-text-secondary">· {entry.rank_label}</span>
-              )}
-            </span>
+            <span>{entry.identity_label}</span>
           </li>
         ))}
       </ul>

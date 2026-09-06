@@ -7,7 +7,6 @@ import type { ProfileRow } from "@/lib/supabase/types";
 import { ProfileSetupModal } from "./ProfileSetupModal";
 
 interface AuthGateProps {
-  alliance: string;
   children: ReactNode;
   redirectPath?: string;
   featureName?: string;
@@ -18,7 +17,11 @@ interface AuthGateProps {
  * completed `profiles` row. First-time sign-ins see ProfileSetupModal;
  * everyone after that skips straight to `children`.
  */
-export function AuthGate({ alliance, children, redirectPath = "/chat", featureName = "Chat" }: AuthGateProps) {
+export function AuthGate({
+  children,
+  redirectPath = "/chat",
+  featureName = "Chat",
+}: AuthGateProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
@@ -37,7 +40,11 @@ export function AuthGate({ alliance, children, redirectPath = "/chat", featureNa
     const client = supabase;
 
     async function loadProfile(userId: string) {
-      const { data } = await client.from("profiles").select("*").eq("id", userId).maybeSingle();
+      const { data } = await client
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .maybeSingle();
       if (!cancelled) {
         setProfile(data ?? null);
         setLoading(false);
@@ -54,16 +61,18 @@ export function AuthGate({ alliance, children, redirectPath = "/chat", featureNa
 
     init();
 
-    const { data: listener } = client.auth.onAuthStateChange((_event, newSession) => {
-      if (cancelled) return;
-      setSession(newSession);
-      if (newSession) {
-        setLoading(true);
-        loadProfile(newSession.user.id);
-      } else {
-        setProfile(null);
-      }
-    });
+    const { data: listener } = client.auth.onAuthStateChange(
+      (_event, newSession) => {
+        if (cancelled) return;
+        setSession(newSession);
+        if (newSession) {
+          setLoading(true);
+          loadProfile(newSession.user.id);
+        } else {
+          setProfile(null);
+        }
+      },
+    );
 
     return () => {
       cancelled = true;
@@ -91,8 +100,8 @@ export function AuthGate({ alliance, children, redirectPath = "/chat", featureNa
   if (!isSupabaseConfigured) {
     return (
       <p className="border border-border bg-surface p-4 text-sm text-text-secondary">
-        {featureName} isn&apos;t configured yet — copy .env.local.example to .env.local with a Supabase
-        project&apos;s URL and anon key to enable it.
+        {featureName} isn&apos;t configured yet — copy .env.local.example to
+        .env.local with a Supabase project&apos;s URL and anon key to enable it.
       </p>
     );
   }
@@ -104,10 +113,13 @@ export function AuthGate({ alliance, children, redirectPath = "/chat", featureNa
   if (!session) {
     return (
       <div className="mx-auto max-w-sm border border-border bg-surface p-6">
-        <h2 className="mb-4 font-display text-xl font-semibold text-text-primary">Sign in</h2>
+        <h2 className="mb-4 font-display text-xl font-semibold text-text-primary">
+          Sign in
+        </h2>
         {sent ? (
           <p className="text-sm text-text-secondary">
-            Check your email for a sign-in link — it&apos;ll bring you right back here.
+            Check your email for a sign-in link — it&apos;ll bring you right
+            back here.
           </p>
         ) : (
           <form onSubmit={handleSendMagicLink}>
@@ -135,7 +147,7 @@ export function AuthGate({ alliance, children, redirectPath = "/chat", featureNa
 
   if (!profile) {
     return (
-      <ProfileSetupModal alliance={alliance} userId={session.user.id} onComplete={setProfile} />
+      <ProfileSetupModal userId={session.user.id} onComplete={setProfile} />
     );
   }
 

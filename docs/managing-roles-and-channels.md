@@ -6,8 +6,9 @@ Both tasks below happen directly in **Supabase's Table Editor**: dashboard for y
 
 ## Verifying a member's game rank and title
 
-A new account starts at `R1 · Recruit`. Rank and title are stored on the member's row in
-**`alliance_members`**, not accepted from the signup form.
+A new account starts as an unaffiliated community member. It becomes `R1 Recruit` only when an
+alliance accepts or invites it and creates a row in **`alliance_members`**. Rank and title are
+never accepted from the signup form.
 Each authenticated account can have exactly one membership and therefore belong to only one
 alliance; the database enforces this with `user_id` as the membership's primary key.
 
@@ -22,6 +23,11 @@ alliance; the database enforces this with `user_id` as the membership's primary 
 6. Set website access in `permission_role`: normally `member` for R1-R3, `officer` for R4, and
    `admin` for the R5 Alliance Leader.
 7. Save.
+
+The site builds the public label from this live membership data. An unaffiliated profile appears
+as `InGameName`; a member appears as `[TAG] InGameName · Rank`. For an R4 with a unique title, the
+title replaces `R4 Officer`. R5 always appears as `Alliance Leader`. Updating this row updates the
+label on existing chat messages and comments too.
 
 The in-game rank and website permission are separate fields deliberately. This preserves an
 audit-friendly distinction between what someone is in the game and what they may administer on

@@ -3,29 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import type { MessageRow } from "@/lib/supabase/types";
+import { formatMemberIdentity } from "@/lib/identity";
 
 interface MessageListProps {
   channelId: string;
   alliance: string;
 }
 
-type ProfileInfo = { display_name: string; rank_label: string };
-
-const RANK_LABELS = {
-  r1: "R1 · Recruit",
-  r2: "R2 · Member",
-  r3: "R3 · Elder",
-  r4: "R4 · Officer",
-  r5: "R5 · Alliance Leader",
-} as const;
-
-const TITLE_LABELS = {
-  diplomat: "Diplomat",
-  recruiter: "Recruiter",
-  goddess: "Goddess",
-  god_of_war: "God of War",
-  alliance_leader: "Alliance Leader",
-} as const;
+type ProfileInfo = { identity_label: string };
 
 /**
  * Fetches recent messages, then subscribes to Realtime Postgres Changes for
@@ -55,29 +40,48 @@ export function MessageList({ channelId, alliance }: MessageListProps) {
     setLoading(true);
 
     async function loadProfilesFor(authorIds: string[]) {
-      const missing = authorIds.filter((id) => !knownProfileIds.current.has(id));
+      const missing = authorIds.filter(
+        (id) => !knownProfileIds.current.has(id),
+      );
       if (missing.length === 0) return;
-      const [{ data, error }, { data: memberships, error: membershipError }] = await Promise.all([
-        client.from("profiles").select("id, display_name").in("id", missing),
+      const [
+        { data, error },
+        { data: memberships, error: membershipError },
+        { data: allianceRecord, error: allianceError },
+      ] = await Promise.all([
+        client.from("profiles").select("id, in_game_name").in("id", missing),
         client
           .from("alliance_members")
           .select("user_id, game_rank, alliance_title")
           .eq("alliance", alliance)
           .in("user_id", missing),
+        client.from("alliances").select("code").eq("slug", alliance).single(),
       ]);
 
-      if (cancelled || error || membershipError || !data || !memberships) return;
+      if (
+        cancelled ||
+        error ||
+        membershipError ||
+        allianceError ||
+        !data ||
+        !memberships
+      )
+        return;
       data.forEach((row) => knownProfileIds.current.add(row.id));
-      const membershipByUser = new Map(memberships.map((row) => [row.user_id, row]));
+      const membershipByUser = new Map(
+        memberships.map((row) => [row.user_id, row]),
+      );
       setProfiles((prev) => {
         const next = { ...prev };
         for (const row of data) {
           const membership = membershipByUser.get(row.id);
-          const rank = membership ? RANK_LABELS[membership.game_rank] : "Unverified";
-          const title = membership?.alliance_title ? TITLE_LABELS[membership.alliance_title] : null;
           next[row.id] = {
-            display_name: row.display_name,
-            rank_label: title ? `${rank} · ${title}` : rank,
+            identity_label: formatMemberIdentity({
+              inGameName: row.in_game_name,
+              allianceCode: membership ? allianceRecord?.code : null,
+              gameRank: membership?.game_rank,
+              allianceTitle: membership?.alliance_title,
+            }),
           };
         }
         return next;
@@ -96,7 +100,9 @@ export function MessageList({ channelId, alliance }: MessageListProps) {
       if (data) {
         const chronological = [...data].reverse();
         setMessages(chronological);
-        await loadProfilesFor([...new Set(chronological.map((message) => message.author_id))]);
+        await loadProfilesFor([
+          ...new Set(chronological.map((message) => message.author_id)),
+        ]);
       }
       setLoading(false);
     }
@@ -107,7 +113,12 @@ export function MessageList({ channelId, alliance }: MessageListProps) {
       .channel(`messages:${channelId}`)
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages", filter: `channel_id=eq.${channelId}` },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+          filter: `channel_id=eq.${channelId}`,
+        },
         (payload) => {
           const message = payload.new as MessageRow;
           setMessages((prev) => {
@@ -127,13 +138,15 @@ export function MessageList({ channelId, alliance }: MessageListProps) {
   }, [alliance, channelId]);
 
   useEffect(() => {
-    if (shouldFollowRef.current) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (shouldFollowRef.current)
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
 
   function handleScroll() {
     const list = listRef.current;
     if (!list) return;
-    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+    const nearBottom =
+      list.scrollHeight - list.scrollTop - list.clientHeight < 80;
     shouldFollowRef.current = nearBottom;
     if (nearBottom) setUnreadCount(0);
   }
@@ -144,27 +157,33 @@ export function MessageList({ channelId, alliance }: MessageListProps) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
-  if (loading) return <p className="flex-1 p-4 text-text-secondary">Loading messages…</p>;
+  if (loading)
+    return <p className="flex-1 p-4 text-text-secondary">Loading messages…</p>;
 
   return (
-    <div ref={listRef} onScroll={handleScroll} className="relative flex-1 space-y-3 overflow-y-auto p-4">
-      {messages.length === 0 && <p className="text-text-secondary">No messages yet — say something.</p>}
+    <div
+      ref={listRef}
+      onScroll={handleScroll}
+      className="relative flex-1 space-y-3 overflow-y-auto p-4"
+    >
+      {messages.length === 0 && (
+        <p className="text-text-secondary">No messages yet — say something.</p>
+      )}
       {messages.map((message) => {
         const profile = profiles[message.author_id];
         return (
           <div key={message.id}>
             <p className="text-sm">
               <span className="font-display font-semibold text-text-primary">
-                {profile?.display_name ?? "…"}
+                {profile?.identity_label ?? "…"}
               </span>
-              {profile?.rank_label && (
-                <span className="ml-1 text-xs text-text-secondary">· {profile.rank_label}</span>
-              )}
               <span className="ml-2 text-xs text-text-secondary/70">
                 {new Date(message.created_at).toLocaleTimeString()}
               </span>
             </p>
-            <p className="text-sm whitespace-pre-wrap text-text-secondary">{message.body}</p>
+            <p className="text-sm whitespace-pre-wrap text-text-secondary">
+              {message.body}
+            </p>
           </div>
         );
       })}
