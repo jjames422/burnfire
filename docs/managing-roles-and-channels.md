@@ -8,6 +8,8 @@ Both tasks below happen directly in **Supabase's Table Editor**: dashboard for y
 
 A new account starts at `R1 · Recruit`. Rank and title are stored on the member's row in
 **`alliance_members`**, not accepted from the signup form.
+Each authenticated account can have exactly one membership and therefore belong to only one
+alliance; the database enforces this with `user_id` as the membership's primary key.
 
 1. Find the person in **`profiles`** and copy their `id`. Cross-check it against
    **Authentication → Users** if needed.

@@ -1,8 +1,8 @@
--- Authenticated interactions and multi-alliance membership foundation.
+-- Authenticated interactions and single-alliance membership foundation.
 -- Apply once through the Supabase SQL editor after reviewing the backup plan.
 
--- A person may belong to more than one alliance. profiles remains the public
--- identity record while permissions live on the membership.
+-- The site can host multiple alliances, but each account belongs to exactly
+-- one. profiles remains the public identity while permissions live here.
 create table if not exists public.alliances (
   slug text primary key,
   name text not null,
@@ -19,14 +19,14 @@ create table if not exists public.alliance_members (
   user_id uuid not null references auth.users (id) on delete cascade,
   permission_role permission_role not null default 'member',
   joined_at timestamptz not null default now(),
-  primary key (alliance, user_id)
+  primary key (user_id)
 );
 
 insert into public.alliance_members (alliance, user_id, permission_role)
 select p.alliance, p.id, p.permission_role
 from public.profiles p
 join public.alliances a on a.slug = p.alliance
-on conflict (alliance, user_id) do nothing;
+on conflict (user_id) do nothing;
 
 grant select on public.alliances to anon, authenticated;
 grant select on public.alliance_members to authenticated;
@@ -64,7 +64,7 @@ returns trigger language plpgsql security definer set search_path = public, pg_t
 begin
   insert into public.alliance_members (alliance, user_id, permission_role)
   values (new.alliance, new.id, new.permission_role)
-  on conflict (alliance, user_id) do nothing;
+  on conflict (user_id) do nothing;
   return new;
 end;
 $$;
