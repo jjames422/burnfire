@@ -11,7 +11,6 @@ import { createHeading } from "@/components/mdx/Heading";
 import { TagChip } from "@/components/guides/TagChip";
 import { CommentSection } from "@/components/comments/CommentSection";
 import { ReactionBar } from "@/components/comments/ReactionBar";
-import { AuthGate } from "@/components/auth/AuthGate";
 
 export async function generateStaticParams() {
   const slugs = await getGuideSlugs(site.activeAlliance);
@@ -65,20 +64,22 @@ export default async function GuidePage({
           <p className="mt-2 text-text-secondary">{frontmatter.summary}</p>
           <p className="mt-4 text-sm text-text-secondary">
             By {frontmatter.author}
-            {frontmatter.authorRank ? ` · ${frontmatter.authorRank}` : ""} · {frontmatter.publishedAt}
+            {frontmatter.authorRank
+              ? ` · ${frontmatter.authorRank}`
+              : ""} · {frontmatter.publishedAt}
           </p>
         </header>
         <div className="prose-guide">{content}</div>
       </article>
-      <ReactionBar alliance={frontmatter.alliance} guideSlug={frontmatter.slug} />
+      <ReactionBar
+        alliance={frontmatter.alliance}
+        guideSlug={frontmatter.slug}
+      />
       <div className="mx-auto mt-4 w-full max-w-3xl px-6">
-        <AuthGate
+        <CommentSection
           alliance={frontmatter.alliance}
-          redirectPath={`/guides/${frontmatter.slug}`}
-          featureName="Comments"
-        >
-          <CommentSection alliance={frontmatter.alliance} guideSlug={frontmatter.slug} />
-        </AuthGate>
+          guideSlug={frontmatter.slug}
+        />
       </div>
     </>
   );

@@ -41,14 +41,15 @@ edits, since components only ever read through `site.alliance.theme`, never a li
 ### 3. Supabase rows
 
 No schema or RLS change needed — `alliance` is already a column on `comments`, `reactions`,
-`profiles`, and `channels` (and transitively on `messages`, via `channels`). Onboarding a new
+`alliance_members`, and `channels` (and transitively on `messages`, via `channels`). Onboarding a new
 alliance in the database means:
 
+- Insert the alliance in `public.alliances` with its unique uppercase three-letter `code`.
 - Insert its day-one channel rows into `public.channels` (copy the pattern at the bottom of
   `supabase/schema.sql`, just with the new `alliance` value).
-- New members' `profiles` rows get the right `alliance` automatically, since `ProfileSetupModal`
-  is passed `alliance` from `site.activeAlliance` — as long as `config/site.ts` is pointed at the
-  new alliance (see below), new signups land correctly scoped.
+- Community profiles remain unaffiliated at signup. An officer-managed invite or acceptance flow
+  must create the user's single `alliance_members` row; the database prevents a user from joining
+  more than one alliance.
 
 ## Current limitation: one alliance per deployment
 

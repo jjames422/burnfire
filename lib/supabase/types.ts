@@ -14,6 +14,13 @@ export type CommentRow = {
   created_at: string;
 };
 
+export type GuideCommentRow = {
+  id: string;
+  body: string;
+  identity_label: string;
+  created_at: string;
+};
+
 export type ReactionType = "fire" | "skull" | "heart" | "clap";
 
 export type ReactionRow = {
@@ -37,19 +44,17 @@ export type GuideReactionRow = {
 export type PermissionRole = "member" | "officer" | "admin";
 export type GameRank = "r1" | "r2" | "r3" | "r4" | "r5";
 export type AllianceTitle =
-  | "diplomat"
-  | "recruiter"
-  | "goddess"
-  | "god_of_war"
-  | "alliance_leader";
+  "diplomat" | "recruiter" | "goddess" | "god_of_war" | "alliance_leader";
 
 export type ProfileRow = {
   id: string;
-  alliance: string;
-  display_name: string;
+  alliance: string | null;
+  display_name: string | null;
+  in_game_name: string;
   display_rank: string | null;
   permission_role: PermissionRole;
   created_at: string;
+  name_changed_at: string | null;
 };
 
 export type AllianceMemberRow = {
@@ -62,6 +67,12 @@ export type AllianceMemberRow = {
   verified_at: string | null;
   verified_by: string | null;
   joined_at: string;
+};
+
+export type AllianceRow = {
+  slug: string;
+  name: string;
+  code: string;
 };
 
 export type ChannelRow = {
@@ -86,10 +97,21 @@ export type MessageRow = {
 export type Database = {
   public: {
     Tables: {
+      alliances: {
+        Row: AllianceRow;
+        Insert: AllianceRow;
+        Update: Partial<AllianceRow>;
+        Relationships: [];
+      };
       comments: {
         Row: CommentRow;
         Insert: Pick<CommentRow, "alliance" | "guide_slug" | "body"> &
-          Partial<Pick<CommentRow, "author_id" | "author_name" | "author_rank" | "status">>;
+          Partial<
+            Pick<
+              CommentRow,
+              "author_id" | "author_name" | "author_rank" | "status"
+            >
+          >;
         Update: Partial<CommentRow>;
         Relationships: [];
       };
@@ -102,14 +124,22 @@ export type Database = {
       };
       guide_reactions: {
         Row: GuideReactionRow;
-        Insert: Pick<GuideReactionRow, "alliance" | "guide_slug" | "reaction_type" | "user_id">;
+        Insert: Pick<
+          GuideReactionRow,
+          "alliance" | "guide_slug" | "reaction_type" | "user_id"
+        >;
         Update: never;
         Relationships: [];
       };
       profiles: {
         Row: ProfileRow;
-        Insert: Pick<ProfileRow, "id" | "alliance" | "display_name"> &
-          Partial<Pick<ProfileRow, "display_rank" | "permission_role">>;
+        Insert: Pick<ProfileRow, "id" | "in_game_name"> &
+          Partial<
+            Pick<
+              ProfileRow,
+              "alliance" | "display_name" | "display_rank" | "permission_role"
+            >
+          >;
         Update: Partial<ProfileRow>;
         Relationships: [];
       };
@@ -117,7 +147,10 @@ export type Database = {
         Row: AllianceMemberRow;
         Insert: Pick<AllianceMemberRow, "alliance" | "user_id"> &
           Partial<
-            Pick<AllianceMemberRow, "permission_role" | "game_rank" | "alliance_title">
+            Pick<
+              AllianceMemberRow,
+              "permission_role" | "game_rank" | "alliance_title"
+            >
           >;
         Update: Partial<AllianceMemberRow>;
         Relationships: [];
@@ -137,6 +170,15 @@ export type Database = {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      get_guide_comments: {
+        Args: { p_alliance: string; p_guide_slug: string };
+        Returns: GuideCommentRow[];
+      };
+      update_in_game_name: {
+        Args: { p_in_game_name: string };
+        Returns: ProfileRow;
+      };
+    };
   };
 };

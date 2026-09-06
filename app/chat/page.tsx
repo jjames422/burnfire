@@ -13,7 +13,7 @@ export default function ChatPage() {
       <h1 className="mb-8 font-display text-3xl font-bold text-text-primary">
         {site.alliance.name} Chat
       </h1>
-      <AuthGate alliance={site.activeAlliance}>
+      <AuthGate>
         <ChatPanel alliance={site.activeAlliance} />
       </AuthGate>
     </main>
