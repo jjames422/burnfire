@@ -280,3 +280,8 @@ insert into public.channels (alliance, slug, name, topic, min_role, sort_order) 
   ('burnfire', 'recruitment', 'Recruitment', 'Recruiting and applications', 'member', 2),
   ('burnfire', 'officer', 'Officer', 'Officer+ only', 'officer', 3)
 on conflict (alliance, slug) do nothing;
+
+-- === Security hardening (M7) ==============================================
+-- For existing projects, apply the versioned migration instead of re-running
+-- this entire bootstrap file:
+-- supabase/migrations/202609060001_secure_interactions.sql

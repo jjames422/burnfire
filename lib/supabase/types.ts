@@ -4,6 +4,7 @@
 // `interface` here, every table generic silently collapsed to `never`.
 export type CommentRow = {
   id: string;
+  author_id: string | null;
   alliance: string;
   guide_slug: string;
   author_name: string;
@@ -22,6 +23,15 @@ export type ReactionRow = {
   reaction_type: ReactionType;
   count: number;
   updated_at: string;
+};
+
+export type GuideReactionRow = {
+  id: string;
+  alliance: string;
+  guide_slug: string;
+  reaction_type: ReactionType;
+  user_id: string;
+  created_at: string;
 };
 
 export type PermissionRole = "member" | "officer" | "admin";
@@ -59,8 +69,8 @@ export type Database = {
     Tables: {
       comments: {
         Row: CommentRow;
-        Insert: Pick<CommentRow, "alliance" | "guide_slug" | "author_name" | "body"> &
-          Partial<Pick<CommentRow, "author_rank" | "status">>;
+        Insert: Pick<CommentRow, "alliance" | "guide_slug" | "body"> &
+          Partial<Pick<CommentRow, "author_id" | "author_name" | "author_rank" | "status">>;
         Update: Partial<CommentRow>;
         Relationships: [];
       };
@@ -69,6 +79,12 @@ export type Database = {
         Insert: Pick<ReactionRow, "alliance" | "guide_slug" | "reaction_type"> &
           Partial<Pick<ReactionRow, "count">>;
         Update: Partial<ReactionRow>;
+        Relationships: [];
+      };
+      guide_reactions: {
+        Row: GuideReactionRow;
+        Insert: Pick<GuideReactionRow, "alliance" | "guide_slug" | "reaction_type" | "user_id">;
+        Update: never;
         Relationships: [];
       };
       profiles: {
@@ -93,15 +109,6 @@ export type Database = {
       };
     };
     Views: Record<string, never>;
-    Functions: {
-      increment_reaction: {
-        Args: {
-          p_alliance: string;
-          p_guide_slug: string;
-          p_reaction_type: string;
-        };
-        Returns: ReactionRow;
-      };
-    };
+    Functions: Record<string, never>;
   };
 };

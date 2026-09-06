@@ -15,11 +15,9 @@ every architectural decision below — read that first for *why*, this README is
 - **Tailwind CSS v4** (CSS-first `@theme`, no `tailwind.config.ts`).
 - Content is **git-based MDX** — guides are files in `content/<alliance>/guides/`, not a hosted
   CMS.
-- **Supabase** (free tier) for everything dynamic: comments/reactions (anonymous), auth
+- **Supabase** (free tier) for everything dynamic: comments/reactions (authenticated), auth
   (magic-link), chat (channels/messages/presence) — all called directly from the browser with the
   anon key, secured by Row Level Security, not by a backend server.
-- **Cloudflare Turnstile** for spam protection on the comment form (the one thing that needs a
-  server: `app/api/verify-turnstile/route.ts`).
 - **Resend** for outbound auth emails (magic-link), so they send from the real domain instead of
   Supabase's generic shared sender.
 
@@ -37,17 +35,12 @@ npm run dev
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project → Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same page — the anon/publishable key (safe to expose; RLS is the real boundary) |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare dashboard → Application Security → Turnstile → your widget |
-| `TURNSTILE_SECRET_KEY` | Same page — **server-only**, never prefix this with `NEXT_PUBLIC_` |
-
 Without Supabase configured, comments/reactions/chat gracefully show a "not configured" state
-instead of crashing — the guide content itself works with zero env vars. Without Turnstile
-configured, comments just skip the verification step entirely (useful for local dev, since
-Turnstile widgets are tied to registered hostnames and won't render on `localhost` anyway — see
-the note in `app/api/verify-turnstile/route.ts`).
+instead of crashing — the guide content itself works with zero env vars.
 
-Database schema lives in `supabase/schema.sql` — run the whole file in your Supabase project's SQL
-Editor. It's additive and idempotent (safe to re-run after pulling changes that add a new section).
+For a new database, run `supabase/schema.sql` and then every file in `supabase/migrations/` in
+filename order. For an existing database, apply only migrations that have not already been run.
+Review and back up production data before applying a migration.
 
 ## Architecture
 
@@ -68,17 +61,17 @@ specific rules (they exist because a plain color-token table alone kept producin
 default-Tailwind look).
 
 **Supabase tables** (all in `supabase/schema.sql`, RLS-locked, no custom backend server):
-`comments`/`reactions` (anonymous, guide-scoped), `profiles`/`channels`/`messages` (chat, requires
-magic-link auth). See `docs/managing-roles-and-channels.md` for promoting a member to
+`comments`/`guide_reactions` (guide-scoped and auth-required), `alliances`/`alliance_members`, and
+`profiles`/`channels`/`messages` (chat, requires magic-link auth). Public visitors may only read
+approved comments and aggregate reaction counts. See `docs/managing-roles-and-channels.md` for promoting a member to
 officer/admin or adding a channel — both are Table Editor operations, not code changes.
 
 ## Deploy model
 
 - Code is developed and committed from wherever you're working, pushed to
   [github.com/jjames422/burnfire](https://github.com/jjames422/burnfire).
-- Vercel auto-builds and deploys `main` on every push — no manual deploy step, no static-export
-  workaround (this runs as a real Next.js app, so `next/image` and the Turnstile route handler
-  both work natively).
+- Vercel auto-builds and deploys `main` on every push — no manual deploy step or static-export
+  workaround (this runs as a real Next.js app, so `next/image` works natively).
 - Domains: `lastasylumplague.org` is canonical (`config/alliances/burnfire.ts` → `domain`);
   `.us`/`.store`/`.info` are configured in Vercel's dashboard as redirects to `.org`. DNS lives at
   the registrar (IONOS), pointed at Vercel via A records — not migrated to Vercel's nameservers.
