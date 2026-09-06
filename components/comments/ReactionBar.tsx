@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import clsx from "clsx";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
-import type { ReactionRow, ReactionType } from "@/lib/supabase/types";
+import type { GuideReactionRow, ReactionRow, ReactionType } from "@/lib/supabase/types";
 
 interface ReactionBarProps {
   alliance: string;
@@ -25,25 +26,14 @@ const NOT_REACTED: Record<ReactionType, boolean> = {
   clap: false,
 };
 
-function storageKey(alliance: string, guideSlug: string, type: ReactionType) {
-  return `reacted:${alliance}:${guideSlug}:${type}`;
-}
-
 export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
   const [counts, setCounts] = useState(ZERO_COUNTS);
   const [reacted, setReacted] = useState(NOT_REACTED);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Dedup flags live in localStorage — cosmetic only (see schema.sql
-    // comment on increment_reaction), so this only ever affects this browser.
-    setReacted({
-      fire: Boolean(localStorage.getItem(storageKey(alliance, guideSlug, "fire"))),
-      skull: Boolean(localStorage.getItem(storageKey(alliance, guideSlug, "skull"))),
-      heart: Boolean(localStorage.getItem(storageKey(alliance, guideSlug, "heart"))),
-      clap: Boolean(localStorage.getItem(storageKey(alliance, guideSlug, "clap"))),
-    });
-
     if (!supabase) {
       setLoading(false);
       return;
@@ -52,19 +42,44 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
     let cancelled = false;
 
     async function loadCounts() {
-      const { data } = await supabase!
+      const { data: authData } = await supabase!.auth.getUser();
+      if (cancelled) return;
+      setUser(authData.user ?? null);
+
+      const [{ data }, { data: ownReactions }] = await Promise.all([
+        supabase!
         .from("reactions")
         .select("*")
         .eq("alliance", alliance)
-        .eq("guide_slug", guideSlug);
+        .eq("guide_slug", guideSlug),
+        authData.user
+          ? supabase!
+              .from("guide_reactions")
+              .select("*")
+              .eq("alliance", alliance)
+              .eq("guide_slug", guideSlug)
+              .eq("user_id", authData.user.id)
+          : Promise.resolve({ data: [] as GuideReactionRow[] }),
+      ]);
 
-      if (cancelled || !data) return;
+      if (cancelled) return;
+
+      if (!data) {
+        setLoading(false);
+        setError("Reaction totals are unavailable right now.");
+        return;
+      }
 
       setCounts((prev) => {
         const next = { ...prev };
         for (const row of data as ReactionRow[]) {
           next[row.reaction_type] = row.count;
         }
+        return next;
+      });
+      setReacted((prev) => {
+        const next = { ...prev };
+        for (const row of (ownReactions ?? []) as GuideReactionRow[]) next[row.reaction_type] = true;
         return next;
       });
       setLoading(false);
@@ -77,36 +92,37 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
   }, [alliance, guideSlug]);
 
   async function handleReact(type: ReactionType) {
-    if (!supabase || reacted[type]) return;
+    if (!supabase || !user || reacted[type]) return;
 
     // Optimistic update + dedup flag set up front, so a fast second click
     // can't double-count while the request is still in flight.
     setReacted((prev) => ({ ...prev, [type]: true }));
     setCounts((prev) => ({ ...prev, [type]: prev[type] + 1 }));
-    localStorage.setItem(storageKey(alliance, guideSlug, type), "1");
-
-    const { error } = await supabase.rpc("increment_reaction", {
-      p_alliance: alliance,
-      p_guide_slug: guideSlug,
-      p_reaction_type: type,
+    setError(null);
+    const { error: insertError } = await supabase.from("guide_reactions").insert({
+      alliance,
+      guide_slug: guideSlug,
+      reaction_type: type,
+      user_id: user.id,
     });
 
-    if (error) {
+    if (insertError) {
       setReacted((prev) => ({ ...prev, [type]: false }));
       setCounts((prev) => ({ ...prev, [type]: Math.max(0, prev[type] - 1) }));
-      localStorage.removeItem(storageKey(alliance, guideSlug, type));
+      setError(insertError.message);
     }
   }
 
   if (!isSupabaseConfigured) return null;
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-wrap gap-2 px-6 pt-6">
+    <div className="mx-auto w-full max-w-3xl px-6 pt-6">
+      <div className="flex flex-wrap gap-2">
       {REACTIONS.map(({ type, icon, label }) => (
         <button
           key={type}
           type="button"
-          disabled={loading || reacted[type]}
+          disabled={loading || !user || reacted[type]}
           onClick={() => handleReact(type)}
           aria-pressed={reacted[type]}
           aria-label={label}
@@ -121,6 +137,11 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
           <span className="tabular-nums">{counts[type]}</span>
         </button>
       ))}
+      </div>
+      {!loading && !user && (
+        <p className="mt-2 text-xs text-text-secondary">Sign in below to react. Guests can view counts only.</p>
+      )}
+      {error && <p className="mt-2 text-xs text-warning">{error}</p>}
     </div>
   );
 }

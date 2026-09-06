@@ -9,6 +9,8 @@ import { ProfileSetupModal } from "./ProfileSetupModal";
 interface AuthGateProps {
   alliance: string;
   children: ReactNode;
+  redirectPath?: string;
+  featureName?: string;
 }
 
 /**
@@ -16,7 +18,7 @@ interface AuthGateProps {
  * completed `profiles` row. First-time sign-ins see ProfileSetupModal;
  * everyone after that skips straight to `children`.
  */
-export function AuthGate({ alliance, children }: AuthGateProps) {
+export function AuthGate({ alliance, children, redirectPath = "/chat", featureName = "Chat" }: AuthGateProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
@@ -78,7 +80,7 @@ export function AuthGate({ alliance, children }: AuthGateProps) {
 
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email: email.trim(),
-      options: { emailRedirectTo: `${window.location.origin}/chat` },
+      options: { emailRedirectTo: `${window.location.origin}${redirectPath}` },
     });
 
     setSending(false);
@@ -89,7 +91,7 @@ export function AuthGate({ alliance, children }: AuthGateProps) {
   if (!isSupabaseConfigured) {
     return (
       <p className="border border-border bg-surface p-4 text-sm text-text-secondary">
-        Chat isn&apos;t configured yet — copy .env.local.example to .env.local with a Supabase
+        {featureName} isn&apos;t configured yet — copy .env.local.example to .env.local with a Supabase
         project&apos;s URL and anon key to enable it.
       </p>
     );

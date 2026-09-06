@@ -17,9 +17,8 @@ interface PresenceEntry {
 
 /**
  * Realtime Presence, not a table — per-channel topic
- * `presence:<alliance>:<channel-slug>`. Ephemeral: join/leave/sync are
- * broadcast live, nothing is persisted, no RLS involved (this is a plain
- * Realtime channel, not tied to Postgres Changes).
+ * `presence:<alliance>:<channel-slug>`. The channel is private and the
+ * matching realtime.messages policies authorize both listening and tracking.
  */
 export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
   const [users, setUsers] = useState<PresenceEntry[]>([]);
@@ -37,6 +36,8 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
       } = await client.auth.getUser();
       if (!user || cancelled) return;
 
+      await client.realtime.setAuth();
+
       const { data: profile } = await client
         .from("profiles")
         .select("display_name, display_rank")
@@ -46,7 +47,7 @@ export function PresenceList({ alliance, channelSlug }: PresenceListProps) {
       if (cancelled) return;
 
       const presenceChannel = client.channel(`presence:${alliance}:${channelSlug}`, {
-        config: { presence: { key: user.id } },
+        config: { private: true, presence: { key: user.id } },
       });
 
       presenceChannel

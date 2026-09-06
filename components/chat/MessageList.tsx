@@ -23,6 +23,9 @@ export function MessageList({ channelId }: MessageListProps) {
   const [loading, setLoading] = useState(true);
   const knownProfileIds = useRef(new Set<string>());
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const shouldFollowRef = useRef(true);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     if (!supabase) return;
@@ -37,11 +40,13 @@ export function MessageList({ channelId }: MessageListProps) {
     async function loadProfilesFor(authorIds: string[]) {
       const missing = authorIds.filter((id) => !knownProfileIds.current.has(id));
       if (missing.length === 0) return;
-      missing.forEach((id) => knownProfileIds.current.add(id));
+      const { data, error } = await client
+        .from("profiles")
+        .select("id, display_name, display_rank")
+        .in("id", missing);
 
-      const { data } = await client.from("profiles").select("id, display_name, display_rank").in("id", missing);
-
-      if (cancelled || !data) return;
+      if (cancelled || error || !data) return;
+      data.forEach((row) => knownProfileIds.current.add(row.id));
       setProfiles((prev) => {
         const next = { ...prev };
         for (const row of data) {
@@ -56,13 +61,14 @@ export function MessageList({ channelId }: MessageListProps) {
         .from("messages")
         .select("*")
         .eq("channel_id", channelId)
-        .order("created_at", { ascending: true })
+        .order("created_at", { ascending: false })
         .limit(100);
 
       if (cancelled) return;
       if (data) {
-        setMessages(data);
-        await loadProfilesFor([...new Set(data.map((message) => message.author_id))]);
+        const chronological = [...data].reverse();
+        setMessages(chronological);
+        await loadProfilesFor([...new Set(chronological.map((message) => message.author_id))]);
       }
       setLoading(false);
     }
@@ -76,7 +82,11 @@ export function MessageList({ channelId }: MessageListProps) {
         { event: "INSERT", schema: "public", table: "messages", filter: `channel_id=eq.${channelId}` },
         (payload) => {
           const message = payload.new as MessageRow;
-          setMessages((prev) => [...prev, message]);
+          setMessages((prev) => {
+            if (prev.some((item) => item.id === message.id)) return prev;
+            return [...prev, message];
+          });
+          if (!shouldFollowRef.current) setUnreadCount((count) => count + 1);
           loadProfilesFor([message.author_id]);
         },
       )
@@ -89,13 +99,27 @@ export function MessageList({ channelId }: MessageListProps) {
   }, [channelId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (shouldFollowRef.current) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
+
+  function handleScroll() {
+    const list = listRef.current;
+    if (!list) return;
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+    shouldFollowRef.current = nearBottom;
+    if (nearBottom) setUnreadCount(0);
+  }
+
+  function jumpToLatest() {
+    shouldFollowRef.current = true;
+    setUnreadCount(0);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
   if (loading) return <p className="flex-1 p-4 text-text-secondary">Loading messages…</p>;
 
   return (
-    <div className="flex-1 space-y-3 overflow-y-auto p-4">
+    <div ref={listRef} onScroll={handleScroll} className="relative flex-1 space-y-3 overflow-y-auto p-4">
       {messages.length === 0 && <p className="text-text-secondary">No messages yet — say something.</p>}
       {messages.map((message) => {
         const profile = profiles[message.author_id];
@@ -117,6 +141,15 @@ export function MessageList({ channelId }: MessageListProps) {
         );
       })}
       <div ref={bottomRef} />
+      {unreadCount > 0 && (
+        <button
+          type="button"
+          onClick={jumpToLatest}
+          className="sticky bottom-2 left-1/2 -translate-x-1/2 border border-accent bg-bg px-3 py-1.5 text-xs font-semibold text-accent-bright shadow-lg"
+        >
+          {unreadCount} new {unreadCount === 1 ? "message" : "messages"}
+        </button>
+      )}
     </div>
   );
 }
