@@ -11,6 +11,7 @@ import { createHeading } from "@/components/mdx/Heading";
 import { TagChip } from "@/components/guides/TagChip";
 import { CommentSection } from "@/components/comments/CommentSection";
 import { ReactionBar } from "@/components/comments/ReactionBar";
+import { EmberBackdrop, SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
 
 export async function generateStaticParams() {
   const slugs = await getGuideSlugs(site.activeAlliance);
@@ -50,19 +51,21 @@ export default async function GuidePage({
   });
 
   return (
-    <>
-      <article className="mx-auto w-full max-w-3xl px-6 py-12">
-        <header className="mb-8 border-b border-border pb-6">
+    <main className="public-page">
+      <EmberBackdrop />
+      <SiteHeader active="guides" />
+      <article className="guide-article">
+        <header className="guide-article-header">
           <div className="mb-3 flex flex-wrap gap-2">
             {frontmatter.tags.map((tag) => (
               <TagChip key={tag} label={tag} />
             ))}
           </div>
-          <h1 className="font-display text-3xl font-bold text-text-primary md:text-4xl">
+          <h1>
             {frontmatter.title}
           </h1>
-          <p className="mt-2 text-text-secondary">{frontmatter.summary}</p>
-          <p className="mt-4 text-sm text-text-secondary">
+          <p className="guide-deck">{frontmatter.summary}</p>
+          <p className="guide-byline">
             By {frontmatter.author}
             {frontmatter.authorRank
               ? ` · ${frontmatter.authorRank}`
@@ -75,12 +78,13 @@ export default async function GuidePage({
         alliance={frontmatter.alliance}
         guideSlug={frontmatter.slug}
       />
-      <div className="mx-auto mt-4 w-full max-w-3xl px-6">
+      <div className="guide-comments">
         <CommentSection
           alliance={frontmatter.alliance}
           guideSlug={frontmatter.slug}
         />
       </div>
-    </>
+      <SiteFooter />
+    </main>
   );
 }

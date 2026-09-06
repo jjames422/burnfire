@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { getAllGuides } from "@/lib/content/guides";
-import { site } from "@/config/site";
 import { GuideIndex } from "@/components/guides/GuideIndex";
+import { EmberBackdrop, SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
+import { site } from "@/config/site";
+import { getAllGuides } from "@/lib/content/guides";
 
-export const metadata: Metadata = {
-  title: "Guides",
-};
+export const metadata: Metadata = { title: "Field Guides" };
 
 export default async function GuidesPage() {
   const guides = await getAllGuides(site.activeAlliance);
-
-  return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-12">
-      <h1 className="font-display text-3xl font-bold text-text-primary md:text-4xl">All guides</h1>
-      <p className="mt-2 mb-10 text-text-secondary">
-        Every {site.alliance.name} guide, filterable by tag.
-      </p>
-      <GuideIndex guides={guides} />
-    </main>
-  );
+  return <main className="public-page"><EmberBackdrop /><SiteHeader active="guides" />
+    <header className="archive-hero"><span className="signal-kicker"><i /> BurnFire intelligence archive</span><h1>Field <em>guides</em></h1><p>Battle-tested knowledge for building, fighting, surviving, and leading in Last Asylum: Plague.</p><div className="archive-count"><strong>{String(guides.length).padStart(2, "0")}</strong><span>Published<br />briefings</span></div></header>
+    <section className="archive-body"><GuideIndex guides={guides} /></section><SiteFooter />
+  </main>;
 }
