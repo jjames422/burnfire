@@ -180,7 +180,8 @@ revoke execute on function public.increment_reaction(text, text, text) from publ
 
 -- Presence topics are private. Only a signed-in member with access to the
 -- named channel may receive or send presence events.
-alter table realtime.messages enable row level security;
+-- Supabase owns realtime.messages and enables RLS on it. Project migrations
+-- may add policies, but cannot alter ownership-level table settings.
 
 drop policy if exists "members receive alliance presence" on realtime.messages;
 create policy "members receive alliance presence"
