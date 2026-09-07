@@ -48,6 +48,12 @@ export function MessageList({ channelId, onReply }: { channelId: string; onReply
     await load();
   }
 
+  async function remove(id: string) {
+    if (!supabase || !window.confirm("Delete this message? This cannot be undone in chat.")) return;
+    const { error } = await supabase.rpc("delete_message", { p_message_id: id });
+    if (!error) await load();
+  }
+
   return (
     <div className="message-stream">
       {messages.length === 0 && <div className="channel-welcome"><span>#</span><h3>This channel is ready.</h3><p>Start the first transmission and bring the survivors together.</p></div>}
@@ -61,7 +67,7 @@ export function MessageList({ channelId, onReply }: { channelId: string; onReply
               {Object.entries(message.reactions ?? {}).map(([emoji, total]) => <button key={emoji} onClick={() => react(message, emoji)} className="reaction-chip">{emoji} {total}</button>)}
             </div>
           </div>
-          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)}>↩</button>{message.author_id === userId && <button onClick={() => { setEditing(message.id); setEditBody(message.body); }}>✎</button>}</div>
+          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)} title={`React ${emoji}`}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)} title="Reply">↩</button>{message.author_id === userId && <><button onClick={() => { setEditing(message.id); setEditBody(message.body); }} title="Edit">✎</button><button onClick={() => remove(message.id)} title="Delete">⌫</button></>}</div>
         </article>
       ))}
       <div ref={bottom} />

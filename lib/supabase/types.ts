@@ -265,9 +265,21 @@ export type Database = {
         };
         Returns: string;
       };
+      get_my_chat_identity: {
+        Args: Record<string, never>;
+        Returns: string;
+      };
+      get_channel_mention_candidates: {
+        Args: { p_channel_id: string; p_query?: string; p_limit?: number };
+        Returns: { user_id: string; identity_label: string; mention_text: string }[];
+      };
       edit_message: {
         Args: { p_message_id: string; p_body: string };
         Returns: MessageRow;
+      };
+      delete_message: {
+        Args: { p_message_id: string };
+        Returns: undefined;
       };
       mark_notification_read: {
         Args: { p_notification_id: string };
