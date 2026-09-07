@@ -1,4 +1,4 @@
--- Read-only contract checks for Discord-style chat and premium scaffolding.
+-- Read-only contract checks for BurnFire community chat and premium scaffolding.
 do $$
 begin
   assert to_regclass('public.message_reactions') is not null, 'message reactions missing';
