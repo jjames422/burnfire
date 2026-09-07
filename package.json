@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "typecheck": "next typegen && tsc --noEmit",
+    "check:migrations": "node scripts/check-migrations.mjs",
+    "ci": "npm run typecheck && npm run check:migrations && npm run build",
     "start": "next start"
   },
   "dependencies": {

@@ -11,11 +11,14 @@ interface Command { name:string; syntax:string; description:string; run:(argumen
 type CommandResult = { body?:string; notice?:string; clear?:boolean };
 
 const commands: Command[] = [
-  { name:"help", syntax:"/help", description:"Show the available chat commands", run:()=>({notice:"Commands: /help, /me, /shrug, /guide, /bug, /clear"}) },
+  { name:"help", syntax:"/help", description:"Show the available chat commands", run:()=>({notice:"Commands: /help, /me, /shrug, /guide, /bug, /roll, /poll, /spoiler, /clear"}) },
   { name:"me", syntax:"/me action", description:"Send an action-style message", run:(argument)=>({body:`— ${argument}`}) },
   { name:"shrug", syntax:"/shrug message", description:"Add a shrug to your message", run:(argument)=>({body:`${argument}${argument ? " " : ""}¯\\_(ツ)_/¯`}) },
   { name:"guide", syntax:"/guide topic", description:"Share a link to the field guide archive", run:(argument)=>({body:`Field guide${argument ? ` request: ${argument}` : " archive"} — https://lastasylumplague.org/guides`}) },
   { name:"bug", syntax:"/bug description", description:"Start a bug report from chat", run:(argument)=>({body:`Bug report${argument ? `: ${argument}` : ""} — https://lastasylumplague.org/bugs`}) },
+  { name:"roll", syntax:"/roll", description:"Roll a virtual six-sided die", run:()=>({body:`🎲 rolled ${Math.floor(Math.random()*6)+1}`}) },
+  { name:"poll", syntax:"/poll question", description:"Start a quick reaction poll", run:(argument)=>({body:`📊 POLL: ${argument || "Vote below"}\n👍 Yes   👎 No   🤷 Unsure`}) },
+  { name:"spoiler", syntax:"/spoiler message", description:"Mark potentially sensitive game information", run:(argument)=>({body:`⚠️ SPOILER — ${argument}`}) },
   { name:"clear", syntax:"/clear", description:"Clear your draft without sending", run:()=>({clear:true,notice:"Draft cleared."}) },
 ];
 
@@ -55,7 +58,7 @@ export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,on
   return <form onSubmit={submit} className="composer-wrap">
     {replyTo&&<div className="reply-banner"><span>Replying to <strong>{replyTo.label}</strong></span><button type="button" onClick={onCancelReply}>×</button></div>}
     {(visibleCommands.length>0||mentions.length>0)&&<div className="composer-suggestions" role="listbox"><header>{mentions.length>0?"Mention a survivor":"Commands"}<span>{mentions.length||visibleCommands.length}</span></header>{mentions.map((candidate)=><button type="button" key={candidate.user_id} onClick={()=>chooseMention(candidate)}><b>@</b><span><strong>{candidate.identity_label}</strong><small>Notify this survivor</small></span></button>)}{mentions.length===0&&visibleCommands.map((command)=><button type="button" key={command.name} onClick={()=>chooseCommand(command)}><b>/</b><span><strong>{command.syntax}</strong><small>{command.description}</small></span></button>)}</div>}
-    <div className="composer-box"><button type="button" className="composer-tool" title="Attachments are coming in the next update">＋</button><textarea rows={1} maxLength={2000} required spellCheck autoCapitalize="sentences" value={body} onChange={(event)=>change(event.target.value)} onKeyDown={keyDown} placeholder={`Message #${channelName}`} aria-label={`Message #${channelName}`} /><button type="button" className="composer-tool" title="Type @ to mention or / for commands">@</button><button disabled={sending} className="send-button"><span>{sending?"…":"➤"}</span><span className="sr-only">Send</span></button></div>
+    <div className="composer-box"><button type="button" className="composer-tool" title="Attachments are coming in the next update">＋</button><textarea rows={1} maxLength={2000} required spellCheck lang="en-US" autoCorrect="on" autoCapitalize="sentences" value={body} onChange={(event)=>change(event.target.value)} onKeyDown={keyDown} placeholder={`Message #${channelName}`} aria-label={`Message #${channelName}`} /><button type="button" className="composer-tool" title="Type @ to mention or / for commands">@</button><button disabled={sending} className="send-button"><span>{sending?"…":"➤"}</span><span className="sr-only">Send</span></button></div>
     <div className="composer-foot"><span>{typers.length>0?`${typers.slice(0,2).join(" and ")} ${typers.length===1?"is":"are"} typing…`:"Enter to send · Shift+Enter for a new line"}</span><span>{body.length}/2000</span></div>{notice&&<p className="composer-notice">{notice}</p>}{error&&<p className="composer-error">{error}</p>}
   </form>;
 }
