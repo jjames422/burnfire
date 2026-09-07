@@ -40,7 +40,15 @@ export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,on
   function chooseMention(candidate:MentionCandidate){if(!mention)return;setBody(`${body.slice(0,mention.start)}@${candidate.mention_text} `);setSelectedMentions((current)=>current.some((item)=>item.user_id===candidate.user_id)?current:[...current,candidate]);setMentions([]);}
   function chooseCommand(command:Command){setBody(command.syntax.includes(" ")?`/${command.name} `:`/${command.name}`);}
   async function submit(event:FormEvent){event.preventDefault();if(!supabase||!body.trim())return;let outgoing=body.trim();if(outgoing.startsWith("/")){const [token,...rest]=outgoing.slice(1).split(" ");const command=commands.find((item)=>item.name===token.toLowerCase());if(!command){setError(`Unknown command /${token}. Type /help to see available commands.`);return;}const result=command.run(rest.join(" ").trim());if(result.clear){setBody("");setNotice(result.notice??null);return;}if(result.notice&&!result.body){setNotice(result.notice);return;}outgoing=result.body??outgoing;}
-    setSending(true);setError(null);broadcastTyping(false);const {error:sendError}=await supabase.rpc("post_channel_message",{p_channel_id:channelId,p_body:outgoing,p_parent_message_id:replyTo?.id??null,p_mentioned_user_ids:selectedMentions.map((item)=>item.user_id)});setSending(false);if(sendError)setError(sendError.message);else{setBody("");setSelectedMentions([]);onSent();}}
+    setSending(true);setError(null);broadcastTyping(false);
+    try {
+      const {error:sendError}=await supabase.rpc("post_channel_message",{p_channel_id:channelId,p_body:outgoing,p_parent_message_id:replyTo?.id??null,p_mentioned_user_ids:selectedMentions.map((item)=>item.user_id)});
+      if(sendError){setError(`Message was not sent: ${sendError.message}`);return;}
+      setBody("");setSelectedMentions([]);setNotice("Message sent.");onSent();
+    } catch {
+      setError("Message was not sent. Check your connection and try again.");
+    } finally { setSending(false); }
+  }
   function keyDown(event:KeyboardEvent<HTMLTextAreaElement>){if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();event.currentTarget.form?.requestSubmit();}}
   const typers=[...typingUsers.values()].filter((label)=>label!==identity);
 
