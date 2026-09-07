@@ -1,4 +1,4 @@
--- Discord-style text chat and payment-provider-neutral premium entitlements.
+-- BurnFire community text chat and payment-provider-neutral premium entitlements.
 -- Billing remains disabled until Stripe products/secrets are configured.
 
 -- Channel organization and controls.
