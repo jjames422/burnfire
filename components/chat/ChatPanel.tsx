@@ -6,6 +6,7 @@ import type { AllianceInvitationRow, ChannelRow, NotificationRow } from "@/lib/s
 import { MessageComposer } from "./MessageComposer";
 import { MessageList } from "./MessageList";
 import { PresenceList } from "./PresenceList";
+import { ChannelUtilityPanel } from "./ChannelUtilityPanel";
 
 export function ChatPanel({ alliance }: { alliance: string }) {
   const [channels, setChannels] = useState<ChannelRow[]>([]);
@@ -18,6 +19,7 @@ export function ChatPanel({ alliance }: { alliance: string }) {
   const [hasAlliance, setHasAlliance] = useState(false);
   const [messageVersion, setMessageVersion] = useState(0);
   const [accountEmail, setAccountEmail] = useState("");
+  const [utility, setUtility] = useState<"search" | "pins" | null>(null);
 
   async function refreshAccount() {
     if (!supabase) return;
@@ -35,7 +37,13 @@ export function ChatPanel({ alliance }: { alliance: string }) {
     if (!supabase) return;
     supabase.auth.getUser().then(({ data }) => setAccountEmail(data.user?.email ?? "Signed in"));
     supabase.from("channels").select("*").eq("is_archived", false).order("sort_order")
-      .then(({ data }) => setChannels(data ?? []));
+      .then(({ data }) => {
+        const available=data??[];
+        setChannels(available);
+        const requestedId=new URLSearchParams(window.location.search).get("channel");
+        const requested=available.find((channel)=>channel.id===requestedId);
+        if(requested){setWorkspace(requested.scope==="community"?"community":requested.alliance??"community");setSelected(requested);}
+      });
     refreshAccount();
   }, []);
 
@@ -45,6 +53,11 @@ export function ChatPanel({ alliance }: { alliance: string }) {
     window.location.assign("/chat");
   }
 
+  function jumpToMessage(messageId: string) {
+    setUtility(null);
+    window.requestAnimationFrame(() => document.getElementById(`message-${messageId}`)?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
   const visible = useMemo(() => channels.filter((channel) =>
     workspace === "community" ? channel.scope === "community" : channel.alliance === workspace,
   ), [channels, workspace]);
@@ -52,6 +65,13 @@ export function ChatPanel({ alliance }: { alliance: string }) {
   useEffect(() => {
     if (!selected || !visible.some((channel) => channel.id === selected.id)) setSelected(visible[0] ?? null);
   }, [visible, selected]);
+
+  useEffect(()=>{
+    const messageId=new URLSearchParams(window.location.search).get("message");
+    if(!selected||!messageId)return;
+    const timer=window.setTimeout(()=>document.getElementById(`message-${messageId}`)?.scrollIntoView({behavior:"smooth",block:"center"}),500);
+    return()=>window.clearTimeout(timer);
+  },[selected,messageVersion]);
 
   const unread = notifications.filter((note) => !note.read_at).length;
 
@@ -95,11 +115,11 @@ export function ChatPanel({ alliance }: { alliance: string }) {
         </div>
       </section> : selected ? <>
         <section className="conversation-panel">
-          <header className="chat-topbar"><div className="channel-title"><span className="channel-mark">#</span><div><h2>{selected.name}</h2><p>{selected.topic || "Alliance transmissions and community conversation"}</p></div></div><div className="topbar-tools"><span className="live-pill"><i /> LIVE</span><button className="account-button" onClick={signOut} title={`Signed in as ${accountEmail}. Click to sign out.`}>{accountEmail || "Signed in"} · Sign out</button><button className="icon-button" title="Search coming next">⌕</button></div></header>
+          <header className="chat-topbar"><div className="channel-title"><span className="channel-mark">#</span><div><h2>{selected.name}</h2><p>{selected.topic || "Alliance transmissions and community conversation"}</p></div></div><div className="topbar-tools"><span className="live-pill"><i /> LIVE</span><button className="account-button" onClick={signOut} title={`Signed in as ${accountEmail}. Click to sign out.`}>{accountEmail || "Signed in"} · Sign out</button><button className={`icon-button ${utility==="pins"?"is-active":""}`} onClick={()=>setUtility(utility==="pins"?null:"pins")} title="Pinned messages">◆</button><button className={`icon-button ${utility==="search"?"is-active":""}`} onClick={()=>setUtility(utility==="search"?null:"search")} title="Search this channel">⌕</button></div></header>
           <MessageList channelId={selected.id} refreshVersion={messageVersion} onReply={(id, label) => setReplyTo({ id, label })} />
           <MessageComposer channelId={selected.id} channelName={selected.name} replyTo={replyTo} onCancelReply={() => setReplyTo(null)} onSent={() => { setReplyTo(null); setMessageVersion((value) => value + 1); }} />
         </section>
-        <PresenceList alliance={selected.alliance ?? "community"} channelSlug={selected.slug} />
+        {utility?<ChannelUtilityPanel channelId={selected.id} mode={utility} onClose={()=>setUtility(null)} onJump={jumpToMessage}/>:<PresenceList alliance={selected.alliance ?? "community"} channelSlug={selected.slug} />}
       </> : <p className="empty-state">No channels are available.</p>}
     </div>
   );

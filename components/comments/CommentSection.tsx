@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type SubmitEvent } from "react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { GuideCommentRow } from "@/lib/supabase/types";
 import { AuthGate } from "@/components/auth/AuthGate";
@@ -46,7 +46,7 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
     };
   }, [alliance, guideSlug]);
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!supabase) return;
 
