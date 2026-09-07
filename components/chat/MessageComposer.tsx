@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 
@@ -29,6 +29,7 @@ function activeMention(value:string) {
 
 export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,onSent }:ComposerProps) {
   const [body,setBody]=useState(""); const [sending,setSending]=useState(false); const [error,setError]=useState<string|null>(null); const [notice,setNotice]=useState<string|null>(null);
+  const [attachment,setAttachment]=useState<File|null>(null); const fileInput=useRef<HTMLInputElement|null>(null);
   const [mentions,setMentions]=useState<MentionCandidate[]>([]); const [selectedMentions,setSelectedMentions]=useState<MentionCandidate[]>([]); const [typingUsers,setTypingUsers]=useState<Map<string,string>>(new Map()); const [identity,setIdentity]=useState("A survivor"); const [userId,setUserId]=useState("");
   const typingChannel=useRef<RealtimeChannel|null>(null); const typingTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const mention=activeMention(body); const commandQuery=body.startsWith("/")&&!body.includes(" ") ? body.slice(1).toLowerCase() : null;
@@ -42,12 +43,20 @@ export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,on
   function change(value:string){setBody(value);setError(null);setNotice(null);broadcastTyping(true);if(typingTimer.current)clearTimeout(typingTimer.current);typingTimer.current=setTimeout(()=>broadcastTyping(false),1200);}
   function chooseMention(candidate:MentionCandidate){if(!mention)return;setBody(`${body.slice(0,mention.start)}@${candidate.mention_text} `);setSelectedMentions((current)=>current.some((item)=>item.user_id===candidate.user_id)?current:[...current,candidate]);setMentions([]);}
   function chooseCommand(command:Command){setBody(command.syntax.includes(" ")?`/${command.name} `:`/${command.name}`);}
-  async function submit(event:FormEvent){event.preventDefault();if(!supabase||!body.trim())return;let outgoing=body.trim();if(outgoing.startsWith("/")){const [token,...rest]=outgoing.slice(1).split(" ");const command=commands.find((item)=>item.name===token.toLowerCase());if(!command){setError(`Unknown command /${token}. Type /help to see available commands.`);return;}const result=command.run(rest.join(" ").trim());if(result.clear){setBody("");setNotice(result.notice??null);return;}if(result.notice&&!result.body){setNotice(result.notice);return;}outgoing=result.body??outgoing;}
+  async function submit(event:SubmitEvent<HTMLFormElement>){event.preventDefault();if(!supabase||(!body.trim()&&!attachment))return;let outgoing=body.trim()||`Shared ${attachment?.name}`;if(outgoing.startsWith("/")){const [token,...rest]=outgoing.slice(1).split(" ");const command=commands.find((item)=>item.name===token.toLowerCase());if(!command){setError(`Unknown command /${token}. Type /help to see available commands.`);return;}const result=command.run(rest.join(" ").trim());if(result.clear){setBody("");setNotice(result.notice??null);return;}if(result.notice&&!result.body){setNotice(result.notice);return;}outgoing=result.body??outgoing;}
     setSending(true);setError(null);broadcastTyping(false);
     try {
-      const {error:sendError}=await supabase.rpc("post_channel_message",{p_channel_id:channelId,p_body:outgoing,p_parent_message_id:replyTo?.id??null,p_mentioned_user_ids:selectedMentions.map((item)=>item.user_id)});
+      const {data:messageId,error:sendError}=await supabase.rpc("post_channel_message",{p_channel_id:channelId,p_body:outgoing,p_parent_message_id:replyTo?.id??null,p_mentioned_user_ids:selectedMentions.map((item)=>item.user_id)});
       if(sendError){setError(`Message was not sent: ${sendError.message}`);return;}
-      setBody("");setSelectedMentions([]);setNotice("Message sent.");onSent();
+      if(attachment&&messageId&&userId){
+        const safeName=attachment.name.replace(/[^a-zA-Z0-9._-]/g,"-");
+        const storagePath=`${userId}/${messageId}/${crypto.randomUUID()}-${safeName}`;
+        const {error:uploadError}=await supabase.storage.from("chat-attachments").upload(storagePath,attachment,{contentType:attachment.type,upsert:false});
+        if(uploadError){setError(`Message sent, but attachment failed: ${uploadError.message}`);setBody("");onSent();return;}
+        const {error:recordError}=await supabase.from("chat_attachments").insert({message_id:messageId,uploader_id:userId,storage_path:storagePath,file_name:attachment.name,mime_type:attachment.type,size_bytes:attachment.size});
+        if(recordError){await supabase.storage.from("chat-attachments").remove([storagePath]);setError(`Message sent, but attachment could not be linked: ${recordError.message}`);setBody("");onSent();return;}
+      }
+      setBody("");setAttachment(null);setSelectedMentions([]);setNotice("Message sent.");onSent();
     } catch {
       setError("Message was not sent. Check your connection and try again.");
     } finally { setSending(false); }
@@ -58,7 +67,8 @@ export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,on
   return <form onSubmit={submit} className="composer-wrap">
     {replyTo&&<div className="reply-banner"><span>Replying to <strong>{replyTo.label}</strong></span><button type="button" onClick={onCancelReply}>×</button></div>}
     {(visibleCommands.length>0||mentions.length>0)&&<div className="composer-suggestions" role="listbox"><header>{mentions.length>0?"Mention a survivor":"Commands"}<span>{mentions.length||visibleCommands.length}</span></header>{mentions.map((candidate)=><button type="button" key={candidate.user_id} onClick={()=>chooseMention(candidate)}><b>@</b><span><strong>{candidate.identity_label}</strong><small>Notify this survivor</small></span></button>)}{mentions.length===0&&visibleCommands.map((command)=><button type="button" key={command.name} onClick={()=>chooseCommand(command)}><b>/</b><span><strong>{command.syntax}</strong><small>{command.description}</small></span></button>)}</div>}
-    <div className="composer-box"><button type="button" className="composer-tool" title="Attachments are coming in the next update">＋</button><textarea rows={1} maxLength={2000} required spellCheck lang="en-US" autoCorrect="on" autoCapitalize="sentences" value={body} onChange={(event)=>change(event.target.value)} onKeyDown={keyDown} placeholder={`Message #${channelName}`} aria-label={`Message #${channelName}`} /><button type="button" className="composer-tool" title="Type @ to mention or / for commands">@</button><button disabled={sending} className="send-button"><span>{sending?"…":"➤"}</span><span className="sr-only">Send</span></button></div>
+    {attachment&&<div className="attachment-draft"><span>◆</span><div><strong>{attachment.name}</strong><small>{(attachment.size/1024/1024).toFixed(2)} MB</small></div><button type="button" onClick={()=>setAttachment(null)}>×</button></div>}
+    <div className="composer-box"><input ref={fileInput} className="sr-only" type="file" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,text/plain" onChange={(event)=>{const file=event.target.files?.[0]??null;if(file&&file.size>26214400){setError("Attachments must be 25 MB or smaller.");return;}setAttachment(file);setError(null);}}/><button type="button" className="composer-tool" onClick={()=>fileInput.current?.click()} title="Attach an image, PDF, or text file">＋</button><textarea rows={1} maxLength={2000} spellCheck lang="en-US" autoCorrect="on" autoCapitalize="sentences" value={body} onChange={(event)=>change(event.target.value)} onKeyDown={keyDown} placeholder={`Message #${channelName}`} aria-label={`Message #${channelName}`} /><button type="button" className="composer-tool" title="Type @ to mention or / for commands">@</button><button disabled={sending||(!body.trim()&&!attachment)} className="send-button"><span>{sending?"…":"➤"}</span><span className="sr-only">Send</span></button></div>
     <div className="composer-foot"><span>{typers.length>0?`${typers.slice(0,2).join(" and ")} ${typers.length===1?"is":"are"} typing…`:"Enter to send · Shift+Enter for a new line"}</span><span>{body.length}/2000</span></div>{notice&&<p className="composer-notice">{notice}</p>}{error&&<p className="composer-error">{error}</p>}
   </form>;
 }

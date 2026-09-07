@@ -127,6 +127,7 @@ export type MessageReactionRow = {
 };
 export type PinnedMessageRow = { channel_id: string; message_id: string; pinned_by: string; pinned_at: string };
 export type ContentReportRow = { id: string; reporter_id: string; target_type: "comment" | "message" | "fan_art"; target_id: string; reason: string; status: "open" | "resolved" | "dismissed"; created_at: string };
+export type ChatAttachmentRow = { id: string; message_id: string; uploader_id: string; storage_path: string; file_name: string; mime_type: string; size_bytes: number; created_at: string };
 export type NotificationRow = {
   id: string;
   user_id: string;
@@ -237,6 +238,12 @@ export type Database = {
         Update: never;
         Relationships: [];
       };
+      chat_attachments: {
+        Row: ChatAttachmentRow;
+        Insert: Pick<ChatAttachmentRow, "message_id" | "uploader_id" | "storage_path" | "file_name" | "mime_type" | "size_bytes">;
+        Update: never;
+        Relationships: [];
+      };
       notifications: {
         Row: NotificationRow;
         Insert: never;
@@ -298,6 +305,10 @@ export type Database = {
       pin_message: {
         Args: { p_message_id: string; p_pin: boolean };
         Returns: undefined;
+      };
+      search_channel_messages: {
+        Args: { p_channel_id: string; p_query: string };
+        Returns: { id: string; body: string; created_at: string; identity_label: string }[];
       };
       mark_notification_read: {
         Args: { p_notification_id: string };

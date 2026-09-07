@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { supabase } from "@/lib/supabase/client";
 import type { ProfileRow } from "@/lib/supabase/types";
 
@@ -21,7 +21,7 @@ export function ProfileSetupModal({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!supabase) return;
 

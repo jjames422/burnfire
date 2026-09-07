@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode, type SubmitEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import type { ProfileRow } from "@/lib/supabase/types";
@@ -80,7 +80,7 @@ export function AuthGate({
     };
   }, []);
 
-  async function handleSendMagicLink(event: FormEvent) {
+  async function handleSendMagicLink(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!supabase) return;
 
