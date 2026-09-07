@@ -6,7 +6,7 @@ import type { ChatMessageRow } from "@/lib/supabase/types";
 
 const QUICK_EMOJI = ["🔥", "❤️", "😂", "👏"];
 
-export function MessageList({ channelId, onReply }: { channelId: string; onReply: (id: string, label: string) => void }) {
+export function MessageList({ channelId, refreshVersion, onReply }: { channelId: string; refreshVersion: number; onReply: (id: string, label: string) => void }) {
   const [messages, setMessages] = useState<ChatMessageRow[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [editing, setEditing] = useState<string | null>(null);
@@ -30,6 +30,8 @@ export function MessageList({ channelId, onReply }: { channelId: string; onReply
       .subscribe();
     return () => { client.removeChannel(channel); };
   }, [channelId, load]);
+
+  useEffect(() => { load(); }, [refreshVersion, load]);
 
   useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [messages.length]);
 
