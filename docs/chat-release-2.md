@@ -20,6 +20,10 @@ Premium must enhance identity and convenience without selling moderation power o
 
 Release 2 enables operating-system and browser spelling support. A later preview can add opt-in grammar suggestions through a privacy-reviewed LanguageTool deployment. Private alliance messages must not be sent to a third-party writing service without explicit disclosure and consent.
 
+### Later release: multilingual writing
+
+Replace the current English-only editor hint with a per-user language preference and automatic language detection. The writing tools should support multiple dictionaries, remember the selected language across the site, allow quick language switching in the composer, and fall back to the browser safely when advanced grammar assistance is unavailable. Alliance and community channels may use different default languages, but each member's personal preference must take priority.
+
 ## Remaining slices
 
 1. Threads, pinned-message browser, search, attachments, and proper report dialog.
