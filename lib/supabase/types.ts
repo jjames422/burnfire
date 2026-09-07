@@ -125,6 +125,8 @@ export type MessageReactionRow = {
   emoji: string;
   created_at: string;
 };
+export type PinnedMessageRow = { channel_id: string; message_id: string; pinned_by: string; pinned_at: string };
+export type ContentReportRow = { id: string; reporter_id: string; target_type: "comment" | "message" | "fan_art"; target_id: string; reason: string; status: "open" | "resolved" | "dismissed"; created_at: string };
 export type NotificationRow = {
   id: string;
   user_id: string;
@@ -223,6 +225,18 @@ export type Database = {
         Update: never;
         Relationships: [];
       };
+      pinned_messages: {
+        Row: PinnedMessageRow;
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      content_reports: {
+        Row: ContentReportRow;
+        Insert: Pick<ContentReportRow, "reporter_id" | "target_type" | "target_id" | "reason">;
+        Update: never;
+        Relationships: [];
+      };
       notifications: {
         Row: NotificationRow;
         Insert: never;
@@ -279,6 +293,10 @@ export type Database = {
       };
       delete_message: {
         Args: { p_message_id: string };
+        Returns: undefined;
+      };
+      pin_message: {
+        Args: { p_message_id: string; p_pin: boolean };
         Returns: undefined;
       };
       mark_notification_read: {
