@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { GuideFrontmatter } from "@/lib/content/types";
 import { TagChip } from "./TagChip";
 
@@ -13,6 +14,8 @@ export function GuideCard({ guide, index }: GuideCardProps) {
       href={`/guides/${guide.slug}`}
       className="guide-card group"
     >
+      {guide.heroImage && <div className="guide-card-image"><Image src={guide.heroImage} alt="" fill sizes="(min-width: 900px) 50vw, 100vw" /></div>}
+      <div className="guide-card-content">
       {index && <span className="guide-index">0{index}</span>}
       <div className="mb-3 flex flex-wrap gap-1.5">
         {guide.tags.map((tag) => (
@@ -28,6 +31,7 @@ export function GuideCard({ guide, index }: GuideCardProps) {
         {guide.authorRank ? ` · ${guide.authorRank}` : ""} · {guide.publishedAt}
       </p>
       <span className="guide-arrow">↗</span>
+      </div>
     </Link>
   );
 }
