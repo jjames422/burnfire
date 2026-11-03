@@ -77,7 +77,12 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     assert.equal(options.response.status, 200);
     assert.equal(options.data.authenticatorSelection.userVerification, "required");
     assert.equal(options.data.authenticatorSelection.residentKey, "required");
+    assert.equal(options.data.authenticatorSelection.authenticatorAttachment, "platform");
+    assert.deepEqual(options.data.hints, ["client-device"]);
     assert.equal(options.data.rp.id, new URL(origin).hostname);
+    const authentication = await request("/api/auth/passkeys/authenticate/options", "POST", "", {});
+    assert.equal(authentication.response.status, 200);
+    assert.deepEqual(authentication.data.hints, ["client-device"]);
 
     await request("/api/command/members", "PATCH", admin.cookie, { user_id: member.id, game_rank: "r2" });
     assert.equal((await request("/api/command/overview", "GET", member.cookie)).response.status, 403, "Demotion works without signing out");

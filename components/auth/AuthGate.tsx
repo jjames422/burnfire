@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode, type SubmitEvent } from "react";
-import { browserSupportsWebAuthn, startAuthentication, type PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/browser";
+import { browserSupportsWebAuthn, platformAuthenticatorIsAvailable, startAuthentication, type PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/browser";
 import { api, apiPost } from "@/lib/api/client";
 import type { ProfileRow, SessionInfo } from "@/lib/api/types";
 import { ProfileSetupModal } from "./ProfileSetupModal";
@@ -36,8 +36,14 @@ export function AuthGate({
   const [passkeySupported, setPasskeySupported] = useState(false);
 
   useEffect(() => {
-    setPasskeySupported(browserSupportsWebAuthn());
     let cancelled = false;
+    if (browserSupportsWebAuthn()) {
+      platformAuthenticatorIsAvailable().then((available) => {
+        if (!cancelled) setPasskeySupported(available);
+      }).catch(() => {
+        if (!cancelled) setError("Device sign-in availability could not be checked. Use email to continue.");
+      });
+    }
     api<SessionInfo>("/api/auth/session").then(({ data }) => {
       if (cancelled) return;
       setUserId(data?.user?.id ?? null);
@@ -130,7 +136,7 @@ export function AuthGate({
             <button type="button" className="auth-passkey auth-submit" disabled={sending || !passkeySupported} onClick={handlePasskey}>
               <span aria-hidden="true">⌘</span> {sending ? "Connecting securely…" : "Sign in with a passkey"}
             </button>
-            <p className="auth-method-hint auth-intro">{passkeySupported ? "Face ID, fingerprint, or your security key." : "Passkeys require a supported browser and a secure connection. Email works below."}</p>
+            <p className="auth-method-hint auth-intro">{passkeySupported ? "Use a passkey already saved for this site with Face ID, Touch ID, Windows Hello, or your device PIN. First visit? Sign in by email, then add a passkey in Sign-in & security." : "Built-in device sign-in is unavailable in this browser. Use email below, or open the portal in a browser with Face ID, Touch ID, or Windows Hello enabled."}</p>
             <div className="auth-method-divider"><span>or continue with email</span></div>
             <div className="auth-method-tabs" role="group" aria-label="Email sign-in method">
               <button type="button" className={`auth-method-tab ${method === "code" ? "is-active" : ""}`} aria-pressed={method === "code"} disabled={sending} onClick={() => { setMethod("code"); setError(null); }}>One-time code</button>

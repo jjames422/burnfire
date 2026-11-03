@@ -63,7 +63,12 @@ export async function registrationOptions(origin: string) {
     rpName: "BurnFire", rpID: new URL(origin).hostname,
     userName: session.user.email, userID: new TextEncoder().encode(session.user.id),
     attestationType: "none",
-    authenticatorSelection: { residentKey: "required", userVerification: "required" },
+    preferredAuthenticatorType: "localDevice",
+    authenticatorSelection: {
+      authenticatorAttachment: "platform",
+      residentKey: "required",
+      userVerification: "required",
+    },
     excludeCredentials: existing.map((key) => ({ id: key.credential_id, transports: key.transports })),
   });
   await saveChallenge("registration", options.challenge, session.user.id, session.sessionHash);
@@ -96,6 +101,7 @@ export async function authenticationOptions(origin: string) {
   const options = await generateAuthenticationOptions({
     rpID: new URL(origin).hostname, userVerification: "required",
   });
+  options.hints = ["client-device"];
   await saveChallenge("authentication", options.challenge);
   return options;
 }

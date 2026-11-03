@@ -50,6 +50,14 @@ LAN address does not support passkeys. Each relying-party hostname has its own c
 enroll a new passkey on the final portal hostname even if you previously tested on localhost.
 Keep email access as the recovery method and consider adding a second passkey.
 
+New passkey registration is restricted to the device's built-in authenticator, with a
+local-device browser hint. Sign-in also hints that the browser should use this device.
+The UI checks for a user-verifying platform authenticator before enabling passkey buttons;
+devices without one retain email sign-in rather than being directed to a USB key.
+First-time users must sign in by email and register a passkey in Sign-in & security first.
+The operating system controls the final sign-in sheet; hints cannot force its exact appearance
+or create a missing credential. Existing registered keys are not deleted by this change.
+
 ## Validation
 
 `npm run ci` runs type checks, source/schema policy checks, unit tests, and a production build.

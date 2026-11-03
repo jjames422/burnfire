@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { browserSupportsWebAuthn, startRegistration, type PublicKeyCredentialCreationOptionsJSON } from "@simplewebauthn/browser";
+import { browserSupportsWebAuthn, platformAuthenticatorIsAvailable, startRegistration, type PublicKeyCredentialCreationOptionsJSON } from "@simplewebauthn/browser";
 import { api, apiPost } from "@/lib/api/client";
 
 type Passkey = { id: string; name: string; created_at: string; last_used_at: string | null };
@@ -21,8 +21,16 @@ export function SignInSettings() {
     else { setKeys(result.data.passkeys); setError(null); }
   }
   useEffect(() => {
-    setSupported(browserSupportsWebAuthn());
+    let active = true;
+    if (browserSupportsWebAuthn()) {
+      platformAuthenticatorIsAvailable().then((available) => {
+        if (active) setSupported(available);
+      }).catch(() => {
+        if (active) setError("Device sign-in availability could not be checked. Email sign-in remains available.");
+      });
+    }
     void load();
+    return () => { active = false; };
   }, []);
 
   async function register() {
@@ -60,10 +68,10 @@ export function SignInSettings() {
       {error && <p className="portal-alert" role="alert">{error}</p>}
       {message && <p className="portal-notice" role="status">{message}</p>}
       <section className="portal-panel portal-security-card">
-        <h2>Passkeys</h2><p>Use your face, fingerprint, security key, or device PIN. Your biometric data stays on your device. Add a backup passkey on a second device if possible.</p>
+        <h2>Passkeys</h2><p>Save a passkey on this device using Face ID, Touch ID, Windows Hello, or your device PIN. No USB security key or separate authenticator app is required. Your biometric data stays on your device.</p>
         <p>For your protection, adding a passkey requires signing in within the last 10 minutes. If asked, sign out below and sign back in first.</p>
         <div className="portal-passkey-form"><label htmlFor="passkey-name">Device nickname</label><input id="passkey-name" maxLength={80} value={name} onChange={(event) => setName(event.target.value)} placeholder="e.g. My phone" /><button disabled={!supported || busy} onClick={() => void register()} className="portal-primary">{busy ? "Working..." : "Add a passkey"}</button></div>
-        {!supported && <p className="portal-alert">Passkeys need a supported browser and HTTPS, or localhost for development. They do not work on plain HTTP network addresses.</p>}
+        {!supported && <p className="portal-alert">Built-in device sign-in is unavailable here. Enable your device screen lock or Windows Hello and use a supported browser over HTTPS (or localhost for development). You can keep signing in by email without any extra hardware.</p>}
         <ul>{keys.map((key) => <li key={key.id}><div><strong>{key.name}</strong><p>Added {new Date(key.created_at).toLocaleDateString()}{key.last_used_at ? ` / Last used ${new Date(key.last_used_at).toLocaleDateString()}` : ""}</p></div><button disabled={busy} onClick={() => setRemoveId(key.id)} className="portal-secondary">Remove</button></li>)}</ul>
         {keys.length === 0 && <p>No passkeys yet. Email sign-in is still available.</p>}
         {removeId && <div className="portal-confirm"><p>Remove this passkey? You can still sign in using email or another registered passkey.</p><div className="portal-actions"><button disabled={busy} onClick={() => void remove()} className="portal-primary">Confirm removal</button><button disabled={busy} onClick={() => setRemoveId(null)} className="portal-secondary">Cancel</button></div></div>}
