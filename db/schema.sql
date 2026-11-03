@@ -126,6 +126,25 @@ create table if not exists platform_admins (
   created_at timestamptz not null default now()
 );
 
+create table if not exists membership_requests (
+  user_id uuid primary key references users (id) on delete cascade,
+  requested_rank game_rank not null,
+  requested_title alliance_title,
+  status text not null default 'pending' check (status in ('pending', 'approved')),
+  created_at timestamptz not null default now(),
+  reviewed_by uuid references users (id) on delete set null,
+  reviewed_at timestamptz,
+  approved_rank game_rank,
+  approved_title alliance_title,
+  check (
+    (requested_rank in ('r1','r2','r3') and requested_title is null)
+    or (requested_rank = 'r4' and (requested_title is null or requested_title in ('diplomat','recruiter','goddess','god_of_war')))
+    or (requested_rank = 'r5' and requested_title = 'alliance_leader')
+  )
+);
+create index if not exists membership_requests_pending_idx
+  on membership_requests (created_at) where status = 'pending';
+
 create table if not exists alliance_invitations (
   id uuid primary key default gen_random_uuid(),
   alliance text not null references alliances (slug) on delete cascade,

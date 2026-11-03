@@ -65,7 +65,8 @@ export async function PATCH(request: NextRequest) {
       );
     }
     const completion = await client.query<{ done: boolean }>(
-      `select e.officer_interest is not null and not exists (
+      `select e.officer_interest is not null
+       and nullif(trim(e.game_identifier), '') is not null and not exists (
          select 1 from academy_content c
          left join academy_acknowledgments a on a.user_id = e.user_id and a.content_id = c.id
          where c.status = 'published' and c.required

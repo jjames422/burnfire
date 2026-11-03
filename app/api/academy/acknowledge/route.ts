@@ -13,11 +13,12 @@ export async function POST(request: NextRequest) {
   }
 
   const result = await withTransaction(async (client) => {
-    const enrolled = await client.query(
-      `select 1 from academy_enrollments where user_id = $1 for update`,
+    const enrolled = await client.query<{ game_identifier: string | null }>(
+      `select game_identifier from academy_enrollments where user_id = $1 for update`,
       [user.id],
     );
     if (!enrolled.rowCount) return { error: "Redeem a BF2 recruit invitation to continue.", status: 403 };
+    if (!enrolled.rows[0].game_identifier?.trim()) return { error: "Enter your required in-game tag before acknowledging training.", status: 409 };
 
     const contentResult = await client.query<{ id: string }>(
       `select id from academy_content where slug = $1 and status = 'published'`,
@@ -70,6 +71,7 @@ export async function POST(request: NextRequest) {
        ) and exists (
          select 1 from academy_enrollments e
          where e.user_id = $1 and e.officer_interest is not null
+           and nullif(trim(e.game_identifier), '') is not null
        ) as done`,
       [user.id],
     );

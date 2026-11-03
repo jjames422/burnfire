@@ -8,13 +8,21 @@ const RANK_LABELS: Record<GameRank, string> = {
   r5: "Alliance Leader",
 };
 
-const TITLE_LABELS: Record<AllianceTitle, string> = {
+export const TITLE_LABELS: Record<AllianceTitle, string> = {
   diplomat: "Diplomat",
   recruiter: "Recruiter",
   goddess: "Goddess",
   god_of_war: "God of War",
   alliance_leader: "Alliance Leader",
 };
+
+export const R4_TITLES = ["diplomat", "recruiter", "goddess", "god_of_war"] as const;
+
+export function validTitleForRank(rank: GameRank, title: unknown): title is AllianceTitle | null {
+  if (rank === "r5") return title === "alliance_leader";
+  if (rank === "r4") return title === null || R4_TITLES.some((value) => value === title);
+  return title === null;
+}
 
 export function formatMemberIdentity({
   inGameName,

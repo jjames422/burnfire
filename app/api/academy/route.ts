@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError, requireUser } from "@/lib/server/http";
+import { academyStepLimit } from "@/lib/server/academy";
 
 type AcademyContentRow = {
   id: string;
@@ -35,14 +36,17 @@ export async function GET() {
     officer_interest: "yes" | "later" | "no" | null;
     current_step: number;
     completed_at: string | null;
+    game_identifier: string | null;
   }>(
     `select p.in_game_name, e.communication_preference, e.alliance_mail_help,
-            e.officer_interest, e.current_step, e.completed_at
+            e.officer_interest, e.current_step, e.completed_at, e.game_identifier
      from academy_enrollments e join profiles p on p.id = e.user_id
      where e.user_id = $1`,
     [user.id],
   );
   if (!enrollment) return jsonError("Redeem a BF2 recruit invitation to access the academy.", 403);
+  const limit = await academyStepLimit(user.id);
+  enrollment.current_step = Math.min(enrollment.current_step, limit ?? 1);
 
   const content = await query<AcademyContentRow>(
     `select c.id, c.slug, c.version, c.content_type, c.title, c.body,

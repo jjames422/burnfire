@@ -12,13 +12,14 @@ export async function PATCH(request: NextRequest) {
     return jsonError("Enter a game identifier between 2 and 80 characters.");
   }
 
-  const found = await withTransaction(async (client) => {
-    const enrollment = await client.query<{ identity_status: string }>(
-      `select identity_status from academy_enrollments where user_id = $1 for update`,
+  const identityStatus = await withTransaction(async (client) => {
+    const enrollment = await client.query<{ identity_status: string; game_identifier: string | null }>(
+      `select identity_status, game_identifier from academy_enrollments where user_id = $1 for update`,
       [user.id],
     );
     const current = enrollment.rows[0];
-    if (!current) return false;
+    if (!current) return null;
+    if (current.game_identifier === gameIdentifier) return current.identity_status;
     await client.query(
       `update academy_enrollments set game_identifier = $2, identity_status = 'pending',
          identity_verified_by = null, identity_verified_at = null
@@ -38,8 +39,8 @@ export async function PATCH(request: NextRequest) {
        where user_id = $1 and alliance = 'burnfire'`,
       [user.id],
     );
-    return true;
+    return "pending";
   });
-  if (!found) return jsonError("Redeem a BF2 recruit invitation to continue.", 403);
-  return NextResponse.json({ submitted: true, identity_status: "pending" });
+  if (identityStatus === null) return jsonError("Redeem a BF2 recruit invitation to continue.", 403);
+  return NextResponse.json({ submitted: true, identity_status: identityStatus });
 }

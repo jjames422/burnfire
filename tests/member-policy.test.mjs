@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { canAssignRank, isAllianceRank, permissionForRank } from "../lib/command/member-policy.ts";
+import { validTitleForRank, R4_TITLES, TITLE_LABELS } from "../lib/identity.ts";
 
 test("R3 and R4 ranks carry officer chat access without implying site administration", () => {
   assert.equal(permissionForRank("r1"), "member");
@@ -25,4 +26,18 @@ test("only leadership can approve ranks below their own, while site administrati
 test("rank input is validated against the shared membership ranks", () => {
   for (const rank of ["r1", "r2", "r3", "r4", "r5"]) assert.equal(isAllianceRank(rank), true);
   for (const value of ["admin", "R4", "", null, {}, 4]) assert.equal(isAllianceRank(value), false);
+});
+
+test("titles are rank-specific and R5 is always Alliance Leader", () => {
+  for (const rank of ["r1", "r2", "r3"]) {
+    assert.equal(validTitleForRank(rank, null), true);
+    for (const title of Object.keys(TITLE_LABELS)) assert.equal(validTitleForRank(rank, title), false);
+  }
+  for (const title of R4_TITLES) assert.equal(validTitleForRank("r4", title), true);
+  assert.equal(validTitleForRank("r4", null), true);
+  assert.equal(validTitleForRank("r4", "alliance_leader"), false);
+  assert.equal(validTitleForRank("r4", "site_admin"), false);
+  assert.equal(validTitleForRank("r5", "alliance_leader"), true);
+  assert.equal(validTitleForRank("r5", null), false);
+  assert.equal(validTitleForRank("r5", "goddess"), false);
 });

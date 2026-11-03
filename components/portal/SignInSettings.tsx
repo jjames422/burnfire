@@ -43,7 +43,7 @@ export function SignInSettings() {
       if (result.error) throw new Error(result.error);
       setName("");
       await load();
-      setMessage("Your passkey is ready. Next time, choose Sign in with a passkey.");
+      setMessage("Your passkey is ready. Next time, select the email field and choose your saved account.");
     } catch (failure) {
       setError(failure instanceof Error && failure.name !== "NotAllowedError" ? failure.message : "Passkey setup was cancelled. You can try again or keep using email.");
     } finally { setBusy(false); }

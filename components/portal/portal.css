@@ -80,6 +80,11 @@
 .portal-panel p { color: #aaa9b2; font-size: 12px; line-height: 1.9; }
 .portal-apply { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; }
 .portal-apply form { display: grid; gap: 12px; align-content: center; }
+.portal-apply select { width: 100%; padding: 12px; color: #eee8e2; background: #17171d; border: 1px solid #45404b; border-radius: 8px; }
+.portal-admin-tasks { margin-top: 24px; }
+.portal-admin-tasks h3 { margin-top: 24px; }
+.portal-admin-tasks ul { margin-top: 12px; }
+.portal-admin-tasks li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid #35313b; }
 .portal-shell input:not([type="radio"]):not([type="checkbox"]), .portal-shell select, .portal-shell textarea { border: 1px solid #ffffff20; background: #121317; border-radius: 7px; padding: 12px 14px; color: #f3efe9; font: inherit; font-size: 12px; min-width: 0; }
 .portal-shell label { font-size: 12px; }
 .portal-page-heading { padding: 12px 0 32px; }

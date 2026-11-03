@@ -24,11 +24,12 @@ export async function POST(request: NextRequest) {
     return jsonError("Submit answers for a valid training section.");
   }
 
-  const enrolled = await queryOne<{ user_id: string }>(
-    `select user_id from academy_enrollments where user_id = $1`,
+  const enrolled = await queryOne<{ user_id: string; game_identifier: string | null }>(
+    `select user_id, game_identifier from academy_enrollments where user_id = $1`,
     [user.id],
   );
   if (!enrolled) return jsonError("Redeem a BF2 recruit invitation to continue.", 403);
+  if (!enrolled.game_identifier?.trim()) return jsonError("Enter your required in-game tag before taking a knowledge check.", 409);
 
   const result = await withTransaction(async (client) => {
     const contentResult = await client.query<{ id: string; title: string }>(

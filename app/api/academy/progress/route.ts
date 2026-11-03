@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { queryOne, withTransaction } from "@/lib/server/db";
 import { jsonError, requireUser } from "@/lib/server/http";
+import { academyStepLimit } from "@/lib/server/academy";
 
 export async function POST(request: NextRequest) {
   const { user, response } = await requireUser();
@@ -18,6 +19,8 @@ export async function POST(request: NextRequest) {
     [user.id],
   );
   if (!enrollment) return jsonError("Redeem a BF2 recruit invitation to continue.", 403);
+  const limit = await academyStepLimit(user.id);
+  if (limit === null || step > limit) return jsonError("Complete the required identity and training steps before continuing.", 409);
 
   const result = await withTransaction(async (client) => {
     const content = await client.query<{ id: string; title: string }>(

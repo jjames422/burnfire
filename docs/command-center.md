@@ -139,6 +139,31 @@ content version. A failed check creates one deduplicated officer follow-up for t
 section. Acknowledging a published replacement version is separate from acknowledging an older
 version.
 
+An in-game tag/player ID is mandatory before quizzes or training acknowledgments. Members cannot
+skip required sections: progression is limited server-side to the first unacknowledged required
+section after identity submission and communication selection. Previously skipped saved positions
+resume at the earliest unmet requirement. Members may pause without advancing to another section.
+
+### Signup approvals
+
+The site-admin headquarters includes persistent membership approval tasks and signup counts.
+Site admins can view every signed-up account (including incomplete profiles) in Members &
+oversight, with search, pagination, signup dates, and email addresses. Other leadership users
+retain their existing alliance-scoped roster; signup tasks and email addresses are site-admin only.
+
+Members joining from the portal without an invitation request R1 through R5 alongside their game
+ID. R4 may request Diplomat, Recruiter, Goddess, God of War, or no special title; R5 automatically
+requests Alliance Leader. These are claims only and never grant permissions. A site administrator
+approves the requested rank/title or selects different ones in Members & oversight. Approval
+records the decision and clears the task, updating the shared chat/academy/command membership.
+Site administration remains independent of alliance ranks and is not self-selectable.
+
+Passkey sign-in uses conditional browser autofill on the email field rather than a button that
+opens a security-key/QR-code chooser. A saved passkey for the current hostname can be selected
+from the field. First-time visitors and browsers without passkey autofill use email, then may
+register a built-in-device passkey in Sign-in & security. The browser controls its own credential
+UI; a website cannot create an unsaved passkey during sign-in or force biometric availability.
+
 The site does not read game telemetry. Game identifiers are self-submitted and remain pending
 until an authorized officer verifies them. No in-game mail-open, relocation, research-donation, or
 target-eligibility detection is claimed.

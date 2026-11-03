@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode, type SubmitEvent } from "react";
-import { browserSupportsWebAuthn, platformAuthenticatorIsAvailable, startAuthentication, type PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/browser";
+import { browserSupportsWebAuthnAutofill, WebAuthnAbortService, startAuthentication, type PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/browser";
 import { api, apiPost } from "@/lib/api/client";
 import type { ProfileRow, SessionInfo } from "@/lib/api/types";
 import { ProfileSetupModal } from "./ProfileSetupModal";
@@ -37,13 +37,6 @@ export function AuthGate({
 
   useEffect(() => {
     let cancelled = false;
-    if (browserSupportsWebAuthn()) {
-      platformAuthenticatorIsAvailable().then((available) => {
-        if (!cancelled) setPasskeySupported(available);
-      }).catch(() => {
-        if (!cancelled) setError("Device sign-in availability could not be checked. Use email to continue.");
-      });
-    }
     api<SessionInfo>("/api/auth/session").then(({ data }) => {
       if (cancelled) return;
       setUserId(data?.user?.id ?? null);
@@ -68,26 +61,36 @@ export function AuthGate({
     else setSent(true);
   }
 
-  async function handlePasskey() {
-    setSending(true);
-    setError(null);
-    try {
-      const options = await apiPost<PublicKeyCredentialRequestOptionsJSON>("/api/auth/passkeys/authenticate/options", {});
-      if (options.error || !options.data) throw new Error(options.error ?? "Passkey sign-in is unavailable.");
-      const response = await startAuthentication({ optionsJSON: options.data });
-      const verified = await apiPost("/api/auth/passkeys/authenticate/verify", { response });
-      if (verified.error) throw new Error(verified.error);
-      const session = await api<SessionInfo>("/api/auth/session");
-      if (!session.data?.user) throw new Error(session.error ?? "Sign-in could not be completed.");
-      setUserId(session.data.user.id);
-      setProfile(session.data.profile);
-    } catch (failure) {
-      setError(failure instanceof Error && failure.name !== "NotAllowedError"
-        ? failure.message : "Passkey sign-in was cancelled. Try again or use email.");
-    } finally {
-      setSending(false);
+  useEffect(() => {
+    if (loading || userId || sent) return;
+    let active = true;
+    async function offerSavedPasskey() {
+      try {
+        const available = await browserSupportsWebAuthnAutofill();
+        if (!active) return;
+        setPasskeySupported(available);
+        if (!available) return;
+        const options = await apiPost<PublicKeyCredentialRequestOptionsJSON>("/api/auth/passkeys/authenticate/options", {});
+        if (options.error || !options.data) throw new Error(options.error ?? "Passkey sign-in is unavailable.");
+        if (!active) return;
+        const response = await startAuthentication({ optionsJSON: options.data, useBrowserAutofill: true });
+        if (!active) return;
+        const verified = await apiPost("/api/auth/passkeys/authenticate/verify", { response });
+        if (verified.error) throw new Error(verified.error);
+        const session = await api<SessionInfo>("/api/auth/session");
+        if (!session.data?.user) throw new Error(session.error ?? "Sign-in could not be completed.");
+        if (!active) return;
+        setUserId(session.data.user.id);
+        setProfile(session.data.profile);
+      } catch (failure) {
+        if (!active) return;
+        if (failure instanceof Error && (failure.name === "AbortError" || failure.name === "NotAllowedError")) return;
+        setError(failure instanceof Error ? failure.message : "Saved-passkey sign-in is unavailable. Use email to continue.");
+      }
     }
-  }
+    void offerSavedPasskey();
+    return () => { active = false; WebAuthnAbortService.cancelCeremony(); };
+  }, [loading, userId, sent]);
 
   async function handleVerifyCode(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -133,11 +136,7 @@ export function AuthGate({
         <p className="auth-intro">{featureName ? `Sign in to access ${featureName}. ` : ""}Your place by the fire, without another password. Use a passkey, an email link, or a one-time code.</p>
         {!sent && (
           <>
-            <button type="button" className="auth-passkey auth-submit" disabled={sending || !passkeySupported} onClick={handlePasskey}>
-              <span aria-hidden="true">⌘</span> {sending ? "Connecting securely…" : "Sign in with a passkey"}
-            </button>
-            <p className="auth-method-hint auth-intro">{passkeySupported ? "Use a passkey already saved for this site with Face ID, Touch ID, Windows Hello, or your device PIN. First visit? Sign in by email, then add a passkey in Sign-in & security." : "Built-in device sign-in is unavailable in this browser. Use email below, or open the portal in a browser with Face ID, Touch ID, or Windows Hello enabled."}</p>
-            <div className="auth-method-divider"><span>or continue with email</span></div>
+            <p className="auth-method-hint auth-intro">{passkeySupported ? "Already saved a passkey for this website? Select the email field and choose your saved account to use Touch ID, Face ID, or your device unlock. No saved passkey? Use email below first." : "Sign in with email below. You can set up device sign-in after signing in."} First visit? Add a passkey in Sign-in &amp; security after signing in by email.</p>
             <div className="auth-method-tabs" role="group" aria-label="Email sign-in method">
               <button type="button" className={`auth-method-tab ${method === "code" ? "is-active" : ""}`} aria-pressed={method === "code"} disabled={sending} onClick={() => { setMethod("code"); setError(null); }}>One-time code</button>
               <button type="button" className={`auth-method-tab ${method === "link" ? "is-active" : ""}`} aria-pressed={method === "link"} disabled={sending} onClick={() => { setMethod("link"); setError(null); }}>Email me a link</button>
@@ -190,7 +189,7 @@ export function AuthGate({
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="auth-input"
-              autoComplete="email"
+              autoComplete="username webauthn"
               disabled={sending}
             />
             <button type="submit" disabled={sending} className="auth-submit">

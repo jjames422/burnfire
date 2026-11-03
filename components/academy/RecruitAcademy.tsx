@@ -28,6 +28,7 @@ type AcademyData = {
     officer_interest: "yes" | "later" | "no" | null;
     current_step: number;
     completed_at: string | null;
+    game_identifier: string | null;
   };
   content: AcademyItem[];
 };
@@ -63,6 +64,7 @@ export function RecruitAcademy() {
       return;
     }
     setData(result.data);
+    setGameIdentifier(result.data.enrollment.game_identifier ?? "");
     setStep(result.data.enrollment.current_step);
     setError(null);
   }
@@ -249,12 +251,11 @@ export function RecruitAcademy() {
           <p className="mt-3 text-text-secondary">Profile name: <strong className="text-text-primary">{data.enrollment.in_game_name}</strong></p>
           <form onSubmit={submitGameIdentifier} className="mt-5 space-y-3">
             <label className="block text-sm">
-              <span className="mb-1 block text-text-secondary">Game identifier, if available</span>
-              <input value={gameIdentifier} onChange={(event) => setGameIdentifier(event.target.value)} minLength={2} maxLength={80} className="w-full border border-border bg-bg px-3 py-2" />
+              <span className="mb-1 block text-text-secondary">In-game tag / player ID (required)</span>
+              <input required value={gameIdentifier} onChange={(event) => setGameIdentifier(event.target.value)} minLength={2} maxLength={80} className="w-full border border-border bg-bg px-3 py-2" />
             </label>
             <p className="text-xs text-text-secondary">An identifier is only a self-submitted claim until an officer verifies it.</p>
             <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => void moveTo(2)} className={buttonClass}>Continue without an ID</button>
               <button disabled={busy || gameIdentifier.trim().length < 2} className={buttonClass}>{busy ? "Submitting…" : "Submit ID and continue"}</button>
             </div>
           </form>
@@ -353,7 +354,8 @@ export function RecruitAcademy() {
             )}
             <button disabled={busy} onClick={() => void requestHelp(activeModule)} className={buttonClass}>I need officer help</button>
             {step > 0 && <button disabled={busy} onClick={() => void moveTo(step - 1)} className={buttonClass}>Previous</button>}
-            <button disabled={busy} onClick={() => void moveTo(Math.min(step + 1, totalSteps - 1))} className={buttonClass}>Save and continue later</button>
+            <button disabled={busy || (activeModule.required && !activeModule.acknowledged_at)} onClick={() => void moveTo(Math.min(step + 1, totalSteps - 1))} className={buttonClass}>Continue to next section</button>
+            <Link href="/portal" className={buttonClass}>Pause and return to portal</Link>
           </div>
         </section>
       )}
