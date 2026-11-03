@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EmberBackdrop, SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
 import { HeroArtPlaceholder } from "@/components/heroes/HeroArtPlaceholder";
-import { getHero, getMaxStats, getSkills, heroes, type Hero } from "@/lib/content/heroes";
+import { getHero, getMaxStats, getSkills, heroDataSource, heroes, type Hero } from "@/lib/content/heroes";
 
 export function generateStaticParams() { return heroes.map(({ slug }) => ({ slug })); }
 
@@ -13,7 +13,13 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
   if (!hero) notFound();
 
   const maxStats = getMaxStats(hero);
-  const stats = maxStats ? [["ATK", maxStats.attack], ["HP", maxStats.hp], ["DEF", maxStats.defense], ["CMD", maxStats.command]] : [];
+  const stats = [["ATK", maxStats.attack], ["HP", maxStats.hp], ["DEF", maxStats.defense], ["CMD", maxStats.command]];
+  const facts = [
+    hero.power && ["Power at full build", hero.power],
+    hero.attackInterval && ["Attack speed", `1 hit every ${hero.attackInterval}`],
+    hero.exclusiveWeapon && ["Exclusive weapon", hero.exclusiveWeapon],
+    hero.tierLists && ["Community tier lists", hero.tierLists],
+  ].filter((fact): fact is string[] => Boolean(fact));
   const skills = getSkills(hero);
   const partners = hero.pairsWith.map(getHero).filter((partner): partner is Hero => partner !== undefined);
 
@@ -40,8 +46,13 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
                 <div className="hero-stat-grid">
                   {stats.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
                 </div>
-                <p className="hero-stat-note">Max stats at Lv150 · 10★</p>
+                <p className="hero-stat-note">Hero stats at Lv150 · 10★, before gear, weapon, awakening and buildings</p>
               </>
+            )}
+            {facts.length > 0 && (
+              <dl className="hero-fact-list">
+                {facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+              </dl>
             )}
             <section className="hero-intel-panel"><small>How to get {hero.name}</small><p>{hero.unlock}</p></section>
             <section className="hero-intel-panel"><small>Star investment</small><p>{hero.investment}</p></section>
@@ -58,17 +69,26 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
           <section className="hero-skill-section">
             <span className="signal-kicker"><i /> Skill archive</span>
             <h2>Skills</h2>
+            {hero.skillPriority && hero.skillPriority.length > 0 && (
+              <p className="hero-skill-priority"><strong>Skill Badge priority:</strong> {hero.skillPriority.join(" → ")}</p>
+            )}
             <ol className="hero-skill-list">
               {skills.map((skill, index) => (
                 <li key={skill.name} className="hero-skill">
                   <div className="hero-skill-head">
                     <span className="hero-skill-index">{String(index + 1).padStart(2, "0")}</span>
                     <div>
-                      <small>{skill.kind}{skill.cooldown ? ` · ${skill.cooldown} CD` : ""}</small>
+                      <small>{skill.kind}{skill.cooldown ? ` · ${skill.cooldown} CD` : ""}{skill.unlock ? ` · ${skill.unlock}` : ""}</small>
                       <h3>{skill.name}</h3>
                     </div>
                   </div>
-                  <p>{skill.effect}</p>
+                  <p>{skill.effect}{skill.starUpgrades ? ` (skill Lv1 → Lv${hero.rarity === "SR" ? 30 : 40})` : ""}</p>
+                  {skill.starUpgrades && (
+                    <ul className="hero-skill-upgrades">
+                      {skill.starUpgrades.map((upgrade) => <li key={upgrade}>{upgrade}</li>)}
+                    </ul>
+                  )}
+                  {skill.maxStars && <p className="hero-skill-max">{skill.maxStars}</p>}
                 </li>
               ))}
             </ol>
@@ -95,7 +115,7 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
             )}
           </section>
 
-          <p className="hero-source-note">Skill values come from in-game skill text at max rank and can shift with balance patches. Availability changes with server age. Confirm current details in game before spending.</p>
+          <p className="hero-source-note">Stats, skill values and unlock days from the <a href={heroDataSource.url} target="_blank" rel="noopener noreferrer">{heroDataSource.name}</a>, checked {heroDataSource.checked}. Values can shift with balance patches, and availability changes with server age. Confirm current details in game before spending.</p>
         </div>
       </article>
       <SiteFooter />
