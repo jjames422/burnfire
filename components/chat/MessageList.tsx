@@ -45,7 +45,9 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
 
   useEffect(() => { load(); }, [refreshVersion, load]);
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [messages.length]);
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages.length]);
 
   async function react(message: ChatMessageRow, emoji: string) {
     if (!userId) return;
