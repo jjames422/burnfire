@@ -1,4 +1,4 @@
-import { Pool, type QueryResultRow } from "pg";
+import { Pool, type PoolClient, type QueryResultRow } from "pg";
 
 /**
  * Connection pool for the dedicated burnfire Postgres cluster (its own
@@ -32,4 +32,21 @@ export async function queryOne<T extends QueryResultRow>(
 ): Promise<T | null> {
   const rows = await query<T>(text, params);
   return rows[0] ?? null;
+}
+
+export async function withTransaction<T>(
+  work: (client: PoolClient) => Promise<T>,
+): Promise<T> {
+  const client = await pool.connect();
+  try {
+    await client.query("begin");
+    const result = await work(client);
+    await client.query("commit");
+    return result;
+  } catch (error) {
+    await client.query("rollback");
+    throw error;
+  } finally {
+    client.release();
+  }
 }

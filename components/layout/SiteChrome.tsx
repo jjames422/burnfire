@@ -5,11 +5,11 @@ export function EmberBackdrop() {
 }
 
 export function SiteHeader({ active }: { active?: string }) {
-  const links = [["Guides", "/guides"], ["Heroes", "/heroes"], ["Updates", "/updates"], ["Community", "/chat"]];
+  const links = [["Guides", "/guides"], ["Heroes", "/heroes"], ["Updates", "/updates"], ["Community", "/chat"], ["Member portal", "/portal"]];
   return <header className="public-header">
     <Link href="/" className="brand-lockup"><img src="/images/burnfire/logo.png" alt="" /><span><small>Last Asylum</small><strong>Plague</strong></span></Link>
     <nav>{links.map(([label, href]) => <Link key={href} href={href} className={active === label.toLowerCase() ? "active" : ""}>{label}</Link>)}</nav>
-    <Link href="/chat" className="header-cta"><i /> Enter community</Link>
+    <Link href="/portal" className="header-cta"><i /> Enter member portal</Link>
   </header>;
 }
 

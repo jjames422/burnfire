@@ -8,10 +8,13 @@
     "typecheck": "next typegen && tsc --noEmit",
     "check:migrations": "node scripts/check-migrations.mjs",
     "check:source": "node scripts/check-source.mjs",
-    "ci": "npm run typecheck && npm run check:source && npm run check:migrations && npm run build",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "ci": "npm run typecheck && npm run check:source && npm run check:migrations && npm run test && npm run build",
     "start": "next start"
   },
   "dependencies": {
+    "@simplewebauthn/browser": "^14.0.0",
+    "@simplewebauthn/server": "^14.0.3",
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",

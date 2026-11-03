@@ -55,6 +55,40 @@ create table if not exists sessions (
 );
 create index if not exists sessions_user_idx on sessions (user_id);
 
+create table if not exists auth_links (
+  token_hash text primary key,
+  email text not null,
+  return_to text not null default '/portal',
+  expires_at timestamptz not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists auth_links_email_idx on auth_links (email, created_at desc);
+
+create table if not exists passkeys (
+  credential_id text primary key,
+  user_id uuid not null references users (id) on delete cascade,
+  public_key bytea not null,
+  counter bigint not null default 0,
+  transports text[] not null default '{}',
+  device_type text not null,
+  backed_up boolean not null default false,
+  name text not null default 'My passkey',
+  created_at timestamptz not null default now(),
+  last_used_at timestamptz
+);
+create index if not exists passkeys_user_idx on passkeys (user_id);
+
+create table if not exists auth_challenges (
+  token_hash text primary key,
+  challenge text not null,
+  purpose text not null check (purpose in ('registration', 'authentication')),
+  user_id uuid references users (id) on delete cascade,
+  session_hash text,
+  expires_at timestamptz not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists auth_challenges_expiry_idx on auth_challenges (expires_at);
+
 -- === Alliances and identity ===============================================
 
 create table if not exists alliances (
@@ -327,6 +361,195 @@ create table if not exists fan_art (
   created_at timestamptz not null default now()
 );
 
+-- === BurnFire recruit academy and command center ===========================
+
+create table if not exists command_invitations (
+  id uuid primary key default gen_random_uuid(),
+  email text not null check (email = lower(email) and char_length(email) <= 254),
+  token_hash text not null unique,
+  created_by uuid not null references users (id) on delete restrict,
+  expires_at timestamptz not null default (now() + interval '14 days'),
+  opened_at timestamptz,
+  redeemed_by uuid unique references users (id) on delete set null,
+  redeemed_at timestamptz,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now()
+);
+create index if not exists command_invitations_email_idx
+  on command_invitations (email, created_at desc);
+create unique index if not exists command_invitations_one_active_email
+  on command_invitations (email) where redeemed_at is null and revoked_at is null;
+
+create table if not exists academy_enrollments (
+  user_id uuid primary key references users (id) on delete cascade,
+  invitation_id uuid unique references command_invitations (id) on delete set null,
+  game_identifier text check (game_identifier is null or char_length(trim(game_identifier)) between 2 and 80),
+  communication_preference text check (communication_preference in ('external_chat', 'website', 'both')),
+  alliance_mail_help boolean,
+  officer_interest text check (officer_interest in ('yes', 'later', 'no')),
+  identity_status text not null default 'pending'
+    check (identity_status in ('pending', 'verified')),
+  identity_verified_by uuid references users (id) on delete set null,
+  identity_verified_at timestamptz,
+  assigned_officer uuid references users (id) on delete set null,
+  current_step integer not null default 0 check (current_step >= 0),
+  started_at timestamptz not null default now(),
+  completed_at timestamptz,
+  check ((identity_status = 'pending') or (identity_verified_at is not null))
+);
+alter table academy_enrollments add column if not exists game_identifier text;
+create index if not exists academy_enrollments_assigned_idx
+  on academy_enrollments (assigned_officer, started_at desc);
+
+create table if not exists membership_history (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references users (id) on delete cascade,
+  changed_by uuid references users (id) on delete set null,
+  previous_rank game_rank,
+  new_rank game_rank not null,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists recruit_assignment_history (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references users (id) on delete cascade,
+  changed_by uuid references users (id) on delete set null,
+  previous_officer uuid references users (id) on delete set null,
+  new_officer uuid references users (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists academy_identity_history (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references users (id) on delete cascade,
+  changed_by uuid references users (id) on delete set null,
+  previous_status text not null check (previous_status in ('pending', 'verified')),
+  new_status text not null check (new_status in ('pending', 'verified')),
+  note text check (char_length(note) <= 1000),
+  changed_at timestamptz not null default now()
+);
+create index if not exists academy_identity_history_user_idx
+  on academy_identity_history (user_id, changed_at desc);
+
+create table if not exists academy_content (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
+  version integer not null check (version > 0),
+  content_type text not null check (content_type in ('rule', 'module', 'announcement')),
+  title text not null check (char_length(trim(title)) between 1 and 160),
+  body text not null check (char_length(body) between 1 and 30000),
+  required boolean not null default true,
+  status text not null default 'draft' check (status in ('draft', 'published', 'retired')),
+  verification_status text not null default 'verified'
+    check (verification_status in ('verified', 'leadership_review')),
+  created_by uuid references users (id) on delete set null,
+  published_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  published_at timestamptz,
+  unique (slug, version)
+);
+create unique index if not exists academy_content_one_published
+  on academy_content (slug) where status = 'published';
+create index if not exists academy_content_published_idx
+  on academy_content (content_type, slug) where status = 'published';
+
+create table if not exists academy_questions (
+  id uuid primary key default gen_random_uuid(),
+  content_id uuid not null references academy_content (id) on delete cascade,
+  slug text not null,
+  prompt text not null check (char_length(trim(prompt)) between 1 and 1000),
+  options jsonb not null check (jsonb_typeof(options) = 'array' and jsonb_array_length(options) between 2 and 8),
+  correct_index integer not null check (correct_index between 0 and 7),
+  explanation text not null check (char_length(trim(explanation)) between 1 and 1000),
+  sort_order integer not null default 0,
+  unique (content_id, slug)
+);
+
+create table if not exists academy_progress (
+  user_id uuid not null references users (id) on delete cascade,
+  content_id uuid not null references academy_content (id) on delete restrict,
+  status text not null default 'not_started'
+    check (status in ('not_started', 'in_progress', 'completed', 'needs_assistance')),
+  current_step integer not null default 0 check (current_step >= 0),
+  needs_assistance boolean not null default false,
+  updated_at timestamptz not null default now(),
+  completed_at timestamptz,
+  primary key (user_id, content_id),
+  check ((status = 'completed') = (completed_at is not null))
+);
+create index if not exists academy_progress_content_idx
+  on academy_progress (content_id, status, updated_at desc);
+
+create table if not exists academy_quiz_attempts (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users (id) on delete cascade,
+  content_id uuid not null references academy_content (id) on delete restrict,
+  answers jsonb not null check (jsonb_typeof(answers) = 'object'),
+  correct_count integer not null check (correct_count >= 0),
+  question_count integer not null check (question_count > 0),
+  passed boolean not null,
+  created_at timestamptz not null default now(),
+  check (correct_count <= question_count)
+);
+create index if not exists academy_quiz_attempts_user_idx
+  on academy_quiz_attempts (user_id, content_id, created_at desc);
+
+create table if not exists academy_acknowledgments (
+  user_id uuid not null references users (id) on delete cascade,
+  content_id uuid not null references academy_content (id) on delete restrict,
+  acknowledged_at timestamptz not null default now(),
+  primary key (user_id, content_id)
+);
+
+create table if not exists command_followups (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users (id) on delete cascade,
+  issue_key text not null check (char_length(trim(issue_key)) between 1 and 100),
+  content_id uuid references academy_content (id) on delete set null,
+  reason text not null check (char_length(trim(reason)) between 1 and 1000),
+  status text not null default 'open'
+    check (status in ('open', 'contacted', 'awaiting_response', 'resolved')),
+  assigned_to uuid references users (id) on delete set null,
+  created_by uuid references users (id) on delete set null,
+  officer_notes text not null default '',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  resolved_at timestamptz
+);
+create unique index if not exists command_followups_one_unresolved_issue
+  on command_followups (user_id, issue_key) where status <> 'resolved';
+create index if not exists command_followups_queue_idx
+  on command_followups (status, assigned_to, created_at desc);
+
+create table if not exists command_followup_history (
+  id bigint generated always as identity primary key,
+  followup_id uuid not null references command_followups (id) on delete cascade,
+  editor_id uuid references users (id) on delete set null,
+  previous_status text not null,
+  previous_notes text not null,
+  previous_assigned_to uuid references users (id) on delete set null,
+  edited_at timestamptz not null default now()
+);
+
+create table if not exists command_notes (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users (id) on delete cascade,
+  author_id uuid not null references users (id) on delete restrict,
+  body text not null check (char_length(trim(body)) between 1 and 4000),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists command_notes_user_idx
+  on command_notes (user_id, created_at desc);
+
+create table if not exists command_note_history (
+  id bigint generated always as identity primary key,
+  note_id uuid not null references command_notes (id) on delete cascade,
+  editor_id uuid references users (id) on delete set null,
+  previous_body text not null,
+  edited_at timestamptz not null default now()
+);
+
 -- === Helper functions ======================================================
 
 create or replace function role_rank(r permission_role) returns integer
@@ -336,9 +559,42 @@ $$;
 
 create or replace function user_role(p_actor uuid, p_alliance text) returns permission_role
 language sql stable as $$
-  select permission_role from alliance_members
-  where user_id = p_actor and alliance = p_alliance;
+  select case when exists (select 1 from platform_admins where user_id = p_actor)
+    then 'admin'::permission_role
+    else (
+      select case when game_rank = 'r5' then 'admin'::permission_role
+                  when game_rank in ('r3', 'r4') then 'officer'::permission_role
+                  else 'member'::permission_role end
+      from alliance_members
+      where user_id = p_actor and alliance = p_alliance and verified_at is not null
+    ) end;
 $$;
+
+create or replace function sync_membership_access() returns trigger
+language plpgsql as $$
+begin
+  new.permission_role := case when new.game_rank = 'r5' then 'admin'::permission_role
+    when new.game_rank in ('r3', 'r4') then 'officer'::permission_role
+    else 'member'::permission_role end;
+  update profiles set alliance = new.alliance,
+    permission_role = case when exists (select 1 from platform_admins where user_id = new.user_id)
+      then 'admin'::permission_role else new.permission_role end
+    where id = new.user_id;
+  if new.alliance = 'burnfire' then
+    insert into academy_enrollments
+      (user_id, identity_status, identity_verified_by, identity_verified_at)
+    values (new.user_id, case when new.verified_at is null then 'pending' else 'verified' end,
+      new.verified_by, new.verified_at)
+    on conflict (user_id) do nothing;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists alliance_members_sync_access on alliance_members;
+create trigger alliance_members_sync_access
+before insert or update on alliance_members
+for each row execute function sync_membership_access();
 
 create or replace function is_platform_admin(p_actor uuid) returns boolean
 language sql stable as $$
@@ -587,8 +843,12 @@ begin
       (alliance, user_id, permission_role, game_rank, alliance_title, verified_at, verified_by)
     values (invitation.alliance, p_actor, invitation.permission_role, invitation.game_rank,
       invitation.alliance_title, now(), invitation.invited_by);
-    update profiles set alliance = invitation.alliance,
-      permission_role = invitation.permission_role where id = p_actor;
+    if invitation.alliance = 'burnfire' then
+      insert into academy_enrollments
+        (user_id, identity_status, identity_verified_by, identity_verified_at, started_at)
+      values (p_actor, 'verified', invitation.invited_by, now(), now())
+      on conflict (user_id) do nothing;
+    end if;
   end if;
   update alliance_invitations
   set status = case when p_accept then 'accepted' else 'declined' end, responded_at = now()
@@ -643,6 +903,122 @@ $$;
 insert into alliances (slug, name, code, kingdom_number)
 values ('burnfire', 'BurnFire Alliance', 'BFA', 324)
 on conflict (slug) do nothing;
+
+insert into academy_enrollments
+  (user_id, identity_status, identity_verified_by, identity_verified_at, started_at)
+select am.user_id,
+       case when am.verified_at is null then 'pending' else 'verified' end,
+       am.verified_by, am.verified_at, am.joined_at
+from alliance_members am
+join profiles p on p.id = am.user_id
+where am.alliance = 'burnfire'
+on conflict (user_id) do nothing;
+
+insert into academy_content
+  (slug, version, content_type, title, body, required, status, verification_status)
+values
+  ('rule-01-alliance-communication', 1, 'rule', 'Alliance Communication',
+   'Welcome to BurnFire (BF2)! Read alliance chat regularly. Important announcements, event strategies, operational instructions, and leadership notices are communicated there. Members are responsible for staying informed and following applicable alliance instructions.',
+   true, 'published', 'verified'),
+  ('rule-02-communication-platforms', 1, 'rule', 'Website and Optional Chat',
+   'BF2 provides alliance guides, event strategies, announcements, questions and answers, leadership communication, recruitment assistance, and training resources through its website and optional external chat server. External chat participation is encouraged, not mandatory. No member may be penalized for choosing website-based communication instead. Choose your preference: external chat, BF2 Website, or Both.',
+   true, 'published', 'verified'),
+  ('rule-03-alliance-mail', 1, 'rule', 'Mandatory Alliance Mail',
+   'Reading alliance mail is mandatory. Alliance mail is separate from other in-game notices and alliance chat and is used to distribute important instructions consistently. Learn where it is located, how to open it, why it must be read, and how to recognize official instructions. The website cannot detect whether in-game mail was opened. If you need help finding alliance mail, request officer assistance.',
+   true, 'published', 'verified'),
+  ('rule-04-identity-and-conduct', 1, 'rule', 'Player Identity and Conduct',
+   'Maintain a recognizable, unique gamer name. Generic or repeated names such as "Doctor" make member identification and alliance administration difficult. Bullying, harassment, threatening or abusive conduct, unnecessary interpersonal drama, and sharing another member''s private information without permission are not acceptable. Keep alliance communication respectful and constructive.',
+   true, 'published', 'verified'),
+  ('rule-05-server-rules', 1, 'rule', 'Server Rules and Protected Alliances',
+   'Observe applicable server rules. Do not rob caravans or Special Ops originating from your own server. Do not recruit or poach members from Top 10 alliances, and do not attack Top 10 alliances. Permitted cross-server activity is different from prohibited same-server activity. Follow current alliance policy and ask leadership when eligibility is unclear.',
+   true, 'published', 'verified'),
+  ('rule-06-conflict-and-diplomacy', 1, 'rule', 'Conflict Management and Diplomacy',
+   'Members are not authorized to initiate wars or issue threats on behalf of BF2. If another player or alliance creates a problem, contact alliance leadership before escalating. Do not represent yourself as speaking for BF2 leadership without authorization.',
+   true, 'published', 'verified'),
+  ('rule-07-cross-server-targets', 1, 'rule', 'Cross-Server Caravans and Special Ops',
+   'Understand the difference between targets from your own server, targets from another server, targets protected by server rules, and targets permitted by current alliance policy. Do not rob caravans or Special Ops originating from your own server. The game-interface navigation and eligibility details require leadership verification before they can be published as authoritative instructions. Ask an officer for help if you are unsure.',
+   true, 'published', 'leadership_review'),
+  ('rule-08-alliance-location', 1, 'rule', 'Alliance Location and Assembly',
+   'Remain reasonably close to the BF2 alliance marker and assembly area. If you are far away, use the supplied in-game path: Alliance → Assembly Point → Relocate. The website cannot independently verify in-game relocation. Request help if you cannot find the assembly point.',
+   true, 'published', 'verified'),
+  ('rule-09-direct-relocates', 1, 'rule', 'Direct Relocates',
+   'Direct Relocates may be available through the Alliance Store. Learn where to find them and when repositioning may be appropriate. Spending real money is not required.',
+   true, 'published', 'verified'),
+  ('rule-10-rallies-and-digs', 1, 'rule', 'Rallies and Alliance Digs',
+   'When you begin a rally or Alliance Dig, announce it in alliance chat so other members have an opportunity to participate. Communicate, cooperate, invite alliance participation, and support shared progress. Do not quietly perform Alliance Digs alone when alliance participation should be offered.',
+   true, 'published', 'verified'),
+  ('rule-11-weekly-research', 1, 'rule', 'Weekly Alliance Research',
+   'The weekly alliance research contribution minimum is 3,200. Donate to the research selected by alliance leadership. Use Alliance Help, join rallies when possible, participate in alliance activities, and support research progression. Diamonds and real-money purchases are never required.',
+   true, 'published', 'verified'),
+  ('rule-12-ranks-and-advancement', 1, 'rule', 'Alliance Ranks and Advancement',
+   'Ranks are earned through participation and contribution, including research donations, Alliance Help, rally and Alliance Dig participation, activity, cooperation, and leadership involvement. R2 is a standard alliance member; R3 and above are leadership roles. Website activity or quiz completion does not automatically promote anyone. You may express interest in becoming a future R3 officer; interest is not an application approval or promotion.',
+   true, 'published', 'verified'),
+  ('cross-server-plundering-covert-ops', 1, 'module', 'Cross-Server Plundering & Covert Ops Protocol',
+   'Core policy: never share a Covert Ops target after it has already been hit twice. Before sharing any target, verify its server, eligibility, and attack or hit information. Do not plunder caravans from your own server. Do not attack or share targets that are ineligible under server rules or current alliance policy. If you have a dispute, contact leadership; do not threaten another alliance on BF2''s behalf. Use the BF2 training resources or ask an officer if you need help. Detailed game-interface navigation and target mechanics are marked for leadership review because they have not been independently verified.',
+   true, 'published', 'leadership_review')
+on conflict (slug, version) do nothing;
+
+insert into academy_questions
+  (content_id, slug, prompt, options, correct_index, explanation, sort_order)
+select c.id, q.slug, q.prompt, q.options::jsonb, q.correct_index, q.explanation, q.sort_order
+from (values
+  ('rule-01-alliance-communication', 'check-chat', 'What are members expected to do with alliance chat?',
+   '["Read it regularly","Read it only after an officer messages them","Ignore it if they use the website"]', 0,
+   'Important announcements, strategies, instructions, and leadership notices are shared in alliance chat.', 1),
+  ('rule-02-communication-platforms', 'check-preference', 'Is external chat mandatory for BF2 members?',
+   '["Yes, it is required","No. It is encouraged, and website communication remains an option","Only for recruits"]', 1,
+   'External chat is encouraged but not mandatory, and members must not be penalized for preferring the website.', 1),
+  ('rule-03-alliance-mail', 'check-mail', 'You do not know how to open alliance mail. What should you do?',
+   '["Ignore alliance mail","Request help and use the provided guide","Assume the website can confirm you opened it"]', 1,
+   'Alliance mail is mandatory. The website cannot detect in-game mail reads; request help if needed.', 1),
+  ('rule-04-identity-and-conduct', 'check-conduct', 'Which conduct is expected in alliance communication?',
+   '["Respectful and constructive communication","Threats when another player disagrees","Sharing private member information"]', 0,
+   'Members must communicate respectfully and must not harass or share private information without permission.', 1),
+  ('rule-05-server-rules', 'check-own-server', 'You find a caravan originating from your own server. What should you do?',
+   '["Do not rob it","Rob it if no one is watching","Ask another member to rob it"]', 0,
+   'BF2 members must not rob caravans from their own server.', 1),
+  ('rule-05-server-rules', 'check-protected-alliance', 'May you attack or recruit members from a Top 10 alliance?',
+   '["Yes, if you ask first","No","Only during an event"]', 1,
+   'Attacking Top 10 alliances and recruiting or poaching their members are prohibited.', 2),
+  ('rule-06-conflict-and-diplomacy', 'check-diplomacy', 'A player from another alliance causes a problem. What should you do?',
+   '["Threaten their alliance on BF2''s behalf","Contact alliance leadership before escalating","Declare a war yourself"]', 1,
+   'Members cannot initiate wars or make threats for BF2. Contact leadership.', 1),
+  ('rule-07-cross-server-targets', 'check-target-server', 'What must you verify before interacting with a possible cross-server target?',
+   '["Its server and eligibility under current rules","Only whether it looks valuable","Nothing if another member shared it"]', 0,
+   'Check the target server and current eligibility; ask leadership if the game mechanics or rules are unclear.', 1),
+  ('rule-08-alliance-location', 'check-assembly', 'What in-game path is supplied for returning to the assembly area?',
+   '["Alliance → Assembly Point → Relocate","Map → Store → Buy","Chat → Profile → Move"]', 0,
+   'The supplied path is Alliance → Assembly Point → Relocate. The website cannot verify the relocation.', 1),
+  ('rule-09-direct-relocates', 'check-relocate-purchase', 'Are real-money purchases required to reposition?',
+   '["Yes","No","Only for recruits"]', 1,
+   'Direct Relocates may be available in the Alliance Store; spending real money is not required.', 1),
+  ('rule-10-rallies-and-digs', 'check-announcement', 'What should you do when you begin a rally or Alliance Dig?',
+   '["Announce it in alliance chat so others can join","Keep it private","Wait until it ends to mention it"]', 0,
+   'Announcing rallies and digs gives members an opportunity to participate and supports shared progress.', 1),
+  ('rule-11-weekly-research', 'check-research-minimum', 'What is the weekly alliance research contribution minimum?',
+   '["320","3,200","32,000"]', 1,
+   'The minimum is 3,200. Diamonds and real-money purchases are never required.', 1),
+  ('rule-12-ranks-and-advancement', 'check-promotion', 'Does completing the website quiz automatically promote a member?',
+   '["Yes, to R3","No. Rank is earned through participation and contribution","Yes, if they use external chat"]', 1,
+   'Website activity and quiz completion do not automatically promote members.', 1),
+  ('cross-server-plundering-covert-ops', 'check-own-caravan', 'You locate a caravan belonging to your own server. What should you do?',
+   '["Do not plunder it","Share it for others to plunder","Attack it before checking"]', 0,
+   'Same-server caravans must not be plundered.', 1),
+  ('cross-server-plundering-covert-ops', 'check-two-hits', 'A Covert Ops target has already been hit twice. Should you share it?',
+   '["Yes, immediately","No","Only with officers"]', 1,
+   'Do not share a Covert Ops target after it has already been hit twice.', 2),
+  ('cross-server-plundering-covert-ops', 'check-target-checks', 'What should you verify before sharing a possible cross-server target?',
+   '["Eligibility, server, and relevant attack or hit information","Only the target name","Whether it is already popular"]', 0,
+   'Check its eligibility and server, plus relevant attack or hit information.', 3),
+  ('cross-server-plundering-covert-ops', 'check-threats', 'Should you threaten another alliance on BF2''s behalf?',
+   '["No. Contact leadership","Yes, if you are upset","Yes, if the other player started it"]', 0,
+   'Members are not authorized to threaten others or initiate wars for BF2.', 4),
+  ('cross-server-plundering-covert-ops', 'check-request-help', 'A recruit does not know how to access cross-server Special Ops. What should they do?',
+   '["Use the BF2 training guide or ask an officer","Guess until it works","Ask someone to share an unverified target"]', 0,
+   'Use approved BF2 training or ask an officer for help.', 5)
+) as q(content_slug, slug, prompt, options, correct_index, explanation, sort_order)
+join academy_content c on c.slug = q.content_slug and c.version = 1
+on conflict (content_id, slug) do nothing;
 
 insert into channels (alliance, slug, name, topic, min_role, sort_order, scope)
 select v.* from (values

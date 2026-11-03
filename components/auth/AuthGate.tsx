@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode, type SubmitEvent } from "react";
+import { browserSupportsWebAuthn, startAuthentication, type PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/browser";
 import { api, apiPost } from "@/lib/api/client";
 import type { ProfileRow, SessionInfo } from "@/lib/api/types";
 import { ProfileSetupModal } from "./ProfileSetupModal";
@@ -9,14 +10,20 @@ interface AuthGateProps {
   children: ReactNode;
   redirectPath?: string;
   featureName?: string;
+  allowIncompleteProfile?: boolean;
 }
 
 /**
- * Gates children behind a signed-in session (email + 6-digit code), then
+ * Gates children behind a signed-in session, then
  * behind a completed `profiles` row. First-time sign-ins see
  * ProfileSetupModal; everyone after that skips straight to `children`.
  */
-export function AuthGate({ children }: AuthGateProps) {
+export function AuthGate({
+  children,
+  allowIncompleteProfile = false,
+  redirectPath,
+  featureName,
+}: AuthGateProps) {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
@@ -25,8 +32,11 @@ export function AuthGate({ children }: AuthGateProps) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [method, setMethod] = useState<"code" | "link">("code");
+  const [passkeySupported, setPasskeySupported] = useState(false);
 
   useEffect(() => {
+    setPasskeySupported(browserSupportsWebAuthn());
     let cancelled = false;
     api<SessionInfo>("/api/auth/session").then(({ data }) => {
       if (cancelled) return;
@@ -43,12 +53,34 @@ export function AuthGate({ children }: AuthGateProps) {
     event.preventDefault();
     setSending(true);
     setError(null);
-    const { error: sendError } = await apiPost("/api/auth/request-code", {
+    const { error: sendError } = await apiPost(method === "link" ? "/api/auth/request-link" : "/api/auth/request-code", {
       email: email.trim(),
+      returnTo: redirectPath ?? `${window.location.pathname}${window.location.search}`,
     });
     setSending(false);
     if (sendError) setError(sendError);
     else setSent(true);
+  }
+
+  async function handlePasskey() {
+    setSending(true);
+    setError(null);
+    try {
+      const options = await apiPost<PublicKeyCredentialRequestOptionsJSON>("/api/auth/passkeys/authenticate/options", {});
+      if (options.error || !options.data) throw new Error(options.error ?? "Passkey sign-in is unavailable.");
+      const response = await startAuthentication({ optionsJSON: options.data });
+      const verified = await apiPost("/api/auth/passkeys/authenticate/verify", { response });
+      if (verified.error) throw new Error(verified.error);
+      const session = await api<SessionInfo>("/api/auth/session");
+      if (!session.data?.user) throw new Error(session.error ?? "Sign-in could not be completed.");
+      setUserId(session.data.user.id);
+      setProfile(session.data.profile);
+    } catch (failure) {
+      setError(failure instanceof Error && failure.name !== "NotAllowedError"
+        ? failure.message : "Passkey sign-in was cancelled. Try again or use email.");
+    } finally {
+      setSending(false);
+    }
   }
 
   async function handleVerifyCode(event: SubmitEvent<HTMLFormElement>) {
@@ -74,16 +106,49 @@ export function AuthGate({ children }: AuthGateProps) {
 
   if (!userId) {
     return (
-      <div className="auth-card">
+      <div className="auth-card auth-card-premium">
+        <style>{`
+          .auth-card-premium .auth-passkey { display:flex; align-items:center; justify-content:center; gap:10px; height:52px; border:1px solid #625043; color:#fff1dc; background:linear-gradient(120deg,#302522,#1a171b); box-shadow:inset 0 1px 0 #ffffff0d,0 8px 25px #0003; }
+          .auth-card-premium .auth-passkey span { font-size:22px; color:#ffb66c; }
+          .auth-card-premium .auth-method-hint { margin:10px 0 22px; text-align:center; font-size:11px; }
+          .auth-method-divider { display:flex; align-items:center; gap:12px; margin:22px 0; color:#8c8182; font-size:10px; letter-spacing:.08em; }
+          .auth-method-divider::before,.auth-method-divider::after { content:""; flex:1; height:1px; background:#393037; }
+          .auth-method-tabs { display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; margin-bottom:22px; border:1px solid #382d32; border-radius:12px; background:#100e12; }
+          .auth-method-tab { padding:11px 8px; border:1px solid transparent; border-radius:8px; color:#9b8e8d; font-size:11px; transition:background .2s,color .2s; }
+          .auth-method-tab.is-active { color:#ffe7c0; border-color:#62402c; background:linear-gradient(120deg,#47291d,#2e2020); box-shadow:0 2px 6px #0003; }
+          .auth-method-tab:focus-visible,.auth-resend:focus-visible { outline:2px solid #ffb21c; outline-offset:3px; }
+          .auth-card-premium .auth-resend { display:block; margin:16px auto 0; color:#bb9b83; font-size:11px; line-height:1.6; text-align:center; }
+          .auth-card-premium .auth-sent { margin-bottom:20px; }
+          .auth-card-premium button:disabled { cursor:not-allowed; }
+        `}</style>
         <div className="auth-mascot"><img src="/images/burnfire/logo.png" alt="BurnFire mascot" /></div>
-        <span className="eyebrow">Kingdom #324 community access</span>
+        <span className="eyebrow">Your alliance. Your secure access.</span>
         <h2>Enter the survivor network</h2>
-        <p className="auth-intro">One secure code, sent to your email. No password to remember. Your in-game identity follows you everywhere on the site.</p>
-        {sent ? (
+        <p className="auth-intro">{featureName ? `Sign in to access ${featureName}. ` : ""}Your place by the fire, without another password. Use a passkey, an email link, or a one-time code.</p>
+        {!sent && (
+          <>
+            <button type="button" className="auth-passkey auth-submit" disabled={sending || !passkeySupported} onClick={handlePasskey}>
+              <span aria-hidden="true">⌘</span> {sending ? "Connecting securely…" : "Sign in with a passkey"}
+            </button>
+            <p className="auth-method-hint auth-intro">{passkeySupported ? "Face ID, fingerprint, or your security key." : "Passkeys require a supported browser and a secure connection. Email works below."}</p>
+            <div className="auth-method-divider"><span>or continue with email</span></div>
+            <div className="auth-method-tabs" role="group" aria-label="Email sign-in method">
+              <button type="button" className={`auth-method-tab ${method === "code" ? "is-active" : ""}`} aria-pressed={method === "code"} disabled={sending} onClick={() => { setMethod("code"); setError(null); }}>One-time code</button>
+              <button type="button" className={`auth-method-tab ${method === "link" ? "is-active" : ""}`} aria-pressed={method === "link"} disabled={sending} onClick={() => { setMethod("link"); setError(null); }}>Email me a link</button>
+            </div>
+          </>
+        )}
+        {sent && method === "link" ? (
+          <div className="auth-link-sent">
+            <div className="auth-sent" role="status"><span aria-hidden="true">✦</span><strong>Your invitation to the fire</strong><p>A secure sign-in link is on its way to {email.trim()}. It expires in 10 minutes. Open it and choose Continue.</p></div>
+            <button type="button" className="auth-resend" disabled={sending} onClick={() => { setSent(false); setError(null); }}>Use another method or resend</button>
+          </div>
+        ) : sent ? (
           <form onSubmit={handleVerifyCode}>
             <div className="auth-sent"><span>✦</span><strong>Check your email</strong><p>Enter the 6-digit code we sent to {email.trim()}.</p></div>
-            <label className="auth-label">Sign-in code</label>
+            <label className="auth-label" htmlFor="auth-code">Sign-in code</label>
             <input
+              id="auth-code"
               required
               inputMode="numeric"
               pattern="[0-9]{6}"
@@ -93,8 +158,9 @@ export function AuthGate({ children }: AuthGateProps) {
               onChange={(event) => setCode(event.target.value)}
               className="auth-input"
               autoFocus
+              autoComplete="one-time-code"
+              disabled={sending}
             />
-            {error && <p className="auth-error">{error}</p>}
             <button type="submit" disabled={sending} className="auth-submit">
               {sending ? "Verifying…" : "Enter the network"}
             </button>
@@ -109,27 +175,30 @@ export function AuthGate({ children }: AuthGateProps) {
           </form>
         ) : (
           <form onSubmit={handleSendCode}>
-            <label className="auth-label">Email address</label>
+            <label className="auth-label" htmlFor="auth-email">Email address</label>
             <input
+              id="auth-email"
               type="email"
               required
               placeholder="you@example.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="auth-input"
+              autoComplete="email"
+              disabled={sending}
             />
-            {error && <p className="auth-error">{error}</p>}
             <button type="submit" disabled={sending} className="auth-submit">
-              {sending ? "Sending secure code…" : "Continue with email code"}
+              {sending ? "Sending securely…" : method === "link" ? "Send my sign-in link" : "Continue with email code"}
             </button>
           </form>
         )}
+        {error && <p className="auth-error" role="alert">{error}</p>}
         <small className="auth-host">Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community</small>
       </div>
     );
   }
 
-  if (!profile) {
+  if (!profile && !allowIncompleteProfile) {
     return <ProfileSetupModal onComplete={setProfile} />;
   }
 

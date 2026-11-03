@@ -1,11 +1,28 @@
 # Managing roles and channels
 
-There's no admin UI in the app for this (deliberately deferred — see the bottom of this doc).
-Both tasks below happen directly in the local database with **psql** on the server:
+## Member management in the portal
+
+Use **Members & oversight** in the portal, **Members & roles** from chat, or the corresponding
+Command Center tab. R4 can approve R1-R3, R5 can manage lower ranks, and site administrators
+can manage all alliance ranks. Confirming a rank updates the shared membership used by chat,
+academy, and command; there are no separate feature-specific role assignments.
+
+The database synchronizes website permissions from rank: R1/R2 are members, R3/R4 are
+officers, and R5 is alliance admin. Site administration is independent in `platform_admins`;
+an R4 site administrator retains R4 identity with full website access.
+
+Officer workload cards and the rank-change timeline support leadership oversight. Recruit
+reassignment is restricted to R4/R5 or site administrators and is recorded separately.
+
+## Server-side setup
+
+Initial site administration and channel creation still require server access. Database commands
+must target only the dedicated BurnFire instance. If your terminal has not loaded the environment,
+use an explicit connection (the password is prompted, not printed):
 
 ```bash
 cd /home/opc/websites/burnfire-site
-psql "$(grep '^DATABASE_URL=' .env.local | cut -d= -f2-)"
+psql -h 127.0.0.1 -p 5433 -U burnfire_app -d burnfire -W
 ```
 
 That connects to the site's dedicated PostgreSQL instance (its own cluster on port 5433 — not
@@ -27,8 +44,8 @@ alliance; the database enforces this with `user_id` as the membership's primary 
    `god_of_war`. The R5 must have `alliance_leader`. Every title and R5 are unique per alliance;
    the database rejects a second holder.
 5. Set `verified_at` to the current time and `verified_by` to the verifying officer's user ID.
-6. Set website access in `permission_role`: normally `member` for R1-R3, `officer` for R4, and
-   `admin` for the R5 Alliance Leader.
+6. Website access is synchronized from the rank automatically: `member` for R1/R2, `officer`
+   for R3/R4, and `admin` for R5. Use the portal for normal approvals so the action is recorded.
 7. Save.
 
 The site builds the public label from this live membership data. An unaffiliated profile appears
@@ -42,16 +59,10 @@ the site.
 
 ## Changing website access
 
-Channel access is controlled by `permission_role` on **`alliance_members`**. Change it to
-`member`, `officer`, or `admin`; the change takes effect after the member reloads chat.
-
-1. Table Editor → **`alliance_members`**.
-2. Find the member's alliance/user row.
-3. Change `permission_role`, e.g.:
-
-   ```sql
-   update alliance_members set permission_role = 'officer' where user_id = '<uuid>';
-   ```
+Channel access is derived from verified membership rank, with an independent site-admin override.
+Change the member's rank in the portal rather than editing `permission_role`; direct permission
+changes are overwritten by the synchronization trigger. Subsequent requests use the new rank;
+reload chat to refresh the visible channel list.
 
 ## Adding a new channel
 
@@ -87,11 +98,5 @@ The channel appears in every authorized member's sidebar immediately — no depl
 (`channel_id` has `on delete cascade`), so consider whether you actually want that before
 deleting — there's no undo.
 
-## Why there's no admin UI for this (yet)
-
-This is a deliberate v1 scope decision, not an oversight: building a self-service admin screen
-(role management, channel CRUD, with its own permission checks) is meaningfully more work than
-this project's alliance-management needs justify right now, and psql on the server already
-does the job safely (it requires SSH access to the server, separate from the site entirely).
-If BurnFire's admin needs grow past "occasionally promote someone or add a channel,"
-revisit building a real admin UI then — not preemptively now.
+Channel creation and site-admin appointments remain server-managed. The member approval UI
+does not grant site-admin privileges, even when assigning R5.

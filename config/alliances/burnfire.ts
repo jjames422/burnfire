@@ -5,7 +5,7 @@ export const burnfire: Alliance = {
   name: "BurnFire",
   tagline: "Survive together. Burn brighter.",
   gameName: "Last Asylum: Plague",
-  domain: "lastasylumplague.org",
+  domain: "burnfire2.com",
   logo: "/images/burnfire/logo.png",
   theme: {
     colorBg: "#09090B",

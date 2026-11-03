@@ -11,8 +11,15 @@ Planned and evolving areas include:
 - Strategy guides and hero information
 - Game updates, known bugs, and community discoveries
 - Alliance spaces with channels and live chat
+- BF2 recruit academy and officer Command Center
 - Comments, reactions, and fan art
 - Interactive visuals, motion, and chibi hero artwork
+
+The recruit and officer workflows are documented in
+[docs/command-center.md](./docs/command-center.md).
+The member headquarters is available at `/portal` locally and is prepared for
+`portal.burnfire2.com`. It connects academy, chat, shared membership approvals, and officer
+tools with email-code, email-link, and passkey sign-in.
 
 ## Community access
 
