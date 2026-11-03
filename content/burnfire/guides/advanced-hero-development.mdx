@@ -2,7 +2,7 @@
 title: "Advanced Hero Development"
 slug: "advanced-hero-development"
 tags: ["Hero", "PVP", "PVE"]
-summary: "Build a five-hero squad around roles and faction synergy, invest at the Sanctuary breakpoint, and validate every upgrade through combat."
+summary: "Build a five-hero squad around roles and faction synergy, invest at the Sanctuary breakpoint, read real stat comparisons, and prove every upgrade in combat."
 heroImage: "/images/guides/advanced-hero-development-3.png"
 author: "Sentro"
 publishedAt: "2026-10-25"
@@ -10,50 +10,138 @@ alliance: "burnfire"
 draft: false
 ---
 
+Building powerful heroes takes more than pushing your Might number up. Might is a summary score: it tells you roughly how much has been invested in a hero, not whether that hero is doing the right job in your squad. Advanced development means understanding five things together — **formations, faction advantages, skill progression, equipment, and resource efficiency** — and then checking the result in real fights.
+
+This guide is a three-part field manual. Part 1 covers how to structure a squad, Part 2 covers where to spend resources and in what order, and Part 3 shows real stat comparisons and a testing method.
+
 <Figure src="/images/guides/advanced-hero-development-3.png" alt="Advanced Hero Development field manual part 1: the five-hero doctrine, squad architecture, and faction synergy" caption="Part 1 of 3 — the five-hero doctrine." width={1086} height={1448} />
 
-Building powerful heroes requires more than increasing Might. Advanced development means understanding formations, faction advantages, skill progression, equipment, and resource efficiency.
+## Part 1 — Squad architecture
 
-## Squad architecture
+A squad is five heroes, and each slot should have a purpose. The recommended structure is **two tanks, two damage dealers, and one support or flex slot**:
 
-Build around five heroes with complementary roles:
+| Position | Count | Job |
+| --- | --- | --- |
+| Frontline (tanks) | 2 | Absorb incoming damage so the backline survives long enough to work. |
+| Backline (damage) | 2 | Deal high damage output and eliminate threats fast. |
+| Support / flex | 1 | Provide healing, buffs, or special utility — whatever your squad is missing. |
 
-- **Frontline:** two durable tanks to absorb damage.
-- **Backline:** two damage dealers to eliminate threats.
-- **Support:** one hero providing useful buffs, healing, or other abilities.
+**Why this shape works:** if your frontline collapses early, the enemy reaches your damage dealers and the fight is over. If you stack only tanks, nothing dies and you lose on time or attrition. The support slot is the one you adjust most — swap it to cover whatever weakness shows up in your battle reports.
 
-Example formation: **Louis + Ulfrid** in front, with **Red Lady + Marlena + Harper** behind.
+**Example formation:**
 
-<Callout variant="warning" title="A sample, not a guarantee">This is a sample formation, not a guaranteed optimal team. Review hero skills and faction bonuses before committing resources.</Callout>
+- **Front:** Louis + Ulfrid
+- **Back:** Red Lady + Marlena + Harper
 
-## Faction advantages
+Two durable frontliners hold the line while two damage dealers eliminate threats, supported by a utility hero.
 
-Faction matchups and formation bonuses can significantly influence combat effectiveness. Warrior counters Warlock, Ranger counters Warrior, and Warlock counters Ranger; countering factions take 20% less damage from the faction they counter. Lineup bonuses range from +5% ATK/HP/DEF for three matching heroes up to +20% for five.
+<Callout variant="warning" title="A sample, not a guarantee">This is a sample formation, not a guaranteed optimal team. Your roster, levels, and gear will differ. Review each hero’s skills and the faction bonuses before committing resources.</Callout>
 
-Compare your lineup’s active bonuses against the benefits of countering enemy factions. Never sacrifice essential abilities solely to increase a formation bonus.
+## Part 1 — Faction synergy
+
+Every hero belongs to a faction, and factions counter each other in a triangle:
+
+- **Warrior** counters **Warlock**
+- **Ranger** counters **Warrior**
+- **Warlock** counters **Ranger**
+
+A countering faction takes **20% less damage** from the faction it counters. In practice, if you know your opponent leans heavily on one faction, bringing its counter makes your squad noticeably tougher in that matchup.
+
+Separately, fielding several heroes of the same faction gives a **lineup bonus** to ATK, HP, and DEF:
+
+| Lineup | Bonus (ATK / HP / DEF) |
+| --- | --- |
+| 3 matching | +5% |
+| 3 + 2 split | +10% |
+| 4 matching | +15% |
+| 5 matching | +20% |
+
+**How to use this:** compare your lineup’s active bonuses against the value of countering the enemy. A +20% mono-faction bonus is strong, but not if it forces you to bench the hero whose skill actually wins the fight.
+
+<Callout variant="tip" title="Abilities first, bonuses second">Never sacrifice essential abilities solely to increase a formation bonus. A squad that does its jobs beats a squad that matches colors.</Callout>
 
 <Figure src="/images/guides/advanced-hero-development-2.png" alt="Advanced Hero Development field manual part 2: investment order for levels, stars, skills, gear, and the Sanctuary gate" caption="Part 2 of 3 — invest at the breakpoint." width={1086} height={1448} />
 
-## Advanced hero progression
+## Part 2 — The investment order
 
-Invest resources based on your squad’s needs:
+The right investments at the right time multiply your squad’s power. Spend in this order:
 
-- **Levels:** use Antitoxin to increase hero levels.
-- **Stars:** use hero shards to advance star progression.
-- **Skills:** prioritize abilities that strengthen each hero’s role.
-- **Equipment:** improve weapons, armor, gloves, and boots according to their attributes.
-- **Sanctuary:** upgrade your Sanctuary when hero progression reaches its level restriction.
+1. **Choose your core five.** Decide which heroes you will actually use before spending anything.
+2. **Raise levels to the Sanctuary cap.** Levels raise base stats across the board.
+3. **Upgrade high-impact skills for each role.** Tank skills that keep the tank alive, damage skills that kill faster.
+4. **Improve gear on your core heroes.**
+5. **Use shards to push key stars.**
 
-Avoid distributing rare resources equally across heroes you rarely use. Higher Might does not automatically mean better performance in every role.
+**Why the order matters:** resources spent on a hero you later bench are wasted. Locking in your core five first means every Antitoxin, Skill Badge, and shard goes into heroes who fight.
 
-<Figure src="/images/guides/advanced-hero-development.png" alt="Advanced Hero Development field manual part 3" caption="Part 3 of 3." width={1086} height={1448} />
+### Levels
+
+Use **Antitoxin** to increase hero level. Higher levels raise base stats. Level progress is **limited by your Sanctuary level** — once a hero hits that cap, the level screen shows “Upgrade Sanctuary to continue” and no amount of Antitoxin will push further.
+
+The example screenshots show Louis and Red Lady both stopped at Lv.115 by the Sanctuary cap, while Ulfrid (Lv.91) and Harper (Lv.114) still have room to level.
+
+### Stars
+
+Use **hero shards** to increase star level. Each star unlocks stronger stats and skills. Focus shards on your core heroes first rather than spreading them across the roster.
+
+### Skills
+
+Use **Skill Badges** to upgrade skills. Prioritize the skills that improve a hero’s main job — a tank’s survival skill, a damage dealer’s main attack.
+
+### Gear
+
+Upgrade **weapons, armor, gloves, and boots**, choosing pieces according to their attributes. Compare gear levels before spending: the example shows Red Lady with a Lv.24 weapon, Lv.13 armor, Lv.8 gloves, and Lv.3 boots, while Louis is almost entirely unupgraded — a clear sign of where the next gear resources should go if Louis is a core tank.
+
+### The Sanctuary gate
+
+Some heroes cannot be leveled beyond your current Sanctuary level. When your core heroes hit the cap, **upgrading the Sanctuary is the next hero upgrade** — it raises the limit and unlocks new heights for the whole squad.
+
+<Callout variant="warning" title="Don’t spread rare resources thin">Avoid distributing rare resources equally across heroes you rarely use. Higher Might does not automatically mean better performance in every role.</Callout>
+
+<Figure src="/images/guides/advanced-hero-development.png" alt="Advanced Hero Development field manual part 3: the Stat Lab comparing Louis and Red Lady, plus case studies and testing method" caption="Part 3 of 3 — the Stat Lab." width={1086} height={1448} />
+
+## Part 3 — The Stat Lab: same level, different job
+
+Two heroes at the same level can be built for completely different purposes. Louis and Red Lady are both Lv.115:
+
+| Stat | Louis | Red Lady | Difference |
+| --- | --- | --- | --- |
+| Might | 787,907 | 816,719 | Red Lady higher |
+| ATK | 13,938 | 22,850 | Red Lady +8,912 |
+| HP | 2,512,786 | 1,599,445 | Louis +913,341 |
+| DEF | 15,436 | 15,320 | Louis +116 |
+| CMD | 329 | 329 | Equal |
+
+Red Lady has the higher Might, but that doesn’t make her the “better” hero. **Louis offers more frontline durability** (nearly a million more HP); **Red Lady offers more damage output** (over 60% more ATK). Put Red Lady in the front row and she dies early; put Louis in the back row and your damage drops. Higher Might alone does not decide the better hero.
+
+### Additional case studies
+
+Different strengths, not direct replacements:
+
+| Hero | Level | Might | ATK | HP | DEF | CMD |
+| --- | --- | --- | --- | --- | --- | --- |
+| Ulfrid | 91 | 665,326 | 12,019 | 1,852,503 | 12,201 | 278 |
+| Harper | 114 | 817,024 | 21,202 | 1,834,569 | 15,848 | 351 |
+
+Ulfrid is well behind on level but still carries a large HP pool for a frontliner — leveling him toward the Sanctuary cap is an obvious next step. Harper combines high ATK with solid HP and DEF, which is why he fits a flexible backline slot.
 
 ## Battle testing
 
-1. Record your current formation’s results.
-2. Change one hero or upgrade at a time.
-3. Fight comparable opponents.
-4. Compare damage, survival, casualties, and completion time.
-5. Keep adjustments that improve actual performance.
+Stats on a screen are a starting point. The real test is combat. Use a controlled method so you know which change actually helped:
+
+1. **Set a baseline fight.** Record your current formation’s results using the same squad, level, and conditions.
+2. **Change one hero or one upgrade at a time.** Keep every other variable the same — if you change two things, you can’t tell which one mattered.
+3. **Fight similar targets.** Use comparable enemies or stages and record the results.
+4. **Compare survival, losses, and clear speed.** Look at damage, survival, casualties, and completion time — overall battle performance, not just one number.
+5. **Keep adjustments that improve actual performance**, and roll back ones that don’t.
+
+## Quick checklist
+
+- Pick a core five: two tanks, two damage dealers, one support/flex.
+- Check faction counters and lineup bonuses, but never bench a key skill for a bonus.
+- Level to the Sanctuary cap, then skills, then gear, then stars.
+- When the cap blocks you, upgrade the Sanctuary.
+- Compare heroes by role and stats, not Might.
+- Test one change at a time and keep what wins.
 
 <Callout variant="tip" title="Final principle">Build for synergy, invest strategically, and validate improvements through combat. The strongest squad is not necessarily the one with the highest Might.</Callout>
