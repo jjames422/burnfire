@@ -11,14 +11,22 @@ export interface HeroSkill {
   effect: string;
 }
 
+export type HeroRarity = "UR" | "SSR" | "SR";
+
+export interface HeroMaxStats { attack: string; hp: string; defense: string; command: string }
+
 export interface Hero {
   slug: string;
   name: string;
-  rarity: "UR";
+  rarity: HeroRarity;
   faction: HeroFaction;
   role: HeroRole;
-  tier: HeroTier;
-  image: string;
+  /** BF2 tier snapshot — UR heroes only. */
+  tier?: HeroTier;
+  /** Full artwork. Heroes without art yet show a faction placeholder. */
+  image?: string;
+  /** Known max stats. UR heroes fall back to the shared UR ceiling. */
+  maxStats?: HeroMaxStats;
   /** One sentence for roster cards. */
   summary: string;
   unlock: string;
@@ -31,7 +39,18 @@ export interface Hero {
 }
 
 /** Max values at Lv150 / 10★. Every UR hero shares the same ceiling. */
-export const heroStats = { attack: "15,971", hp: "2,236,301", defense: "15,971", command: "350" } as const;
+export const heroStats: HeroMaxStats = { attack: "15,971", hp: "2,236,301", defense: "15,971", command: "350" };
+
+export function getMaxStats(hero: Hero): HeroMaxStats | undefined {
+  return hero.maxStats ?? (hero.rarity === "UR" ? heroStats : undefined);
+}
+
+/** UR heroes get Tenacity appended automatically; SSR/SR list theirs in `skills` when known. */
+export function getSkills(hero: Hero): HeroSkill[] {
+  return hero.rarity === "UR" ? [...hero.skills, tenacity] : hero.skills;
+}
+
+export const rarityOrder: HeroRarity[] = ["UR", "SSR", "SR"];
 
 /** Every UR hero unlocks this sixth skill at Lv30 / 8★. */
 export const tenacity: HeroSkill = {
@@ -402,6 +421,356 @@ export const heroes: Hero[] = [
     investment: "There's no specific star target in our notes yet. 8★ for Tenacity is the first milestone; push further if she's a fixed part of your Warlock squad.",
     squadFit: "She pairs especially well with Annie and Joker, whose Burns set up her ultimate's bonus damage. Fill the front with Billy or Ulfrid to keep the Warlock attack-speed bonus on every slot.",
     pairsWith: ["annie", "joker", "billy", "ulfrid"],
+  },
+
+  // ───────────────────────── SSR heroes ─────────────────────────
+  {
+    slug: "bella",
+    name: "Bella",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Tank",
+    maxStats: { attack: "15,973", hp: "2,236,303", defense: "15,973", command: "350" },
+    summary: "A free axe-wielding tank who shrugs off monster damage — the go-to stand-in until your UR tanks are built.",
+    unlock: "Free from Exploration and the Tavern. Her shards are also sold in the Alliance Shop.",
+    skills: [
+      { kind: "Auto", name: "Swing", effect: "Wields a giant axe for 429% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Bloody Requiem", cooldown: "7.0s", effect: "Dual axes for 2,405.7% ATK damage to targets in range, and reduces their ATK by 6% for 5s." },
+      { kind: "Active", name: "Crimson Prayer", cooldown: "5.0s", effect: "Takes 41.25% less damage from monsters for 3s." },
+      { kind: "Passive", name: "Purity", effect: "Takes 22% less damage from monsters." },
+    ],
+    overview: [
+      "Bella is built for PvE. Between her passive and Crimson Prayer she can cut monster damage by a huge amount, which lets her hold the front line through early-to-mid game farming far longer than her rarity suggests.",
+      "Fully maxed, her stats land essentially level with a maxed UR. Where she falls behind is utility — her kit is all about monsters, so she has much less to offer in PvP.",
+    ],
+    investment: "She's a useful starter tank if you don't have another high-star tank yet, but replace her once you do. Buying her shards from the Alliance Shop isn't recommended — there are better things to spend those coins on.",
+    squadFit: "Use her to fill Arthur's second tank slot while you wait on UR tanks. Swap her out as soon as Daskal, Shadow or another UR tank is ready.",
+    pairsWith: ["arthur", "marlena", "celia"],
+  },
+  {
+    slug: "lucius",
+    name: "Lucius",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Tank",
+    summary: "A two-handed axe tank with a stun on his ultimate — the SSR tank most worth your SSR Omni shards.",
+    unlock: "Hero Pass and the Tavern, which is where most of his shards come from.",
+    skills: [
+      { kind: "Auto", name: "Battle Axe", effect: "429% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Whirlwind Cut", cooldown: "7.0s", effect: "1,691% ATK Physical damage to 1 target in front, and stuns it for up to 1.5s." },
+      { kind: "Active", name: "Decapitation", cooldown: "5.0s", effect: "Raises a great axe with both hands for 1,582% ATK Physical damage to 1 target." },
+      { kind: "Passive", name: "God of War Blessing", effect: "Takes 22% less damage from monsters." },
+    ],
+    overview: [
+      "Lucius is a solid, no-fuss tank that works for both free-to-play and paying players. He hits harder than Bella on single targets, and Whirlwind Cut's stun gives him a little control that most SSR tanks don't have.",
+      "His passive is monster-focused like Bella's, so he's strongest in PvE, but the stun keeps him relevant in early PvP too.",
+    ],
+    investment: "He's worth putting SSR Omni shards into. Most of his shards come from the Tavern, so he's easy to keep progressing.",
+    squadFit: "A good stopgap for Arthur's second tank slot until your UR tanks are built. As a Warrior he also benefits from Harper's Warrior's Anthem.",
+    pairsWith: ["arthur", "harper", "claire"],
+  },
+  {
+    slug: "griffith",
+    name: "Griffith",
+    rarity: "SSR",
+    faction: "Ranger",
+    role: "Tank",
+    summary: "A serpent-flute hybrid who sits awkwardly between tank and damage dealer.",
+    unlock: "Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Serpent Flute", effect: "462% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Serpent Veil", cooldown: "7.0s", effect: "Summons a spirit snake for 35.25% ATK Physical damage to 1 target." },
+      { kind: "Active", name: "Venomous Bite", cooldown: "5.0s", effect: "1,919.5% ATK damage to 1 target." },
+      { kind: "Passive", name: "Serpent Resonance", effect: "Takes 22% less damage from monsters." },
+    ],
+    overview: [
+      "Griffith never fully commits to either role. Venomous Bite is a big single-target hit, but he lacks the protective tools of a real tank, and he doesn't scale like a dedicated carry either.",
+      "He's not useless — the monster damage reduction keeps him alive in PvE — but he doesn't bring any real tank utility to a squad.",
+    ],
+    investment: "Only invest in him if you genuinely have nothing better for the slot. Shards are better spent on Lucius or Bella.",
+    squadFit: "He's a Ranger, so he can fill a gap in a Ranger-leaning squad early on, but expect to replace him with Shadow or Louis.",
+    pairsWith: ["ash", "bestar"],
+  },
+  {
+    slug: "hastar",
+    name: "Hastar",
+    rarity: "SSR",
+    faction: "Warlock",
+    role: "Tank",
+    summary: "A tentacled Warlock tank who stuns, hits hard, and shields himself when things get desperate.",
+    unlock: "Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Lash", effect: "Lashes an enemy with tentacles for 445.5% ATK Energy damage to 1 target." },
+      { kind: "Ultimate", name: "Wrath of Old Gods", cooldown: "7.0s", effect: "3,019.5% ATK Physical damage to enemies in front." },
+      { kind: "Active", name: "Undercurrent", cooldown: "5.0s", effect: "1,089% ATK Energy damage to 1 target, and stuns it for 1s." },
+      { kind: "Passive", name: "Scorn Guard", effect: "Once per battle, dropping below 40% HP gives him a shield worth 13.5% of max HP that absorbs 50% of damage for 5s." },
+    ],
+    overview: [
+      "Hastar is one of the more complete SSR tanks. He mixes crowd control, a big front-facing ultimate, and an emergency shield that kicks in right when he'd otherwise go down.",
+      "Undercurrent's short stun is what sets him apart from the monster-reduction tanks — it makes him useful for disrupting enemies, not just surviving them.",
+    ],
+    investment: "A reasonable place for SSR shards if you're building toward a Warlock squad, but he's still a placeholder until Billy or Ulfrid arrive.",
+    squadFit: "The natural early tank for a Warlock lineup with Grenwald, Stellar and eventually Annie, Joker and Nicole.",
+    pairsWith: ["grenwald", "stellar", "billy"],
+  },
+  {
+    slug: "claire",
+    name: "Claire",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Carry",
+    summary: "One of the best SSR carries — high burst, steady output, and a monster-damage buff for her fellow Warriors.",
+    unlock: "Free from Forest Exploration, plus the Tavern and Hero Pass.",
+    skills: [
+      { kind: "Auto", name: "Holy Banner", effect: "Swings a flag for 495% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Celestial Judgement", cooldown: "8.0s", effect: "A giant holy sword for 1,888.575% ATK Physical damage to enemies in range." },
+      { kind: "Active", name: "Rain of Arrows", cooldown: "5.0s", effect: "5 rapid hits for 506% ATK Physical damage each." },
+      { kind: "Passive", name: "Call of the Brave", effect: "The 3 highest-ATK Warriors on your team deal 22% more damage to monsters." },
+    ],
+    overview: [
+      "Claire is the SSR carry most players should build. Rain of Arrows lands five hits every five seconds, Celestial Judgement adds a big area hit, and her passive makes your three strongest Warriors hit monsters 22% harder.",
+      "She performs reliably in both PvE and PvP, and with proper investment she pulls well ahead of Celia.",
+    ],
+    investment: "Worth investing SSR Omni shards into. She's free from Forest Exploration, so she's easy to start on.",
+    squadFit: "She's at her best on a Warrior-heavy team, where her passive boosts Arthur, Marlena and your other Warriors against monsters. A strong second carry next to Marlena early on.",
+    pairsWith: ["marlena", "arthur", "harper", "lucius"],
+  },
+  {
+    slug: "kesso",
+    name: "Kesso",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Carry",
+    summary: "A spear-thrower with a war-eagle summon and a clutch ATK spike when he's about to go down.",
+    unlock: "Tavern and Hero Summon. His shards are hard to come by.",
+    skills: [
+      { kind: "Auto", name: "Spear Throw", effect: "495% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Summon Warhawk", cooldown: "9.0s", effect: "Summons a war eagle for 10s that attacks with 450% of Kesso's ATK plus 25% of his HP." },
+      { kind: "Active", name: "Hunting Skills", cooldown: "5.0s", effect: "Throws 2 spears at random enemies for 1,252.5% ATK Physical damage each." },
+      { kind: "Passive", name: "Wild Survival", effect: "The first time his HP drops below 30%, he gains +51% ATK for 5s." },
+    ],
+    overview: [
+      "Kesso is good in both PvP and PvE. His Warhawk scales off his HP as well as his ATK, and Hunting Skills keeps two spears flying every five seconds.",
+      "Wild Survival is the fun part: the first time he gets low, he spikes his ATK by 51%. Timed well, that turns a losing exchange into a win.",
+    ],
+    investment: "His shards are hard to obtain, so make him your fourth or fifth SSR to star up rather than an early priority.",
+    squadFit: "A Warrior carry, so Harper's passive and Claire's monster buff both apply to him.",
+    pairsWith: ["claire", "harper", "marlena"],
+  },
+  {
+    slug: "sivir",
+    name: "Sivir",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Carry",
+    summary: "A broken-spear fighter with a flat ATK passive — a straightforward all-round PvP carry.",
+    unlock: "Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Hunt", effect: "Throws a broken spear for 412.5% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Wild Pursuit", cooldown: "8.0s", effect: "2 broken spears at random enemies for 1,252.5% ATK Physical damage each." },
+      { kind: "Active", name: "Shield Strike", cooldown: "5.0s", effect: "Throws a shield for 1,573% ATK Physical damage to 1 target." },
+      { kind: "Passive", name: "Hunter Bloodline", effect: "+22% ATK in combat." },
+    ],
+    overview: [
+      "Sivir is an all-around PvP carry. Hunter Bloodline is a flat 22% ATK boost that works everywhere, not just against monsters, which is what makes Sivir better suited to player fights than the PvE-focused SSR carries.",
+      "Shield Strike is the reliable single-target hit, and Wild Pursuit adds two random spear hits on the ultimate.",
+    ],
+    investment: "A decent SSR to build if you want a PvP-leaning carry before your URs come online.",
+    squadFit: "Fits a Warrior squad alongside Marlena and Harper.",
+    pairsWith: ["marlena", "harper", "claire"],
+  },
+  {
+    slug: "ash",
+    name: "Ash",
+    rarity: "SSR",
+    faction: "Ranger",
+    role: "Carry",
+    summary: "A reliable single-target archer who shines in PvE and boss fights, and buffs your top Rangers against monsters.",
+    unlock: "Free from Exploration, plus the Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Precision Shot", effect: "429% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Eagle Spirit Hunt", cooldown: "8.0s", effect: "2,332% ATK Physical damage to 1 target." },
+      { kind: "Active", name: "One Stone Two Birds", cooldown: "5.0s", effect: "2 arrows at random targets for 1,320% ATK Physical damage each." },
+      { kind: "Passive", name: "Focus", effect: "The 2 highest-ATK Rangers on your team deal 30% more damage to monsters." },
+    ],
+    overview: [
+      "Ash is easy to get and scales well, which makes her a great early-to-mid game investment. She's built for eliminating priority targets and handles boss fights especially well.",
+      "Her passive update made her very useful in PvE — your two strongest Rangers hit monsters 30% harder. The weakness is a lack of AoE and utility, so she can struggle in PvP-heavy content.",
+    ],
+    investment: "A great early-to-mid game investment, especially if your account leans PvE.",
+    squadFit: "Best in a Ranger squad, where her passive lands on Cynthia, Red Lady or Shadow.",
+    pairsWith: ["cynthia", "red-lady", "bestar"],
+  },
+  {
+    slug: "bestar",
+    name: "Bestar",
+    rarity: "SSR",
+    faction: "Ranger",
+    role: "Carry",
+    summary: "A Bleed specialist with ghostly cat attacks who gets stronger the longer the fight goes.",
+    unlock: "Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Cat Bell", effect: "429% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Sacred Flame Kitty", cooldown: "8.0s", effect: "Cat ghosts for 1,646.7% ATK Physical AoE damage, plus Bleed." },
+      { kind: "Active", name: "Black Cat Messenger", cooldown: "5.0s", effect: "726% ATK Physical damage to 1 target, plus Bleed." },
+      { kind: "Passive", name: "Bloodstain Tracker", effect: "Deals 41.25% more damage to Bleeding enemies." },
+    ],
+    overview: [
+      "Bestar shreds enemies over time. Both of her skills apply Bleed, and her passive adds over 41% damage against anything that's Bleeding — so once she gets going, everything she hits takes much more.",
+      "That makes her strongest in sustained fights and boss scenarios, and she scales best when she can keep Bleed applied consistently.",
+    ],
+    investment: "Worth building if you run a lot of boss content or long PvE fights.",
+    squadFit: "A Ranger carry who pairs with Ash in an early Ranger squad.",
+    pairsWith: ["ash", "cynthia", "red-lady"],
+  },
+  {
+    slug: "grenwald",
+    name: "Grenwald",
+    rarity: "SSR",
+    faction: "Warlock",
+    role: "Carry",
+    summary: "A spell-slinging Warlock with heavy single-target burst and bonus damage against monsters.",
+    unlock: "Free from Exploration and the Tavern, plus Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Cast Spell", effect: "Waves the wand for 379.5% ATK Energy damage to 1 target." },
+      { kind: "Ultimate", name: "Soul Capture Spell", cooldown: "9.0s", effect: "1,703.875% ATK Energy AoE damage to all targets in range, and increases his own ATK by 7.5% for 7s." },
+      { kind: "Active", name: "Heartbreaker Spell", cooldown: "5.0s", effect: "1,534.5% ATK Energy damage to 1 target." },
+      { kind: "Passive", name: "Exorcism Spell", effect: "Deals 27.5% more damage to monsters." },
+    ],
+    overview: [
+      "Grenwald specializes in high single-target burst and is especially effective in PvE, where his passive adds 27.5% damage against monsters.",
+      "He's a popular early stand-in carry if you can't get Marlena going right away, but he has low defense and needs a tank like Arthur in front of him to stay alive.",
+    ],
+    investment: "A good early carry while you're waiting on URs, especially for PvE.",
+    squadFit: "Put Arthur or another sturdy tank in front of him. In a Warlock squad he works with Hastar and Stellar.",
+    pairsWith: ["arthur", "hastar", "stellar"],
+  },
+  {
+    slug: "celia",
+    name: "Celia",
+    rarity: "SSR",
+    faction: "Warrior",
+    role: "Support",
+    summary: "A dagger-throwing PvE support who boosts monster damage and resource gains from monster kills.",
+    unlock: "Free from the Tavern — collect 5 antidotes to heal her and she joins you.",
+    skills: [
+      { kind: "Auto", name: "Flying Blade", effect: "Throws a dagger for 247.5% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Ricochet Blade", cooldown: "9.0s", effect: "A dagger that ricochets 3 times for 1,630.2% ATK Physical damage to 3 random targets." },
+      { kind: "Active", name: "Deadly Lotus", cooldown: "5.0s", effect: "2 daggers for 1,122% ATK Physical damage to 2 random targets." },
+      { kind: "Passive", name: "Ultimate Hunt", effect: "Deals 16.5% more damage to monsters, and your squad gets +55% resources from Resource and Elite monster kills." },
+    ],
+    overview: [
+      "Celia is really a PvE hybrid. Her damage comes in random bursts, and her passive is the reason to run her: +55% resources from Resource and Elite monster kills is a big boost to your farming.",
+      "Her reliance on random targeting and her weaker scaling make her less reliable long-term than a dedicated carry like Claire.",
+    ],
+    investment: "She's free, so she's worth using early, but don't sink heavy investment into her.",
+    squadFit: "Holds the support slot until Harper unlocks on Day 22, and stays useful in a farming squad for the resource bonus.",
+    pairsWith: ["arthur", "claire", "bella"],
+  },
+  {
+    slug: "stellar",
+    name: "Stellar",
+    rarity: "SSR",
+    faction: "Warlock",
+    role: "Support",
+    summary: "A star-themed support with real damage, a big monster-damage buff for allies, and a clutch heal on death.",
+    unlock: "Tavern and Hero Summon.",
+    skills: [
+      { kind: "Auto", name: "Meteorite", effect: "Launches stardust for 495% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Wishing Star", cooldown: "7.0s", effect: "A meteor shower that gives allies in range +53.2% damage to monsters for 5s." },
+      { kind: "Active", name: "Destructive Comet", cooldown: "5.0s", effect: "1,608.75% ATK AoE damage, and monsters hit take 8% more damage for 3s." },
+      { kind: "Passive", name: "Final Starling", effect: "Once per battle, on taking fatal damage, heals the lowest-HP ally for 1,100% ATK." },
+    ],
+    overview: [
+      "Stellar is an SSR support with real offensive teeth. Destructive Comet is a big AoE hit, and Wishing Star gives nearby allies over 53% more damage against monsters, which makes her excellent in PvE.",
+      "Final Starling gives her unique clutch value — even when she goes down, she throws a huge heal onto your weakest hero.",
+    ],
+    investment: "7–8★ is a good balance of damage and buffs. Going to 9★+ maximizes her PvE value and scaling.",
+    squadFit: "Covers the support slot until Harper unlocks, and stays strong in PvE squads. A natural fit for an early Warlock lineup with Hastar and Grenwald.",
+    pairsWith: ["grenwald", "hastar", "arthur"],
+  },
+
+  // ───────────────────────── SR heroes ─────────────────────────
+  {
+    slug: "durant",
+    name: "Durant",
+    rarity: "SR",
+    faction: "Warrior",
+    role: "Tank",
+    summary: "A low-tier greatsword tank who's still handy for defending your territory early on.",
+    unlock: "Free from Exploration and the Tavern.",
+    skills: [
+      { kind: "Auto", name: "Slash", effect: "315% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Blade Fury", cooldown: "7.0s", effect: "Swings a greatsword twice for 1,224% ATK Physical damage to enemies in front." },
+      { kind: "Active", name: "Leap Slash", cooldown: "5.0s", effect: "1,057.5% ATK Physical damage to 1 target." },
+      { kind: "Passive", name: "Tenacity", effect: "+5% ATK, HP and DEF (the SR version)." },
+    ],
+    overview: [
+      "Durant isn't really good for dedicated PvE or PvP content, but he has one job he does fine: defending your territory while you're still short on high-star tanks.",
+    ],
+    investment: "Put all your SR shards into him — he's the SR hero worth having.",
+    squadFit: "Slot him 3rd or 4th in your lineup (4th if you have a monthly pass) for territory defense until better tanks replace him.",
+    pairsWith: ["arthur", "bella"],
+  },
+  {
+    slug: "william",
+    name: "William",
+    rarity: "SR",
+    faction: "Warrior",
+    role: "Carry",
+    summary: "A bench-tier swordsman. Fine to own, not worth building.",
+    unlock: "Free — his shards come from the Tavern.",
+    skills: [
+      { kind: "Auto", name: "Sword Gale", effect: "73.5% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Whirlwind Blade", cooldown: "10.0s", effect: "259.35% ATK Physical damage to enemies in range." },
+      { kind: "Active", name: "Twin Wind", cooldown: "5.0s", effect: "2 sword-wind hits for 30% ATK Physical damage each." },
+    ],
+    overview: [
+      "William is a low-tier bench carry. His numbers are very low compared to every other carry, and even the community's best read on him is that his max skills are unclear and he isn't really useful.",
+    ],
+    investment: "Don't invest in him.",
+    squadFit: "Bench only — any SSR carry is a better use of the slot.",
+    pairsWith: [],
+  },
+  {
+    slug: "robin",
+    name: "Robin",
+    rarity: "SR",
+    faction: "Ranger",
+    role: "Carry",
+    summary: "A bench-tier archer whose rapid fire can't keep up with the real Ranger carries.",
+    unlock: "A bench hero — not worth chasing.",
+    skills: [
+      { kind: "Auto", name: "Aim", effect: "Shoots a wooden arrow for 278% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Rapid Fire", cooldown: "10.0s", effect: "7 rapid shots for 281% ATK Physical damage each." },
+      { kind: "Active", name: "Arrow of Retribution", cooldown: "5.0s", effect: "936% ATK Physical damage to 1 target." },
+    ],
+    overview: [
+      "Robin's damage is low compared to the other Ranger carries, and he isn't useful for dedicated PvE or PvP content.",
+    ],
+    investment: "Don't invest in him.",
+    squadFit: "Bench only — Ash or Bestar are much better early Ranger carries.",
+    pairsWith: [],
+  },
+  {
+    slug: "kafa",
+    name: "Kafa",
+    rarity: "SR",
+    faction: "Warlock",
+    role: "Carry",
+    summary: "A coffee-throwing bench hero — charming, but too weak to field.",
+    unlock: "A bench hero — not worth chasing.",
+    skills: [
+      { kind: "Auto", name: "Coffee", effect: "Throws a coffee bean for 297% ATK Physical damage to 1 target." },
+      { kind: "Ultimate", name: "Love Infusion", cooldown: "10.0s", effect: "2 coffee pots for 1,220.4% ATK Physical damage to enemies in range." },
+      { kind: "Active", name: "Double Expresso", cooldown: "5.0s", effect: "Throws a cup of coffee for 900% ATK Physical damage to 1 target." },
+    ],
+    overview: [
+      "Kafa is one of the benched heroes. As an SR with low damage, Kafa isn't useful in either PvE or PvP.",
+    ],
+    investment: "Not worth investing in.",
+    squadFit: "Bench only — Grenwald is the early Warlock carry to use instead.",
+    pairsWith: [],
   },
 ];
 

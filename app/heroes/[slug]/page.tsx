@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EmberBackdrop, SiteFooter, SiteHeader } from "@/components/layout/SiteChrome";
-import { getHero, heroes, heroStats, tenacity, type Hero } from "@/lib/content/heroes";
+import { HeroArtPlaceholder } from "@/components/heroes/HeroArtPlaceholder";
+import { getHero, getMaxStats, getSkills, heroes, type Hero } from "@/lib/content/heroes";
 
 export function generateStaticParams() { return heroes.map(({ slug }) => ({ slug })); }
 
@@ -11,8 +12,9 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
   const hero = getHero(slug);
   if (!hero) notFound();
 
-  const stats = [["ATK", heroStats.attack], ["HP", heroStats.hp], ["DEF", heroStats.defense], ["CMD", heroStats.command]];
-  const skills = [...hero.skills, tenacity];
+  const maxStats = getMaxStats(hero);
+  const stats = maxStats ? [["ATK", maxStats.attack], ["HP", maxStats.hp], ["DEF", maxStats.defense], ["CMD", maxStats.command]] : [];
+  const skills = getSkills(hero);
   const partners = hero.pairsWith.map(getHero).filter((partner): partner is Hero => partner !== undefined);
 
   return (
@@ -24,17 +26,23 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
         <div className="hero-profile-grid">
           <div className="hero-profile-art">
             <div className="hero-profile-halo" />
-            <Image src={hero.image} alt={`${hero.name} full hero artwork`} fill priority sizes="(min-width: 900px) 48vw, 100vw" />
+            {hero.image
+              ? <Image src={hero.image} alt={`${hero.name} full hero artwork`} fill priority sizes="(min-width: 900px) 48vw, 100vw" />
+              : <HeroArtPlaceholder name={hero.name} size="large" />}
           </div>
           <div className="hero-profile-copy">
             <span className="signal-kicker"><i /> Hero dossier · {hero.rarity}</span>
             <h1>{hero.name}</h1>
-            <div className="hero-badges"><span>{hero.tier}</span><b>{hero.faction}</b><b>{hero.role}</b></div>
+            <div className="hero-badges"><span>{hero.tier ?? hero.rarity}</span><b>{hero.faction}</b><b>{hero.role}</b></div>
             <p className="hero-profile-summary">{hero.summary}</p>
-            <div className="hero-stat-grid">
-              {stats.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
-            </div>
-            <p className="hero-stat-note">Max stats at Lv150 · 10★</p>
+            {stats.length > 0 && (
+              <>
+                <div className="hero-stat-grid">
+                  {stats.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
+                </div>
+                <p className="hero-stat-note">Max stats at Lv150 · 10★</p>
+              </>
+            )}
             <section className="hero-intel-panel"><small>How to get {hero.name}</small><p>{hero.unlock}</p></section>
             <section className="hero-intel-panel"><small>Star investment</small><p>{hero.investment}</p></section>
           </div>
@@ -77,7 +85,7 @@ export default async function HeroPage({ params }: PageProps<"/heroes/[slug]">) 
                   {partners.map((partner) => (
                     <li key={partner.slug}>
                       <Link className={`hero-partner faction-${partner.faction.toLowerCase()}`} href={`/heroes/${partner.slug}`}>
-                        <span className="hero-partner-art"><Image src={partner.image} alt="" fill sizes="56px" /></span>
+                        <span className="hero-partner-art">{partner.image ? <Image src={partner.image} alt="" fill sizes="56px" /> : <HeroArtPlaceholder name={partner.name} size="small" />}</span>
                         <span><strong>{partner.name}</strong><small>{partner.faction} · {partner.role}</small></span>
                       </Link>
                     </li>
