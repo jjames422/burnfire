@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, type SubmitEvent } from "react";
-import { supabase } from "@/lib/supabase/client";
-import type { ProfileRow } from "@/lib/supabase/types";
+import { apiPost } from "@/lib/api/client";
+import type { ProfileRow } from "@/lib/api/types";
 
 interface ProfileSetupModalProps {
-  userId: string;
   onComplete: (profile: ProfileRow) => void;
 }
 
@@ -13,47 +12,27 @@ interface ProfileSetupModalProps {
  * One-time first-login step. Only the in-game name is self-reported.
  * Rank, unique title, and permissions are officer-managed membership data.
  */
-export function ProfileSetupModal({
-  userId,
-  onComplete,
-}: ProfileSetupModalProps) {
+export function ProfileSetupModal({ onComplete }: ProfileSetupModalProps) {
   const [inGameName, setInGameName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!supabase) return;
-
     setSubmitting(true);
     setError(null);
 
-    // Insert first, then read the committed profile under its SELECT policy.
-    const { error: insertError } = await supabase.from("profiles").insert({
-      id: userId,
-      in_game_name: inGameName.trim(),
-    });
-
-    if (insertError) {
-      setSubmitting(false);
-      setError(insertError.message);
-      return;
-    }
-
-    const { data, error: selectError } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .single();
+    const { data, error: createError } = await apiPost<{ profile: ProfileRow }>(
+      "/api/profile",
+      { in_game_name: inGameName.trim() },
+    );
 
     setSubmitting(false);
-
-    if (selectError) {
-      setError(selectError.message);
+    if (createError || !data?.profile) {
+      setError(createError ?? "Profile could not be created.");
       return;
     }
-
-    if (data) onComplete(data);
+    onComplete(data.profile);
   }
 
   return (

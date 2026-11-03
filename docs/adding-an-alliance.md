@@ -1,6 +1,6 @@
 # Adding an alliance
 
-Developer-facing. The data layer and Supabase schema are already multi-tenant-ready — every
+Developer-facing. The data layer and database schema are already multi-tenant-ready — every
 table/query is scoped by an `alliance` column/parameter. What's **not** ready yet is routing: this
 app currently serves exactly one alliance per deployment, picked by `config/site.ts`. Read the
 "Current limitation" section before assuming you can just add a config file and have two alliances
@@ -38,15 +38,15 @@ edits, since components only ever read through `site.alliance.theme`, never a li
 `content/<slug>/guides/*.mdx` — same structure as `content/burnfire/guides/`, see
 `docs/adding-a-guide.md`. Each guide's frontmatter `alliance` field must match the new slug.
 
-### 3. Supabase rows
+### 3. Database rows
 
-No schema or RLS change needed — `alliance` is already a column on `comments`, `reactions`,
+No schema change needed — `alliance` is already a column on `comments`, `reactions`,
 `alliance_members`, and `channels` (and transitively on `messages`, via `channels`). Onboarding a new
 alliance in the database means:
 
-- Insert the alliance in `public.alliances` with its unique uppercase three-letter `code`.
-- Insert its day-one channel rows into `public.channels` (copy the pattern at the bottom of
-  `supabase/schema.sql`, just with the new `alliance` value).
+- Insert the alliance in `alliances` with its unique uppercase three-letter `code`.
+- Insert its day-one channel rows into `channels` (copy the pattern at the bottom of
+  `db/schema.sql`, just with the new `alliance` value).
 - Community profiles remain unaffiliated at signup. An officer-managed invite or acceptance flow
   must create the user's single `alliance_members` row; the database prevents a user from joining
   more than one alliance.
@@ -59,8 +59,8 @@ are two real options today, not one:
 
 **Option A — separate deployment per alliance (works right now, zero code changes beyond config):**
 point a new Vercel project (or reuse this one on a different branch) at a copy of this repo with
-`ACTIVE_ALLIANCE` changed and that alliance's domain configured. Can share the same Supabase
-project (the `alliance` scoping already keeps data separate) or use a different one. This is the
+`ACTIVE_ALLIANCE` changed and that alliance's domain configured. Can share the same local database
+(the `alliance` scoping already keeps data separate) or use a different one. This is the
 "no rebuild" promise in practice today — it's a redeploy, not a rewrite, but it is still a second
 deployment to maintain.
 

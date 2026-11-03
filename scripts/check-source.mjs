@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
-const roots=["app","components","config","content","docs","lib","scripts","supabase"];
+const roots=["app","components","config","content","db","docs","lib","scripts"];
 const ignored=new Set(["node_modules",".next",".git"]);
 const checked=new Set([".ts",".tsx",".js",".mjs",".md",".mdx",".sql",".json",".css"]);
 const problems=[];

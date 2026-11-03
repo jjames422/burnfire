@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
-import type { AllianceInvitationRow, ChannelRow, NotificationRow } from "@/lib/supabase/types";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { api, apiPost } from "@/lib/api/client";
+import type { AccountPayload, AllianceInvitationRow, ChannelRow, NotificationRow } from "@/lib/api/types";
 import { MessageComposer } from "./MessageComposer";
 import { MessageList } from "./MessageList";
 import { PresenceList } from "./PresenceList";
@@ -21,35 +21,31 @@ export function ChatPanel({ alliance }: { alliance: string }) {
   const [accountEmail, setAccountEmail] = useState("");
   const [utility, setUtility] = useState<"search" | "pins" | null>(null);
 
-  async function refreshAccount() {
-    if (!supabase) return;
-    const [{ data: notes }, { data: invites }, { data: membership }] = await Promise.all([
-      supabase.from("notifications").select("*").order("created_at", { ascending: false }).limit(30),
-      supabase.from("alliance_invitations").select("*").eq("status", "pending"),
-      supabase.from("alliance_members").select("alliance").maybeSingle(),
-    ]);
-    setNotifications(notes ?? []);
-    setInvitations(invites ?? []);
-    setHasAlliance(Boolean(membership));
-  }
-
-  useEffect(() => {
-    if (!supabase) return;
-    supabase.auth.getUser().then(({ data }) => setAccountEmail(data.user?.email ?? "Signed in"));
-    supabase.from("channels").select("*").eq("is_archived", false).order("sort_order")
-      .then(({ data }) => {
-        const available=data??[];
-        setChannels(available);
-        const requestedId=new URLSearchParams(window.location.search).get("channel");
-        const requested=available.find((channel)=>channel.id===requestedId);
-        if(requested){setWorkspace(requested.scope==="community"?"community":requested.alliance??"community");setSelected(requested);}
-      });
-    refreshAccount();
+  const refreshAccount = useCallback(async () => {
+    const { data } = await api<AccountPayload>("/api/account");
+    if (!data) return;
+    setAccountEmail(data.email || "Signed in");
+    setNotifications(data.notifications);
+    setInvitations(data.invitations);
+    setHasAlliance(data.has_alliance);
   }, []);
 
+  useEffect(() => {
+    api<{ channels: ChannelRow[] }>("/api/channels").then(({ data }) => {
+      const available = data?.channels ?? [];
+      setChannels(available);
+      const requestedId = new URLSearchParams(window.location.search).get("channel");
+      const requested = available.find((channel) => channel.id === requestedId);
+      if (requested) {
+        setWorkspace(requested.scope === "community" ? "community" : requested.alliance ?? "community");
+        setSelected(requested);
+      }
+    });
+    refreshAccount();
+  }, [refreshAccount]);
+
   async function signOut() {
-    if (!supabase) return;
-    await supabase.auth.signOut();
+    await apiPost("/api/auth/signout", {});
     window.location.assign("/chat");
   }
 
@@ -76,15 +72,14 @@ export function ChatPanel({ alliance }: { alliance: string }) {
   const unread = notifications.filter((note) => !note.read_at).length;
 
   async function markRead(note: NotificationRow) {
-    if (!supabase || note.read_at) return;
-    await supabase.rpc("mark_notification_read", { p_notification_id: note.id });
+    if (note.read_at) return;
+    await apiPost(`/api/notifications/${note.id}/read`, {});
     setNotifications((all) => all.map((item) => item.id === note.id
       ? { ...item, read_at: new Date().toISOString() } : item));
   }
 
   async function respond(invite: AllianceInvitationRow, accept: boolean) {
-    if (!supabase) return;
-    await supabase.rpc("respond_to_alliance_invitation", { p_invitation_id: invite.id, p_accept: accept });
+    await apiPost(`/api/invitations/${invite.id}/respond`, { accept });
     await refreshAccount();
   }
 
@@ -119,7 +114,7 @@ export function ChatPanel({ alliance }: { alliance: string }) {
           <MessageList channelId={selected.id} refreshVersion={messageVersion} onReply={(id, label) => setReplyTo({ id, label })} />
           <MessageComposer channelId={selected.id} channelName={selected.name} replyTo={replyTo} onCancelReply={() => setReplyTo(null)} onSent={() => { setReplyTo(null); setMessageVersion((value) => value + 1); }} />
         </section>
-        {utility?<ChannelUtilityPanel channelId={selected.id} mode={utility} onClose={()=>setUtility(null)} onJump={jumpToMessage}/>:<PresenceList alliance={selected.alliance ?? "community"} channelSlug={selected.slug} />}
+        {utility?<ChannelUtilityPanel channelId={selected.id} mode={utility} onClose={()=>setUtility(null)} onJump={jumpToMessage}/>:<PresenceList channelId={selected.id} />}
       </> : <p className="empty-state">No channels are available.</p>}
     </div>
   );

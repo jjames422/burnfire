@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
-import type { ChatAttachmentRow, ChatMessageRow } from "@/lib/supabase/types";
+import { api, apiPost } from "@/lib/api/client";
+import { useChannelStream } from "@/lib/api/stream";
+import type { ChannelMessagesPayload, ChatAttachmentInfo, ChatMessageRow, SessionInfo } from "@/lib/api/types";
 
 const QUICK_EMOJI = ["🔥", "❤️", "😂", "👏"];
 
@@ -14,7 +15,7 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
   const [pinnedIds, setPinnedIds] = useState<Set<string>>(new Set());
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const [attachments, setAttachments] = useState<Map<string, Array<ChatAttachmentRow & { url:string }>>>(new Map());
+  const [attachments, setAttachments] = useState<Map<string, ChatAttachmentInfo[]>>(new Map());
   const [reportMessage, setReportMessage] = useState<ChatMessageRow | null>(null);
   const [reportReason, setReportReason] = useState("");
   const [reportError, setReportError] = useState<string | null>(null);
@@ -22,56 +23,46 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
   const bottom = useRef<HTMLDivElement | null>(null);
 
   const load = useCallback(async () => {
-    if (!supabase) return;
-    const [{ data }, { data: pins }, { data: attachmentRows }] = await Promise.all([
-      supabase.rpc("get_channel_messages", { p_channel_id: channelId, p_limit: 100 }),
-      supabase.from("pinned_messages").select("message_id").eq("channel_id", channelId),
-      supabase.from("chat_attachments").select("*"),
-    ]);
-    setMessages([...(data ?? [])].reverse());
-    setPinnedIds(new Set((pins ?? []).map((pin) => pin.message_id)));
-    const visibleMessageIds=new Set((data??[]).map((message)=>message.id));
-    const resolved=await Promise.all((attachmentRows??[]).filter((item)=>visibleMessageIds.has(item.message_id)).map(async(item)=>{
-      const {data:signed}=await supabase!.storage.from("chat-attachments").createSignedUrl(item.storage_path,600);
-      return {...item,url:signed?.signedUrl??""};
-    }));
-    setAttachments(resolved.reduce((map,item)=>{const current=map.get(item.message_id)??[];map.set(item.message_id,[...current,item]);return map;},new Map<string,Array<ChatAttachmentRow&{url:string}>>()));
+    const { data } = await api<ChannelMessagesPayload>(`/api/channels/${channelId}/messages`);
+    if (!data) return;
+    setMessages([...data.messages].reverse());
+    setPinnedIds(new Set(data.pinned_message_ids));
+    setAttachments(data.attachments.reduce((map, item) => {
+      const current = map.get(item.message_id) ?? [];
+      map.set(item.message_id, [...current, item]);
+      return map;
+    }, new Map<string, ChatAttachmentInfo[]>()));
   }, [channelId]);
 
   useEffect(() => {
-    if (!supabase) return;
-    const client = supabase;
-    client.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
+    api<SessionInfo>("/api/auth/session").then(({ data }) => setUserId(data?.user?.id ?? null));
     load();
-    const channel = client.channel(`ui:${channelId}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "messages", filter: `channel_id=eq.${channelId}` }, load)
-      .on("postgres_changes", { event: "*", schema: "public", table: "message_reactions" }, load)
-      .subscribe();
-    return () => { client.removeChannel(channel); };
   }, [channelId, load]);
+
+  useChannelStream(channelId, useCallback((event) => {
+    if (event.type === "message") load();
+  }, [load]));
 
   useEffect(() => { load(); }, [refreshVersion, load]);
 
   useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [messages.length]);
 
   async function react(message: ChatMessageRow, emoji: string) {
-    if (!supabase || !userId) return;
-    const { data } = await supabase.from("message_reactions").select("message_id").eq("message_id", message.id).eq("user_id", userId).eq("emoji", emoji).maybeSingle();
-    if (data) await supabase.from("message_reactions").delete().eq("message_id", message.id).eq("user_id", userId).eq("emoji", emoji);
-    else await supabase.from("message_reactions").insert({ message_id: message.id, user_id: userId, emoji });
+    if (!userId) return;
+    await apiPost(`/api/messages/${message.id}/reactions`, { emoji });
     await load();
   }
 
   async function save(id: string) {
-    if (!supabase || !editBody.trim()) return;
-    await supabase.rpc("edit_message", { p_message_id: id, p_body: editBody.trim() });
+    if (!editBody.trim()) return;
+    await api(`/api/messages/${id}`, { method: "PATCH", body: JSON.stringify({ body: editBody.trim() }) });
     setEditing(null);
     await load();
   }
 
   async function remove(id: string) {
-    if (!supabase || !window.confirm("Delete this message? This cannot be undone in chat.")) return;
-    const { error } = await supabase.rpc("delete_message", { p_message_id: id });
+    if (!window.confirm("Delete this message? This cannot be undone in chat.")) return;
+    const { error } = await api(`/api/messages/${id}`, { method: "DELETE" });
     if (!error) await load();
   }
 
@@ -95,11 +86,10 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
   }
 
   async function pin(message: ChatMessageRow) {
-    if (!supabase) return;
     const shouldPin = !pinnedIds.has(message.id);
-    const { error } = await supabase.rpc("pin_message", { p_message_id: message.id, p_pin: shouldPin });
+    const { error } = await apiPost(`/api/messages/${message.id}/pin`, { pin: shouldPin });
     setOpenMenu(null);
-    if (error) setStatus(`Pin unavailable: ${error.message}`);
+    if (error) setStatus(`Pin unavailable: ${error}`);
     else { setStatus(shouldPin ? "Message pinned." : "Message unpinned."); await load(); }
   }
 
@@ -109,10 +99,9 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
 
   async function submitReport() {
     const message=reportMessage;
-    if (!supabase || !userId) return;
     if(!message||reportReason.trim().length<3){setReportError("Please explain the problem in at least 3 characters.");return;}
-    const { error } = await supabase.from("content_reports").insert({ reporter_id: userId, target_type: "message", target_id: message.id, reason: reportReason.trim() });
-    if(error)setReportError(error.message);else{setReportMessage(null);setStatus("Report sent privately to the moderation team.");}
+    const { error } = await apiPost("/api/reports", { target_type: "message", target_id: message.id, reason: reportReason.trim() });
+    if(error)setReportError(error);else{setReportMessage(null);setStatus("Report sent privately to the moderation team.");}
   }
 
   const threadRoot=messages.find((message)=>message.id===threadRootId)??null;

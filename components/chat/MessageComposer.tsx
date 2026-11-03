@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react";
-import type { RealtimeChannel } from "@supabase/supabase-js";
-import { supabase } from "@/lib/supabase/client";
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react";
+import { api, apiPost } from "@/lib/api/client";
+import { useChannelStream } from "@/lib/api/stream";
+import type { AccountPayload, MentionCandidate, SessionInfo } from "@/lib/api/types";
 
 interface ComposerProps { channelId:string; channelName:string; replyTo:{id:string;label:string}|null; onCancelReply:()=>void; onSent:()=>void; }
-interface MentionCandidate { user_id:string; identity_label:string; mention_text:string; }
-interface TypingEvent { user_id:string; identity_label:string; typing:boolean; }
 interface Command { name:string; syntax:string; description:string; run:(argument:string)=>CommandResult; }
 type CommandResult = { body?:string; notice?:string; clear?:boolean };
 
@@ -31,40 +30,48 @@ export function MessageComposer({ channelId,channelName,replyTo,onCancelReply,on
   const [body,setBody]=useState(""); const [sending,setSending]=useState(false); const [error,setError]=useState<string|null>(null); const [notice,setNotice]=useState<string|null>(null);
   const [attachment,setAttachment]=useState<File|null>(null); const fileInput=useRef<HTMLInputElement|null>(null);
   const [mentions,setMentions]=useState<MentionCandidate[]>([]); const [selectedMentions,setSelectedMentions]=useState<MentionCandidate[]>([]); const [typingUsers,setTypingUsers]=useState<Map<string,string>>(new Map()); const [identity,setIdentity]=useState("A survivor"); const [userId,setUserId]=useState("");
-  const typingChannel=useRef<RealtimeChannel|null>(null); const typingTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
+  const typingTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const mention=activeMention(body); const commandQuery=body.startsWith("/")&&!body.includes(" ") ? body.slice(1).toLowerCase() : null;
   const visibleCommands=useMemo(()=>commandQuery===null?[]:commands.filter((command)=>command.name.startsWith(commandQuery)),[commandQuery]);
 
-  useEffect(()=>{ if(!supabase)return; const client=supabase; let active=true; client.rpc("get_my_chat_identity").then(({data})=>{if(active&&data)setIdentity(data);}); client.auth.getUser().then(({data})=>{if(active)setUserId(data.user?.id??"");}); client.realtime.setAuth().then(()=>{if(!active)return; const channel=client.channel(`typing:${channelId}`,{config:{private:true,broadcast:{self:false}}}); channel.on("broadcast",{event:"typing"},({payload})=>{const event=payload as TypingEvent; setTypingUsers((current)=>{const next=new Map(current); if(event.typing)next.set(event.user_id,event.identity_label);else next.delete(event.user_id);return next;}); if(event.typing)setTimeout(()=>setTypingUsers((current)=>{const next=new Map(current);next.delete(event.user_id);return next;}),3500);}).subscribe(); typingChannel.current=channel;}); return()=>{active=false;if(typingTimer.current)clearTimeout(typingTimer.current);if(typingChannel.current)client.removeChannel(typingChannel.current);}; },[channelId]);
+  useEffect(()=>{ let active=true;
+    api<AccountPayload>("/api/account").then(({data})=>{if(active&&data)setIdentity(data.identity_label);});
+    api<SessionInfo>("/api/auth/session").then(({data})=>{if(active)setUserId(data?.user?.id??"");});
+    return()=>{active=false;if(typingTimer.current)clearTimeout(typingTimer.current);};
+  },[channelId]);
 
-  useEffect(()=>{ if(!supabase||!mention){setMentions([]);return;} const timer=setTimeout(()=>supabase!.rpc("get_channel_mention_candidates",{p_channel_id:channelId,p_query:mention.query,p_limit:8}).then(({data})=>setMentions(data??[])),120); return()=>clearTimeout(timer); },[channelId,mention?.query]);
+  useChannelStream(channelId, useCallback((event)=>{
+    if(event.type!=="typing")return;
+    setTypingUsers((current)=>{const next=new Map(current); if(event.typing)next.set(event.user_id,event.identity_label);else next.delete(event.user_id);return next;});
+    if(event.typing)setTimeout(()=>setTypingUsers((current)=>{const next=new Map(current);next.delete(event.user_id);return next;}),3500);
+  },[]));
 
-  function broadcastTyping(typing:boolean){ if(userId)typingChannel.current?.send({type:"broadcast",event:"typing",payload:{user_id:userId,identity_label:identity,typing}}); }
+  useEffect(()=>{ if(!mention){setMentions([]);return;} const timer=setTimeout(()=>api<{candidates:MentionCandidate[]}>(`/api/channels/${channelId}/mentions?q=${encodeURIComponent(mention.query)}`).then(({data})=>setMentions(data?.candidates??[])),120); return()=>clearTimeout(timer); },[channelId,mention?.query]);
+
+  function broadcastTyping(typing:boolean){ if(userId)apiPost(`/api/channels/${channelId}/typing`,{typing}); }
   function change(value:string){setBody(value);setError(null);setNotice(null);broadcastTyping(true);if(typingTimer.current)clearTimeout(typingTimer.current);typingTimer.current=setTimeout(()=>broadcastTyping(false),1200);}
   function chooseMention(candidate:MentionCandidate){if(!mention)return;setBody(`${body.slice(0,mention.start)}@${candidate.mention_text} `);setSelectedMentions((current)=>current.some((item)=>item.user_id===candidate.user_id)?current:[...current,candidate]);setMentions([]);}
   function chooseCommand(command:Command){setBody(command.syntax.includes(" ")?`/${command.name} `:`/${command.name}`);}
-  async function submit(event:SubmitEvent<HTMLFormElement>){event.preventDefault();if(!supabase||(!body.trim()&&!attachment))return;let outgoing=body.trim()||`Shared ${attachment?.name}`;if(outgoing.startsWith("/")){const [token,...rest]=outgoing.slice(1).split(" ");const command=commands.find((item)=>item.name===token.toLowerCase());if(!command){setError(`Unknown command /${token}. Type /help to see available commands.`);return;}const result=command.run(rest.join(" ").trim());if(result.clear){setBody("");setNotice(result.notice??null);return;}if(result.notice&&!result.body){setNotice(result.notice);return;}outgoing=result.body??outgoing;}
+  async function submit(event:SubmitEvent<HTMLFormElement>){event.preventDefault();if(!body.trim()&&!attachment)return;let outgoing=body.trim()||`Shared ${attachment?.name}`;if(outgoing.startsWith("/")){const [token,...rest]=outgoing.slice(1).split(" ");const command=commands.find((item)=>item.name===token.toLowerCase());if(!command){setError(`Unknown command /${token}. Type /help to see available commands.`);return;}const result=command.run(rest.join(" ").trim());if(result.clear){setBody("");setNotice(result.notice??null);return;}if(result.notice&&!result.body){setNotice(result.notice);return;}outgoing=result.body??outgoing;}
     setSending(true);setError(null);broadcastTyping(false);
     try {
-      const {data:messageId,error:sendError}=await supabase.rpc("post_channel_message",{p_channel_id:channelId,p_body:outgoing,p_parent_message_id:replyTo?.id??null,p_mentioned_user_ids:selectedMentions.map((item)=>item.user_id)});
-      if(sendError){setError(`Message was not sent: ${sendError.message}`);return;}
-      if(attachment&&messageId&&userId){
-        const safeName=attachment.name.replace(/[^a-zA-Z0-9._-]/g,"-");
-        const storagePath=`${userId}/${messageId}/${crypto.randomUUID()}-${safeName}`;
-        const {error:uploadError}=await supabase.storage.from("chat-attachments").upload(storagePath,attachment,{contentType:attachment.type,upsert:false});
-        if(uploadError){setError(`Message sent, but attachment failed: ${uploadError.message}`);setBody("");onSent();return;}
-        const {error:recordError}=await supabase.from("chat_attachments").insert({message_id:messageId,uploader_id:userId,storage_path:storagePath,file_name:attachment.name,mime_type:attachment.type,size_bytes:attachment.size});
-        if(recordError){await supabase.storage.from("chat-attachments").remove([storagePath]);setError(`Message sent, but attachment could not be linked: ${recordError.message}`);setBody("");onSent();return;}
-      }
+      const form=new FormData();
+      form.set("body",outgoing);
+      if(replyTo?.id)form.set("parent_message_id",replyTo.id);
+      form.set("mentioned_user_ids",JSON.stringify(selectedMentions.map((item)=>item.user_id)));
+      if(attachment)form.set("attachment",attachment);
+      const {data,error:sendError}=await api<{message_id:string;attachment_error:string|null}>(`/api/channels/${channelId}/messages`,{method:"POST",body:form});
+      if(sendError||!data){setError(`Message was not sent: ${sendError??"unknown error"}`);return;}
+      if(data.attachment_error){setError(data.attachment_error);setBody("");setAttachment(null);onSent();return;}
       setBody("");setAttachment(null);setSelectedMentions([]);setNotice("Message sent.");onSent();
     } catch {
       setError("Message was not sent. Check your connection and try again.");
     } finally { setSending(false); }
   }
   function keyDown(event:KeyboardEvent<HTMLTextAreaElement>){if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();event.currentTarget.form?.requestSubmit();}}
-  const typers=[...typingUsers.values()].filter((label)=>label!==identity);
+  const typers=[...typingUsers.entries()].filter(([id])=>id!==userId).map(([,label])=>label);
 
-  return <form onSubmit={submit} className="composer-wrap">
+  return <form onSubmit={submit} className="composer">
     {replyTo&&<div className="reply-banner"><span>Replying to <strong>{replyTo.label}</strong></span><button type="button" onClick={onCancelReply}>×</button></div>}
     {(visibleCommands.length>0||mentions.length>0)&&<div className="composer-suggestions" role="listbox"><header>{mentions.length>0?"Mention a survivor":"Commands"}<span>{mentions.length||visibleCommands.length}</span></header>{mentions.map((candidate)=><button type="button" key={candidate.user_id} onClick={()=>chooseMention(candidate)}><b>@</b><span><strong>{candidate.identity_label}</strong><small>Notify this survivor</small></span></button>)}{mentions.length===0&&visibleCommands.map((command)=><button type="button" key={command.name} onClick={()=>chooseCommand(command)}><b>/</b><span><strong>{command.syntax}</strong><small>{command.description}</small></span></button>)}</div>}
     {attachment&&<div className="attachment-draft"><span>◆</span><div><strong>{attachment.name}</strong><small>{(attachment.size/1024/1024).toFixed(2)} MB</small></div><button type="button" onClick={()=>setAttachment(null)}>×</button></div>}

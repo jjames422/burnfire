@@ -1,4 +1,4 @@
-import type { AllianceTitle, GameRank } from "@/lib/supabase/types";
+import type { AllianceTitle, GameRank } from "@/lib/api/types";
 
 const RANK_LABELS: Record<GameRank, string> = {
   r1: "R1 Recruit",

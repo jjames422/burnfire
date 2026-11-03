@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { User } from "@supabase/supabase-js";
 import clsx from "clsx";
-import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
-import type { GuideReactionRow, ReactionRow, ReactionType } from "@/lib/supabase/types";
+import { api, apiPost } from "@/lib/api/client";
+import type { GuideReactionsPayload, ReactionType } from "@/lib/api/types";
 
 interface ReactionBarProps {
   alliance: string;
@@ -30,58 +29,25 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
   const [counts, setCounts] = useState(ZERO_COUNTS);
   const [reacted, setReacted] = useState(NOT_REACTED);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [signedIn, setSignedIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!supabase) {
-      setLoading(false);
-      return;
-    }
-
     let cancelled = false;
 
     async function loadCounts() {
-      const { data: authData } = await supabase!.auth.getUser();
+      const { data } = await api<GuideReactionsPayload>(
+        `/api/guides/reactions?alliance=${encodeURIComponent(alliance)}&slug=${encodeURIComponent(guideSlug)}`,
+      );
       if (cancelled) return;
-      setUser(authData.user ?? null);
-
-      const [{ data }, { data: ownReactions }] = await Promise.all([
-        supabase!
-        .from("reactions")
-        .select("*")
-        .eq("alliance", alliance)
-        .eq("guide_slug", guideSlug),
-        authData.user
-          ? supabase!
-              .from("guide_reactions")
-              .select("*")
-              .eq("alliance", alliance)
-              .eq("guide_slug", guideSlug)
-              .eq("user_id", authData.user.id)
-          : Promise.resolve({ data: [] as GuideReactionRow[] }),
-      ]);
-
-      if (cancelled) return;
-
       if (!data) {
         setLoading(false);
         setError("Reaction totals are unavailable right now.");
         return;
       }
-
-      setCounts((prev) => {
-        const next = { ...prev };
-        for (const row of data as ReactionRow[]) {
-          next[row.reaction_type] = row.count;
-        }
-        return next;
-      });
-      setReacted((prev) => {
-        const next = { ...prev };
-        for (const row of (ownReactions ?? []) as GuideReactionRow[]) next[row.reaction_type] = true;
-        return next;
-      });
+      setCounts(data.counts);
+      setReacted(data.reacted);
+      setSignedIn(data.signed_in);
       setLoading(false);
     }
 
@@ -92,28 +58,25 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
   }, [alliance, guideSlug]);
 
   async function handleReact(type: ReactionType) {
-    if (!supabase || !user || reacted[type]) return;
+    if (!signedIn || reacted[type]) return;
 
     // Optimistic update + dedup flag set up front, so a fast second click
     // can't double-count while the request is still in flight.
     setReacted((prev) => ({ ...prev, [type]: true }));
     setCounts((prev) => ({ ...prev, [type]: prev[type] + 1 }));
     setError(null);
-    const { error: insertError } = await supabase.from("guide_reactions").insert({
+    const { error: insertError } = await apiPost("/api/guides/reactions", {
       alliance,
       guide_slug: guideSlug,
       reaction_type: type,
-      user_id: user.id,
     });
 
     if (insertError) {
       setReacted((prev) => ({ ...prev, [type]: false }));
       setCounts((prev) => ({ ...prev, [type]: Math.max(0, prev[type] - 1) }));
-      setError(insertError.message);
+      setError(insertError);
     }
   }
-
-  if (!isSupabaseConfigured) return null;
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 pt-6">
@@ -122,7 +85,7 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
         <button
           key={type}
           type="button"
-          disabled={loading || !user || reacted[type]}
+          disabled={loading || !signedIn || reacted[type]}
           onClick={() => handleReact(type)}
           aria-pressed={reacted[type]}
           aria-label={label}
@@ -138,7 +101,7 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
         </button>
       ))}
       </div>
-      {!loading && !user && (
+      {!loading && !signedIn && (
         <p className="mt-2 text-xs text-text-secondary">Sign in below to react. Guests can view counts only.</p>
       )}
       {error && <p className="mt-2 text-xs text-warning">{error}</p>}

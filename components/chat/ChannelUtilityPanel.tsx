@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, type SubmitEvent } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { api } from "@/lib/api/client";
+import type { ChannelMessagesPayload, SearchResultRow } from "@/lib/api/types";
 
 type UtilityMode = "search" | "pins";
 type UtilityMessage = { id:string; body:string; created_at:string; identity_label:string };
@@ -13,24 +14,20 @@ export function ChannelUtilityPanel({ channelId, mode, onClose, onJump }:{ chann
   const [error,setError]=useState<string|null>(null);
 
   useEffect(()=>{
-    if(mode!=="pins"||!supabase)return;
-    const client=supabase;
+    if(mode!=="pins")return;
     setLoading(true);setError(null);
-    Promise.all([
-      client.from("pinned_messages").select("message_id").eq("channel_id",channelId),
-      client.rpc("get_channel_messages",{p_channel_id:channelId,p_limit:100}),
-    ]).then(([pins,messages])=>{
-      if(pins.error||messages.error){setError(pins.error?.message??messages.error?.message??"Pinned messages could not be loaded.");setResults([]);}
-      else {const ids=new Set((pins.data??[]).map((pin)=>pin.message_id));setResults((messages.data??[]).filter((message)=>ids.has(message.id)));}
+    api<ChannelMessagesPayload>(`/api/channels/${channelId}/messages`).then(({data,error:loadError})=>{
+      if(loadError||!data){setError(loadError??"Pinned messages could not be loaded.");setResults([]);}
+      else {const ids=new Set(data.pinned_message_ids);setResults(data.messages.filter((message)=>ids.has(message.id)));}
       setLoading(false);
     });
   },[channelId,mode]);
 
   async function search(event:SubmitEvent<HTMLFormElement>){
-    event.preventDefault();if(!supabase||query.trim().length<2)return;
+    event.preventDefault();if(query.trim().length<2)return;
     setLoading(true);setError(null);
-    const {data,error:searchError}=await supabase.rpc("search_channel_messages",{p_channel_id:channelId,p_query:query.trim()});
-    setResults(data??[]);setError(searchError?.message??null);setLoading(false);
+    const {data,error:searchError}=await api<{results:SearchResultRow[]}>(`/api/channels/${channelId}/search?q=${encodeURIComponent(query.trim())}`);
+    setResults(data?.results??[]);setError(searchError);setLoading(false);
   }
 
   return <aside className="utility-panel">

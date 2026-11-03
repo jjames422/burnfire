@@ -1,8 +1,15 @@
 # Managing roles and channels
 
 There's no admin UI in the app for this (deliberately deferred — see the bottom of this doc).
-Both tasks below happen directly in **Supabase's Table Editor**: dashboard for your project →
-**Table Editor** in the left sidebar.
+Both tasks below happen directly in the local database with **psql** on the server:
+
+```bash
+cd /home/opc/websites/burnfire-site
+psql "$(grep '^DATABASE_URL=' .env.local | cut -d= -f2-)"
+```
+
+That connects to the site's dedicated PostgreSQL instance (its own cluster on port 5433 — not
+shared with any other site on this server).
 
 ## Verifying a member's game rank and title
 
@@ -12,8 +19,8 @@ never accepted from the signup form.
 Each authenticated account can have exactly one membership and therefore belong to only one
 alliance; the database enforces this with `user_id` as the membership's primary key.
 
-1. Find the person in **`profiles`** and copy their `id`. Cross-check it against
-   **Authentication → Users** if needed.
+1. Find the person in **`profiles`** and copy their `id`. Cross-check it against the **`users`**
+   table (email addresses) if needed.
 2. Open **`alliance_members`** and find the row with the matching `user_id` and alliance.
 3. Set `game_rank` to `r1`, `r2`, `r3`, `r4`, or `r5`.
 4. Optionally set `alliance_title`. R4 members may be `diplomat`, `recruiter`, `goddess`, or
@@ -40,16 +47,23 @@ Channel access is controlled by `permission_role` on **`alliance_members`**. Cha
 
 1. Table Editor → **`alliance_members`**.
 2. Find the member's alliance/user row.
-3. Change `permission_role`.
-4. Save.
+3. Change `permission_role`, e.g.:
+
+   ```sql
+   update alliance_members set permission_role = 'officer' where user_id = '<uuid>';
+   ```
 
 ## Adding a new channel
 
 Channels live in the **`channels`** table. There's no MDX file or code change involved — a new
 row is a new channel.
 
-1. Table Editor → **`channels`** table → **Insert row** (or **Insert** → **Insert row**,
-   depending on the Table Editor's current layout).
+1. Connect with psql as above, then insert a row:
+
+   ```sql
+   insert into channels (alliance, slug, name, topic, min_role, sort_order, scope)
+   values ('burnfire', 'events', 'Events', 'Founding Day and other alliance events', 'member', 10, 'alliance');
+   ```
 2. Fill in:
    - **`alliance`** — `burnfire` (must match exactly; this is what scopes the channel to this
      alliance and is how a second alliance's channels would stay separate later).
@@ -77,7 +91,7 @@ deleting — there's no undo.
 
 This is a deliberate v1 scope decision, not an oversight: building a self-service admin screen
 (role management, channel CRUD, with its own permission checks) is meaningfully more work than
-this project's alliance-management needs justify right now, and Supabase's Table Editor already
-does the job safely (it's protected by your own Supabase account login, separate from the site
-entirely). If BurnFire's admin needs grow past "occasionally promote someone or add a channel,"
+this project's alliance-management needs justify right now, and psql on the server already
+does the job safely (it requires SSH access to the server, separate from the site entirely).
+If BurnFire's admin needs grow past "occasionally promote someone or add a channel,"
 revisit building a real admin UI then — not preemptively now.

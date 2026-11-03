@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState, type ReactNode, type SubmitEvent } from "react";
-import type { Session } from "@supabase/supabase-js";
-import { supabase, isSupabaseConfigured } from "@/lib/supabase/client";
-import type { ProfileRow } from "@/lib/supabase/types";
+import { api, apiPost } from "@/lib/api/client";
+import type { ProfileRow, SessionInfo } from "@/lib/api/types";
 import { ProfileSetupModal } from "./ProfileSetupModal";
 
 interface AuthGateProps {
@@ -13,114 +12,103 @@ interface AuthGateProps {
 }
 
 /**
- * Gates children behind a Supabase magic-link session, then behind a
- * completed `profiles` row. First-time sign-ins see ProfileSetupModal;
- * everyone after that skips straight to `children`.
+ * Gates children behind a signed-in session (email + 6-digit code), then
+ * behind a completed `profiles` row. First-time sign-ins see
+ * ProfileSetupModal; everyone after that skips straight to `children`.
  */
-export function AuthGate({
-  children,
-  redirectPath = "/chat",
-  featureName = "Chat",
-}: AuthGateProps) {
+export function AuthGate({ children }: AuthGateProps) {
   const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState<Session | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!supabase) {
-      setLoading(false);
-      return;
-    }
-
     let cancelled = false;
-    const client = supabase;
-
-    async function loadProfile(userId: string) {
-      const { data } = await client
-        .from("profiles")
-        .select("*")
-        .eq("id", userId)
-        .maybeSingle();
-      if (!cancelled) {
-        setProfile(data ?? null);
-        setLoading(false);
-      }
-    }
-
-    async function init() {
-      const { data } = await client.auth.getSession();
+    api<SessionInfo>("/api/auth/session").then(({ data }) => {
       if (cancelled) return;
-      setSession(data.session);
-      if (data.session) await loadProfile(data.session.user.id);
-      else setLoading(false);
-    }
-
-    init();
-
-    const { data: listener } = client.auth.onAuthStateChange(
-      (_event, newSession) => {
-        if (cancelled) return;
-        setSession(newSession);
-        if (newSession) {
-          setLoading(true);
-          loadProfile(newSession.user.id);
-        } else {
-          setProfile(null);
-        }
-      },
-    );
-
+      setUserId(data?.user?.id ?? null);
+      setProfile(data?.profile ?? null);
+      setLoading(false);
+    });
     return () => {
       cancelled = true;
-      listener.subscription.unsubscribe();
     };
   }, []);
 
-  async function handleSendMagicLink(event: SubmitEvent<HTMLFormElement>) {
+  async function handleSendCode(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!supabase) return;
-
     setSending(true);
     setError(null);
-
-    const { error: otpError } = await supabase.auth.signInWithOtp({
+    const { error: sendError } = await apiPost("/api/auth/request-code", {
       email: email.trim(),
-      options: { emailRedirectTo: `${window.location.origin}${redirectPath}` },
     });
-
     setSending(false);
-    if (otpError) setError(otpError.message);
+    if (sendError) setError(sendError);
     else setSent(true);
   }
 
-  if (!isSupabaseConfigured) {
-    return (
-      <p className="border border-border bg-surface p-4 text-sm text-text-secondary">
-        {featureName} isn&apos;t configured yet — copy .env.local.example to
-        .env.local with a Supabase project&apos;s URL and anon key to enable it.
-      </p>
-    );
+  async function handleVerifyCode(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSending(true);
+    setError(null);
+    const { data, error: verifyError } = await apiPost<{
+      user: { id: string };
+      profile: ProfileRow | null;
+    }>("/api/auth/verify", { email: email.trim(), code: code.trim() });
+    setSending(false);
+    if (verifyError || !data) {
+      setError(verifyError ?? "Sign-in failed.");
+      return;
+    }
+    setUserId(data.user.id);
+    setProfile(data.profile);
   }
 
   if (loading) {
     return <div className="auth-loading"><span />Igniting secure connection…</div>;
   }
 
-  if (!session) {
+  if (!userId) {
     return (
       <div className="auth-card">
         <div className="auth-mascot"><img src="/images/burnfire/logo.png" alt="BurnFire mascot" /></div>
         <span className="eyebrow">Kingdom #324 community access</span>
         <h2>Enter the survivor network</h2>
-        <p className="auth-intro">One secure link. No password to remember. Your in-game identity follows you everywhere on the site.</p>
+        <p className="auth-intro">One secure code, sent to your email. No password to remember. Your in-game identity follows you everywhere on the site.</p>
         {sent ? (
-          <div className="auth-sent"><span>✦</span><strong>Check your email</strong><p>Your secure link will return you directly to the community chat.</p></div>
+          <form onSubmit={handleVerifyCode}>
+            <div className="auth-sent"><span>✦</span><strong>Check your email</strong><p>Enter the 6-digit code we sent to {email.trim()}.</p></div>
+            <label className="auth-label">Sign-in code</label>
+            <input
+              required
+              inputMode="numeric"
+              pattern="[0-9]{6}"
+              maxLength={6}
+              placeholder="123456"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              className="auth-input"
+              autoFocus
+            />
+            {error && <p className="auth-error">{error}</p>}
+            <button type="submit" disabled={sending} className="auth-submit">
+              {sending ? "Verifying…" : "Enter the network"}
+            </button>
+            <button
+              type="button"
+              className="auth-resend"
+              disabled={sending}
+              onClick={() => { setSent(false); setCode(""); setError(null); }}
+            >
+              Use a different email or resend the code
+            </button>
+          </form>
         ) : (
-          <form onSubmit={handleSendMagicLink}>
+          <form onSubmit={handleSendCode}>
             <label className="auth-label">Email address</label>
             <input
               type="email"
@@ -131,12 +119,8 @@ export function AuthGate({
               className="auth-input"
             />
             {error && <p className="auth-error">{error}</p>}
-            <button
-              type="submit"
-              disabled={sending}
-              className="auth-submit"
-            >
-              {sending ? "Sending secure link…" : "Continue with magic link"}
+            <button type="submit" disabled={sending} className="auth-submit">
+              {sending ? "Sending secure code…" : "Continue with email code"}
             </button>
           </form>
         )}
@@ -146,9 +130,7 @@ export function AuthGate({
   }
 
   if (!profile) {
-    return (
-      <ProfileSetupModal userId={session.user.id} onComplete={setProfile} />
-    );
+    return <ProfileSetupModal onComplete={setProfile} />;
   }
 
   return <>{children}</>;
