@@ -11,7 +11,8 @@ export const pool =
   globalForDb.burnfirePool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
-    max: 10,
+    // Small per-instance pool — serverless hosting runs many instances.
+    max: Number(process.env.PG_POOL_MAX ?? 5),
     idleTimeoutMillis: 30_000,
   });
 

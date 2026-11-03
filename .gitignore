@@ -41,5 +41,3 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local database env + uploaded attachment storage
-/storage/

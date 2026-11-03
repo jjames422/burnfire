@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { query, queryOne } from "@/lib/server/db";
-import { chatBus } from "@/lib/server/events";
+import { publishChannelEvent } from "@/lib/server/events";
 import { databaseErrorMessage, jsonError, requireUser } from "@/lib/server/http";
 
 /** Pin or unpin a message (moderators). */
@@ -23,6 +23,6 @@ export async function POST(
     `select channel_id from messages where id = $1`,
     [messageId],
   );
-  if (row) chatBus.publish(row.channel_id, { type: "message" });
+  if (row) await publishChannelEvent(row.channel_id, { type: "message" });
   return NextResponse.json({ pinned: pin });
 }

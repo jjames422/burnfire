@@ -215,6 +215,19 @@ create table if not exists chat_attachments (
   size_bytes bigint not null check (size_bytes between 1 and 26214400),
   created_at timestamptz not null default now()
 );
+-- File bytes live in the database so the serverless-hosted site has no
+-- dependency on this server's filesystem.
+alter table chat_attachments add column if not exists data bytea;
+
+-- Live presence per channel, written by the SSE stream handlers. No FKs —
+-- rows are ephemeral heartbeats pruned by age.
+create unlogged table if not exists channel_presence (
+  channel_id uuid not null,
+  user_id uuid not null,
+  identity_label text not null,
+  last_seen_at timestamptz not null default now(),
+  primary key (channel_id, user_id)
+);
 
 create table if not exists chat_restrictions (
   id uuid primary key default gen_random_uuid(),

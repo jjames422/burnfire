@@ -24,6 +24,23 @@ export function subscribeChannelStream(channelId: string, listener: Listener): (
     const source = new EventSource(`/api/channels/${channelId}/events`);
     connection = { source, listeners: new Set() };
     const current = connection;
+    let hadFirstOpen = false;
+    // Serverless hosting closes long streams periodically; EventSource
+    // reconnects on its own. On reconnect, nudge subscribers to refetch so
+    // nothing sent during the gap is missed.
+    source.onopen = () => {
+      if (!hadFirstOpen) {
+        hadFirstOpen = true;
+        return;
+      }
+      for (const fn of current.listeners) {
+        try {
+          fn({ type: "message" });
+        } catch {
+          // One broken subscriber never blocks the rest.
+        }
+      }
+    };
     source.onmessage = (event) => {
       let parsed: { type: string };
       try {

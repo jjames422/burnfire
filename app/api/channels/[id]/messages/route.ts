@@ -1,18 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { randomUUID } from "node:crypto";
 import { query, queryOne } from "@/lib/server/db";
-import { chatBus } from "@/lib/server/events";
+import { publishChannelEvent } from "@/lib/server/events";
 import { databaseErrorMessage, jsonError, requireUser } from "@/lib/server/http";
-import {
-  ALLOWED_ATTACHMENT_TYPES,
-  MAX_ATTACHMENT_BYTES,
-  deleteStoredFile,
-  saveChatAttachment,
-} from "@/lib/server/storage";
 import type {
   ChannelMessagesPayload,
   ChatAttachmentInfo,
   ChatMessageRow,
 } from "@/lib/api/types";
+
+const MAX_ATTACHMENT_BYTES = 25 * 1024 * 1024;
+const ALLOWED_ATTACHMENT_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "application/pdf",
+  "text/plain",
+]);
 
 /** Messages, pins, and attachment metadata for a channel in one payload. */
 export async function GET(
@@ -101,17 +106,21 @@ export async function POST(
   let attachmentError: string | null = null;
   if (file) {
     try {
-      const storagePath = await saveChatAttachment(user.id, file);
-      try {
-        await query(
-          `insert into chat_attachments (message_id, uploader_id, storage_path, file_name, mime_type, size_bytes)
-           values ($1, $2, $3, $4, $5, $6)`,
-          [messageId, user.id, storagePath, file.name, file.type, file.size],
-        );
-      } catch (error) {
-        await deleteStoredFile(storagePath);
-        throw error;
-      }
+      // File bytes live in the database row so serverless hosting needs no
+      // local filesystem.
+      await query(
+        `insert into chat_attachments (message_id, uploader_id, storage_path, file_name, mime_type, size_bytes, data)
+         values ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          messageId,
+          user.id,
+          `db/${user.id}/${messageId}/${randomUUID()}`,
+          file.name,
+          file.type,
+          file.size,
+          Buffer.from(await file.arrayBuffer()),
+        ],
+      );
     } catch (error) {
       attachmentError = databaseErrorMessage(
         error,
@@ -120,6 +129,6 @@ export async function POST(
     }
   }
 
-  chatBus.publish(channelId, { type: "message" });
+  await publishChannelEvent(channelId, { type: "message" });
   return NextResponse.json({ message_id: messageId, attachment_error: attachmentError });
 }

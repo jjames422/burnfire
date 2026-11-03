@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { query, queryOne } from "@/lib/server/db";
-import { chatBus } from "@/lib/server/events";
+import { publishChannelEvent } from "@/lib/server/events";
 import { databaseErrorMessage, jsonError, requireUser } from "@/lib/server/http";
 
 async function channelOf(messageId: string): Promise<string | null> {
@@ -28,7 +28,7 @@ export async function PATCH(
     return jsonError(databaseErrorMessage(error, "Message cannot be edited."));
   }
   const channelId = await channelOf(messageId);
-  if (channelId) chatBus.publish(channelId, { type: "message" });
+  if (channelId) await publishChannelEvent(channelId, { type: "message" });
   return NextResponse.json({ ok: true });
 }
 
@@ -47,6 +47,6 @@ export async function DELETE(
   } catch (error) {
     return jsonError(databaseErrorMessage(error, "Message cannot be deleted."));
   }
-  if (channelId) chatBus.publish(channelId, { type: "message" });
+  if (channelId) await publishChannelEvent(channelId, { type: "message" });
   return NextResponse.json({ ok: true });
 }

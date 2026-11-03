@@ -1,11 +1,22 @@
 import type { NextRequest } from "next/server";
 import { queryOne } from "@/lib/server/db";
-import { chatBus, type ChatEvent } from "@/lib/server/events";
+import {
+  broadcastPresence,
+  removePresence,
+  subscribeChannelEvents,
+  touchPresence,
+  type ChatEvent,
+} from "@/lib/server/events";
 import { jsonError, requireUser } from "@/lib/server/http";
 
 export const dynamic = "force-dynamic";
+// Serverless platforms cap streaming duration; when the limit closes the
+// stream, the browser's EventSource reconnects automatically and the client
+// refreshes state on reconnect.
+export const maxDuration = 60;
 
 const encoder = new TextEncoder();
+const HEARTBEAT_MS = 20_000;
 
 function sse(event: ChatEvent | { type: "ping" }): Uint8Array {
   return encoder.encode(`data: ${JSON.stringify(event)}\n\n`);
@@ -14,7 +25,8 @@ function sse(event: ChatEvent | { type: "ping" }): Uint8Array {
 /**
  * Per-channel realtime stream (SSE): new-message signals, typing
  * indicators, and presence. Holding this stream open is what marks the
- * user online in the channel.
+ * user online in the channel; presence rides a heartbeat table so it works
+ * across server instances.
  */
 export async function GET(
   request: NextRequest,
@@ -37,12 +49,12 @@ export async function GET(
   const identityLabel = identity?.get_my_chat_identity ?? "A survivor";
 
   let heartbeat: ReturnType<typeof setInterval> | undefined;
-  let unsubscribe: (() => void) | undefined;
+  let closeSubscription: (() => Promise<void>) | undefined;
   let closed = false;
   let cleanup = () => {};
 
   const stream = new ReadableStream({
-    start(controller) {
+    async start(controller) {
       const send = (event: ChatEvent | { type: "ping" }) => {
         if (closed) return;
         try {
@@ -54,9 +66,12 @@ export async function GET(
       cleanup = () => {
         if (closed) return;
         closed = true;
-        unsubscribe?.();
-        chatBus.presenceLeave(channelId, user.id);
         if (heartbeat) clearInterval(heartbeat);
+        void closeSubscription?.();
+        // Best-effort: drop presence and tell the rest of the channel.
+        void removePresence(channelId, user.id)
+          .then(() => broadcastPresence(channelId))
+          .catch(() => {});
         try {
           controller.close();
         } catch {
@@ -64,11 +79,18 @@ export async function GET(
         }
       };
 
-      unsubscribe = chatBus.subscribe(channelId, send);
-      chatBus.presenceJoin(channelId, user.id, identityLabel);
-      send({ type: "presence", users: chatBus.presenceSnapshot(channelId) });
-      heartbeat = setInterval(() => send({ type: "ping" }), 25_000);
       request.signal.addEventListener("abort", cleanup);
+      try {
+        closeSubscription = await subscribeChannelEvents(channelId, send);
+        await touchPresence(channelId, user.id, identityLabel);
+        await broadcastPresence(channelId);
+        heartbeat = setInterval(() => {
+          send({ type: "ping" });
+          void touchPresence(channelId, user.id, identityLabel).catch(() => {});
+        }, HEARTBEAT_MS);
+      } catch {
+        cleanup();
+      }
     },
     cancel() {
       cleanup();

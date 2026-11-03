@@ -1,8 +1,15 @@
+import { Client } from "pg";
+import { pool, query } from "./db";
+
 /**
- * In-process realtime bus for chat. The site runs as a single `next start`
- * process, so SSE subscribers and the API routes that publish events share
- * this module. Stored on globalThis to survive dev-mode hot reloads.
+ * Realtime chat signaling through Postgres, so it works when the site runs
+ * on serverless hosting (each API invocation may be a different instance):
+ * - events (new message / typing) travel over NOTIFY/LISTEN
+ * - presence is a heartbeat table written by the SSE stream handlers
  */
+
+const NOTIFY_CHANNEL = "burnfire_chat";
+const PRESENCE_TTL_SECONDS = 45;
 
 export type ChatEvent =
   | { type: "message" }
@@ -14,72 +21,78 @@ export interface PresenceEntry {
   identity_label: string;
 }
 
-type Listener = (event: ChatEvent) => void;
+type WireEvent = { channel_id: string; event: ChatEvent };
 
-class ChatBus {
-  private listeners = new Map<string, Set<Listener>>();
-  // user may hold several tabs/connections — refcount per user per channel.
-  private presence = new Map<string, Map<string, { label: string; count: number }>>();
-
-  subscribe(channelId: string, listener: Listener): () => void {
-    let set = this.listeners.get(channelId);
-    if (!set) {
-      set = new Set();
-      this.listeners.set(channelId, set);
-    }
-    set.add(listener);
-    return () => {
-      set.delete(listener);
-      if (set.size === 0) this.listeners.delete(channelId);
-    };
-  }
-
-  publish(channelId: string, event: ChatEvent): void {
-    for (const listener of this.listeners.get(channelId) ?? []) {
-      try {
-        listener(event);
-      } catch {
-        // A broken subscriber never blocks the rest.
-      }
-    }
-  }
-
-  presenceSnapshot(channelId: string): PresenceEntry[] {
-    const entries = this.presence.get(channelId);
-    if (!entries) return [];
-    return [...entries.entries()].map(([user_id, { label }]) => ({
-      user_id,
-      identity_label: label,
-    }));
-  }
-
-  presenceJoin(channelId: string, userId: string, label: string): void {
-    let entries = this.presence.get(channelId);
-    if (!entries) {
-      entries = new Map();
-      this.presence.set(channelId, entries);
-    }
-    const current = entries.get(userId);
-    if (current) {
-      current.count += 1;
-      current.label = label;
-    } else {
-      entries.set(userId, { label, count: 1 });
-    }
-    this.publish(channelId, { type: "presence", users: this.presenceSnapshot(channelId) });
-  }
-
-  presenceLeave(channelId: string, userId: string): void {
-    const entries = this.presence.get(channelId);
-    const current = entries?.get(userId);
-    if (!entries || !current) return;
-    current.count -= 1;
-    if (current.count <= 0) entries.delete(userId);
-    if (entries.size === 0) this.presence.delete(channelId);
-    this.publish(channelId, { type: "presence", users: this.presenceSnapshot(channelId) });
-  }
+/** Broadcasts an event to every stream subscribed to the channel. */
+export async function publishChannelEvent(channelId: string, event: ChatEvent): Promise<void> {
+  const payload: WireEvent = { channel_id: channelId, event };
+  await pool.query(`select pg_notify($1, $2)`, [NOTIFY_CHANNEL, JSON.stringify(payload)]);
 }
 
-const globalForBus = globalThis as unknown as { burnfireChatBus?: ChatBus };
-export const chatBus = globalForBus.burnfireChatBus ?? new ChatBus();
-globalForBus.burnfireChatBus = chatBus;
+/**
+ * Opens a dedicated LISTEN connection for one SSE stream. Returns a closer.
+ * A dedicated client (not the pool) is required — LISTEN is per-connection.
+ */
+export async function subscribeChannelEvents(
+  channelId: string,
+  onEvent: (event: ChatEvent) => void,
+): Promise<() => Promise<void>> {
+  const client = new Client({ connectionString: process.env.DATABASE_URL });
+  await client.connect();
+  client.on("notification", (message) => {
+    if (!message.payload) return;
+    try {
+      const wire = JSON.parse(message.payload) as WireEvent;
+      if (wire.channel_id === channelId) onEvent(wire.event);
+    } catch {
+      // Malformed payloads are dropped.
+    }
+  });
+  client.on("error", () => {
+    // Connection loss ends the stream; the browser's EventSource reconnects.
+  });
+  await client.query(`listen ${NOTIFY_CHANNEL}`);
+  return async () => {
+    await client.end().catch(() => {});
+  };
+}
+
+/** Records (or refreshes) a user's presence heartbeat in a channel. */
+export async function touchPresence(
+  channelId: string,
+  userId: string,
+  identityLabel: string,
+): Promise<void> {
+  await query(
+    `insert into channel_presence (channel_id, user_id, identity_label, last_seen_at)
+     values ($1, $2, $3, now())
+     on conflict (channel_id, user_id)
+     do update set identity_label = excluded.identity_label, last_seen_at = now()`,
+    [channelId, userId, identityLabel],
+  );
+}
+
+export async function removePresence(channelId: string, userId: string): Promise<void> {
+  await query(`delete from channel_presence where channel_id = $1 and user_id = $2`, [
+    channelId,
+    userId,
+  ]);
+}
+
+/** Current (non-stale) roster for a channel; prunes expired rows as it goes. */
+export async function presenceRoster(channelId: string): Promise<PresenceEntry[]> {
+  await query(
+    `delete from channel_presence where last_seen_at < now() - interval '${PRESENCE_TTL_SECONDS} seconds'`,
+  );
+  return query<PresenceEntry>(
+    `select user_id, identity_label from channel_presence
+     where channel_id = $1 order by identity_label`,
+    [channelId],
+  );
+}
+
+/** Publishes the fresh roster to everyone watching the channel. */
+export async function broadcastPresence(channelId: string): Promise<void> {
+  const users = await presenceRoster(channelId);
+  await publishChannelEvent(channelId, { type: "presence", users });
+}

@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { queryOne } from "@/lib/server/db";
-import { chatBus } from "@/lib/server/events";
+import { publishChannelEvent } from "@/lib/server/events";
 import { jsonError, requireUser } from "@/lib/server/http";
 
 /** Broadcasts a typing indicator to everyone watching the channel stream. */
@@ -25,7 +25,7 @@ export async function POST(
     [user.id],
   );
 
-  chatBus.publish(channelId, {
+  await publishChannelEvent(channelId, {
     type: "typing",
     user_id: user.id,
     identity_label: identity?.get_my_chat_identity ?? "A survivor",

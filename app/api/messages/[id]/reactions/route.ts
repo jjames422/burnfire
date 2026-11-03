@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { queryOne } from "@/lib/server/db";
-import { chatBus } from "@/lib/server/events";
+import { publishChannelEvent } from "@/lib/server/events";
 import { databaseErrorMessage, jsonError, requireUser } from "@/lib/server/http";
 
 /** Toggles the caller's emoji reaction on a message. */
@@ -31,6 +31,6 @@ export async function POST(
     `select channel_id from messages where id = $1`,
     [messageId],
   );
-  if (channel) chatBus.publish(channel.channel_id, { type: "message" });
+  if (channel) await publishChannelEvent(channel.channel_id, { type: "message" });
   return NextResponse.json({ added });
 }
