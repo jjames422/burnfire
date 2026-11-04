@@ -1,3 +1,9 @@
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { getLocale } from "@/lib/i18n/server";
+import { isLocale, type Locale } from "@/lib/i18n/locales";
+
 export type HeroFaction = "Warrior" | "Ranger" | "Warlock";
 export type HeroRole = "Tank" | "Carry" | "Support";
 export type HeroTier = "S-Tier" | "Strong" | "Solid";
@@ -57,6 +63,151 @@ export interface Hero {
 export function getMaxStats(hero: Hero): HeroMaxStats { return hero.maxStats; }
 
 export function getSkills(hero: Hero): HeroSkill[] { return hero.skills; }
+
+type HeroNarrativeTranslation = {
+  sourceHash?: string;
+  tierLists?: string;
+  summary?: string;
+  unlock?: string;
+  overview?: string[];
+  investment?: string;
+  squadFit?: string;
+  skills?: Record<string, { effect?: string; starUpgrades?: string[]; maxStars?: string }>;
+};
+
+const HERO_TRANSLATIONS_ROOT = path.join(process.cwd(), "content", "burnfire", "locales");
+
+async function resolveHeroLocale(locale?: Locale): Promise<Locale> {
+  if (locale !== undefined) {
+    if (!isLocale(locale)) throw new Error("Unsupported content locale");
+    return locale;
+  }
+  return getLocale();
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isSkillNarrativeTranslation(value: unknown): value is NonNullable<HeroNarrativeTranslation["skills"]>[string] {
+  if (!isRecord(value)) return false;
+  return ["effect", "maxStars"].every(
+    (key) => value[key] === undefined || typeof value[key] === "string",
+  ) && (value.starUpgrades === undefined ||
+    (Array.isArray(value.starUpgrades) && value.starUpgrades.every((entry) => typeof entry === "string")));
+}
+
+function isHeroNarrativeTranslation(value: unknown): value is HeroNarrativeTranslation {
+  if (!isRecord(value)) return false;
+  return ["sourceHash", "tierLists", "summary", "unlock", "investment", "squadFit"].every(
+    (key) => value[key] === undefined || typeof value[key] === "string",
+  ) && (value.overview === undefined ||
+    (Array.isArray(value.overview) && value.overview.every((entry) => typeof entry === "string"))) &&
+    (value.skills === undefined || (isRecord(value.skills) &&
+      Object.values(value.skills).every(isSkillNarrativeTranslation)));
+}
+
+async function readHeroTranslations(locale: Locale): Promise<Record<string, HeroNarrativeTranslation>> {
+  if (locale === "en") return {};
+  try {
+    const filePath = path.join(HERO_TRANSLATIONS_ROOT, locale, "heroes.json");
+    const parsed: unknown = JSON.parse(await readFile(filePath, "utf8"));
+    if (!isRecord(parsed)) throw new Error("Invalid hero translation catalog");
+    return Object.fromEntries(Object.entries(parsed).filter(
+      (entry): entry is [string, HeroNarrativeTranslation] => {
+        const source = getHero(entry[0]);
+        return isHeroNarrativeTranslation(entry[1]) &&
+          !!source &&
+          entry[1].sourceHash === heroSourceHash(source);
+      },
+    ));
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return {};
+    throw error;
+  }
+}
+
+export function heroSourceHash(hero: Hero): string {
+  const narrative = [
+    hero.slug,
+    hero.tierLists ?? null,
+    hero.summary,
+    hero.unlock,
+    hero.overview,
+    hero.investment,
+    hero.squadFit,
+    hero.skills.map(({ effect, starUpgrades, maxStars }) => [
+      effect, starUpgrades ?? null, maxStars ?? null,
+    ]),
+  ];
+  return createHash("sha256").update(JSON.stringify(narrative)).digest("hex");
+}
+
+function englishOriginal(value: string, locale: Locale): string {
+  return `English original (${locale} translation unavailable): ${value}`;
+}
+
+function translatedText(value: string | undefined, source: string, locale: Locale): string {
+  return value?.trim() ? value : englishOriginal(source, locale);
+}
+
+function withHeroNarrative(
+  hero: Hero,
+  translation: HeroNarrativeTranslation | undefined,
+  locale: Locale,
+): Hero {
+  const translatedSkills = hero.skills.map((skill, index) => {
+    const localized = translation?.skills?.[String(index)];
+    return {
+      ...skill,
+      effect: translatedText(localized?.effect, skill.effect, locale),
+      starUpgrades: skill.starUpgrades?.map((upgrade, upgradeIndex) =>
+        translatedText(localized?.starUpgrades?.[upgradeIndex], upgrade, locale),
+      ),
+      maxStars: skill.maxStars === undefined
+        ? undefined
+        : translatedText(localized?.maxStars, skill.maxStars, locale),
+    };
+  });
+
+  return {
+    ...hero,
+    tierLists: hero.tierLists === undefined
+      ? undefined
+      : translatedText(translation?.tierLists, hero.tierLists, locale),
+    summary: translatedText(translation?.summary, hero.summary, locale),
+    unlock: translatedText(translation?.unlock, hero.unlock, locale),
+    overview: hero.overview.map((paragraph, index) =>
+      translatedText(translation?.overview?.[index], paragraph, locale),
+    ),
+    investment: translatedText(translation?.investment, hero.investment, locale),
+    squadFit: translatedText(translation?.squadFit, hero.squadFit, locale),
+    skills: translatedSkills,
+  };
+}
+
+/**
+ * Returns localized hero narratives from reviewed, stored content. Missing
+ * fields remain explicitly labeled as English instead of being presented as
+ * translated prose. `heroes` remains the canonical English dataset.
+ */
+export async function getLocalizedHeroes(locale?: Locale): Promise<Hero[]> {
+  const resolvedLocale = await resolveHeroLocale(locale);
+  if (resolvedLocale === "en") return heroes;
+  const translations = await readHeroTranslations(resolvedLocale);
+  return heroes.map((hero) =>
+    withHeroNarrative(hero, translations[hero.slug], resolvedLocale),
+  );
+}
+
+export async function getLocalizedHero(slug: string, locale?: Locale): Promise<Hero | undefined> {
+  const hero = getHero(slug);
+  if (!hero) return undefined;
+  const resolvedLocale = await resolveHeroLocale(locale);
+  if (resolvedLocale === "en") return hero;
+  const translations = await readHeroTranslations(resolvedLocale);
+  return withHeroNarrative(hero, translations[hero.slug], resolvedLocale);
+}
 
 export const rarityOrder: HeroRarity[] = ["UR", "SSR", "SR"];
 

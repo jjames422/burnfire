@@ -1,4 +1,6 @@
 "use client";
+import { Text } from "@/components/i18n/LanguageProvider";
+
 
 import { useMemo, useState } from "react";
 import type { GuideFrontmatter, GuideTag } from "@/lib/content/types";
@@ -29,7 +31,7 @@ export function GuideIndex({ guides }: GuideIndexProps) {
         ))}
       </div>
       {filtered.length === 0 ? (
-        <p className="text-text-secondary">No guides tagged {activeTag} yet.</p>
+        <p className="text-text-secondary"><Text values={{ activeTag: String(activeTag ?? "") }}>{"No guides tagged {activeTag}  yet."}</Text></p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {filtered.map((guide) => (

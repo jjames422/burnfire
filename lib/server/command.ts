@@ -10,11 +10,12 @@ export interface AllianceOfficer {
   game_rank: AllianceRank | null;
   in_game_name: string;
   is_site_admin: boolean;
+  is_regent: boolean;
 }
 
 export async function getAllianceOfficer(userId: string): Promise<AllianceOfficer | null> {
   return queryOne<AllianceOfficer>(
-    `select am.game_rank, p.in_game_name, is_platform_admin(p.id) as is_site_admin
+    `select am.game_rank, coalesce(am.is_regent, false) as is_regent, p.in_game_name, is_platform_admin(p.id) as is_site_admin
      from profiles p
      left join alliance_members am on am.user_id = p.id and am.alliance = 'burnfire'
      where p.id = $1 and (
@@ -35,7 +36,7 @@ export async function requireCommandOfficer(minimum: OfficerRank = "r3"): Promis
   }
 
   const officer = await getAllianceOfficer(user.id);
-  if (!officer || (!officer.is_site_admin && !hasOfficerAccess(officer.game_rank, minimum))) {
+  if (!officer || (!officer.is_site_admin && !hasOfficerAccess(officer.game_rank, minimum, officer.is_regent))) {
     return { response: jsonError("You do not have permission to access this area.", 403) };
   }
   return { user, officer };
@@ -54,5 +55,5 @@ export function trainingScope(officer: AllianceOfficer, userId: string): string 
 }
 
 export function canEditTraining(officer: AllianceOfficer): boolean {
-  return officer.is_site_admin || officer.game_rank === "r5";
+  return officer.is_site_admin || hasOfficerAccess(officer.game_rank, "r5", officer.is_regent);
 }

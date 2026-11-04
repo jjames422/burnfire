@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type GithubSlugger from "github-slugger";
+import { getTranslator } from "@/lib/i18n/server";
 
 type HeadingLevel = 2 | 3;
 
@@ -23,7 +24,8 @@ export function createHeading(level: HeadingLevel, slugger: GithubSlugger) {
   const sizeClass =
     level === 2 ? "text-2xl md:text-3xl mt-12 mb-4" : "text-xl md:text-2xl mt-8 mb-3";
 
-  return function Heading({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
+  return async function Heading({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
+    const t = await getTranslator();
     const id = slugger.slug(extractText(children));
     const Tag = `h${level}` as "h2" | "h3";
 
@@ -36,8 +38,8 @@ export function createHeading(level: HeadingLevel, slugger: GithubSlugger) {
         {children}
         <a
           href={`#${id}`}
-          aria-label="Link to this section"
-          className="ml-2 align-middle text-[0.6em] text-accent-bright no-underline opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+          aria-label={t("Link to this section")}
+          className="ms-2 align-middle text-[0.6em] text-accent-bright no-underline opacity-0 transition-opacity duration-150 group-hover:opacity-100"
         >
           #
         </a>

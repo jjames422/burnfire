@@ -1,4 +1,8 @@
 "use client";
+import { LocalizedNumber } from "@/components/layout/LocalizedNumber";
+
+import { Text } from "@/components/i18n/LanguageProvider";
+
 
 import { useCallback, useState } from "react";
 import { useChannelStream } from "@/lib/api/stream";
@@ -22,16 +26,16 @@ export function PresenceList({ channelId }: { channelId: string }) {
 
   return (
     <aside className="presence-rail">
-      <h3>Online <span>{users.length}</span></h3>
+      <h3><Text>{"Online"}</Text>{" "}<span>{<LocalizedNumber value={users.length} />}</span></h3>
       <ul>
         {users.map((entry) => (
           <li key={entry.user_id}>
             <span className="presence-avatar">{entry.identity_label.slice(0, 1).toUpperCase()}<i /></span>
-            <span>{entry.identity_label}<small>Online</small></span>
+            <span>{entry.identity_label}<small><Text>{"Online"}</Text></small></span>
           </li>
         ))}
       </ul>
-      {users.length === 0 && <p>The fire is quiet.<br />Others will appear here.</p>}
+      {users.length === 0 && <p><Text>{"The fire is quiet."}</Text><br /><Text>{"Others will appear here."}</Text></p>}
     </aside>
   );
 }

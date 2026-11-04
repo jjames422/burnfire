@@ -1,8 +1,9 @@
 import { createHash, randomBytes, randomInt, timingSafeEqual } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { query, queryOne, withTransaction } from "./db";
 import { sendLoginCode } from "./email";
 import { logAuthFailure } from "../auth/logging";
+import { ACCOUNT_HINT_COOKIE, accountHintOptions } from "../auth/account-hint";
 
 export const SESSION_COOKIE = "bf_session";
 const SESSION_DAYS = 30;
@@ -122,6 +123,12 @@ export async function createSession(userId: string): Promise<void> {
     path: "/",
     maxAge: SESSION_DAYS * 24 * 60 * 60,
   });
+  await rememberAccount();
+}
+
+export async function rememberAccount(): Promise<void> {
+  const hostname = (await headers()).get("host")?.split(":")[0].toLowerCase() ?? "";
+  (await cookies()).set(ACCOUNT_HINT_COOKIE, "1", accountHintOptions(hostname, process.env.NODE_ENV === "production"));
 }
 
 export async function recentSession(): Promise<{ user: SessionUser; sessionHash: string } | null> {

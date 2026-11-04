@@ -29,11 +29,13 @@ export function formatMemberIdentity({
   allianceCode,
   gameRank,
   allianceTitle,
+  isRegent = false,
 }: {
   inGameName: string;
   allianceCode?: string | null;
   gameRank?: GameRank | null;
   allianceTitle?: AllianceTitle | null;
+  isRegent?: boolean;
 }) {
   if (!allianceCode || !gameRank) return inGameName;
 
@@ -44,5 +46,5 @@ export function formatMemberIdentity({
         ? TITLE_LABELS[allianceTitle]
         : RANK_LABELS[gameRank];
 
-  return `[${allianceCode}] ${inGameName} · ${standing}`;
+  return `[${allianceCode}] ${inGameName} · ${gameRank === "r4" && isRegent ? "Regent · " : ""}${standing}`;
 }

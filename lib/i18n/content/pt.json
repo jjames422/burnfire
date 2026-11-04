@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Comunicação da aliança",
+    "body": "Bem-vindo à BurnFire (BF2)! Leia regularmente o chat da aliança. Anúncios importantes, estratégias de eventos, instruções operacionais e avisos da liderança são comunicados ali. Os membros devem manter-se informados e seguir as instruções aplicáveis da aliança.",
+    "questions": {
+      "check-chat": {
+        "prompt": "O que se espera dos membros em relação ao chat da aliança?",
+        "options": [
+          "Lê-lo regularmente",
+          "Lê-lo apenas quando um oficial enviar uma mensagem",
+          "Ignorá-lo se usarem o site"
+        ],
+        "explanation": "Anúncios importantes, estratégias, instruções e avisos da liderança são compartilhados no chat da aliança."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Site e chat opcional",
+    "body": "A BF2 oferece guias da aliança, estratégias de eventos, anúncios, perguntas e respostas, comunicação com a liderança, auxílio ao recrutamento e recursos de treinamento pelo site e por um servidor de chat externo opcional. A participação no chat externo é incentivada, não obrigatória. Nenhum membro pode ser penalizado por preferir a comunicação pelo site. Escolha: chat externo, site BF2 ou ambos.",
+    "questions": {
+      "check-preference": {
+        "prompt": "O chat externo é obrigatório para membros da BF2?",
+        "options": [
+          "Sim, é obrigatório",
+          "Não. É incentivado, e a comunicação pelo site continua sendo uma opção",
+          "Apenas para recrutas"
+        ],
+        "explanation": "O chat externo é incentivado, mas não obrigatório; membros não podem ser penalizados por preferirem o site."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Correio obrigatório da aliança",
+    "body": "É obrigatório ler o correio da aliança. Ele é separado dos outros avisos do jogo e do chat da aliança e distribui instruções importantes de modo uniforme. Aprenda onde fica, como abri-lo, por que deve ser lido e como reconhecer instruções oficiais. O site não detecta se o correio do jogo foi aberto. Se precisar encontrá-lo, peça ajuda a um oficial.",
+    "questions": {
+      "check-mail": {
+        "prompt": "Você não sabe abrir o correio da aliança. O que fazer?",
+        "options": [
+          "Ignorar o correio",
+          "Pedir ajuda e usar o guia fornecido",
+          "Presumir que o site confirma sua abertura"
+        ],
+        "explanation": "O correio da aliança é obrigatório. O site não detecta leituras no jogo; peça ajuda se necessário."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Identidade e conduta do jogador",
+    "body": "Mantenha um nome de jogador único e reconhecível. Nomes genéricos ou repetidos, como “Doctor”, dificultam identificar membros e administrar a aliança. Intimidação, assédio, ameaças, conduta abusiva, conflitos pessoais desnecessários e divulgação de informações privadas de outro membro sem permissão não são aceitáveis. Comunique-se com respeito e de forma construtiva.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "Qual conduta se espera na comunicação da aliança?",
+        "options": [
+          "Comunicação respeitosa e construtiva",
+          "Ameaças quando outro jogador discorda",
+          "Compartilhar informações privadas de membros"
+        ],
+        "explanation": "Os membros devem se comunicar com respeito, sem assediar nem divulgar informações privadas sem permissão."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Regras do servidor e alianças protegidas",
+    "body": "Respeite as regras aplicáveis do servidor. Não roube caravanas nem Operações Especiais do seu próprio servidor. Não recrute nem alicie membros de alianças do Top 10 e não ataque essas alianças. Atividades permitidas entre servidores são diferentes das proibidas no mesmo servidor. Siga a política atual da aliança e consulte a liderança quando a elegibilidade não estiver clara.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Você encontra uma caravana do próprio servidor. O que fazer?",
+        "options": [
+          "Não roubá-la",
+          "Roubá-la se ninguém estiver olhando",
+          "Pedir a outro membro que a roube"
+        ],
+        "explanation": "Membros da BF2 não podem roubar caravanas do próprio servidor."
+      },
+      "check-protected-alliance": {
+        "prompt": "Você pode atacar ou recrutar membros de uma aliança do Top 10?",
+        "options": [
+          "Sim, se perguntar antes",
+          "Não",
+          "Apenas durante um evento"
+        ],
+        "explanation": "É proibido atacar alianças do Top 10 e recrutar ou aliciar seus membros."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Gestão de conflitos e diplomacia",
+    "body": "Os membros não estão autorizados a iniciar guerras nem fazer ameaças em nome da BF2. Se outro jogador ou aliança causar um problema, contate a liderança antes de agravar o conflito. Não se apresente como porta-voz da liderança da BF2 sem autorização.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Um jogador de outra aliança causa um problema. O que fazer?",
+        "options": [
+          "Ameaçar a aliança dele em nome da BF2",
+          "Contatar a liderança antes de agravar o conflito",
+          "Declarar uma guerra por conta própria"
+        ],
+        "explanation": "Membros não podem iniciar guerras nem fazer ameaças pela BF2. Contate a liderança."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Caravanas e Operações Especiais entre servidores",
+    "body": "Entenda a diferença entre alvos do próprio servidor, de outros servidores, protegidos pelas regras e permitidos pela política atual da aliança. Não roube caravanas nem Operações Especiais do próprio servidor. A navegação pela interface e os detalhes de elegibilidade precisam de verificação da liderança antes de serem publicados como instruções oficiais. Peça ajuda a um oficial em caso de dúvida.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "O que verificar antes de interagir com um possível alvo de outro servidor?",
+        "options": [
+          "Seu servidor e elegibilidade pelas regras atuais",
+          "Apenas se parece valioso",
+          "Nada se outro membro o compartilhou"
+        ],
+        "explanation": "Verifique o servidor e a elegibilidade atual do alvo; consulte a liderança se as mecânicas ou regras não estiverem claras."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Localização e reunião da aliança",
+    "body": "Fique razoavelmente perto do marcador da BF2 e da área de reunião. Se estiver longe, siga o caminho indicado no jogo: Aliança → Ponto de reunião → Realocar. O site não consegue verificar de forma independente a realocação no jogo. Peça ajuda se não encontrar o ponto de reunião.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "Qual caminho no jogo é indicado para voltar à área de reunião?",
+        "options": [
+          "Aliança → Ponto de reunião → Realocar",
+          "Mapa → Loja → Comprar",
+          "Chat → Perfil → Mover"
+        ],
+        "explanation": "O caminho indicado é Aliança → Ponto de reunião → Realocar. O site não pode verificar a realocação."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Realocações diretas",
+    "body": "Realocações diretas podem estar disponíveis na Loja da Aliança. Aprenda onde encontrá-las e quando mudar de posição é adequado. Não é necessário gastar dinheiro real.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "São obrigatórias compras com dinheiro real para mudar de posição?",
+        "options": [
+          "Sim",
+          "Não",
+          "Apenas para recrutas"
+        ],
+        "explanation": "Realocações diretas podem estar disponíveis na Loja da Aliança; não é necessário gastar dinheiro real."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Mobilizações e escavações da aliança",
+    "body": "Ao iniciar uma mobilização ou Escavação da Aliança, anuncie no chat para que outros membros possam participar. Comunique-se, coopere, convide a aliança e apoie o progresso coletivo. Não faça escavações sozinho e em silêncio quando a participação da aliança deva ser oferecida.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "O que fazer ao iniciar uma mobilização ou Escavação da Aliança?",
+        "options": [
+          "Anunciar no chat para que outros participem",
+          "Manter em segredo",
+          "Esperar terminar para mencionar"
+        ],
+        "explanation": "Anunciar mobilizações e escavações dá aos membros a oportunidade de participar e apoia o progresso coletivo."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Pesquisa semanal da aliança",
+    "body": "A contribuição mínima semanal para a pesquisa da aliança é 3.200. Doe para a pesquisa escolhida pela liderança. Use a Ajuda da Aliança, participe de mobilizações quando possível e das atividades da aliança, e apoie o avanço da pesquisa. Diamantes e compras com dinheiro real nunca são exigidos.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "Qual é a contribuição mínima semanal para a pesquisa da aliança?",
+        "options": [
+          "320",
+          "3.200",
+          "32.000"
+        ],
+        "explanation": "O mínimo é 3.200. Diamantes e compras com dinheiro real nunca são exigidos."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Patentes e progressão na aliança",
+    "body": "As patentes são conquistadas por participação e contribuição: doações à pesquisa, Ajuda da Aliança, mobilizações e escavações, atividade, cooperação e envolvimento na liderança. R2 é um membro padrão; R3 ou superior são funções de liderança. Atividade no site ou conclusão de questionários não promove ninguém automaticamente. Você pode manifestar interesse em ser um futuro oficial R3; isso não significa aprovação de candidatura nem promoção.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "Concluir o questionário do site promove um membro automaticamente?",
+        "options": [
+          "Sim, para R3",
+          "Não. A patente é conquistada por participação e contribuição",
+          "Sim, se usar o chat externo"
+        ],
+        "explanation": "A atividade no site e a conclusão de questionários não promovem membros automaticamente."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protocolo de saque e Operações Secretas entre servidores",
+    "body": "Regra essencial: nunca compartilhe um alvo de Operações Secretas que já tenha recebido dois ataques. Antes de compartilhar qualquer alvo, verifique seu servidor, elegibilidade e informações de ataques ou golpes. Não saqueie caravanas do próprio servidor. Não ataque nem compartilhe alvos inelegíveis pelas regras do servidor ou política atual da aliança. Em disputas, contate a liderança; não ameace outra aliança em nome da BF2. Use os recursos de treinamento da BF2 ou peça ajuda a um oficial. A navegação detalhada da interface e as mecânicas de alvos estão sujeitas à revisão da liderança porque não foram verificadas de forma independente.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Você encontra uma caravana do próprio servidor. O que fazer?",
+        "options": [
+          "Não saqueá-la",
+          "Compartilhá-la para outros saquearem",
+          "Atacá-la antes de verificar"
+        ],
+        "explanation": "Caravanas do mesmo servidor não podem ser saqueadas."
+      },
+      "check-two-hits": {
+        "prompt": "Um alvo de Operações Secretas já recebeu dois ataques. Deve compartilhá-lo?",
+        "options": [
+          "Sim, imediatamente",
+          "Não",
+          "Apenas com oficiais"
+        ],
+        "explanation": "Não compartilhe um alvo de Operações Secretas que já recebeu dois ataques."
+      },
+      "check-target-checks": {
+        "prompt": "O que verificar antes de compartilhar um possível alvo de outro servidor?",
+        "options": [
+          "Elegibilidade, servidor e informações relevantes de ataques ou golpes",
+          "Apenas o nome do alvo",
+          "Se já é popular"
+        ],
+        "explanation": "Verifique sua elegibilidade, servidor e informações relevantes de ataques ou golpes."
+      },
+      "check-threats": {
+        "prompt": "Você deve ameaçar outra aliança em nome da BF2?",
+        "options": [
+          "Não. Contate a liderança",
+          "Sim, se estiver irritado",
+          "Sim, se o outro jogador começou"
+        ],
+        "explanation": "Membros não estão autorizados a ameaçar outros nem iniciar guerras pela BF2."
+      },
+      "check-request-help": {
+        "prompt": "Um recruta não sabe acessar Operações Especiais entre servidores. O que fazer?",
+        "options": [
+          "Usar o guia de treinamento BF2 ou perguntar a um oficial",
+          "Adivinhar até funcionar",
+          "Pedir que compartilhem um alvo não verificado"
+        ],
+        "explanation": "Use o treinamento aprovado da BF2 ou peça ajuda a um oficial."
+      }
+    }
+  }
+}

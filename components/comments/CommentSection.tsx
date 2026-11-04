@@ -1,4 +1,6 @@
 "use client";
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+
 
 import { useEffect, useState, type SubmitEvent } from "react";
 import { api, apiPost } from "@/lib/api/client";
@@ -11,6 +13,7 @@ interface CommentSectionProps {
 }
 
 export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
+  const { t, locale } = useTranslation();
   const [comments, setComments] = useState<GuideCommentRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [body, setBody] = useState("");
@@ -65,8 +68,7 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
   return (
     <section className="mt-4 w-full pb-16">
       <h2 className="mb-6 font-display text-2xl font-semibold text-text-primary">
-        Comments
-      </h2>
+        <Text>{"Comments"}</Text></h2>
 
       <AuthGate
         redirectPath={`/guides/${guideSlug}`}
@@ -80,28 +82,27 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
             required
             maxLength={2000}
             rows={4}
-            placeholder="Add a comment..."
+            placeholder={t("Add a comment...")}
             value={body}
             onChange={(event) => setBody(event.target.value)}
             className="mb-3 w-full border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary focus:border-accent-bright focus:outline-none"
           />
-          {error && <p className="mb-3 text-sm text-warning">{error}</p>}
+          {error && <p className="mb-3 text-sm text-warning">{t(error)}</p>}
           <button
             type="submit"
             disabled={submitting || body.trim().length === 0}
             className="interactive-lift border border-accent bg-accent px-4 py-2 font-display text-sm font-semibold text-text-primary hover:border-accent-bright hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {submitting ? "Posting…" : "Post comment"}
+            {submitting ? t("Posting…") : t("Post comment")}
           </button>
         </form>
       </AuthGate>
 
       {loading ? (
-        <p className="text-text-secondary">Loading comments…</p>
+        <p className="text-text-secondary"><Text>{"Loading comments…"}</Text></p>
       ) : comments.length === 0 ? (
         <p className="text-text-secondary">
-          No comments yet — be the first.
-        </p>
+          <Text>{"No comments yet — be the first."}</Text></p>
       ) : (
         <ul className="space-y-4">
           {comments.map((comment) => (
@@ -116,7 +117,7 @@ export function CommentSection({ alliance, guideSlug }: CommentSectionProps) {
                 {comment.body}
               </p>
               <p className="mt-2 text-xs text-text-secondary/70">
-                {new Date(comment.created_at).toLocaleString()}
+                {new Date(comment.created_at).toLocaleString(locale)}
               </p>
             </li>
           ))}

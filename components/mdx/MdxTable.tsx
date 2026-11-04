@@ -11,7 +11,7 @@ export function Table(props: ComponentPropsWithoutRef<"table">) {
 export function Thead(props: ComponentPropsWithoutRef<"thead">) {
   return (
     <thead
-      className="bg-surface-raised text-left font-display text-xs tracking-wide text-text-secondary uppercase"
+      className="bg-surface-raised text-start font-display text-xs tracking-wide text-text-secondary uppercase"
       {...props}
     />
   );

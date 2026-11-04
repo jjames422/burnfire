@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Allianzkommunikation",
+    "body": "Willkommen bei BurnFire (BF2)! Lies regelmäßig den Allianzchat. Dort werden wichtige Ankündigungen, Eventstrategien, operative Anweisungen und Mitteilungen der Führung veröffentlicht. Mitglieder müssen sich informieren und die geltenden Allianzanweisungen befolgen.",
+    "questions": {
+      "check-chat": {
+        "prompt": "Was wird von Mitgliedern hinsichtlich des Allianzchats erwartet?",
+        "options": [
+          "Ihn regelmäßig lesen",
+          "Ihn erst nach einer Nachricht eines Offiziers lesen",
+          "Ihn ignorieren, wenn sie die Website nutzen"
+        ],
+        "explanation": "Wichtige Ankündigungen, Strategien, Anweisungen und Führungsmitteilungen werden im Allianzchat geteilt."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Website und optionaler Chat",
+    "body": "BF2 stellt Allianzleitfäden, Eventstrategien, Ankündigungen, Fragen und Antworten, Führungskommunikation, Rekrutierungshilfe und Schulungsmaterial über die Website und einen optionalen externen Chatserver bereit. Die Teilnahme am externen Chat wird empfohlen, ist aber nicht verpflichtend. Niemand darf für die Wahl der Website-Kommunikation benachteiligt werden. Wähle: externer Chat, BF2-Website oder beides.",
+    "questions": {
+      "check-preference": {
+        "prompt": "Ist der externe Chat für BF2-Mitglieder verpflichtend?",
+        "options": [
+          "Ja, er ist verpflichtend",
+          "Nein. Er wird empfohlen, und Website-Kommunikation bleibt möglich",
+          "Nur für Rekruten"
+        ],
+        "explanation": "Der externe Chat wird empfohlen, ist aber nicht verpflichtend. Mitglieder dürfen wegen ihrer Bevorzugung der Website nicht benachteiligt werden."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Verpflichtende Allianzpost",
+    "body": "Das Lesen der Allianzpost ist verpflichtend. Sie ist von anderen Spielmitteilungen und dem Allianzchat getrennt und dient der einheitlichen Verteilung wichtiger Anweisungen. Lerne, wo du sie findest, wie du sie öffnest, warum du sie lesen musst und woran du offizielle Anweisungen erkennst. Die Website kann nicht erkennen, ob Spielpost geöffnet wurde. Bitte einen Offizier um Hilfe, wenn du die Allianzpost nicht findest.",
+    "questions": {
+      "check-mail": {
+        "prompt": "Du weißt nicht, wie du die Allianzpost öffnest. Was solltest du tun?",
+        "options": [
+          "Die Allianzpost ignorieren",
+          "Hilfe anfordern und den bereitgestellten Leitfaden nutzen",
+          "Annehmen, dass die Website das Öffnen bestätigen kann"
+        ],
+        "explanation": "Allianzpost ist verpflichtend. Die Website kann das Lesen im Spiel nicht erkennen; fordere bei Bedarf Hilfe an."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Spieleridentität und Verhalten",
+    "body": "Verwende einen erkennbaren, eindeutigen Spielernamen. Allgemeine oder mehrfach verwendete Namen wie „Doctor“ erschweren die Identifizierung und Allianzverwaltung. Mobbing, Belästigung, Drohungen, beleidigendes Verhalten, unnötige persönliche Konflikte und die Weitergabe privater Mitgliederdaten ohne Erlaubnis sind nicht akzeptabel. Kommuniziere respektvoll und konstruktiv.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "Welches Verhalten wird in der Allianzkommunikation erwartet?",
+        "options": [
+          "Respektvolle und konstruktive Kommunikation",
+          "Drohungen bei abweichender Meinung",
+          "Weitergabe privater Mitgliederdaten"
+        ],
+        "explanation": "Mitglieder müssen respektvoll kommunizieren und dürfen niemanden belästigen oder private Daten ohne Erlaubnis weitergeben."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Serverregeln und geschützte Allianzen",
+    "body": "Beachte die geltenden Serverregeln. Überfalle keine Karawanen oder Spezialoperationen deines eigenen Servers. Rekrutiere oder wirb keine Mitglieder von Top-10-Allianzen ab und greife diese Allianzen nicht an. Erlaubte serverübergreifende Aktivitäten unterscheiden sich von verbotenen Aktivitäten auf demselben Server. Befolge die aktuelle Allianzrichtlinie und frage bei unklarer Zulässigkeit die Führung.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Du findest eine Karawane deines eigenen Servers. Was solltest du tun?",
+        "options": [
+          "Sie nicht überfallen",
+          "Sie überfallen, wenn niemand zusieht",
+          "Ein anderes Mitglied bitten, sie zu überfallen"
+        ],
+        "explanation": "BF2-Mitglieder dürfen keine Karawanen ihres eigenen Servers überfallen."
+      },
+      "check-protected-alliance": {
+        "prompt": "Darfst du Top-10-Allianzen angreifen oder deren Mitglieder rekrutieren?",
+        "options": [
+          "Ja, wenn du vorher fragst",
+          "Nein",
+          "Nur während eines Events"
+        ],
+        "explanation": "Angriffe auf Top-10-Allianzen sowie das Rekrutieren oder Abwerben ihrer Mitglieder sind verboten."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Konfliktmanagement und Diplomatie",
+    "body": "Mitglieder dürfen im Namen von BF2 weder Kriege beginnen noch Drohungen aussprechen. Verursacht ein anderer Spieler oder eine Allianz ein Problem, kontaktiere die Allianzführung, bevor du eskalierst. Gib dich ohne Erlaubnis nicht als Sprecher der BF2-Führung aus.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Ein Spieler einer anderen Allianz verursacht ein Problem. Was solltest du tun?",
+        "options": [
+          "Seiner Allianz im Namen von BF2 drohen",
+          "Vor einer Eskalation die Allianzführung kontaktieren",
+          "Selbst einen Krieg erklären"
+        ],
+        "explanation": "Mitglieder dürfen für BF2 keine Kriege beginnen oder Drohungen aussprechen. Kontaktiere die Führung."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Serverübergreifende Karawanen und Spezialoperationen",
+    "body": "Unterscheide Ziele deines eigenen Servers, anderer Server, durch Serverregeln geschützte Ziele und nach aktueller Allianzrichtlinie erlaubte Ziele. Überfalle keine Karawanen oder Spezialoperationen deines eigenen Servers. Navigation und Zulässigkeitsdetails müssen von der Führung geprüft werden, bevor sie als verbindliche Anweisungen veröffentlicht werden. Bitte bei Unsicherheit einen Offizier um Hilfe.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "Was musst du vor der Interaktion mit einem möglichen serverübergreifenden Ziel prüfen?",
+        "options": [
+          "Seinen Server und die Zulässigkeit nach aktuellen Regeln",
+          "Nur ob es wertvoll aussieht",
+          "Nichts, wenn ein anderes Mitglied es geteilt hat"
+        ],
+        "explanation": "Prüfe Zielserver und aktuelle Zulässigkeit; frage die Führung bei unklaren Spielmechaniken oder Regeln."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Allianzstandort und Sammelpunkt",
+    "body": "Bleibe angemessen nahe an der BF2-Allianzmarkierung und dem Sammelgebiet. Wenn du weit entfernt bist, nutze den angegebenen Spielpfad: Allianz → Sammelpunkt → Umsiedeln. Die Website kann eine Umsiedlung im Spiel nicht unabhängig überprüfen. Bitte um Hilfe, wenn du den Sammelpunkt nicht findest.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "Welcher Spielpfad wird für die Rückkehr zum Sammelgebiet angegeben?",
+        "options": [
+          "Allianz → Sammelpunkt → Umsiedeln",
+          "Karte → Laden → Kaufen",
+          "Chat → Profil → Bewegen"
+        ],
+        "explanation": "Der angegebene Pfad lautet Allianz → Sammelpunkt → Umsiedeln. Die Website kann die Umsiedlung nicht überprüfen."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Direktumsiedlungen",
+    "body": "Direktumsiedlungen sind möglicherweise im Allianzladen erhältlich. Lerne, wo du sie findest und wann eine Neupositionierung sinnvoll ist. Der Einsatz von echtem Geld ist nicht erforderlich.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "Sind Echtgeldkäufe für eine Neupositionierung erforderlich?",
+        "options": [
+          "Ja",
+          "Nein",
+          "Nur für Rekruten"
+        ],
+        "explanation": "Direktumsiedlungen sind möglicherweise im Allianzladen erhältlich; echtes Geld ist nicht erforderlich."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Sammelangriffe und Allianzausgrabungen",
+    "body": "Wenn du einen Sammelangriff oder eine Allianzausgrabung beginnst, kündige dies im Allianzchat an, damit andere teilnehmen können. Kommuniziere, arbeite zusammen, lade die Allianz ein und fördere gemeinsamen Fortschritt. Führe Allianzausgrabungen nicht still allein durch, wenn du der Allianz die Teilnahme anbieten solltest.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "Was solltest du beim Beginn eines Sammelangriffs oder einer Allianzausgrabung tun?",
+        "options": [
+          "Im Allianzchat ankündigen, damit andere teilnehmen können",
+          "Geheim halten",
+          "Erst nach dem Ende erwähnen"
+        ],
+        "explanation": "Ankündigungen von Sammelangriffen und Ausgrabungen ermöglichen die Teilnahme und fördern gemeinsamen Fortschritt."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Wöchentliche Allianzforschung",
+    "body": "Der wöchentliche Mindestbeitrag zur Allianzforschung beträgt 3.200. Spende für die von der Führung ausgewählte Forschung. Nutze Allianzhilfe, nimm möglichst an Sammelangriffen und Allianzaktivitäten teil und unterstütze den Forschungsfortschritt. Diamanten und Echtgeldkäufe sind niemals erforderlich.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "Wie hoch ist der wöchentliche Mindestbeitrag zur Allianzforschung?",
+        "options": [
+          "320",
+          "3.200",
+          "32.000"
+        ],
+        "explanation": "Das Minimum beträgt 3.200. Diamanten und Echtgeldkäufe sind niemals erforderlich."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Allianzränge und Aufstieg",
+    "body": "Ränge werden durch Teilnahme und Beiträge verdient: Forschungsspenden, Allianzhilfe, Sammelangriffe und Ausgrabungen, Aktivität, Zusammenarbeit und Führungsengagement. R2 ist ein reguläres Mitglied; R3 und höher sind Führungsrollen. Website-Aktivität oder Quizabschluss befördern niemanden automatisch. Du kannst Interesse an einer künftigen R3-Offiziersrolle äußern; dies ist weder eine angenommene Bewerbung noch eine Beförderung.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "Befördert der Abschluss des Website-Quiz ein Mitglied automatisch?",
+        "options": [
+          "Ja, zu R3",
+          "Nein. Rang wird durch Teilnahme und Beiträge verdient",
+          "Ja, wenn es externen Chat nutzt"
+        ],
+        "explanation": "Website-Aktivität und Quizabschlüsse befördern Mitglieder nicht automatisch."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protokoll für serverübergreifende Plünderungen und Geheimoperationen",
+    "body": "Grundregel: Teile niemals ein Ziel einer Geheimoperation, das bereits zweimal getroffen wurde. Prüfe vor jedem Teilen Server, Zulässigkeit und Angriffs- oder Trefferinformationen. Plündere keine Karawanen deines eigenen Servers. Greife keine nach Serverregeln oder aktueller Allianzrichtlinie unzulässigen Ziele an und teile sie nicht. Kontaktiere bei Streitigkeiten die Führung; drohe keiner anderen Allianz im Namen von BF2. Nutze BF2-Schulungsmaterial oder bitte einen Offizier um Hilfe. Detaillierte Oberflächennavigation und Zielmechaniken sind zur Führungsprüfung markiert, da sie nicht unabhängig verifiziert wurden.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Du entdeckst eine Karawane deines eigenen Servers. Was solltest du tun?",
+        "options": [
+          "Sie nicht plündern",
+          "Sie zum Plündern mit anderen teilen",
+          "Sie vor der Prüfung angreifen"
+        ],
+        "explanation": "Karawanen desselben Servers dürfen nicht geplündert werden."
+      },
+      "check-two-hits": {
+        "prompt": "Ein Ziel einer Geheimoperation wurde bereits zweimal getroffen. Solltest du es teilen?",
+        "options": [
+          "Ja, sofort",
+          "Nein",
+          "Nur mit Offizieren"
+        ],
+        "explanation": "Teile kein Ziel einer Geheimoperation, das bereits zweimal getroffen wurde."
+      },
+      "check-target-checks": {
+        "prompt": "Was solltest du vor dem Teilen eines möglichen serverübergreifenden Ziels prüfen?",
+        "options": [
+          "Zulässigkeit, Server und relevante Angriffs- oder Trefferinformationen",
+          "Nur den Zielnamen",
+          "Ob es bereits beliebt ist"
+        ],
+        "explanation": "Prüfe Zulässigkeit, Server sowie relevante Angriffs- oder Trefferinformationen."
+      },
+      "check-threats": {
+        "prompt": "Solltest du einer anderen Allianz im Namen von BF2 drohen?",
+        "options": [
+          "Nein. Kontaktiere die Führung",
+          "Ja, wenn du verärgert bist",
+          "Ja, wenn der andere Spieler angefangen hat"
+        ],
+        "explanation": "Mitglieder dürfen für BF2 keine Drohungen aussprechen oder Kriege beginnen."
+      },
+      "check-request-help": {
+        "prompt": "Ein Rekrut weiß nicht, wie er serverübergreifende Spezialoperationen öffnet. Was sollte er tun?",
+        "options": [
+          "Den BF2-Leitfaden nutzen oder einen Offizier fragen",
+          "Raten, bis es funktioniert",
+          "Um ein ungeprüftes Ziel bitten"
+        ],
+        "explanation": "Nutze freigegebene BF2-Schulungen oder bitte einen Offizier um Hilfe."
+      }
+    }
+  }
+}

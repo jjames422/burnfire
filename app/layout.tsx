@@ -2,6 +2,10 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { Oswald, IBM_Plex_Sans } from "next/font/google";
 import { site } from "@/config/site";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
+import { getLocale, getTranslator } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { direction } from "@/lib/i18n/locales";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -16,14 +20,17 @@ const plexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: site.alliance.name,
-    template: `%s · ${site.alliance.name}`,
-  },
-  description: site.alliance.tagline,
-  metadataBase: new URL(`https://${site.alliance.domain}`),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslator();
+  return {
+    title: {
+      default: site.alliance.name,
+      template: `%s · ${site.alliance.name}`,
+    },
+    description: t(site.alliance.tagline),
+    metadataBase: new URL(`https://${site.alliance.domain}`),
+  };
+}
 
 const theme = site.alliance.theme;
 
@@ -47,14 +54,19 @@ const themeStyle = {
   "--lore": theme.colorLore,
 } as CSSProperties;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+  const dictionary = await getDictionary(locale);
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={direction(locale)}
       style={themeStyle}
       className={`${oswald.variable} ${plexSans.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-bg text-text-primary">{children}</body>
+      <body className="flex min-h-full flex-col bg-bg text-text-primary">
+        <LanguageProvider locale={locale} dictionary={dictionary}>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

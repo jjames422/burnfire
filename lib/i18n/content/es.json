@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Comunicación de la alianza",
+    "body": "¡Bienvenido a BurnFire (BF2)! Lee el chat de la alianza con regularidad. Allí se comunican anuncios importantes, estrategias de eventos, instrucciones operativas y avisos del liderazgo. Los miembros son responsables de mantenerse informados y seguir las instrucciones aplicables de la alianza.",
+    "questions": {
+      "check-chat": {
+        "prompt": "¿Qué se espera de los miembros respecto al chat de la alianza?",
+        "options": [
+          "Leerlo con regularidad",
+          "Leerlo solo cuando les escriba un oficial",
+          "Ignorarlo si usan el sitio web"
+        ],
+        "explanation": "Los anuncios importantes, estrategias, instrucciones y avisos del liderazgo se comparten en el chat de la alianza."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Sitio web y chat opcional",
+    "body": "BF2 ofrece guías de la alianza, estrategias de eventos, anuncios, preguntas y respuestas, comunicación con el liderazgo, ayuda de reclutamiento y recursos de formación mediante su sitio web y un servidor de chat externo opcional. Se recomienda participar en el chat externo, pero no es obligatorio. Nadie puede ser penalizado por preferir comunicarse a través del sitio. Elige: chat externo, sitio web BF2 o ambos.",
+    "questions": {
+      "check-preference": {
+        "prompt": "¿Es obligatorio el chat externo para los miembros de BF2?",
+        "options": [
+          "Sí, es obligatorio",
+          "No. Se recomienda, y comunicarse por el sitio sigue siendo una opción",
+          "Solo para reclutas"
+        ],
+        "explanation": "El chat externo es recomendable, no obligatorio; no debe penalizarse a los miembros que prefieran el sitio web."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Correo obligatorio de la alianza",
+    "body": "Leer el correo de la alianza es obligatorio. Es independiente de los demás avisos del juego y del chat de la alianza, y se utiliza para distribuir instrucciones importantes de forma uniforme. Aprende dónde está, cómo abrirlo, por qué debes leerlo y cómo reconocer las instrucciones oficiales. El sitio no puede detectar si se abrió el correo del juego. Si necesitas encontrarlo, solicita ayuda a un oficial.",
+    "questions": {
+      "check-mail": {
+        "prompt": "No sabes abrir el correo de la alianza. ¿Qué debes hacer?",
+        "options": [
+          "Ignorarlo",
+          "Pedir ayuda y usar la guía proporcionada",
+          "Suponer que el sitio puede confirmar que lo abriste"
+        ],
+        "explanation": "El correo de la alianza es obligatorio. El sitio no detecta su lectura en el juego; pide ayuda si la necesitas."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Identidad y conducta del jugador",
+    "body": "Mantén un nombre de jugador único y reconocible. Los nombres genéricos o repetidos, como «Doctor», dificultan identificar a los miembros y administrar la alianza. No se aceptan la intimidación, el acoso, las amenazas, los abusos, los conflictos personales innecesarios ni compartir información privada de otro miembro sin permiso. Mantén una comunicación respetuosa y constructiva.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "¿Qué conducta se espera en la comunicación de la alianza?",
+        "options": [
+          "Comunicación respetuosa y constructiva",
+          "Amenazas cuando otro jugador discrepa",
+          "Compartir información privada de miembros"
+        ],
+        "explanation": "Los miembros deben comunicarse con respeto, sin acosar ni compartir información privada sin permiso."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Reglas del servidor y alianzas protegidas",
+    "body": "Respeta las reglas aplicables del servidor. No robes caravanas ni Operaciones especiales de tu propio servidor. No reclutes ni captes miembros de las alianzas del Top 10 ni ataques dichas alianzas. La actividad permitida entre servidores difiere de la actividad prohibida dentro del mismo servidor. Sigue la política vigente de la alianza y consulta al liderazgo cuando no esté clara la elegibilidad.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Encuentras una caravana de tu propio servidor. ¿Qué debes hacer?",
+        "options": [
+          "No robarla",
+          "Robarla si nadie mira",
+          "Pedir a otro miembro que la robe"
+        ],
+        "explanation": "Los miembros de BF2 no deben robar caravanas de su propio servidor."
+      },
+      "check-protected-alliance": {
+        "prompt": "¿Puedes atacar o reclutar miembros de una alianza del Top 10?",
+        "options": [
+          "Sí, si preguntas primero",
+          "No",
+          "Solo durante un evento"
+        ],
+        "explanation": "Está prohibido atacar alianzas del Top 10 y reclutar o captar a sus miembros."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Gestión de conflictos y diplomacia",
+    "body": "Los miembros no están autorizados a iniciar guerras ni lanzar amenazas en nombre de BF2. Si otro jugador o alianza causa un problema, contacta con el liderazgo antes de intensificar el conflicto. No afirmes hablar en nombre del liderazgo de BF2 sin autorización.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Un jugador de otra alianza causa un problema. ¿Qué debes hacer?",
+        "options": [
+          "Amenazar a su alianza en nombre de BF2",
+          "Contactar con el liderazgo antes de intensificar el conflicto",
+          "Declarar una guerra por tu cuenta"
+        ],
+        "explanation": "Los miembros no pueden iniciar guerras ni lanzar amenazas por BF2. Contacta con el liderazgo."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Caravanas y Operaciones especiales entre servidores",
+    "body": "Distingue entre objetivos de tu servidor, de otros servidores, protegidos por las reglas del servidor y permitidos por la política vigente de la alianza. No robes caravanas ni Operaciones especiales de tu propio servidor. La navegación por la interfaz y los detalles de elegibilidad requieren verificación del liderazgo antes de publicarse como instrucciones oficiales. Pide ayuda a un oficial si tienes dudas.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "¿Qué debes verificar antes de interactuar con un posible objetivo de otro servidor?",
+        "options": [
+          "Su servidor y elegibilidad según las reglas vigentes",
+          "Solo si parece valioso",
+          "Nada si otro miembro lo compartió"
+        ],
+        "explanation": "Comprueba el servidor y la elegibilidad actual del objetivo; consulta al liderazgo si las mecánicas o reglas no están claras."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Ubicación y reunión de la alianza",
+    "body": "Permanece razonablemente cerca del marcador de BF2 y de la zona de reunión. Si estás lejos, usa la ruta indicada del juego: Alianza → Punto de reunión → Reubicar. El sitio no puede verificar de forma independiente la reubicación en el juego. Pide ayuda si no encuentras el punto de reunión.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "¿Qué ruta del juego se indica para volver a la zona de reunión?",
+        "options": [
+          "Alianza → Punto de reunión → Reubicar",
+          "Mapa → Tienda → Comprar",
+          "Chat → Perfil → Mover"
+        ],
+        "explanation": "La ruta indicada es Alianza → Punto de reunión → Reubicar. El sitio no puede verificar la reubicación."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Reubicaciones directas",
+    "body": "Las Reubicaciones directas pueden estar disponibles en la tienda de la alianza. Aprende dónde encontrarlas y cuándo conviene cambiar de posición. No es necesario gastar dinero real.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "¿Es obligatorio comprar con dinero real para cambiar de posición?",
+        "options": [
+          "Sí",
+          "No",
+          "Solo para reclutas"
+        ],
+        "explanation": "Las Reubicaciones directas pueden estar disponibles en la tienda de la alianza; no es necesario gastar dinero real."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Concentraciones y excavaciones de la alianza",
+    "body": "Al iniciar una concentración o excavación de la alianza, anúnciala en el chat para que los demás tengan la oportunidad de participar. Comunícate, coopera, invita a la alianza y apoya el progreso compartido. No realices excavaciones a solas y en silencio cuando debas ofrecer la participación de la alianza.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "¿Qué debes hacer al iniciar una concentración o excavación de la alianza?",
+        "options": [
+          "Anunciarla en el chat para que otros se unan",
+          "Mantenerla en privado",
+          "Esperar a que termine para mencionarla"
+        ],
+        "explanation": "Anunciar concentraciones y excavaciones permite participar a los miembros y favorece el progreso compartido."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Investigación semanal de la alianza",
+    "body": "La contribución mínima semanal a la investigación de la alianza es de 3.200. Dona a la investigación elegida por el liderazgo. Usa la ayuda de alianza, únete a concentraciones cuando puedas, participa en actividades y apoya el avance de la investigación. Nunca se exigen diamantes ni compras con dinero real.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "¿Cuál es la contribución mínima semanal a la investigación de la alianza?",
+        "options": [
+          "320",
+          "3.200",
+          "32.000"
+        ],
+        "explanation": "El mínimo es 3.200. Nunca se exigen diamantes ni compras con dinero real."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Rangos y ascensos de la alianza",
+    "body": "Los rangos se ganan participando y contribuyendo: donaciones a investigación, ayuda de alianza, concentraciones y excavaciones, actividad, cooperación e implicación en el liderazgo. R2 es un miembro estándar; R3 y superiores son cargos de liderazgo. La actividad en el sitio o completar un cuestionario no asciende automáticamente a nadie. Puedes expresar interés en ser oficial R3 en el futuro; ese interés no constituye aprobación de una solicitud ni un ascenso.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "¿Completar el cuestionario del sitio asciende automáticamente a un miembro?",
+        "options": [
+          "Sí, a R3",
+          "No. El rango se gana participando y contribuyendo",
+          "Sí, si usa el chat externo"
+        ],
+        "explanation": "La actividad en el sitio y completar cuestionarios no ascienden automáticamente a los miembros."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protocolo de saqueo y Operaciones encubiertas entre servidores",
+    "body": "Política esencial: nunca compartas un objetivo de Operaciones encubiertas que ya haya recibido dos ataques. Antes de compartir cualquier objetivo, verifica su servidor, elegibilidad e información de ataques o impactos. No saquees caravanas de tu propio servidor. No ataques ni compartas objetivos no permitidos por las reglas del servidor o la política vigente de la alianza. Si tienes una disputa, contacta con el liderazgo; no amenaces a otra alianza en nombre de BF2. Usa los recursos de formación de BF2 o pide ayuda a un oficial. La navegación detallada de la interfaz y las mecánicas de objetivos están pendientes de revisión del liderazgo porque no se han verificado de forma independiente.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Localizas una caravana de tu propio servidor. ¿Qué debes hacer?",
+        "options": [
+          "No saquearla",
+          "Compartirla para que otros la saqueen",
+          "Atacarla antes de comprobar"
+        ],
+        "explanation": "No se deben saquear caravanas del mismo servidor."
+      },
+      "check-two-hits": {
+        "prompt": "Un objetivo de Operaciones encubiertas ya recibió dos ataques. ¿Debes compartirlo?",
+        "options": [
+          "Sí, inmediatamente",
+          "No",
+          "Solo con oficiales"
+        ],
+        "explanation": "No compartas un objetivo de Operaciones encubiertas que ya recibió dos ataques."
+      },
+      "check-target-checks": {
+        "prompt": "¿Qué debes verificar antes de compartir un posible objetivo de otro servidor?",
+        "options": [
+          "Elegibilidad, servidor e información pertinente de ataques o impactos",
+          "Solo el nombre del objetivo",
+          "Si ya es popular"
+        ],
+        "explanation": "Comprueba su elegibilidad, servidor e información pertinente de ataques o impactos."
+      },
+      "check-threats": {
+        "prompt": "¿Debes amenazar a otra alianza en nombre de BF2?",
+        "options": [
+          "No. Contacta con el liderazgo",
+          "Sí, si estás molesto",
+          "Sí, si el otro jugador empezó"
+        ],
+        "explanation": "Los miembros no están autorizados a amenazar a otros ni iniciar guerras por BF2."
+      },
+      "check-request-help": {
+        "prompt": "Un recluta no sabe acceder a las Operaciones especiales entre servidores. ¿Qué debe hacer?",
+        "options": [
+          "Usar la guía de formación de BF2 o preguntar a un oficial",
+          "Adivinar hasta que funcione",
+          "Pedir que compartan un objetivo sin verificar"
+        ],
+        "explanation": "Usa la formación aprobada de BF2 o pide ayuda a un oficial."
+      }
+    }
+  }
+}

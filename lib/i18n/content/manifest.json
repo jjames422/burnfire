@@ -1,0 +1,101 @@
+{
+  "rule-01-alliance-communication@1": {
+    "source_hash": "057f14a4088e0788fe78bd31c95492f8257b15c96d14195a098896ccca1aa199",
+    "questions": {
+      "check-chat": "ed074fbf56b3650698d9e2f48410df0d8193dcc44a06f71628e083f5cb7e3aa9"
+    }
+  },
+  "rule-02-communication-platforms@1": {
+    "source_hash": "1a00bf7acb47e1fd82cd3bea1d9d1d0b591749caa7dc60a38366cc637a03e665",
+    "questions": {
+      "check-preference": "0d66d9f5b74339c332398a7b514d45844dd2de77c4d9a8e4738b82fcdc82f325"
+    }
+  },
+  "rule-03-alliance-mail@1": {
+    "source_hash": "b26670639f6240fec67ec91de473dc98451e4bf47ad1db6b8bf1fb648f32a130",
+    "questions": {
+      "check-mail": "cc5ce72f20a49027622e6c8e580c4e9379908c9bb69ad1a1ad54809bfe141976"
+    }
+  },
+  "rule-04-identity-and-conduct@1": {
+    "source_hash": "1a1b834570b060e51be97e773244f22d0af2e5bf51b7eb21352fe862166c8aa0",
+    "questions": {
+      "check-conduct": "811ba7c23953322736f5d5e1957dec4176af8d980857329b1f5faee0fca74d88"
+    }
+  },
+  "rule-05-server-rules@1": {
+    "source_hash": "2de5214d2fd34257e246a9330828cf005ce645713ce05cc59561533f2b381771",
+    "questions": {
+      "check-own-server": "089207f0e8170732540e0ae5ff34b3769fe0d92ce6c2de4edff164a087c4408d",
+      "check-protected-alliance": "1a6c71c79406d0667d860f29af9d87dbf60f187c5937734a2875f8a002b7d030"
+    }
+  },
+  "rule-06-conflict-and-diplomacy@1": {
+    "source_hash": "18495abd82f23b428a56ee208c265e636682be6ed8282b93e0241a9eb48f3c85",
+    "questions": {
+      "check-diplomacy": "9322fe965a43df784664e8a932d199277a9853352bea3eb3f8a4594d10ab943b"
+    }
+  },
+  "rule-07-cross-server-targets@1": {
+    "source_hash": "d9782bf070a8a5b8a09c71eb263e7b043bffa52bec2350c2124a7beedd758115",
+    "questions": {
+      "check-target-server": "33e9fa695f13ad14d01f935f35e3439eb5f04de13459e72baf9c6829bb9ec96c"
+    }
+  },
+  "rule-07-cross-server-targets@2": {
+    "source_hash": "e1b7057ce7a1a4fb642aa6965d0f4b68c06f3ca812ee35699192ed65ff2a7935",
+    "questions": {
+      "check-target-server": "34a560b7b14dd1ffd94d62f388c3a4c7b16869a752b19db3b79ab653b04c9cbe"
+    }
+  },
+  "rule-08-alliance-location@1": {
+    "source_hash": "34a9cf9449fa58142df0540093cc5fdfe4aad71bb5ea0e56da640129f92d5c4f",
+    "questions": {
+      "check-assembly": "5dde0b270fd9ef4491660d6ecaf28f219ea804e3269eb4df4ea41f915a656753"
+    }
+  },
+  "rule-09-direct-relocates@1": {
+    "source_hash": "b5a567f9ea1ff3e34e0eefa5b0a23c3129cfbe6d9bf74ab4ba3b55e4aaddfbb7",
+    "questions": {
+      "check-relocate-purchase": "0a669db6e76cfa0ed1992467d12ee4cd974005c3ff18246b3764a44af4733372"
+    }
+  },
+  "rule-10-rallies-and-digs@1": {
+    "source_hash": "95aefa56e377c4a91c0fd7f0f5dd620898242685e0ef8d0c0b4707e9b0ee4205",
+    "questions": {
+      "check-announcement": "2b1227e939083210cefdc31799deefdf82a2d5ea9b3598697d91666d54d16730"
+    }
+  },
+  "rule-11-weekly-research@1": {
+    "source_hash": "be010ede657c0831aa75a3f7755b9e99db22062f95d4965bf6a7cf92eb83904c",
+    "questions": {
+      "check-research-minimum": "14042cb8a44a37bbf6cc7f9abbf4e2f74e9e57c9bd2ecf12ab23c3e4585575b9"
+    }
+  },
+  "rule-12-ranks-and-advancement@1": {
+    "source_hash": "94aea35592522e42316da676015ed4642d741bf4537dd93d44e1fe947dbb2850",
+    "questions": {
+      "check-promotion": "a6e396b47c9549c33d4ca2b8a04557e8d4408e41e0c04d38e485b35310530d24"
+    }
+  },
+  "cross-server-plundering-covert-ops@1": {
+    "source_hash": "5282f99af31434878b473be1aebf2ee43077955a27fe63056776d2edb27f1391",
+    "questions": {
+      "check-own-caravan": "0679913e8f9f40d1010435f3fd6077cbf96e29d74708fad04b751f35c0092fc4",
+      "check-two-hits": "df8ed20f5be70a220eaea3c901a96c55763697d4a00b3da4390968c6a4275d21",
+      "check-target-checks": "94465fcbc5b7e10e9c4dd94b418830e13a9455441b515f4af4d0e3055672ea1c",
+      "check-threats": "7f1570e79ad2311b63f4f7a1e51927eab5d442b088978864532e3e305f22753d",
+      "check-request-help": "fcf9f688fdf3578658860178ad8057cb934e2d58b1665aa46f86e0de26e59a47"
+    }
+  },
+  "cross-server-plundering-covert-ops@2": {
+    "source_hash": "66b497b4622af1fb6586c5677356a7834355102a3c13b6718b61fe25bc10d9be",
+    "questions": {
+      "check-own-caravan": "8c6228eeeb08404e4fb1e366ab5e3f137784ac74eab80eb0bee0f3d37197a1ec",
+      "check-two-hits": "e8cdc9f89d3e8d6a2e245c087fb061e0e7599ffe65417ff415161c622d97f454",
+      "check-target-checks": "0b582ac744c7f717d15f5f49a4cbb801b16c0b392369acb0a683bf2d330b653e",
+      "check-threats": "70afa122c23f665be677a7a46357a3b992563993170c398fccb104b8ca2189ab",
+      "check-request-help": "4d3c4c99fa878c05fddf44ccde12edcfad119d68276ea2966a3be92ed741e666"
+    }
+  }
+}

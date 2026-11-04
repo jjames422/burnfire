@@ -80,6 +80,21 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     assert.equal(task.requested_title, "goddess");
     assert.equal((await request("/api/command/members", "PATCH", officer.cookie, { user_id: member.id, game_rank: "r2" })).response.status, 403, "Officers cannot decide site-admin signup tasks");
     assert.equal((await request("/api/academy", "GET", member.cookie)).response.status, 200);
+    if (process.env.NEXT_PUBLIC_LOCALIZATION_ENABLED === "true") {
+      for (const locale of ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar"]) {
+        const localized = await request("/api/academy", "GET", `${member.cookie}; bf_locale=${locale}`);
+        assert.equal(localized.response.status, 200);
+        for (const section of localized.data.content) {
+          assert.equal(section.localization.locale, locale, `${locale}/${section.slug} translated current version`);
+          assert.equal(section.localization.fallback, false);
+          for (const question of section.questions) {
+            assert.equal(question.localization.locale, locale);
+            assert.equal("correct_index" in question, false, "Reading translated quiz never reveals its answers");
+            assert.equal("explanation" in question, false, "Explanations remain unavailable before submission");
+          }
+        }
+      }
+    }
     await client.query("update academy_enrollments set game_identifier = null, current_step = 16 where user_id = $1", [member.id]);
     const mandatoryIdentity = await request("/api/academy", "GET", member.cookie);
     assert.equal(mandatoryIdentity.data.enrollment.current_step, 1, "Previously skipped positions return to mandatory identity");

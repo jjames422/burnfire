@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
+import { localizeTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
 
 export async function GET() {
   const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
 
-  const training = await query(
-    `select e.user_id, p.in_game_name, c.id as content_id, c.slug, c.title,
+  const training = await query<TrainingSourceRow & Record<string, unknown>>(
+    `select e.user_id, p.in_game_name, c.id as content_id, c.slug, c.title, c.version, c.body,
             coalesce(progress.status, 'not_started') as status,
             coalesce(progress.needs_assistance, false) as needs_assistance,
             latest.passed as quiz_passed, ack.acknowledged_at
@@ -30,5 +31,5 @@ export async function GET() {
      limit 5000`,
     [trainingScope(officer, user.id)],
   );
-  return NextResponse.json({ training });
+  return NextResponse.json({ training: await localizeTrainingRows(training) });
 }

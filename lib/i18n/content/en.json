@@ -1,0 +1,67 @@
+[
+  {
+    "slug":"rule-01-alliance-communication","version":1,"title":"Alliance Communication",
+    "body":"Welcome to BurnFire (BF2)! Read alliance chat regularly. Important announcements, event strategies, operational instructions, and leadership notices are communicated there. Members are responsible for staying informed and following applicable alliance instructions.",
+    "questions":[["check-chat","What are members expected to do with alliance chat?",["Read it regularly","Read it only after an officer messages them","Ignore it if they use the website"],0,"Important announcements, strategies, instructions, and leadership notices are shared in alliance chat."]]
+  },
+  {
+    "slug":"rule-02-communication-platforms","version":1,"title":"Website and Optional Chat",
+    "body":"BF2 provides alliance guides, event strategies, announcements, questions and answers, leadership communication, recruitment assistance, and training resources through its website and optional external chat server. External chat participation is encouraged, not mandatory. No member may be penalized for choosing website-based communication instead. Choose your preference: external chat, BF2 Website, or Both.",
+    "questions":[["check-preference","Is external chat mandatory for BF2 members?",["Yes, it is required","No. It is encouraged, and website communication remains an option","Only for recruits"],1,"External chat is encouraged but not mandatory, and members must not be penalized for preferring the website."]]
+  },
+  {
+    "slug":"rule-03-alliance-mail","version":1,"title":"Mandatory Alliance Mail",
+    "body":"Reading alliance mail is mandatory. Alliance mail is separate from other in-game notices and alliance chat and is used to distribute important instructions consistently. Learn where it is located, how to open it, why it must be read, and how to recognize official instructions. The website cannot detect whether in-game mail was opened. If you need help finding alliance mail, request officer assistance.",
+    "questions":[["check-mail","You do not know how to open alliance mail. What should you do?",["Ignore alliance mail","Request help and use the provided guide","Assume the website can confirm you opened it"],1,"Alliance mail is mandatory. The website cannot detect in-game mail reads; request help if needed."]]
+  },
+  {
+    "slug":"rule-04-identity-and-conduct","version":1,"title":"Player Identity and Conduct",
+    "body":"Maintain a recognizable, unique gamer name. Generic or repeated names such as \"Doctor\" make member identification and alliance administration difficult. Bullying, harassment, threatening or abusive conduct, unnecessary interpersonal drama, and sharing another member's private information without permission are not acceptable. Keep alliance communication respectful and constructive.",
+    "questions":[["check-conduct","Which conduct is expected in alliance communication?",["Respectful and constructive communication","Threats when another player disagrees","Sharing private member information"],0,"Members must communicate respectfully and must not harass or share private information without permission."]]
+  },
+  {
+    "slug":"rule-05-server-rules","version":1,"title":"Server Rules and Protected Alliances",
+    "body":"Observe applicable server rules. Do not rob caravans or Special Ops originating from your own server. Do not recruit or poach members from Top 10 alliances, and do not attack Top 10 alliances. Permitted cross-server activity is different from prohibited same-server activity. Follow current alliance policy and ask leadership when eligibility is unclear.",
+    "questions":[["check-own-server","You find a caravan originating from your own server. What should you do?",["Do not rob it","Rob it if no one is watching","Ask another member to rob it"],0,"BF2 members must not rob caravans from their own server."],["check-protected-alliance","May you attack or recruit members from a Top 10 alliance?",["Yes, if you ask first","No","Only during an event"],1,"Attacking Top 10 alliances and recruiting or poaching their members are prohibited."]]
+  },
+  {
+    "slug":"rule-06-conflict-and-diplomacy","version":1,"title":"Conflict Management and Diplomacy",
+    "body":"Members are not authorized to initiate wars or issue threats on behalf of BF2. If another player or alliance creates a problem, contact alliance leadership before escalating. Do not represent yourself as speaking for BF2 leadership without authorization.",
+    "questions":[["check-diplomacy","A player from another alliance causes a problem. What should you do?",["Threaten their alliance on BF2's behalf","Contact alliance leadership before escalating","Declare a war yourself"],1,"Members cannot initiate wars or make threats for BF2. Contact leadership."]]
+  },
+  {
+    "slug":"rule-07-cross-server-targets","version":1,"approved_versions":[1,2],"title":"Cross-Server Caravans and Special Ops",
+    "body":"Understand the difference between targets from your own server, targets from another server, targets protected by server rules, and targets permitted by current alliance policy. Do not rob caravans or Special Ops originating from your own server. The game-interface navigation and eligibility details require leadership verification before they can be published as authoritative instructions. Ask an officer for help if you are unsure.",
+    "questions":[["check-target-server","What must you verify before interacting with a possible cross-server target?",["Its server and eligibility under current rules","Only whether it looks valuable","Nothing if another member shared it"],0,"Check the target server and current eligibility; ask leadership if the game mechanics or rules are unclear."]]
+  },
+  {
+    "slug":"rule-08-alliance-location","version":1,"title":"Alliance Location and Assembly",
+    "body":"Remain reasonably close to the BF2 alliance marker and assembly area. If you are far away, use the supplied in-game path: Alliance → Assembly Point → Relocate. The website cannot independently verify in-game relocation. Request help if you cannot find the assembly point.",
+    "questions":[["check-assembly","What in-game path is supplied for returning to the assembly area?",["Alliance → Assembly Point → Relocate","Map → Store → Buy","Chat → Profile → Move"],0,"The supplied path is Alliance → Assembly Point → Relocate. The website cannot verify the relocation."]]
+  },
+  {
+    "slug":"rule-09-direct-relocates","version":1,"title":"Direct Relocates",
+    "body":"Direct Relocates may be available through the Alliance Store. Learn where to find them and when repositioning may be appropriate. Spending real money is not required.",
+    "questions":[["check-relocate-purchase","Are real-money purchases required to reposition?",["Yes","No","Only for recruits"],1,"Direct Relocates may be available in the Alliance Store; spending real money is not required."]]
+  },
+  {
+    "slug":"rule-10-rallies-and-digs","version":1,"title":"Rallies and Alliance Digs",
+    "body":"When you begin a rally or Alliance Dig, announce it in alliance chat so other members have an opportunity to participate. Communicate, cooperate, invite alliance participation, and support shared progress. Do not quietly perform Alliance Digs alone when alliance participation should be offered.",
+    "questions":[["check-announcement","What should you do when you begin a rally or Alliance Dig?",["Announce it in alliance chat so others can join","Keep it private","Wait until it ends to mention it"],0,"Announcing rallies and digs gives members an opportunity to participate and supports shared progress."]]
+  },
+  {
+    "slug":"rule-11-weekly-research","version":1,"title":"Weekly Alliance Research",
+    "body":"The weekly alliance research contribution minimum is 3,200. Donate to the research selected by alliance leadership. Use Alliance Help, join rallies when possible, participate in alliance activities, and support research progression. Diamonds and real-money purchases are never required.",
+    "questions":[["check-research-minimum","What is the weekly alliance research contribution minimum?",["320","3,200","32,000"],1,"The minimum is 3,200. Diamonds and real-money purchases are never required."]]
+  },
+  {
+    "slug":"rule-12-ranks-and-advancement","version":1,"title":"Alliance Ranks and Advancement",
+    "body":"Ranks are earned through participation and contribution, including research donations, Alliance Help, rally and Alliance Dig participation, activity, cooperation, and leadership involvement. R2 is a standard alliance member; R3 and above are leadership roles. Website activity or quiz completion does not automatically promote anyone. You may express interest in becoming a future R3 officer; interest is not an application approval or promotion.",
+    "questions":[["check-promotion","Does completing the website quiz automatically promote a member?",["Yes, to R3","No. Rank is earned through participation and contribution","Yes, if they use external chat"],1,"Website activity and quiz completion do not automatically promote members."]]
+  },
+  {
+    "slug":"cross-server-plundering-covert-ops","version":1,"approved_versions":[1,2],"title":"Cross-Server Plundering & Covert Ops Protocol",
+    "body":"Core policy: never share a Covert Ops target after it has already been hit twice. Before sharing any target, verify its server, eligibility, and attack or hit information. Do not plunder caravans from your own server. Do not attack or share targets that are ineligible under server rules or current alliance policy. If you have a dispute, contact leadership; do not threaten another alliance on BF2's behalf. Use the BF2 training resources or ask an officer if you need help. Detailed game-interface navigation and target mechanics are marked for leadership review because they have not been independently verified.",
+    "questions":[["check-own-caravan","You locate a caravan belonging to your own server. What should you do?",["Do not plunder it","Share it for others to plunder","Attack it before checking"],0,"Same-server caravans must not be plundered."],["check-two-hits","A Covert Ops target has already been hit twice. Should you share it?",["Yes, immediately","No","Only with officers"],1,"Do not share a Covert Ops target after it has already been hit twice."],["check-target-checks","What should you verify before sharing a possible cross-server target?",["Eligibility, server, and relevant attack or hit information","Only the target name","Whether it is already popular"],0,"Check its eligibility and server, plus relevant attack or hit information."],["check-threats","Should you threaten another alliance on BF2's behalf?",["No. Contact leadership","Yes, if you are upset","Yes, if the other player started it"],0,"Members are not authorized to threaten others or initiate wars for BF2."],["check-request-help","A recruit does not know how to access cross-server Special Ops. What should they do?",["Use the BF2 training guide or ask an officer","Guess until it works","Ask someone to share an unverified target"],0,"Use approved BF2 training or ask an officer for help."]]
+  }
+]

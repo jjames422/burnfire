@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
+import { getTranslator } from "@/lib/i18n/server";
+import { localizeTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
 
 type ExportRow = Record<string, string | number | boolean | null>;
 
@@ -17,6 +19,7 @@ export async function GET(request: NextRequest) {
 
   const format = request.nextUrl.searchParams.get("format");
   if (format === "csv") {
+    const t = await getTranslator();
     const rows = await query<ExportRow>(
       `select p.in_game_name,
               coalesce(e.communication_preference, 'not selected') as communication_preference,
@@ -70,7 +73,7 @@ export async function GET(request: NextRequest) {
       ["Future R3 interest", "officer_interest"],
     ];
     const csv = [
-      columns.map(([label]) => csvCell(label)).join(","),
+      columns.map(([label]) => csvCell(t(label))).join(","),
       ...rows.map((row) => columns.map(([, key]) => csvCell(row[key])).join(",")),
     ].join("\r\n");
     return new NextResponse(csv, {
@@ -83,7 +86,7 @@ export async function GET(request: NextRequest) {
   }
 
   const [confusion, officerFollowups] = await Promise.all([
-    query(
+    query<TrainingSourceRow & Record<string, unknown>>(
       `with latest_quiz as (
          select distinct on (q.user_id, q.content_id)
            q.user_id, q.content_id, q.passed
@@ -93,7 +96,7 @@ export async function GET(request: NextRequest) {
          )
          order by q.user_id, q.content_id, q.created_at desc
        )
-       select c.slug, c.title,
+       select c.slug, c.title, c.version, c.body,
               count(distinct l.user_id) filter (where l.passed = false)::int as failed_latest,
               count(distinct p.user_id) filter (where p.needs_assistance)::int as help_requests
        from academy_content c
@@ -118,7 +121,7 @@ export async function GET(request: NextRequest) {
       [scope],
     ),
   ]);
-  return NextResponse.json({ confusion, officer_followups: officerFollowups }, {
+  return NextResponse.json({ confusion: await localizeTrainingRows(confusion), officer_followups: officerFollowups }, {
     headers: { "Cache-Control": "private, no-store" },
   });
 }

@@ -116,10 +116,36 @@ create table if not exists alliance_members (
   permission_role permission_role not null default 'member',
   game_rank game_rank not null default 'r1',
   alliance_title alliance_title,
+  is_regent boolean not null default false,
   verified_at timestamptz,
   verified_by uuid references users (id) on delete set null,
   joined_at timestamptz not null default now()
 );
+
+alter table alliance_members add column if not exists is_regent boolean not null default false;
+update alliance_members set alliance_title = 'alliance_leader'
+  where game_rank = 'r5' and alliance_title is distinct from 'alliance_leader';
+do $$ begin
+  if not exists (select 1 from pg_constraint where conrelid = 'alliance_members'::regclass and conname = 'alliance_members_rank_title_check') then
+    alter table alliance_members add constraint alliance_members_rank_title_check check (
+      (game_rank in ('r1','r2','r3') and alliance_title is null)
+      or (game_rank = 'r4' and (alliance_title is null or alliance_title in ('diplomat','recruiter','goddess','god_of_war')))
+      or (game_rank = 'r5' and alliance_title is not null and alliance_title = 'alliance_leader')
+    );
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'alliance_members'::regclass and conname = 'alliance_members_regent_check') then
+    alter table alliance_members add constraint alliance_members_regent_check check (
+      not is_regent or (game_rank = 'r4' and alliance_title is not null
+        and alliance_title in ('diplomat','recruiter','goddess','god_of_war'))
+    );
+  end if;
+end $$;
+create unique index if not exists alliance_members_unique_title
+  on alliance_members (alliance, alliance_title) where alliance_title is not null;
+create unique index if not exists alliance_members_one_leader
+  on alliance_members (alliance) where game_rank = 'r5';
+create unique index if not exists alliance_members_one_regent
+  on alliance_members (alliance) where is_regent;
 
 create table if not exists platform_admins (
   user_id uuid primary key references users (id) on delete cascade,
@@ -428,6 +454,10 @@ create table if not exists membership_history (
   new_rank game_rank not null,
   created_at timestamptz not null default now()
 );
+alter table membership_history add column if not exists previous_title alliance_title;
+alter table membership_history add column if not exists new_title alliance_title;
+alter table membership_history add column if not exists previous_regent boolean;
+alter table membership_history add column if not exists new_regent boolean;
 
 create table if not exists recruit_assignment_history (
   id bigint generated always as identity primary key,
@@ -594,7 +624,7 @@ language sql stable as $$
   select case when exists (select 1 from platform_admins where user_id = p_actor)
     then 'admin'::permission_role
     else (
-      select case when game_rank = 'r5' then 'admin'::permission_role
+      select case when game_rank = 'r5' or (game_rank = 'r4' and is_regent) then 'admin'::permission_role
                   when game_rank in ('r3', 'r4') then 'officer'::permission_role
                   else 'member'::permission_role end
       from alliance_members
@@ -605,7 +635,7 @@ $$;
 create or replace function sync_membership_access() returns trigger
 language plpgsql as $$
 begin
-  new.permission_role := case when new.game_rank = 'r5' then 'admin'::permission_role
+  new.permission_role := case when new.game_rank = 'r5' or (new.game_rank = 'r4' and new.is_regent) then 'admin'::permission_role
     when new.game_rank in ('r3', 'r4') then 'officer'::permission_role
     else 'member'::permission_role end;
   update profiles set alliance = new.alliance,
@@ -660,6 +690,7 @@ language sql stable as $$
   select case
     when am.user_id is null then p.in_game_name
     else '[' || a.code || '] ' || p.in_game_name || ' · ' ||
+      case when am.game_rank = 'r4' and am.is_regent then 'Regent · ' else '' end ||
       case
         when am.game_rank = 'r4' and am.alliance_title is not null then
           case am.alliance_title

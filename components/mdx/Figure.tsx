@@ -23,7 +23,7 @@ export function Figure({ src, alt, caption, credit, width = 1200, height = 675 }
       {(caption ?? credit) && (
         <figcaption className="border-t border-border px-4 py-2 text-sm text-text-secondary">
           {caption}
-          {credit && <span className="ml-2 text-xs text-text-secondary/70">— {credit}</span>}
+          {credit && <span className="ms-2 text-xs text-text-secondary/70">— {credit}</span>}
         </figcaption>
       )}
     </figure>

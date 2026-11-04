@@ -1,3 +1,5 @@
+
+import { LocalizedNumber } from "@/components/layout/LocalizedNumber";
 import Link from "next/link";
 import Image from "next/image";
 import type { GuideFrontmatter } from "@/lib/content/types";
@@ -16,7 +18,7 @@ export function GuideCard({ guide, index }: GuideCardProps) {
     >
       {guide.heroImage && <div className="guide-card-image"><Image src={guide.heroImage} alt="" fill sizes="(min-width: 900px) 50vw, 100vw" /></div>}
       <div className="guide-card-content">
-      {index && <span className="guide-index">0{index}</span>}
+      {index && <span className="guide-index">0{<LocalizedNumber value={index} />}</span>}
       <div className="mb-3 flex flex-wrap gap-1.5">
         {guide.tags.map((tag) => (
           <TagChip key={tag} label={tag} />

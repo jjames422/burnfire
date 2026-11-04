@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSessionUser } from "@/lib/server/auth";
+import { getSessionUser, rememberAccount } from "@/lib/server/auth";
 import { queryOne } from "@/lib/server/db";
 import type { ProfileRow, SessionInfo } from "@/lib/api/types";
 import { jsonError } from "@/lib/server/http";
@@ -17,6 +17,7 @@ export async function GET() {
       `select * from profiles where id = $1`,
       [user.id],
     );
+    await rememberAccount();
     return NextResponse.json({ user, profile } satisfies SessionInfo, {
       headers: { "Cache-Control": "no-store" },
     });

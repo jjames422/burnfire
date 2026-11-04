@@ -24,8 +24,9 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
       identity_status: string;
       game_identifier: string | null;
       game_rank: string;
+      is_regent: boolean;
     }>(
-      `select e.identity_status, e.game_identifier, am.game_rank
+      `select e.identity_status, e.game_identifier, am.game_rank, am.is_regent
        from academy_enrollments e
        join alliance_members am on am.user_id = e.user_id and am.alliance = 'burnfire'
        where e.user_id = $1 and ($2::uuid is null or e.assigned_officer = $2) for update of e`,
@@ -35,7 +36,7 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     if (!enrollment) return { error: "Recruit was not found.", status: 404 };
     if (!officer.is_site_admin && (
       (officer.game_rank === "r3" && ["r3", "r4", "r5"].includes(enrollment.game_rank)) ||
-      (officer.game_rank === "r4" && enrollment.game_rank === "r5")
+      (officer.game_rank === "r4" && (enrollment.game_rank === "r5" || enrollment.is_regent))
     )) {
       return {
         error: "This officer rank cannot change identity verification for an equal-or-higher-rank member.",

@@ -1,10 +1,13 @@
 "use client";
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+import { ContentLanguageNote, type ContentLanguage } from "@/components/i18n/ContentLanguageNote";
+
 
 import Link from "next/link";
 import { useEffect, useState, type SubmitEvent } from "react";
 import { api, apiPost } from "@/lib/api/client";
 
-type Question = { id: string; slug: string; prompt: string; options: string[]; sort_order: number };
+type Question = { id: string; slug: string; prompt: string; options: string[]; sort_order: number; localization?: ContentLanguage };
 type AcademyItem = {
   id: string;
   slug: string;
@@ -19,6 +22,7 @@ type AcademyItem = {
   acknowledged_at: string | null;
   latest_quiz_passed: boolean | null;
   questions: Question[];
+  localization?: ContentLanguage;
 };
 type AcademyData = {
   enrollment: {
@@ -36,13 +40,14 @@ type QuizResult = {
   passed: boolean;
   correct_count: number;
   question_count: number;
-  results: { id: string; correct: boolean; correct_index: number; explanation: string }[];
+  results: { id: string; correct: boolean; correct_index: number; explanation: string; localization?: ContentLanguage }[];
 };
 
 const panelClass = "border border-border bg-surface p-5 sm:p-7";
 const buttonClass = "border border-border px-4 py-2 text-sm hover:border-accent disabled:cursor-not-allowed disabled:opacity-50";
 
 export function RecruitAcademy() {
+  const { t, locale } = useTranslation();
   const [data, setData] = useState<AcademyData | null>(null);
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -151,7 +156,7 @@ export function RecruitAcademy() {
       setError(result.error);
       return;
     }
-    setError("Game identifier submitted. An officer must verify it; the website does not connect to game data.");
+    setError(t("Game identifier submitted. An officer must verify it; the website does not connect to game data."));
     await moveTo(2);
   }
 
@@ -208,13 +213,13 @@ export function RecruitAcademy() {
     }
   }
 
-  if (loading) return <p className="text-sm text-text-secondary">Loading your saved academy progress…</p>;
+  if (loading) return <p className="text-sm text-text-secondary"><Text>{"Loading your saved academy progress…"}</Text></p>;
   if (!data) {
     return (
       <section className={panelClass}>
-        <h1 className="font-display text-3xl font-semibold">Recruit Academy</h1>
-        <p className="mt-3 text-sm text-text-secondary">{error ?? "Academy data could not be loaded."}</p>
-        {error?.includes("invitation") && <Link href="/portal" className="mt-4 inline-block text-accent-bright underline">Apply to join the academy</Link>}
+        <h1 className="font-display text-3xl font-semibold"><Text>{"Recruit Academy"}</Text></h1>
+        <p className="mt-3 text-sm text-text-secondary">{error ?? t("Academy data could not be loaded.")}</p>
+        {error?.includes("invitation") && <Link href="/portal" className="mt-4 inline-block text-accent-bright underline"><Text>{"Apply to join the academy"}</Text></Link>}
       </section>
     );
   }
@@ -222,43 +227,40 @@ export function RecruitAcademy() {
   return (
     <div className="academy-workspace mx-auto max-w-4xl">
       <header className="mb-6">
-        <span className="eyebrow">BurnFire · BF2</span>
-        <h1 className="mt-2 font-display text-4xl font-semibold">Recruit Academy</h1>
-        <p className="mt-2 text-sm text-text-secondary">Your progress is saved as you go. You can leave and resume from this step later.</p>
+        <span className="eyebrow"><Text>{"BurnFire · BF2"}</Text></span>
+        <h1 className="mt-2 font-display text-4xl font-semibold"><Text>{"Recruit Academy"}</Text></h1>
+        <p className="mt-2 text-sm text-text-secondary"><Text>{"Your progress is saved as you go. You can leave and resume from this step later."}</Text></p>
       </header>
-      <div className="mb-5" aria-label={`Step ${Math.min(step + 1, totalSteps)} of ${totalSteps}`}>
-        <div className="mb-2 flex justify-between text-xs text-text-secondary"><span>Orientation progress</span><span>Step {Math.min(step + 1, totalSteps)} of {totalSteps}</span></div>
+      <div className="mb-5" aria-label={t("Step {value1} of {totalSteps}", { value1: Math.min(step + 1, totalSteps), totalSteps: totalSteps })}>
+        <div className="mb-2 flex justify-between text-xs text-text-secondary"><span><Text>{"Orientation progress"}</Text></span><span><Text values={{ value1: String(Math.min(step + 1, totalSteps) ?? ""), totalSteps: totalSteps.toLocaleString(locale) }}>{"Step {value1}  of {totalSteps}"}</Text></span></div>
         <div className="h-2 w-full bg-surface"><div className="h-full bg-accent transition-all" style={{ width: `${Math.min(100, ((step + 1) / totalSteps) * 100)}%` }} /></div>
       </div>
-      {error && <p role="status" className="mb-4 border border-warning/40 bg-surface p-3 text-sm text-warning">{error}</p>}
+      {error && <p role="status" className="mb-4 border border-warning/40 bg-surface p-3 text-sm text-warning">{t(error)}</p>}
 
       {step === 0 && (
         <section className={panelClass}>
-          <span className="eyebrow">Step 1 · Welcome</span>
-          <h2 className="mt-2 font-display text-3xl font-semibold">Welcome to BurnFire</h2>
+          <span className="eyebrow"><Text>{"Step 1 · Welcome"}</Text></span>
+          <h2 className="mt-2 font-display text-3xl font-semibold"><Text>{"Welcome to BurnFire"}</Text></h2>
           <p className="mt-3 leading-7 text-text-secondary">
-            This guided orientation covers BF2 communication, conduct, server rules, diplomacy,
-            cross-server policy, alliance positioning, participation, research, and ranks. Read each
-            section, complete its knowledge check, and acknowledge the current version.
-          </p>
-          <p className="mt-3 text-sm text-text-secondary">You do not need to join an external chat server to complete any part of onboarding.</p>
-          <button disabled={busy} onClick={() => void moveTo(1)} className={`mt-6 ${buttonClass}`}>Begin orientation</button>
+            <Text>{"This guided orientation covers BF2 communication, conduct, server rules, diplomacy, cross-server policy, alliance positioning, participation, research, and ranks. Read each section, complete its knowledge check, and acknowledge the current version."}</Text></p>
+          <p className="mt-3 text-sm text-text-secondary"><Text>{"You do not need to join an external chat server to complete any part of onboarding."}</Text></p>
+          <button disabled={busy} onClick={() => void moveTo(1)} className={`mt-6 ${buttonClass}`}><Text>{"Begin orientation"}</Text></button>
         </section>
       )}
 
       {step === 1 && (
         <section className={panelClass}>
-          <span className="eyebrow">Step 2 · Player identification</span>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Confirm your in-game identity</h2>
-          <p className="mt-3 text-text-secondary">Profile name: <strong className="text-text-primary">{data.enrollment.in_game_name}</strong></p>
+          <span className="eyebrow"><Text>{"Step 2 · Player identification"}</Text></span>
+          <h2 className="mt-2 font-display text-2xl font-semibold"><Text>{"Confirm your in-game identity"}</Text></h2>
+          <p className="mt-3 text-text-secondary"><Text>{"Profile name:"}</Text>{" "}<strong className="text-text-primary">{data.enrollment.in_game_name}</strong></p>
           <form onSubmit={submitGameIdentifier} className="mt-5 space-y-3">
             <label className="block text-sm">
-              <span className="mb-1 block text-text-secondary">In-game tag / player ID (required)</span>
+              <span className="mb-1 block text-text-secondary"><Text>{"In-game tag / player ID (required)"}</Text></span>
               <input required value={gameIdentifier} onChange={(event) => setGameIdentifier(event.target.value)} minLength={2} maxLength={80} className="w-full border border-border bg-bg px-3 py-2" />
             </label>
-            <p className="text-xs text-text-secondary">An identifier is only a self-submitted claim until an officer verifies it.</p>
+            <p className="text-xs text-text-secondary"><Text>{"An identifier is only a self-submitted claim until an officer verifies it."}</Text></p>
             <div className="flex flex-wrap gap-2">
-              <button disabled={busy || gameIdentifier.trim().length < 2} className={buttonClass}>{busy ? "Submitting…" : "Submit ID and continue"}</button>
+              <button disabled={busy || gameIdentifier.trim().length < 2} className={buttonClass}>{busy ? t("Submitting…") : t("Submit ID and continue")}</button>
             </div>
           </form>
         </section>
@@ -266,51 +268,51 @@ export function RecruitAcademy() {
 
       {step === 2 && (
         <section className={panelClass}>
-          <span className="eyebrow">Step 3 · Communication preference</span>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Which communication platform do you prefer?</h2>
-          <p className="mt-3 text-sm text-text-secondary">External chat is encouraged, not mandatory. You may complete onboarding and receive website communications without joining it.</p>
+          <span className="eyebrow"><Text>{"Step 3 · Communication preference"}</Text></span>
+          <h2 className="mt-2 font-display text-2xl font-semibold"><Text>{"Which communication platform do you prefer?"}</Text></h2>
+          <p className="mt-3 text-sm text-text-secondary"><Text>{"External chat is encouraged, not mandatory. You may complete onboarding and receive website communications without joining it."}</Text></p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <button disabled={busy} onClick={() => void savePreference("external_chat")} className={buttonClass}>Discord</button>
-            <button disabled={busy} onClick={() => void savePreference("website")} className={buttonClass}>BF2 Website</button>
-            <button disabled={busy} onClick={() => void savePreference("both")} className={buttonClass}>Both</button>
+            <button disabled={busy} onClick={() => void savePreference("external_chat")} className={buttonClass}><Text>{"Discord"}</Text></button>
+            <button disabled={busy} onClick={() => void savePreference("website")} className={buttonClass}><Text>{"BF2 Website"}</Text></button>
+            <button disabled={busy} onClick={() => void savePreference("both")} className={buttonClass}><Text>{"Both"}</Text></button>
           </div>
-          {data.enrollment.communication_preference && <p className="mt-4 text-sm text-text-secondary">Saved preference: {data.enrollment.communication_preference === "external_chat" ? "Discord" : data.enrollment.communication_preference === "website" ? "BF2 Website" : "Both"}</p>}
+          {data.enrollment.communication_preference && <p className="mt-4 text-sm text-text-secondary"><Text>{"Saved preference:"}</Text>{" "}{data.enrollment.communication_preference === "external_chat" ? t("Discord") : data.enrollment.communication_preference === "website" ? t("BF2 Website") : t("Both")}</p>}
         </section>
       )}
 
       {activeModule && (
         <section className={panelClass}>
-          <span className="eyebrow">Step {step + 1} · {activeModule.content_type === "rule" ? "Official alliance rule" : "Required training"}</span>
-          <h2 className="mt-2 font-display text-2xl font-semibold">{activeModule.title}</h2>
+          <span className="eyebrow"><Text>{"Step"}</Text>{" "}{step + 1} · {activeModule.content_type === "rule" ? t("Official alliance rule") : t("Required training")}</span>
+          <h2 lang={activeModule.localization?.locale} className="mt-2 font-display text-2xl font-semibold">{activeModule.title}</h2>
+          <ContentLanguageNote localization={activeModule.localization} />
           {activeModule.verification_status === "leadership_review" && (
             <p className="mt-4 border border-warning/50 bg-bg p-3 text-sm text-warning">
-              Game-interface navigation and eligibility mechanics in this section are awaiting leadership verification. Do not treat unverified navigation details as authoritative; ask an officer if uncertain.
-            </p>
+              <Text>{"Game-interface navigation and eligibility mechanics in this section are awaiting leadership verification. Do not treat unverified navigation details as authoritative; ask an officer if uncertain."}</Text></p>
           )}
           {activeModule.slug === "rule-02-communication-platforms" && (
             <p className="mt-4 border border-tip/50 bg-bg p-3 text-sm text-text-secondary">
-              Discord is optional. Website-based communication is an equal onboarding choice, and no member should be penalized for choosing it.
-            </p>
+              <Text>{"Discord is optional. Website-based communication is an equal onboarding choice, and no member should be penalized for choosing it."}</Text></p>
           )}
-          <div className="prose-guide mt-4 whitespace-pre-wrap text-sm text-text-secondary">{activeModule.body}</div>
+          <div lang={activeModule.localization?.locale} className="prose-guide mt-4 whitespace-pre-wrap text-sm text-text-secondary">{activeModule.body}</div>
 
           {activeModule.slug === "rule-03-alliance-mail" && (
             <fieldset className="mt-5 border border-border p-4">
-              <legend className="px-2 text-sm font-medium">Do you know how to access alliance mail?</legend>
-              <p className="mb-3 text-sm text-text-secondary">The site cannot detect whether in-game mail was opened. If you need help finding it, request an R3 follow-up.</p>
+              <legend className="px-2 text-sm font-medium"><Text>{"Do you know how to access alliance mail?"}</Text></legend>
+              <p className="mb-3 text-sm text-text-secondary"><Text>{"The site cannot detect whether in-game mail was opened. If you need help finding it, request an R3 follow-up."}</Text></p>
               <div className="flex gap-2">
-                <button type="button" onClick={() => void saveMailHelp(false)} className={buttonClass}>Yes, I know how</button>
-                <button type="button" onClick={() => void saveMailHelp(true)} className={buttonClass}>No, I need assistance</button>
+                <button type="button" onClick={() => void saveMailHelp(false)} className={buttonClass}><Text>{"Yes, I know how"}</Text></button>
+                <button type="button" onClick={() => void saveMailHelp(true)} className={buttonClass}><Text>{"No, I need assistance"}</Text></button>
               </div>
             </fieldset>
           )}
 
           {activeModule.questions.length > 0 && (
             <form onSubmit={submitQuiz} className="mt-6 space-y-5 border-t border-border pt-5">
-              <h3 className="font-display text-xl font-semibold">Knowledge check</h3>
+              <h3 className="font-display text-xl font-semibold"><Text>{"Knowledge check"}</Text></h3>
               {activeModule.questions.map((question, index) => (
-                <fieldset key={question.id} className="border border-border p-4">
+                <fieldset key={question.id} lang={question.localization?.locale} className="border border-border p-4">
                   <legend className="px-2 text-sm font-medium">{questionOffset + index + 1}. {question.prompt}</legend>
+                  <ContentLanguageNote localization={question.localization} />
                   <div className="mt-2 space-y-2">
                     {question.options.map((option, optionIndex) => (
                       <label key={optionIndex} className="flex cursor-pointer items-start gap-2 text-sm text-text-secondary">
@@ -327,16 +329,16 @@ export function RecruitAcademy() {
                   </div>
                 </fieldset>
               ))}
-              <button disabled={busy} className={buttonClass}>{busy ? "Checking…" : "Submit knowledge check"}</button>
+              <button disabled={busy} className={buttonClass}>{busy ? t("Checking…") : t("Submit knowledge check")}</button>
             </form>
           )}
 
           {quizResult && (
             <div role="status" className="mt-5 border border-border bg-bg p-4">
-              <p className="font-medium">{quizResult.passed ? "Knowledge check passed" : "Knowledge check not passed"} · {quizResult.correct_count}/{quizResult.question_count}</p>
+              <p className="font-medium">{quizResult.passed ? t("Knowledge check passed") : t("Knowledge check not passed")} · {quizResult.correct_count}/{quizResult.question_count}</p>
               <ul className="mt-3 space-y-2 text-sm text-text-secondary">
                 {quizResult.results.map((result) => (
-                  <li key={result.id}>{result.correct ? "Correct" : `Review the correct option (${result.correct_index + 1})`} · {result.explanation}</li>
+                  <li key={result.id}>{result.correct ? t("Correct") : t("Review the correct option ({value1})", { value1: result.correct_index + 1 })} · <span lang={result.localization?.locale}>{result.explanation}</span><ContentLanguageNote localization={result.localization} /></li>
                 ))}
               </ul>
             </div>
@@ -344,54 +346,53 @@ export function RecruitAcademy() {
 
           <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-5">
             {activeModule.acknowledged_at ? (
-              <span className="text-sm text-tip">Version {activeModule.version} acknowledged {dateLabel(activeModule.acknowledged_at)}.</span>
+              <span className="text-sm text-tip"><Text values={{ version: activeModule.version.toLocaleString(locale), value2: String(dateLabel(activeModule.acknowledged_at, locale) ?? "") }}>{"Version {version}  acknowledged {value2}."}</Text></span>
             ) : (
               <button
                 disabled={busy || (activeModule.questions.length > 0 && activeModule.latest_quiz_passed !== true && quizResult?.passed !== true)}
                 onClick={() => void acknowledge(activeModule)}
                 className={`${buttonClass} border-accent`}
               >
-                I have read and understand this version
-              </button>
+                <Text>{"I have read and understand this version"}</Text></button>
             )}
-            <button disabled={busy} onClick={() => void requestHelp(activeModule)} className={buttonClass}>I need officer help</button>
-            {step > 0 && <button disabled={busy} onClick={() => void moveTo(step - 1)} className={buttonClass}>Previous</button>}
-            <button disabled={busy || (activeModule.required && !activeModule.acknowledged_at)} onClick={() => void moveTo(Math.min(step + 1, totalSteps - 1))} className={buttonClass}>Continue to next section</button>
-            <Link href="/portal" className={buttonClass}>Pause and return to portal</Link>
+            <button disabled={busy} onClick={() => void requestHelp(activeModule)} className={buttonClass}><Text>{"I need officer help"}</Text></button>
+            {step > 0 && <button disabled={busy} onClick={() => void moveTo(step - 1)} className={buttonClass}><Text>{"Previous"}</Text></button>}
+            <button disabled={busy || (activeModule.required && !activeModule.acknowledged_at)} onClick={() => void moveTo(Math.min(step + 1, totalSteps - 1))} className={buttonClass}><Text>{"Continue to next section"}</Text></button>
+            <Link href="/portal" className={buttonClass}><Text>{"Pause and return to portal"}</Text></Link>
           </div>
         </section>
       )}
 
       {step === 3 + modules.length && (
         <section className={panelClass}>
-          <span className="eyebrow">Final step · Orientation completion</span>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Would you be interested in becoming an R3 officer in the future?</h2>
-          <p className="mt-3 text-sm text-text-secondary">This records interest only. It is not an application approval or automatic promotion.</p>
+          <span className="eyebrow"><Text>{"Final step · Orientation completion"}</Text></span>
+          <h2 className="mt-2 font-display text-2xl font-semibold"><Text>{"Would you be interested in becoming an R3 officer in the future?"}</Text></h2>
+          <p className="mt-3 text-sm text-text-secondary"><Text>{"This records interest only. It is not an application approval or automatic promotion."}</Text></p>
           <div className="mt-5 flex flex-wrap gap-2">
-            <button disabled={busy} onClick={() => void saveInterest("yes")} className={buttonClass}>Yes</button>
-            <button disabled={busy} onClick={() => void saveInterest("later")} className={buttonClass}>Maybe later</button>
-            <button disabled={busy} onClick={() => void saveInterest("no")} className={buttonClass}>No</button>
+            <button disabled={busy} onClick={() => void saveInterest("yes")} className={buttonClass}><Text>{"Yes"}</Text></button>
+            <button disabled={busy} onClick={() => void saveInterest("later")} className={buttonClass}><Text>{"Maybe later"}</Text></button>
+            <button disabled={busy} onClick={() => void saveInterest("no")} className={buttonClass}><Text>{"No"}</Text></button>
           </div>
-          {data.enrollment.officer_interest && <p className="mt-4 text-sm text-text-secondary">Saved response: {data.enrollment.officer_interest === "later" ? "Maybe later" : data.enrollment.officer_interest === "yes" ? "Yes" : "No"}.</p>}
+          {data.enrollment.officer_interest && <p className="mt-4 text-sm text-text-secondary"><Text>{"Saved response:"}</Text>{" "}{data.enrollment.officer_interest === "later" ? t("Maybe later") : data.enrollment.officer_interest === "yes" ? t("Yes") : t("No")}.</p>}
           <div className="mt-6 border-t border-border pt-5">
             <p className="text-sm text-text-secondary">
               {data.enrollment.completed_at
-                ? `Orientation complete as of ${dateLabel(data.enrollment.completed_at)}.`
-                : `${modules.filter((item) => item.acknowledged_at).length} of ${modules.length} required sections acknowledged. Complete each knowledge check and acknowledgment to finish.`}
+                ? t("Orientation complete as of {value1}.", { value1: dateLabel(data.enrollment.completed_at, locale) })
+                : t("{completed} of {total} required sections acknowledged. Complete each knowledge check and acknowledgment to finish.", { completed: modules.filter((item) => item.acknowledged_at).length, total: modules.length })}
             </p>
           </div>
-          <button disabled={busy} onClick={() => void moveTo(Math.max(0, step - 1))} className={`mt-5 ${buttonClass}`}>Review training</button>
+          <button disabled={busy} onClick={() => void moveTo(Math.max(0, step - 1))} className={`mt-5 ${buttonClass}`}><Text>{"Review training"}</Text></button>
         </section>
       )}
 
       {step > 0 && step < 3 + modules.length && (
-        <button disabled={busy} onClick={() => void moveTo(step - 1)} className="mt-4 text-sm text-text-secondary underline">Previous step</button>
+        <button disabled={busy} onClick={() => void moveTo(step - 1)} className="mt-4 text-sm text-text-secondary underline"><Text>{"Previous step"}</Text></button>
       )}
     </div>
   );
 }
 
-function dateLabel(value: string | null): string {
+function dateLabel(value: string | null, locale: string): string {
   if (!value) return "—";
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(value));
+  return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(new Date(value));
 }

@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Komunikasyon ng alyansa",
+    "body": "Maligayang pagdating sa BurnFire (BF2)! Regular na basahin ang chat ng alyansa. Doon ipinapahayag ang mahahalagang anunsyo, estratehiya sa mga event, tagubilin sa operasyon, at abiso ng pamunuan. Tungkulin ng mga miyembro na manatiling may alam at sumunod sa naaangkop na tagubilin ng alyansa.",
+    "questions": {
+      "check-chat": {
+        "prompt": "Ano ang inaasahang gawin ng mga miyembro sa chat ng alyansa?",
+        "options": [
+          "Basahin ito nang regular",
+          "Basahin lamang kapag nagmensahe ang isang opisyal",
+          "Balewalain ito kung gumagamit sila ng website"
+        ],
+        "explanation": "Ibinabahagi sa chat ng alyansa ang mahahalagang anunsyo, estratehiya, tagubilin, at abiso ng pamunuan."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Website at opsyonal na chat",
+    "body": "Nagbibigay ang BF2 ng mga gabay ng alyansa, estratehiya sa event, anunsyo, tanong at sagot, komunikasyon sa pamunuan, tulong sa pagrerekrut, at pagsasanay sa website nito at sa opsyonal na panlabas na chat server. Hinihikayat ang pagsali sa panlabas na chat ngunit hindi ito sapilitan. Hindi maaaring parusahan ang miyembrong pumipili ng komunikasyon sa website. Piliin: panlabas na chat, BF2 Website, o pareho.",
+    "questions": {
+      "check-preference": {
+        "prompt": "Sapilitan ba ang panlabas na chat para sa mga miyembro ng BF2?",
+        "options": [
+          "Oo, kailangan ito",
+          "Hindi. Hinihikayat ito, at maaari pa ring makipag-usap sa website",
+          "Para lamang sa mga rekrut"
+        ],
+        "explanation": "Hinihikayat ang panlabas na chat ngunit hindi sapilitan; hindi dapat parusahan ang mga miyembrong mas gusto ang website."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Kailangang basahing liham ng alyansa",
+    "body": "Kailangang basahin ang liham ng alyansa. Hiwalay ito sa ibang abiso sa laro at sa chat ng alyansa, at ginagamit upang pare-parehong maipamahagi ang mahahalagang tagubilin. Alamin kung saan ito makikita, paano buksan, bakit kailangang basahin, at paano makilala ang opisyal na tagubilin. Hindi matutukoy ng website kung nabuksan ang liham sa laro. Humingi ng tulong sa opisyal kung hindi mo makita ang liham ng alyansa.",
+    "questions": {
+      "check-mail": {
+        "prompt": "Hindi mo alam kung paano buksan ang liham ng alyansa. Ano ang gagawin mo?",
+        "options": [
+          "Balewalain ang liham",
+          "Humingi ng tulong at gamitin ang ibinigay na gabay",
+          "Ipagpalagay na makukumpirma ng website na nabuksan mo ito"
+        ],
+        "explanation": "Kailangang basahin ang liham ng alyansa. Hindi matutukoy ng website ang pagbasa sa laro; humingi ng tulong kung kailangan."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Pagkakakilanlan at asal ng manlalaro",
+    "body": "Panatilihin ang natatangi at madaling makilalang pangalan sa laro. Ang pangkaraniwan o paulit-ulit na pangalan gaya ng “Doctor” ay nagpapahirap sa pagkilala sa mga miyembro at pamamahala ng alyansa. Hindi katanggap-tanggap ang pang-aapi, panliligalig, pagbabanta, mapang-abusong asal, hindi kailangang personal na alitan, at pagbabahagi ng pribadong impormasyon ng ibang miyembro nang walang pahintulot. Panatilihing magalang at nakabubuti ang komunikasyon.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "Anong asal ang inaasahan sa komunikasyon ng alyansa?",
+        "options": [
+          "Magalang at nakabubuting komunikasyon",
+          "Pagbabanta kapag hindi sumang-ayon ang ibang manlalaro",
+          "Pagbabahagi ng pribadong impormasyon ng miyembro"
+        ],
+        "explanation": "Dapat makipag-usap nang magalang ang mga miyembro at hindi manligalig o magbahagi ng pribadong impormasyon nang walang pahintulot."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Mga tuntunin ng server at protektadong alyansa",
+    "body": "Sundin ang naaangkop na tuntunin ng server. Huwag nakawan ang mga caravan o Special Ops mula sa sarili mong server. Huwag magrekrut o mang-agaw ng miyembro mula sa Top 10 na alyansa, at huwag atakihin ang mga ito. Iba ang pinapayagang gawain sa ibang server sa ipinagbabawal sa sariling server. Sundin ang kasalukuyang patakaran ng alyansa at magtanong sa pamunuan kung hindi malinaw kung pinapayagan ang target.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Nakakita ka ng caravan mula sa sarili mong server. Ano ang gagawin mo?",
+        "options": [
+          "Huwag itong nakawan",
+          "Nakawan kung walang nakakakita",
+          "Ipagawa ang pagnanakaw sa ibang miyembro"
+        ],
+        "explanation": "Hindi dapat nakawan ng mga miyembro ng BF2 ang mga caravan ng sarili nilang server."
+      },
+      "check-protected-alliance": {
+        "prompt": "Maaari bang atakihin ang Top 10 na alyansa o rekrutin ang mga miyembro nito?",
+        "options": [
+          "Oo, kung magtatanong muna",
+          "Hindi",
+          "Sa panahon lamang ng event"
+        ],
+        "explanation": "Ipinagbabawal ang pag-atake sa Top 10 na alyansa at pagrerekrut o pang-aagaw ng kanilang mga miyembro."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Pamamahala ng alitan at diplomasya",
+    "body": "Walang pahintulot ang mga miyembro na magsimula ng digmaan o magbanta sa ngalan ng BF2. Kung may ibang manlalaro o alyansang nagdudulot ng problema, makipag-ugnayan muna sa pamunuan bago palalain ang sitwasyon. Huwag magpanggap na nagsasalita para sa pamunuan ng BF2 nang walang pahintulot.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Nagdudulot ng problema ang manlalaro mula sa ibang alyansa. Ano ang gagawin mo?",
+        "options": [
+          "Bantaan ang alyansa niya sa ngalan ng BF2",
+          "Makipag-ugnayan sa pamunuan bago palalain ang sitwasyon",
+          "Magdeklara ng digmaan nang mag-isa"
+        ],
+        "explanation": "Hindi maaaring magsimula ng digmaan o magbanta para sa BF2 ang mga miyembro. Makipag-ugnayan sa pamunuan."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Mga caravan at Special Ops sa ibang server",
+    "body": "Unawain ang pagkakaiba ng mga target sa sarili mong server, sa ibang server, protektado ng tuntunin ng server, at pinapayagan ng kasalukuyang patakaran ng alyansa. Huwag nakawan ang mga caravan o Special Ops ng sarili mong server. Kailangang beripikahin ng pamunuan ang pag-navigate sa laro at detalye ng pagiging pinapayagan bago ilathala bilang opisyal na tagubilin. Humingi ng tulong sa opisyal kung hindi sigurado.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "Ano ang dapat beripikahin bago makipag-ugnayan sa posibleng target sa ibang server?",
+        "options": [
+          "Ang server nito at kung pinapayagan ayon sa kasalukuyang tuntunin",
+          "Kung mukhang mahalaga lamang ito",
+          "Wala kung ibinahagi ng ibang miyembro"
+        ],
+        "explanation": "Suriin ang server at kung pinapayagan ang target; magtanong sa pamunuan kung hindi malinaw ang mekanika o tuntunin."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Lokasyon at pagtitipon ng alyansa",
+    "body": "Manatiling makatwirang malapit sa marka ng BF2 at lugar ng pagtitipon. Kung malayo ka, gamitin ang ibinigay na landas sa laro: Alyansa → Lugar ng pagtitipon → Lumipat. Hindi kayang independiyenteng beripikahin ng website ang paglipat sa laro. Humingi ng tulong kung hindi makita ang lugar ng pagtitipon.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "Anong landas sa laro ang ibinigay para bumalik sa lugar ng pagtitipon?",
+        "options": [
+          "Alyansa → Lugar ng pagtitipon → Lumipat",
+          "Mapa → Tindahan → Bumili",
+          "Chat → Profile → Ilipat"
+        ],
+        "explanation": "Ang ibinigay na landas ay Alyansa → Lugar ng pagtitipon → Lumipat. Hindi mabeberipika ng website ang paglipat."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Mga direktang paglipat",
+    "body": "Maaaring makakuha ng Direktang Paglipat sa Tindahan ng Alyansa. Alamin kung saan ito makikita at kung kailan angkop ang pagpapalit ng puwesto. Hindi kailangang gumastos ng totoong pera.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "Kailangan bang bumili gamit ang totoong pera para magpalit ng puwesto?",
+        "options": [
+          "Oo",
+          "Hindi",
+          "Para lamang sa mga rekrut"
+        ],
+        "explanation": "Maaaring makakuha ng Direktang Paglipat sa Tindahan ng Alyansa; hindi kailangan ang totoong pera."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Mga rally at paghuhukay ng alyansa",
+    "body": "Kapag magsisimula ng rally o Paghuhukay ng Alyansa, ipahayag ito sa chat upang magkaroon ng pagkakataong sumali ang iba. Makipag-usap, makipagtulungan, anyayahan ang alyansa, at suportahan ang sama-samang pag-unlad. Huwag tahimik na maghukay nang mag-isa kung dapat alukin ang alyansa na lumahok.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "Ano ang gagawin kapag magsisimula ng rally o Paghuhukay ng Alyansa?",
+        "options": [
+          "Ipahayag sa chat para makasali ang iba",
+          "Ilihim ito",
+          "Hintaying matapos bago banggitin"
+        ],
+        "explanation": "Ang pag-anunsyo ng rally at paghuhukay ay nagbibigay ng pagkakataong makilahok at sumusuporta sa sama-samang pag-unlad."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Lingguhang pananaliksik ng alyansa",
+    "body": "Ang pinakamababang lingguhang ambag sa pananaliksik ng alyansa ay 3,200. Mag-ambag sa pananaliksik na pinili ng pamunuan. Gamitin ang Tulong ng Alyansa, sumali sa mga rally kung maaari, makilahok sa mga gawain, at suportahan ang pag-unlad ng pananaliksik. Hindi kailanman kailangan ang mga diyamante o pagbili gamit ang totoong pera.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "Ano ang pinakamababang lingguhang ambag sa pananaliksik ng alyansa?",
+        "options": [
+          "320",
+          "3,200",
+          "32,000"
+        ],
+        "explanation": "Ang pinakamababa ay 3,200. Hindi kailanman kailangan ang mga diyamante o pagbili gamit ang totoong pera."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Mga ranggo at pag-angat sa alyansa",
+    "body": "Nakukuha ang ranggo sa pakikilahok at ambag: donasyon sa pananaliksik, Tulong ng Alyansa, pagsali sa rally at paghuhukay, pagiging aktibo, pakikipagtulungan, at pakikibahagi sa pamumuno. Ang R2 ay karaniwang miyembro; ang R3 pataas ay tungkulin ng pamunuan. Hindi awtomatikong napo-promote ang sinuman dahil sa aktibidad sa website o pagkumpleto ng pagsusulit. Maaari kang magpahayag ng interes na maging opisyal na R3 sa hinaharap; hindi ito pag-apruba ng aplikasyon o promosyon.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "Awtomatikong napo-promote ba ang miyembro kapag nakumpleto ang pagsusulit sa website?",
+        "options": [
+          "Oo, sa R3",
+          "Hindi. Nakukuha ang ranggo sa pakikilahok at ambag",
+          "Oo, kung gumagamit ng panlabas na chat"
+        ],
+        "explanation": "Hindi awtomatikong napo-promote ang mga miyembro dahil sa aktibidad sa website at pagkumpleto ng pagsusulit."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protokol sa pandarambong at Covert Ops sa ibang server",
+    "body": "Pangunahing patakaran: huwag kailanman magbahagi ng target ng Covert Ops na natamaan na nang dalawang beses. Bago magbahagi, beripikahin ang server, kung pinapayagan ang target, at impormasyon ng pag-atake o pagtama. Huwag dambungin ang mga caravan ng sarili mong server. Huwag atakihin o ibahagi ang mga target na hindi pinapayagan ng tuntunin ng server o kasalukuyang patakaran ng alyansa. Sa alitan, kontakin ang pamunuan; huwag bantaan ang ibang alyansa sa ngalan ng BF2. Gamitin ang pagsasanay ng BF2 o humingi ng tulong sa opisyal. Ang detalyadong pag-navigate sa interface at mekanika ng target ay para sa pagsusuri ng pamunuan dahil hindi pa independiyenteng nabeberipika.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Nakakita ka ng caravan na pag-aari ng sarili mong server. Ano ang gagawin mo?",
+        "options": [
+          "Huwag dambungin",
+          "Ibahagi upang dambungin ng iba",
+          "Atakihin bago suriin"
+        ],
+        "explanation": "Hindi dapat dambungin ang mga caravan ng parehong server."
+      },
+      "check-two-hits": {
+        "prompt": "Natamaan na nang dalawang beses ang target ng Covert Ops. Dapat ba itong ibahagi?",
+        "options": [
+          "Oo, agad",
+          "Hindi",
+          "Sa mga opisyal lamang"
+        ],
+        "explanation": "Huwag magbahagi ng target ng Covert Ops na natamaan na nang dalawang beses."
+      },
+      "check-target-checks": {
+        "prompt": "Ano ang dapat beripikahin bago magbahagi ng posibleng target sa ibang server?",
+        "options": [
+          "Kung pinapayagan, server, at kaugnay na impormasyon ng pag-atake o pagtama",
+          "Pangalan lamang ng target",
+          "Kung sikat na ito"
+        ],
+        "explanation": "Suriin kung pinapayagan ang target, ang server nito, at kaugnay na impormasyon ng pag-atake o pagtama."
+      },
+      "check-threats": {
+        "prompt": "Dapat mo bang bantaan ang ibang alyansa sa ngalan ng BF2?",
+        "options": [
+          "Hindi. Kontakin ang pamunuan",
+          "Oo, kung galit ka",
+          "Oo, kung ang ibang manlalaro ang nauna"
+        ],
+        "explanation": "Walang pahintulot ang mga miyembro na magbanta o magsimula ng digmaan para sa BF2."
+      },
+      "check-request-help": {
+        "prompt": "Hindi alam ng rekrut kung paano buksan ang Special Ops sa ibang server. Ano ang gagawin?",
+        "options": [
+          "Gamitin ang gabay ng BF2 o magtanong sa opisyal",
+          "Manghula hanggang gumana",
+          "Humiling ng hindi beripikadong target"
+        ],
+        "explanation": "Gamitin ang aprubadong pagsasanay ng BF2 o humingi ng tulong sa opisyal."
+      }
+    }
+  }
+}

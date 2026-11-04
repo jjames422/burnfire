@@ -1,3 +1,5 @@
+
+import { Text } from "@/components/i18n/LanguageProvider";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import GithubSlugger from "github-slugger";
@@ -66,7 +68,7 @@ export default async function GuidePage({
           </h1>
           <p className="guide-deck">{frontmatter.summary}</p>
           <p className="guide-byline">
-            By {frontmatter.author}
+            <Text>{"By"}</Text>{" "}{frontmatter.author}
             {frontmatter.authorRank
               ? ` · ${frontmatter.authorRank}`
               : ""} · {frontmatter.publishedAt}

@@ -1,0 +1,75 @@
+.language-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  max-inline-size: 100%;
+  padding: .4rem .6rem;
+  border: 1px solid var(--border);
+  border-radius: .55rem;
+  color: var(--text-primary);
+  background: var(--surface);
+  font: inherit;
+}
+.language-control {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .3rem;
+  max-inline-size: 100%;
+}
+.language-error {
+  max-inline-size: 20rem;
+  color: var(--warning);
+  font-size: .8rem;
+}
+.language-selector select {
+  min-inline-size: 0;
+  max-inline-size: 9rem;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.language-selector:focus-within {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 3px;
+}
+html[lang="ar"] {
+  --font-display: Tahoma, Arial, sans-serif;
+  --font-body: Tahoma, Arial, sans-serif;
+}
+html[dir="rtl"] .prose-guide {
+  text-align: start;
+}
+html[dir="rtl"] .space-rail,
+html[dir="rtl"] .channel-rail {
+  border-right: 0;
+  border-inline-end: 1px solid var(--border);
+}
+html[dir="rtl"] .presence-rail {
+  border-left: 0;
+  border-inline-start: 1px solid var(--border);
+}
+html[dir="rtl"] .space-button.is-active::before {
+  left: auto;
+  inset-inline-start: -12px;
+}
+html[dir="rtl"] .channel-button {
+  text-align: start;
+}
+html[dir="rtl"] .channel-button.is-active {
+  box-shadow: inset -2px 0 #ff5b24;
+}
+html[dir="rtl"] .message-row.is-reply {
+  margin-left: 0;
+  margin-inline-start: 32px;
+  border-left: 0;
+  border-inline-start: 2px solid #493035;
+}
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[autocomplete="one-time-code"],
+html[dir="rtl"] code,
+html[dir="rtl"] pre {
+  direction: ltr;
+  unicode-bidi: isolate;
+}

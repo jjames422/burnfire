@@ -1,0 +1,1587 @@
+{
+  "zoya": {
+    "sourceHash": "372f6e9a729f33757ecb6b19979f80916e26f0eaa93cd03d80f737308b13f79b",
+    "summary": "Una familiar de Marlena centrada en los críticos: sus potentes dagas progresan de forma distinta al final del juego.",
+    "unlock": "Aparece el día 55 del servidor; hacen falta 10 fragmentos de Zoya para desbloquearla. Es la última Guerrera UR en llegar.",
+    "overview": [
+      "El conjunto de Zoya se parece mucho al de Marlena, pero su pasiva aumenta la probabilidad de crítico en vez del daño de energía. Por eso progresa de otra manera cuando avanza el juego y se acumulan equipo y mejoras.",
+      "Mountain God Wrath cumple dos funciones: inflige daño constante durante 3 s y hace que los enemigos afectados reciban más daño de energía de todo el equipo. Cada una de las tres dagas de Forest Hunter inflige hasta un 1.668% del ATQ, o un 3.669,6% con todas las estrellas."
+    ],
+    "investment": "Depende de las estrellas y rinde mucho mejor con niveles altos. Quienes gastan poco pueden llevarla a 8★ y reservar los demás fragmentos Omni UR para los próximos héroes. Quienes gastan mucho pueden subirla a 10★.",
+    "squadFit": "Es una atacante Guerrera que puede colocarse junto a Marlena; el bonus de Harper potencia a ambas. Su amplificador de daño de energía fortalece a los demás atacantes de energía del equipo.",
+    "skills": {
+      "0": {
+        "effect": "Lanza una daga del bosque al objetivo e inflige a un enemigo daño de energía equivalente al 87,15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Lanza rápidamente 3 dagas especiales a 3 enemigos aleatorios, infligiendo a cada uno daño equivalente al 583,8%–1.668% del ATQ.",
+        "starUpgrades": [
+          "10★: hoja +1",
+          "30★: daño adicional +60%",
+          "50★: daño adicional aumenta al 120%; hoja +1"
+        ],
+        "maxStars": "A 50★: 1.284,36–3.669,6%"
+      },
+      "2": {
+        "effect": "Junta las manos e invoca un torbellino de hojas verdes que inflige a los enemigos en alcance daño de energía equivalente al 73,5%–210% del ATQ por segundo durante 3 s. Durante ese tiempo, reciben un 20% más de daño de energía.",
+        "starUpgrades": [
+          "15★: daño adicional +60%",
+          "35★: daño adicional aumenta al 130%",
+          "45★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 45★: 220,5%–630%"
+      },
+      "3": {
+        "effect": "En combate, aumenta la probabilidad de crítico un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "marlena": {
+    "sourceHash": "ca7d1c9ca33d3cdb94ce03d4cd92a79e00781dc42887c934a9da12348f67cfe5",
+    "tierLists": "S en 5 de 6 listas de niveles",
+    "summary": "La atacante UR principal para cualquier cuenta: disponible desde el primer día y primera prioridad de fragmentos Omni UR para la mayoría de las guías.",
+    "unlock": "Disponible desde el primer día, sin requisito de antigüedad del servidor. Sus fragmentos aparecen en los reclutamientos de la taberna, las invocaciones gratuitas del banner y las recompensas de eventos; también viene en el paquete First Top Up (unos 1 USD).",
+    "overview": [
+      "Marlena es la atacante que la mayoría de las guías recomienda desarrollar primero, gracias a la sinergia de sus habilidades. Peerless Blade lanza tres vientos de espada a enemigos aleatorios, cada uno con hasta un 1.020% del ATQ como daño de energía (3.382,5% con todas las estrellas); Crimson Bloom añade un golpe de área cada 5 s, y War God's Will aumenta todo su daño de energía hasta un 16% (24% con todas las estrellas). Tenacidad añade además +20% de ATQ, PV y DEF.",
+      "También está disponible desde el primer día, por lo que casi todas las guías coinciden en que debe recibir primero tus fragmentos Omni UR."
+    ],
+    "investment": "Es la prioridad principal para los fragmentos Omni UR, por delante de Harper, Cynthia y Shadow. Empieza a invertir en ella en serio cuando Arthur llegue a unas 5–6★; el primer gran objetivo es 8★, cuando desbloquea Tenacidad.",
+    "squadFit": "Arthur y Marlena son la pareja central de toda cuenta nueva. También es Guerrera, así que Warrior's Anthem de Harper la potencia directamente; además, es la principal atacante del equipo completo de BF2 junto a Cynthia.",
+    "skills": {
+      "0": {
+        "effect": "Libera un viento de espada e inflige a un objetivo daño de energía equivalente al 91,35%–261% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%; despertar nivel 1: libera 1 viento de espada contra un enemigo e inflige un 783% del ATQ como daño de energía. Al asestar un crítico, Marlena obtiene 1 acumulación de Battle Will, hasta 2 veces el número de Guerreros del equipo; cada acumulación aumenta el daño infligido un 1% y reduce el daño recibido un 1%."
+        ],
+        "maxStars": "A 50★: 274,05%–783%"
+      },
+      "1": {
+        "effect": "Libera 3 vientos de espada que apuntan al azar a enemigos e infligen daño de energía equivalente al 357%–1.020% del ATQ.",
+        "starUpgrades": [
+          "10★: vientos de espada +1; cada uno inflige un 20% de daño adicional",
+          "30★: daño adicional del 100% por cada uno",
+          "50★: vientos de espada +1; cada uno inflige un 140% de daño adicional; despertar nivel 40: libera 3 vientos contra enemigos aleatorios, cada uno inflige un 3.382,5% del ATQ como daño de energía, y luego lanza 5 vientos más con el 60% del daño original"
+        ],
+        "maxStars": "A 50★: 1.183,88–3.382,5%"
+      },
+      "2": {
+        "effect": "Lanza una flor escarlata que explota al impactar e inflige a los objetivos en alcance daño de energía equivalente al 204,75%–585% del ATQ.",
+        "starUpgrades": [
+          "15★: daño adicional +20% y ATQ +12% durante 3 s",
+          "35★: daño adicional aumenta al 70%",
+          "45★: daño adicional aumenta al 150%; despertar nivel 10: lanza 1 Crimson Blossom que explota e inflige a todos los enemigos un 1.462,5% del ATQ como daño de energía. Si Marlena supera 5 acumulaciones de Battle Will, inflige Dread a todos los enemigos y reduce un 5% el daño que causan"
+        ],
+        "maxStars": "A 45★: 511,88–1.462,5%"
+      },
+      "3": {
+        "effect": "En combate, aumenta el daño de energía que inflige un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%; despertar nivel 20: daño de energía +24%. Al inicio del combate ataca a los 3 enemigos con más PV e inflige un 2.500% del ATQ como daño de energía; al acertar, obtiene 3 acumulaciones de Battle Will"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "louis": {
+    "sourceHash": "bbcddfc6a79fe7090e32712f8c37e3ed6896e28b7937192f76d61a87ab0303aa",
+    "summary": "Un tanque con látigo de cadena centrado en reducir daño, curarse y negarse a morir en el peor momento.",
+    "unlock": "Aparece el día 62 del servidor y hacen falta 10 fragmentos de Louis para desbloquearlo. Es el quinto de los seis tanques UR en llegar.",
+    "overview": [
+      "Louis es el ancla de la primera línea y todo su kit sirve para dar tiempo a la retaguardia. Cross Whip inflige daño, lo cura y abre una gran ventana de reducción de daño para todo el equipo. Force Link protege a otros aliados resistentes del daño de energía, e Indomitable Spirit lo salva una vez por combate de un golpe mortal.",
+      "Depende mucho de las estrellas. Con pocas estrellas es menos fiable y Shadow puede rendir mejor, pero su eficacia aumenta bastante con la inversión."
+    ],
+    "investment": "Quienes gastan poco pueden parar en 7★, aunque se recomienda 8★. Quienes gastan mucho deberían apuntar a 9–10★ para alcanzar todo su potencial.",
+    "squadFit": "Como Ranger, encaja en un equipo solo de Rangers junto a Shadow, Cynthia, Red Lady y Bell. Force Link elige a los aliados con mayor DEF, así que Louis rinde mejor junto a otro tanque.",
+    "skills": {
+      "0": {
+        "effect": "Agita la cadena de hierro e inflige a un objetivo daño físico equivalente al 87,15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%; arma exclusiva 20★: aumenta al 300%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Agita 2 cadenas hacia delante a la vez, inflige a los enemigos en alcance daño equivalente al 299,25%–855% del ATQ, se cura un 150% del ATQ y reduce todo el daño recibido un 15,38%–30% durante 5 s.",
+        "starUpgrades": [
+          "10★: la reducción también se aplica al aliado más cercano",
+          "30★: la reducción se aplica a todos los aliados",
+          "50★: daño adicional +60%; arma exclusiva 50★: reducción de daño +5%"
+        ],
+        "maxStars": "A 50★: 478,8% / 15,38% a 1.368% / 30%"
+      },
+      "2": {
+        "effect": "Carga ambas manos y crea un campo de energía que reduce un 9,23%–18% durante 4 s el daño de energía recibido por los 2 aliados en alcance con mayor DEF.",
+        "starUpgrades": [
+          "15★: efecto +8%",
+          "35★: efecto +12%",
+          "45★: objetivos +1; arma exclusiva 40★: objetivos +1 adicional"
+        ],
+        "maxStars": "A 45★: 21,23%–30%"
+      },
+      "3": {
+        "effect": "En combate, reduce todo el daño recibido un 15,38%–30% y entra en estado indomable al recibir daño mortal, conservando 1 PV durante 2 s. Solo puede activarse una vez.",
+        "starUpgrades": [
+          "20★: duración +1 s",
+          "45★: duración +1 s",
+          "50★: duración +1 s; arma exclusiva 30★: duración +1 s adicional"
+        ],
+        "maxStars": "A 50★: 15,38%–30%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "ulfrid": {
+    "sourceHash": "c72951978ddd3b42b6e86d8e4da8d1881df4370ccee008f0eedb8467f3201ce3",
+    "summary": "Un tanque con sangre de lobo que castiga a quien lo ataca al devolverle el daño recibido.",
+    "unlock": "Disponible cuando el servidor cumple 41 días; hacen falta 10 fragmentos de Ulfrid para desbloquearlo, que se obtienen en reclutamientos y eventos.",
+    "overview": [
+      "Ulfrid contraataca. En vez de depender de su propio daño, hace que el enemigo pague por centrarse en él: durante Lunar Howl, devuelve al atacante hasta un 120% de cada golpe recibido durante 3 s (162% con todas las estrellas). Al combinarlo con la reducción de daño de Wolf Bloodline y la reducción para todo el equipo de su definitiva, resulta muy difícil acabar con él.",
+      "La clave es el momento. Su gran ventaja dura solo 3 s, así que es más situacional y fácil de contrarrestar que los tanques de primer nivel. Por eso está un escalón por debajo de Arthur y Shadow."
+    ],
+    "investment": "A quienes gastan poco les basta con 8★. Quienes gastan mucho deberían llevarlo a 10★.",
+    "squadFit": "Destaca en combates prolongados donde el enemigo se ve obligado a atacarlo. En un equipo de Brujos se combina con Billy para crear una primera línea muy resistente, y la pasiva de Nicole (+8% ATQ por cada Brujo) también le beneficia.",
+    "skills": {
+      "0": {
+        "effect": "Ataca con sus garras afiladas e inflige a un enemigo daño físico equivalente al 87,15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%; arma exclusiva 20★: aumenta al 300%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Carga energía, se lanza hacia delante y muerde al objetivo, infligiendo daño físico equivalente al 632,1%–1.806% del ATQ y reduciendo todo el daño recibido por todos los aliados un 5,13%–10% durante 4 s.",
+        "starUpgrades": [
+          "10★: efecto +2%",
+          "30★: efecto +3%",
+          "50★: efecto +5%; arma exclusiva 50★: +7% adicional"
+        ],
+        "maxStars": "A 50★: 632,1% / 15,13% a 1.806% / 20%"
+      },
+      "2": {
+        "effect": "Aúlla al cielo y entra en estado Berserk: al recibir daño, devuelve al atacante un 61,5%–120% de ese daño. Dura 3 s.",
+        "starUpgrades": [
+          "15★: efecto +12%",
+          "35★: duración del efecto +1 s",
+          "45★: efecto +30%; arma exclusiva 40★: DEF +10% durante Berserk"
+        ],
+        "maxStars": "A 45★: 103,5%–162%"
+      },
+      "3": {
+        "effect": "En combate, reduce todo el daño recibido un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%; arma exclusiva 30★: +5% adicional"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "billy": {
+    "sourceHash": "b35900a012a741c4bfbeb160536bb917ecb85b2e1316c4f19bace88241722a46",
+    "summary": "Un tanque titiritero que protege a tus atacantes de aturdimientos y ráfagas de energía en lugar de limitarse a recibir golpes.",
+    "unlock": "Se desbloquea el día 83 del servidor con 10 fragmentos de Billy. Entre los héroes UR, solo Nicole llega después; por eso la mayoría de las cuentas ya tiene un núcleo de tanques desarrollado cuando llega Billy.",
+    "overview": [
+      "Billy es un tanque defensivo con una utilidad especial. Puppet lo hace resistente, pero su mayor valor está en proteger a tus atacantes: su definitiva da un 70% de probabilidad de inmunidad al aturdimiento a los 3 aliados con más ATQ, y Fate's Thread reduce hasta un 24% (36% con todas las estrellas) el daño de energía que reciben los 2 aliados con más ATQ.",
+      "Es una respuesta directa a los enemigos centrados en el control. La definitiva de Red Lady busca aturdir a tus dos atacantes más fuertes, y Billy es uno de los pocos héroes capaces de neutralizarla. Es valioso tanto en PvP como en combates prolongados."
+    ],
+    "investment": "Se recomiendan 8★ para todos: supone un gran aumento de supervivencia. Quienes gastan mucho pueden llevarlo a 10★ para optimizarlo por completo, pero no es obligatorio.",
+    "squadFit": "Funciona mejor en equipos donde los atacantes son el objetivo. Encaja en una formación con muchos Brujos junto a Annie, Joker y Nicole, y es un gran contraataque frente a enemigos que usan a Red Lady.",
+    "skills": {
+      "0": {
+        "effect": "Agita la marioneta e inflige a un enemigo daño físico equivalente al 87,15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Levanta el soporte de la marioneta y lo estrella contra el suelo, infligiendo a los enemigos en alcance daño equivalente al 510,3%–1.458% del ATQ. Los 3 aliados con más ATQ tienen un 70% de probabilidad de ser inmunes al aturdimiento.",
+        "starUpgrades": [
+          "10★: el daño recibido por los héroes defensores aliados se reduce un 15% durante 5 s",
+          "30★: probabilidad de inmunidad al aturdimiento +30%",
+          "50★: daño adicional +100% y daño recibido por 3 héroes enemigos aleatorios +15% durante 5 s"
+        ],
+        "maxStars": "A 50★: 1.020,6–2.916%"
+      },
+      "2": {
+        "effect": "Agita la marioneta e inflige a un objetivo daño físico equivalente al 216,3%–618% del ATQ, y reduce un 12,3%–24% durante 4 s el daño de energía recibido por los 2 aliados con más ATQ.",
+        "starUpgrades": [
+          "15★: reducción de daño +6%",
+          "35★: objetivos aliados +1",
+          "45★: reducción de daño +6% adicional"
+        ],
+        "maxStars": "A 45★: 216,3% / 24,3% a 618% / 36%"
+      },
+      "3": {
+        "effect": "En combate, reduce todo el daño recibido un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +3%",
+          "45★: efecto +5%",
+          "50★: reduce un 8% adicional el daño de energía recibido"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "arthur": {
+    "sourceHash": "de27f4b06959cbdb262d82eb35a4b40ce6b7976bda6278a24af8c4a359fc4e2a",
+    "tierLists": "Rango S en 6 de 7 listas",
+    "summary": "El tanque inicial que todos obtienen y que sigue siendo uno de los mejores pilares de primera línea.",
+    "unlock": "Disponible desde el primer día, sin requisito de antigüedad del servidor. Se desbloquea con 10 fragmentos de Arthur, que aparecen en reclutamientos de la Taberna, la Tienda de Alianza y eventos. Cada 50 reclutamientos garantiza 10 fragmentos de un héroe UR.",
+    "overview": [
+      "Arthur es el primer héroe en el que conviene invertir. Es gratuito, llega el primer día y sigue siendo útil durante la progresión. Su función es sencilla: ponerse delante, recibir golpes y hacer que el equipo de atrás sea más difícil de derrotar.",
+      "Terremoto es lo que lo distingue. Es un gran ataque de área, pero su verdadero valor es el aura que reduce el daño de todo el escuadrón. Roca sólida lo mantiene con vida entre definitivas y Voluntad férrea refuerza discretamente a los demás tanques del equipo, por lo que combina bien con otro tanque.",
+      "Rinde tanto en el farmeo PvE —oleadas de Enjambre de ratas, Rey rata y recuperación de territorio— como en PvP. Por eso casi todas las guías lo sitúan entre los mejores tanques."
+    ],
+    "investment": "Llévalo a 8★ (paso de estrella 40): allí desbloquea Tenacidad, su mayor salto individual de atributos. La mayoría de guías recomienda subirlo a 5–6★ antes de invertir muchos fragmentos en Marlena. Prioriza Terremoto con las Insignias de habilidad.",
+    "squadFit": "Arthur y Marlena son la pareja central alrededor de la que debería construir su escuadrón una cuenta nueva. Como Guerrero, también potencia el Himno del guerrero de Harper. La reducción de daño físico de Arthur complementa la reducción de daño de energía de Shadow si juegan juntos.",
+    "skills": {
+      "0": {
+        "effect": "Golpea con el escudo e inflige a un enemigo daño físico equivalente al 105%–300% del ATQ.",
+        "starUpgrades": [
+          "Estrella 5: daño adicional +40%",
+          "Estrella 25: el daño adicional sube al 100%",
+          "Estrella 50: el daño adicional sube al 200%"
+        ],
+        "maxStars": "Con 50 estrellas: 315%–900%"
+      },
+      "1": {
+        "effect": "Golpea el suelo con el escudo e inflige a los enemigos en alcance daño físico equivalente al 591,15%–1.689% del ATQ; además, reduce un 10,25%–20% el daño físico recibido por aliados en alcance durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: reducción del daño físico +3%",
+          "Estrella 30: el efecto aumenta otro 4,5%",
+          "Estrella 50: el efecto aumenta otro 7,5%"
+        ],
+        "maxStars": "Con 50 estrellas: 591,15% / 25,25% a 1.689% / 35%"
+      },
+      "2": {
+        "effect": "Otorga un escudo equivalente al 5,25%–15% de los PV máximos actuales. Absorbe el 50% del daño recibido y dura 3 s.",
+        "starUpgrades": [
+          "Estrella 15: efecto del escudo +20%",
+          "Estrella 35: efecto del escudo +30%",
+          "Estrella 45: efecto del escudo +50%"
+        ],
+        "maxStars": "Con 45 estrellas: 10,5%–30%"
+      },
+      "3": {
+        "effect": "En combate, reduce un 3,08%–6% todo el daño recibido por los héroes tanque aliados.",
+        "starUpgrades": [
+          "Estrella 20: efecto +0,6%",
+          "Estrella 45: efecto +0,9%",
+          "Estrella 50: efecto +1,5%"
+        ],
+        "maxStars": "Con 50 estrellas: 6,08%–9%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "shadow": {
+    "sourceHash": "ab3db8a5d6afdfb523ae2f97b07ee5cce1b6d83e20b4b849ce21be8220729122",
+    "tierLists": "Rango S en 2 de 3 listas",
+    "summary": "Un tanque que reduce la DEF y el daño de energía enemigos mientras inflige mucho daño por su cuenta.",
+    "unlock": "Aparece en la taberna cuando el servidor cumple 6 días; hacen falta 10 fragmentos de Shadow para desbloquearlo. Varias clasificaciones lo consideran un héroe prémium: sus fragmentos se obtienen sobre todo en recompensas de recarga y paquetes de pago, y rara vez en invocaciones normales.",
+    "overview": [
+      "Shadow no tanquea como Arthur. En vez de proteger al equipo, debilita al enemigo. Shadow Strike reduce la DEF enemiga hasta un 30% durante 3 s (54% con todas las estrellas), lo que potencia a todos los atacantes tras él; Shadow Hunt reduce el daño de energía de todo el equipo rival hasta un 13% (22% con todas las estrellas).",
+      "Reducir el daño de energía importa porque la mayoría de los mejores atacantes del juego —Marlena, Cynthia, Red Lady y Annie— infligen ese tipo de daño. Su propia resistencia a la energía llega al 20% (35% con todas las estrellas), así que esos atacantes lo tienen difícil para derrotarlo.",
+      "También golpea mucho más fuerte de lo que se espera de un tanque. Sus bombas de humo y sus dos habilidades de área le permiten aportar daño durante todo el combate, no solo recibir golpes."
+    ],
+    "investment": "Al invertir fragmentos Omni UR, el orden habitual es Marlena, luego Harper, Cynthia y Shadow. Tenacidad se desbloquea a 8★, y Shadow Strike recibe su mayor mejora de reducción de DEF a 45★.",
+    "squadFit": "Es la primera línea del equipo completo de BF2 (Shadow + Daskal + Harper + Marlena + Cynthia). La formación renuncia al bono completo de facción, pero su reducción de DEF compensa. Bell también se beneficia de él en un equipo formado solo por Rangers.",
+    "skills": {
+      "0": {
+        "effect": "Lanza 3 bombas de humo al azar; cada una inflige a un enemigo daño físico equivalente al 29,4%–84% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: el daño adicional aumenta al 100%",
+          "50★: el daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 88,2%–252%"
+      },
+      "1": {
+        "effect": "Desata una niebla negra en movimiento, inflige a todos los enemigos daño físico equivalente al 387,45%–1.107% del ATQ y reduce su daño de energía un 5,2%–13% durante 5 s.",
+        "starUpgrades": [
+          "10★: efecto +3%",
+          "30★: el efecto aumenta otro 3%",
+          "50★: el efecto aumenta otro 3%"
+        ],
+        "maxStars": "A 50★: 387,45% / 14,2% a 1.107% / 22%"
+      },
+      "2": {
+        "effect": "Lanza un cartucho de humo grande, inflige a los enemigos en alcance daño físico equivalente al 194,25%–555% del ATQ y reduce su DEF un 15,38%–30% durante 3 s.",
+        "starUpgrades": [
+          "15★: efecto +4,5%",
+          "35★: efecto +7,5%",
+          "45★: efecto +12%"
+        ],
+        "maxStars": "A 45★: 194,25% / 39,38% a 555% / 54%"
+      },
+      "3": {
+        "effect": "En combate, reduce el daño de energía recibido un 8,3%–20%.",
+        "starUpgrades": [
+          "20★: efecto +5%",
+          "45★: efecto +5%",
+          "50★: efecto +5%"
+        ],
+        "maxStars": "A 50★: 23,3%–35%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "daskal": {
+    "sourceHash": "a80440a8c4257258290c07ef7e6e17ba7e0ded364746cdf3bbd3bf98b859f35e",
+    "summary": "Un tanque que se cura, protege a todo el equipo con escudos y cubre a los aliados cuando su atacante pierde salud.",
+    "unlock": "Aparece cuando el servidor cumple 27 días. Hacen falta 10 fragmentos de Daskal para desbloquearlo; se consiguen en invocaciones y cada 50 invocaciones garantiza 10 fragmentos UR.",
+    "overview": [
+      "Daskal está hecho para sobrevivir. Se cura con Deadly Pierce, pone un escudo a cada aliado con Bloodshed Defense —su recarga de 6,4 s es la más corta entre los tanques— y Resolute Fight activa un escudo de emergencia cuando los PV de tu atacante bajan del 50%.",
+      "Por eso destaca en PvP y en combates largos, donde una ráfaga inicial puede acabar con el equipo. Su aporte de estadísticas puras es menos notable en PvE, así que es más un tanque de guerra que de farmeo."
+    ],
+    "investment": "A quienes gastan poco les conviene llevarlo a 8★: ahí desbloquea Tenacidad, su mayor salto de poder. Quienes gastan mucho pueden subirlo a 10★ para mejorar escudos y curación, pero no es esencial salvo que inviertan mucho en PvP.",
+    "squadFit": "Sus escudos dan tiempo al equipo completo de BF2: se coloca junto a Shadow en primera línea, delante de Harper, Marlena y Cynthia. Junto a Arthur forma una sólida vanguardia de Guerreros: Arthur reduce el daño físico que reciben los aliados y el escudo de Daskal protege contra cualquier tipo de daño.",
+    "skills": {
+      "0": {
+        "effect": "Atraviesa al objetivo e inflige a un enemigo daño físico equivalente al 87,15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%; arma exclusiva 20★: aumenta al 300%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Concentra energía y otorga a cada aliado un escudo equivalente al 126%–360% de su DEF máx. Absorbe el 50% del daño recibido durante 5 s.",
+        "starUpgrades": [
+          "10★: efecto del escudo +30%",
+          "30★: efecto del escudo +30%",
+          "50★: efecto del escudo +30%; arma exclusiva 50★: +30% adicional"
+        ],
+        "maxStars": "A 50★: 239,4%–684%"
+      },
+      "2": {
+        "effect": "Apuñala al objetivo con una espada de dos manos, inflige daño físico equivalente al 323,4%–924% del ATQ y restaura PV equivalentes al 42%–120% del ATQ.",
+        "starUpgrades": [
+          "15★: curación adicional +60%",
+          "35★: curación adicional aumenta al 150%",
+          "45★: curación adicional aumenta al 300%; arma exclusiva 40★: aumenta al 400%"
+        ],
+        "maxStars": "A 45★: 323,4% / 168% a 924% / 480%"
+      },
+      "3": {
+        "effect": "Cuando los PV de tu héroe DPS bajan del 50%, obtiene un escudo equivalente al 5,25%–15% de sus PV máx. Absorbe el 50% del daño durante 5 s.",
+        "starUpgrades": [
+          "20★: duración del escudo +2 s",
+          "45★: efecto del escudo +20%",
+          "50★: efecto del escudo +30%; arma exclusiva 30★: el héroe de apoyo también recibe un escudo si sus PV bajan del 50%"
+        ],
+        "maxStars": "A 50★: 7,88%–22,5%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "cynthia": {
+    "sourceHash": "a665e08be8417aed15f02a00a270d41f3eda570b5f60735582ac26b1a1f903c7",
+    "summary": "Una carry de daño de energía que empuña una hoja lunar, inflige mucho daño a un solo objetivo y aumenta su probabilidad de crítico con cada estrella.",
+    "unlock": "Cynthia se puede desbloquear cuando el servidor cumple 6 días, con 10 de sus fragmentos. Varias clasificaciones la consideran una heroína prémium: sus fragmentos proceden sobre todo de paquetes de pago y rara vez aparecen en las invocaciones normales. Aun así, cada 50 reclutamientos se garantizan 10 fragmentos UR.",
+    "overview": [
+      "Cynthia inflige mucho daño de energía y también aumenta sus propios golpes críticos. Lunar Hunt es su habilidad principal: cada 5 s lanza tres hojas dirigidas que infligen hasta un 600% del ATQ cada una (1.800% con todas las estrellas). Moonfall Dance golpea a varios enemigos y aumenta aún más la probabilidad de crítico que ya le concede su pasiva.",
+      "Mejora mucho con las estrellas. Con la misma inversión, Marlena suele rendir mejor, pero Cynthia es la segunda carry natural una vez que tu equipo principal está formado."
+    ],
+    "investment": "Merece recibir fragmentos Omni UR, pero quienes juegan gratis o gastan poco deberían completar primero a Marlena. Para estos últimos, 8★ es un objetivo sólido; quienes gastan mucho pueden llevarla a 10★ para maximizar su daño explosivo.",
+    "squadFit": "Es el segundo carry del equipo completo de BF2 junto a Marlena. Como Ranger, también encaja en un equipo formado solo por Rangers con Shadow, Louis, Red Lady y Bell; el Battle Anthem de Bell potencia sus ataques.",
+    "skills": {
+      "0": {
+        "effect": "usa a moon blade to deal 87.15% to 249% ATQ daño de energía to a un solo enemigo.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "Estrella 50: el daño adicional aumenta un 200%. Despertar nivel 1: libera Moon Blade contra un enemigo e inflige un 747% del ATQ como daño de energía, además de obtener 1 acumulación de Moonlight. El máximo de acumulaciones equivale a 4 veces el número de Rangers de tu equipo. Cada acumulación otorga a Cynthia un 1% de bonificación de daño de energía."
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Aumenta la probabilidad de crítico del 8.2% al 16%. Lanza una gran hoja lunar que inflige del 520.8% al 1.488% del ATQ como daño de energía a los enemigos a su alcance.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 40% daño adicional",
+          "Estrella 30: Inflige daño to todos los enemigos",
+          "Estrella 50: el daño adicional aumenta un 100%. Despertar nivel 20: aumenta la probabilidad de crítico un 16%. Libera una gran Moon Blade que inflige un 2.976% del ATQ como daño de energía a los enemigos a su alcance y consume hasta 10 acumulaciones de Moonlight. También inflige a los enemigos daño de energía adicional equivalente al 60% del ATQ multiplicado por las acumulaciones de Moonlight consumidas."
+        ],
+        "maxStars": "Con 50 estrellas: 8.2% / 1,041.6% a 16% / 2,976%"
+      },
+      "2": {
+        "effect": "aleatoriamente locks onto 3 objetivos, launching 3 moon blades, each infligiendo 210% to 600% ATQ daño de energía.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 40% daño adicional",
+          "Estrella 35: daño adicional aumenta to 100%",
+          "Estrella 45: daño adicional aumenta to 200%.Awakening level 10: aleatoriamente locks onto 3 objetivos, launching 3 moon blades, each infligiendo 1,800% ATQ daño de energía. Inflige an additional 20% daño and otorga 2 stacks of Moonlight"
+        ],
+        "maxStars": "Con 45 estrellas: 630% a 1,800%"
+      },
+      "3": {
+        "effect": "En combate, aumenta la probabilidad de crítico un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "Estrella 50: Efecto aumentado en 4%.Awakening level 40: En combate, aumenta 24% probabilidad de crítico. golpes críticos deal an additional 20% daño"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "red-lady": {
+    "sourceHash": "0002d8f0b8a80b3ac8bd521c6dc5e3c8d31a575017caedb16c642dcc24940826",
+    "summary": "Una carry de daño explosivo que busca a los enemigos más peligrosos, amplifica el daño que reciben y puede aturdirlos.",
+    "unlock": "Red Lady se incorpora a la lista de héroes cuando el servidor cumple 34 días. Se desbloquea con 10 de sus fragmentos.",
+    "overview": [
+      "Red Lady es una de las fuentes de daño más constantes del juego, tanto en PvE como en PvP. Su conjunto de habilidades busca a los objetivos importantes: Crimson Rose se dirige directamente a los dos héroes enemigos con más ATQ y tiene un 35% de probabilidad de aturdirlos durante 5 s; un carry aturdido puede decidir un combate.",
+      "Bloodthirsty Slaughter inflige mucho daño por sí sola y, además, hace que su objetivo reciba más daño de todos los demás. Así, Red Lady prepara eliminaciones y también las remata."
+    ],
+    "investment": "Quienes gastan poco pueden detenerse en 8★ y guardar sus fragmentos Omni UR. Los jugadores de gasto medio deberían llegar a 9★ para mejorar su progresión, y quienes gastan mucho pueden llevarla a 10★ para maximizar el daño y el aturdimiento.",
+    "squadFit": "Es una carry Ranger que encaja junto a Cynthia, Shadow, Louis y Bell. Inspiration de Bell suele dirigirse a los dos aliados con más ATQ, y Red Lady normalmente es uno de ellos. Ten cuidado con Billy enemigo: su definitiva otorga resistencia al aturdimiento.",
+    "skills": {
+      "0": {
+        "effect": "lanza a scalpel, infligiendo 87.15% to 249% ATQ daño de energía to a un solo enemigo",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Invoca Crimson Rose, que inflige del 628.95% al 1.797% del ATQ como daño de energía a los 2 enemigos con más ATQ, con un 35% de probabilidad de aturdirlos durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 40% daño adicional",
+          "Estrella 30: Attack objetivo +1",
+          "Estrella 50: daño adicional aumenta to 140%"
+        ],
+        "maxStars": "Con 50 estrellas: 1,592.64% a 4,550.4%"
+      },
+      "2": {
+        "effect": "Fija a un objetivo, le inflige del 342.3% al 978% del ATQ como daño de energía y aumenta el daño que recibe del 8.2% al 16% durante 3 s.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 40% daño adicional",
+          "Estrella 35: daño adicional aumenta to 100%",
+          "45★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "Con 45 estrellas: 1,026.9% / 8.2% a 2,934% / 16%"
+      },
+      "3": {
+        "effect": "En combate, aumenta 8.2% to 16% ATQ.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "annie": {
+    "sourceHash": "57735f2e10e53ff51a22cc79b50e0d80f9565143192a50ce88ccffd5760b8c11",
+    "summary": "Especialista en Quemadura y ataques de área: elimina oleadas y sigue desgastando a los enemigos tras golpearlos.",
+    "unlock": "Annie se desbloquea cuando el servidor cumple 13 días, el mismo día que Joker, y hacen falta 10 de sus fragmentos. No está restringida a paquetes prémium: una cuenta gratuita puede conseguirla si ahorra fragmentos.",
+    "overview": [
+      "Annie se centra en el daño constante, no en los estallidos. Sus dos habilidades principales alcanzan una amplia zona y aplican Quemadura, de modo que los enemigos siguen recibiendo daño después del impacto. Además, Surprise Gift tiene un enfriamiento de solo 4,5 s, más corto que el de la mayoría de las habilidades activas.",
+      "Esto la convierte en una fuente fiable de daño en PvE, capaz de despejar oleadas con eficacia. También funciona en PvP, aunque allí inflige menos daño que los mejores carries explosivos."
+    ],
+    "investment": "Con 7–8★ basta si destinas la mayor parte de tus recursos al PvP. Si te centras en el PvE, llevarla a 9–10★ es cuando realmente compensa.",
+    "squadFit": "Su Quemadura permite que Nicole golpee con más fuerza: Inferno Array inflige hasta un 40% de daño adicional a los objetivos en llamas (un 45% con todas las estrellas), así que forman una pareja natural. En un equipo de Warlocks, Joker remata con su selección de objetivos con menos PV a los enemigos debilitados por la Quemadura de Annie.",
+    "skills": {
+      "0": {
+        "effect": "Agita una varita mágica para crear un caramelo e infligir a un solo enemigo un daño de energía equivalente al 87.15%–249% del ATQ.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "Estrella 50: el daño adicional aumenta un 200%. Despertar niv. 1: agita la varita y crea un caramelo que inflige un 747% del ATQ como daño de energía a un enemigo, con un 50% de probabilidad de aplicar Quemadura durante 2 s (un 200% del ATQ como daño de energía por segundo). Cada aplicación de Quemadura del equipo también añade 1 acumulación de Scorch. Despertar niv. 40: crea un caramelo que inflige un 747% del ATQ como daño de energía a un enemigo, con un 50% de probabilidad de aplicar Quemadura durante 2 s al objetivo y a otro enemigo DPS aleatorio (un 200% del ATQ como daño de energía por segundo). Cada aplicación de Quemadura del equipo también añade 1 acumulación de Scorch."
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Invoca dos tarros explosivos de caramelos que apuntan a los dos enemigos con más ATQ, infligen un 414.54%–1.184,4% del ATQ y aplican Quemadura, que causa un 100% del ATQ de daño por segundo durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: Attack objetivo +1",
+          "Estrella 30: If the objetivo is en llamas, inflige an additional 900% Attack daño once",
+          "Estrella 50: el daño adicional aumenta un 200%. Despertar niv. 20: invoca dos tarros explosivos de caramelos que apuntan a los dos enemigos con más ATQ, infligen un 3.553,2% del ATQ y aplican Quemadura, que causa un 100% del ATQ de daño por segundo durante 5 s. Además, inflige una instancia de daño de energía a todos los enemigos con Scorch, equivalente al 250% del ATQ de Annie multiplicado por las acumulaciones de Scorch del objetivo."
+        ],
+        "maxStars": "Con 50 estrellas: 1,243.62% a 3,553.2%"
+      },
+      "2": {
+        "effect": "Lanza una caja de regalo que inflige un 187.95%–537% del ATQ como daño de energía a los enemigos a su alcance y les aplica Quemadura, que causa un 100% del ATQ como daño de energía por segundo durante 2 s.",
+        "starUpgrades": [
+          "Estrella 15: en llamas Duration +2s",
+          "Estrella 35: Inflige 100% daño adicional",
+          "Estrella 45: el daño adicional aumenta un 200%. Despertar niv. 10: lanza una caja de regalo que inflige un 1.611% del ATQ como daño de energía a los enemigos a su alcance y les aplica Quemadura, que causa un 100% del ATQ como daño de energía por segundo durante 2 s. El daño aumenta un 15% adicional y otro 4% por cada acumulación de Scorch que tenga el objetivo."
+        ],
+        "maxStars": "Con 45 estrellas: 563.85% a 1,611%"
+      },
+      "3": {
+        "effect": "En combate, aumenta el daño de energía que inflige un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "joker": {
+    "sourceHash": "a7b8ce8fc6a8f9c40e97bee07580a8b9bcb4bf28a6a49dad5db42f459f259ab2",
+    "summary": "Un verdugo que lanza cartas, apunta directamente a los enemigos con menos PV y los remata.",
+    "unlock": "Joker está disponible cuando el servidor cumple 13 días, el mismo día que Annie, y se desbloquea con 10 de sus fragmentos. No está restringido a paquetes prémium. Algunas fuentes todavía lo llaman Jester.",
+    "overview": [
+      "Joker es un rematador. Tanto sus ataques básicos como su definitiva apuntan a los enemigos que tienen menos PV. Joker Ace golpea a los dos enemigos más debilitados e inflige hasta un 2.019% del ATQ a cada uno (5.047,5% con todas las estrellas), suficiente para eliminar a un héroe que ya esté herido.",
+      "Alcanza su máximo potencial al principio y a mitad de la progresión, cuando su daño explosivo puede terminar rápidamente los combates. También es bueno en PvP, pero depende de sus estrellas. Además, es el único carry UR que inflige daño físico, algo importante contra enemigos que acumulen resistencia a la energía, como Shadow, Billy y Louis."
+    ],
+    "investment": "Su rendimiento depende de las estrellas: un Joker a medio desarrollar no destaca. El primer objetivo es 8★ para desbloquear Tenacity; después, decide si quieres seguir invirtiendo en él.",
+    "squadFit": "Remata a los enemigos debilitados por el resto del equipo: tanto sus ataques básicos como su definitiva apuntan a quienes tienen menos PV. Combina de forma natural con Annie y Nicole en un equipo de Warlocks. Su daño físico resulta útil contra equipos resistentes a la energía.",
+    "skills": {
+      "0": {
+        "effect": "lanza a card, infligiendo 87.15% to 249% ATQ daño físico to the lowest PV objetivo.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "lanza 2 joker cards, infligiendo 706.65% to 2,019% ATQ daño físico to 2 con menos PV enemigos.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 40% daño adicional",
+          "Estrella 30: daño adicional aumenta to 150%",
+          "Estrella 50: Attack objetivo +1"
+        ],
+        "maxStars": "Con 50 estrellas: 1,766.63% a 5,047.5%"
+      },
+      "2": {
+        "effect": "lanza a heart card, infligiendo 283.5% to 810% ATQ as daño físico to 2 random objetivos.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 40% daño adicional",
+          "Estrella 35: daño adicional aumenta to 100%",
+          "Estrella 45: Inflicts Quemadura on the objetivo, infligiendo 400% Attack daño por segundo for 3s"
+        ],
+        "maxStars": "Con 45 estrellas: 567% a 1,620%"
+      },
+      "3": {
+        "effect": "En combate, aumenta la probabilidad de crítico un 8,2%–16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "harper": {
+    "sourceHash": "cb6cb547faf611d4eba6e6a836eda19c57f94ce98744b62ae3febfb7a6d68af9",
+    "summary": "El mejor apoyo ofensivo del juego: aumenta periódicamente el ATQ de todo el equipo y potencia aún más a los Warriors.",
+    "unlock": "Harper aparece cuando el servidor cumple 20 días y se desbloquea con 10 de sus fragmentos. No depende de ningún paquete prémium.",
+    "overview": [
+      "Harper no inflige mucho daño por sí mismo: hace que los demás inflijan más. War Flute Sound aumenta hasta un 30% el ATQ de cada aliado durante 5 s, cada 14 s (34,5% con todas las estrellas). Warrior’s Anthem añade permanentemente hasta un 12% de ATQ a cada Warrior del equipo (18% con todas las estrellas). Ambos bonificadores se acumulan.",
+      "Vitality Bubble aporta un pequeño extra que mantiene con vida un poco más a tu héroe más débil. En conjunto, sus habilidades lo convierten en el mejor apoyo ofensivo del juego."
+    ],
+    "investment": "Es el segundo en prioridad para recibir fragmentos Omni UR, después de Marlena. Llévalo a 8★ para desbloquear Tenacity, lo que también reduce el intervalo entre sus bonificaciones de ATQ.",
+    "squadFit": "Rinde mejor con tantos Warriors como puedas incluir: Arthur, Daskal, Marlena y Zoya aprovechan su pasiva. Es el apoyo del equipo completo de BF2. Hasta que se desbloquee el día 20 del servidor, Celia o Stellar pueden ocupar ese puesto.",
+    "skills": {
+      "0": {
+        "effect": "Plays a flute to create bubbles, infligiendo 87.15% to 249% ATQ as daño de energía to a un solo enemigo.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Harper toca una flauta de guerra para inspirar a sus aliados y aumenta el ATQ de todos los héroes aliados del 15.38% al 30% durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: después de lanzar la habilidad, aumenta un 4.5% durante 7 s el daño de energía que infligen todos los aliados.",
+          "Estrella 30: ATQ bonus aumenta by 4.5%",
+          "Estrella 50: ATQ bonus duration +5s"
+        ],
+        "maxStars": "Con 50 estrellas: 19.88% a 34.5%"
+      },
+      "2": {
+        "effect": "Harper crea una burbuja que reduce del 8.2% al 16% durante 4 s el daño recibido por el aliado con menos PV.",
+        "starUpgrades": [
+          "Estrella 15: Efecto aumentado en 1.6%",
+          "Estrella 35: Efecto aumentado en 2.4%",
+          "Estrella 45: objetivo +1"
+        ],
+        "maxStars": "Con 45 estrellas: 12.2% a 20%"
+      },
+      "3": {
+        "effect": "En combate, aumenta del 6.15% al 12% el ATQ de todos los héroes Warrior aliados.",
+        "starUpgrades": [
+          "Estrella 20: Efecto aumentado en 1.2%",
+          "Estrella 45: Efecto aumentado en 1.8%",
+          "50★: el efecto aumenta otro 3%"
+        ],
+        "maxStars": "Con 50 estrellas: 12.15% a 18%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "bell": {
+    "sourceHash": "fc333b92200ae59abcef48c426863173c44bf0c032d77cf75a3e718389c8d101",
+    "summary": "La contraparte Ranger de Harper: potencia directamente a tus dos atacantes más fuertes y cura al aliado más débil.",
+    "unlock": "Bell se incorpora a la lista de héroes cuando el servidor cumple 69 días. Se desbloquea con 10 de sus fragmentos.",
+    "overview": [
+      "Bell hace por los Rangers lo que Harper hace por los Warriors. Battle Anthem concede hasta un 12% de ATQ a todos los Rangers del equipo (18% con todas las estrellas). Inspiration otorga hasta un 50% de ATQ durante 5 s a tus dos héroes con más ATQ (55% con todas las estrellas): es una bonificación más específica que la de Harper, pero mucho más potente para los héroes clave.",
+      "Healing Sound le da algo que Harper no tiene: una curación real cada 5 s para el aliado con menos PV."
+    ],
+    "investment": "Por ahora nuestras notas no fijan un objetivo concreto de estrellas. Llegar a 8★ es un primer hito seguro para desbloquear Tenacity y, además, acelera la rotación de sus bonificaciones.",
+    "squadFit": "Rinde mejor en un equipo formado solo por Rangers con Shadow, Cynthia, Red Lady y Louis: su pasiva potencia a todo el equipo, e Inspiration beneficia a Cynthia y Red Lady.",
+    "skills": {
+      "0": {
+        "effect": "Waves a bell to release musical notes, infligiendo 87.15% to 249% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "5★: daño adicional +40%",
+          "25★: daño adicional aumenta al 100%",
+          "50★: daño adicional aumenta al 200%"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Inspira a los 2 aliados con más ATQ y aumenta su ATQ del 25.63% al 50% durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: Efecto aumentado en 5%",
+          "Estrella 30: Effect Duration +2s",
+          "Estrella 50: objetivo +1"
+        ],
+        "maxStars": "Con 50 estrellas: 30.63% a 55%"
+      },
+      "2": {
+        "effect": "cura the con menos PV aliado for 63% to 180% ATQ.",
+        "starUpgrades": [
+          "Estrella 15: Restores 40% extra PV",
+          "Estrella 35: Extra PV recovery aumenta to 100%",
+          "Estrella 45: Extra PV recovery aumenta to 200%"
+        ],
+        "maxStars": "Con 45 estrellas: 189% a 540%"
+      },
+      "3": {
+        "effect": "Durante la batalla, aumenta ATQ of all allied Ranger Heroes by 6.15% to 12%.",
+        "starUpgrades": [
+          "Estrella 20: Efecto aumentado en 1.2%",
+          "Estrella 45: Efecto aumentado en 1.8%",
+          "50★: el efecto aumenta otro 3%"
+        ],
+        "maxStars": "Con 50 estrellas: 12.15% a 18%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "nicole": {
+    "sourceHash": "a7228a782f042fa3d6670d0394c7e4226b2fa28b688a18b93ead46d60f666b58",
+    "summary": "Una sanadora dedicada con un lado ofensivo: su definitiva golpea mucho más fuerte a los enemigos afectados por Quemadura.",
+    "unlock": "Nicole es la última heroína UR en llegar: aparece cuando el servidor cumple 97 días y se desbloquea con 10 de sus fragmentos.",
+    "overview": [
+      "Nicole es la sanadora más especializada del juego. Cada ataque básico cura a un aliado y Heartwarming Flame cura cada 5 s a tus dos héroes con menos PV. Pero no se limita a sanar: Inferno Array golpea a todos los enemigos e inflige hasta un 40% más de daño a quienes ya estén afectados por Quemadura (45% con todas las estrellas).",
+      "Su pasiva explica por qué encaja especialmente bien en un equipo de Warlocks. Flame Soul Power aumenta hasta un 8% el ATQ de cada Warlock aliado (10% con todas las estrellas), así que rinde mejor cuando la mayoría del equipo comparte su facción."
+    ],
+    "investment": "Nuestras notas aún no indican un objetivo concreto de estrellas. 8★ es el primer hito para desbloquear Tenacity; invierte más si forma parte fija de tu equipo de Warlocks.",
+    "squadFit": "Combina especialmente bien con Annie, cuyas Quemaduras preparan el daño adicional de su definitiva, y con Joker. Coloca a Billy o Ulfrid en primera línea para que su bonificación de ATQ de Warlock se aplique a todos los puestos.",
+    "skills": {
+      "0": {
+        "effect": "Libera llamas que infligen a un único objetivo del 87.15% al 249% del ATQ como daño físico y cura al aliado con menos PV en 10k + 50% del ATQ.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 40% daño adicional and restores 5k PV",
+          "Estrella 25: daño adicional aumenta to 100%, extra PV recovery aumenta to 15k",
+          "Estrella 50: daño adicional aumenta to 200%, extra PV recovery aumenta to 30k"
+        ],
+        "maxStars": "A 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Invoca una columna de fuego que inflige del 367.5% al 1.050% del ATQ como daño físico a todos los enemigos. Si los objetivos están afectados por Quemadura, el daño aumenta del 20.5% al 40%.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 100% daño adicional",
+          "Estrella 30: daño adicional aumenta to 200%",
+          "Estrella 50: daño from Quemadura status aumenta by 5%"
+        ],
+        "maxStars": "Con 50 estrellas: 1,102.5% / 25.5% a 3,150% / 45%"
+      },
+      "2": {
+        "effect": "lanza 2 fireballs, curando the 2 con menos PV aliados for 80k + 27.3% to 78% ATQ.",
+        "starUpgrades": [
+          "Estrella 15: Restores 80k extra PV, curando ATQ bonus aumenta by an extra 70%",
+          "Estrella 35: Restores 150k extra PV, curando ATQ bonus aumenta by an extra 140%",
+          "Estrella 45: Restores 250k extra PV, curando ATQ bonus aumenta by an extra 210%"
+        ],
+        "maxStars": "Con 45 estrellas: 84.63% a 241.8%"
+      },
+      "3": {
+        "effect": "In battle, all allied Brujo Heroes ATQ +4.1% to 8%",
+        "starUpgrades": [
+          "Estrella 20: All allied Brujo Heroes' velocidad de ataque +3.5%",
+          "Estrella 45: ATQ bonus aumenta by 2%",
+          "Estrella 50: All Brujo Heroes velocidad de ataque +6.5%"
+        ],
+        "maxStars": "Con 50 estrellas: 6.1% a 10%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +20%; velocidad de recarga de habilidades +10%."
+      }
+    }
+  },
+  "bella": {
+    "sourceHash": "6a2f993cbbde50ef9f12c7d301a1e26c2bd269ee6932ea713037b29ca496004c",
+    "summary": "Un tanque gratuito que empuña un hacha y resiste el daño de los monstruos; una opción provisional fiable hasta desarrollar tanques UR.",
+    "unlock": "Bella está disponible desde el primer día y se desbloquea con 10 de sus fragmentos. Estos se consiguen en los reclutamientos de la Taberna y como recompensas de eventos; la Tienda de la Alianza también permite canjear fragmentos de Bella.",
+    "overview": [
+      "Bella está pensada para el PvE. Su pasiva y Crimson Prayer pueden reducir enormemente el daño de los monstruos, lo que le permite aguantar en primera línea durante las sesiones de farmeo del principio y la mitad del juego mucho más de lo que cabría esperar por su rareza.",
+      "A máximo desarrollo alcanza 773.500 de poder, una de las cifras más altas entre los SSR, pero sus estadísticas siguen muy por debajo de las de un tanque UR: unos 1,97 M de PV con todas las estrellas, frente a los 3,0 M de Arthur. Su conjunto de habilidades se centra en los monstruos —Bloody Requiem también reduce un 6% el ATQ enemigo—, por lo que aporta mucho menos en PvP."
+    ],
+    "investment": "Es un tanque inicial útil si aún no tienes otro tanque con muchas estrellas, pero sustitúyela cuando consigas uno. No se recomienda comprar sus fragmentos en la Tienda de la Alianza: hay mejores formas de gastar esas monedas.",
+    "squadFit": "Úsala en el segundo puesto de tanque de Arthur mientras esperas a conseguir tanques UR. Cámbiala en cuanto Daskal, Shadow u otro tanque UR esté listo.",
+    "skills": {
+      "0": {
+        "effect": "Blande una enorme hacha con una sola mano e inflige a un único objetivo un daño físico equivalente al 81.9%–234% del ATQ.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 180.18% a 514.8%"
+      },
+      "1": {
+        "effect": "Empuña dos hachas e inflige a los objetivos dentro de su alcance un daño equivalente al 459.27%–1,312.2% del ATQ, además de reducir su ATQ un 6% durante 5 s.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 1,010.39% a 2,886.84%"
+      },
+      "2": {
+        "effect": "Junta las manos en oración y reduce un 15.38%–30% el daño recibido de los monstruos durante 3 s.",
+        "starUpgrades": [
+          "Estrella 15: Efecto aumentado en 3%",
+          "Estrella 35: Efecto aumentado en 4.5%",
+          "Estrella 45: Efecto aumentado en 7.5%"
+        ],
+        "maxStars": "Con 45 estrellas: 30.38% a 45%"
+      },
+      "3": {
+        "effect": "En combate, reduce un 8.2%–16% el daño recibido de los monstruos.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV y DEF +10%"
+      }
+    }
+  },
+  "lucius": {
+    "sourceHash": "ebabe35c7623f997871d5035c929dbea73d5ff47bd7c632d123660edab17556c",
+    "summary": "Un tanque de hacha a dos manos con potentes golpes a un solo objetivo y una buena inversión para los fragmentos Omni SSR.",
+    "unlock": "Lucius está disponible desde el primer día y se desbloquea con 10 de sus fragmentos. Se consiguen en la Taberna y en eventos; los fragmentos Omni SSR sirven para completar los que falten.",
+    "overview": [
+      "Lucius es un tanque sólido y sencillo de usar, útil tanto para quienes juegan gratis como para quienes gastan. Whirlwind Cut y Decapitation infligen mucho daño a un solo enemigo; con 778.239 de poder a máximo desarrollo, tiene el mayor poder final de todos los SSR.",
+      "Al igual que la de Bella, su pasiva está centrada en los monstruos, así que destaca en PvE. Aporta menos utilidad al equipo que Arthur o Griffith, por lo que las listas de clasificación lo sitúan alrededor del rango B."
+    ],
+    "investment": "Merece que inviertas en él fragmentos Omni SSR. La mayoría de sus fragmentos se obtienen en la Taberna, así que es fácil seguir mejorándolo.",
+    "squadFit": "Es una buena solución provisional para el segundo puesto de tanque de Arthur hasta que desarrolles tus tanques UR. Como Warrior, también se beneficia del Warrior's Anthem de Harper.",
+    "skills": {
+      "0": {
+        "effect": "blande a great axe, infligiendo 81.9% to 234% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 180.18% a 514.8%"
+      },
+      "1": {
+        "effect": "Vigorously blande a great axe, infligiendo 373.8% to 1,068% ATQ daño físico to a un solo enemigo in front.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: Stuns enemigos for an additional 1.5s",
+          "Estrella 50: daño adicional aumenta to 90%"
+        ],
+        "maxStars": "Con 50 estrellas: 710.22% a 2,029.2%"
+      },
+      "2": {
+        "effect": "Alza un gran hacha con ambas manos y la descarga sobre un enemigo, infligiéndole del 298.2% al 852% del ATQ como daño físico.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 656.04% a 1,874.4%"
+      },
+      "3": {
+        "effect": "En combate, reduce daño recibido from monsters by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "griffith": {
+    "sourceHash": "bba961991a5ccad95d3fc52e9a4032abc442c08884886b4d37dc5764a78af94c",
+    "summary": "Un tanque con flauta de serpiente que protege al equipo del daño de los monstruos y asesta un potente mordisco a un solo objetivo.",
+    "unlock": "Griffith no tiene requisito de antigüedad del servidor y se desbloquea con 10 de sus fragmentos. Se consiguen en eventos, en la Tienda de la Alianza y mediante reclutamientos de la Taberna.",
+    "overview": [
+      "La especialidad de Griffith es el PvE. Serpent Veil lo rodea con una serpiente espiritual que reduce hasta un 30% durante 4 s el daño de monstruos que reciben los aliados cercanos (39% con todas las estrellas). Además, su pasiva reduce hasta un 16% el daño de monstruos que recibe él mismo.",
+      "Venomous Bite inflige mucho daño a un solo objetivo, hasta un 2.303,4% del ATQ con todas las estrellas. Sus reducciones solo funcionan contra monstruos, así que es más débil en PvP, aunque varias listas de clasificación lo sitúan en A para PvE y combates contra jefes."
+    ],
+    "investment": "Es una buena inversión de fragmentos SSR si tu cuenta se centra en el PvE: es un segundo tanque sólido contra Rat King y otros jefes. Completa sus primeras estrellas antes de empezar a desarrollar otro tanque.",
+    "squadFit": "Ocupa una posición en primera línea junto a Arthur o Bella en equipos para jefes. También puede completar un equipo orientado a Rangers hasta que desarrolles a Shadow o Louis.",
+    "skills": {
+      "0": {
+        "effect": "Waves the snake flute. The spirit snake inflige 88.2% to 252% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 194.04% a 554.4%"
+      },
+      "1": {
+        "effect": "Ordena a una serpiente espiritual que rodee al lanzador y reduce del 15.38% al 30% durante 4 s el daño de monstruos recibido por los héroes aliados dentro de cierta área.",
+        "starUpgrades": [
+          "10★: efecto +3%",
+          "Estrella 30: Duration +1s",
+          "Estrella 50: Efecto aumentado en 6%"
+        ],
+        "maxStars": "Con 50 estrellas: 24.38% a 39%"
+      },
+      "2": {
+        "effect": "Guía a la serpiente espiritual con su flauta para que muerda con fuerza al objetivo e inflija a un enemigo del 366.45% al 1.047% del ATQ como daño.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 806.19% a 2,303.4%"
+      },
+      "3": {
+        "effect": "En combate, reduce daño recibido from monsters by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "hastar": {
+    "sourceHash": "414ce2ddbc58eb80d1b5b721de54b64f50ba5d38e6ec52a1a28b76cd191d7b04",
+    "summary": "Un tanque Warlock con tentáculos, capaz de aturdir, golpear con fuerza y protegerse con un escudo cuando está en apuros.",
+    "unlock": "Hastar no tiene requisito de antigüedad del servidor y se desbloquea con 10 de sus fragmentos. Se consiguen en los sorteos de la Taberna y en eventos; un fragmento Omni SSR puede sustituir uno que falte.",
+    "overview": [
+      "Hastar es uno de los tanques SSR más completos. Combina control de masas, una potente definitiva que golpea al frente y un escudo de emergencia que se activa justo cuando de otro modo caería derrotado.",
+      "El breve aturdimiento de Undercurrent lo distingue de los tanques que reducen el daño de los monstruos: le permite interrumpir a los enemigos, no solo sobrevivir a sus ataques."
+    ],
+    "investment": "Es razonable invertir fragmentos SSR en él si estás formando un equipo de Warlocks, pero sigue siendo provisional hasta que consigas a Billy o Ulfrid.",
+    "squadFit": "Es el tanque natural para un equipo inicial de Warlocks con Grenwald y Stellar, al que más adelante puedes añadir Annie, Joker y Nicole.",
+    "skills": {
+      "0": {
+        "effect": "Lashes a un solo enemigo with tentacles, infligiendo 85.05% to 243% ATQ daño de energía.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 187.11% a 534.6%"
+      },
+      "1": {
+        "effect": "Golpea el suelo con un enorme tentáculo e inflige del 576.45% al 1.647% del ATQ como daño de energía a los enemigos que tiene delante.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 1,268.19% a 3,623.4%"
+      },
+      "2": {
+        "effect": "Unos tentáculos emergen del suelo, lanzan al enemigo por los aires e infligen a un solo objetivo del 207.9% al 594% del ATQ como daño de energía, además de aturdirlo durante 1 s.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 457.38% a 1,306.8%"
+      },
+      "3": {
+        "effect": "En combate, la primera vez que sus PV caen por debajo del 40%, obtiene un escudo equivalente del 3.15% al 9% de sus PV máximos actuales. El escudo absorbe el 50% del daño recibido durante 5 s.",
+        "starUpgrades": [
+          "Estrella 20: escudo effect increases by 25%",
+          "Estrella 45: escudo Duration +2s",
+          "Estrella 50: escudo effect increases by 55%"
+        ],
+        "maxStars": "Con 50 estrellas: 5.67% a 16.2%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "claire": {
+    "sourceHash": "012b837a15f0bdc797ec267d2bdc813e0a1267604337861445631e1ed2095ce8",
+    "summary": "Una de las mejores carries SSR: combina daño explosivo, daño constante y una bonificación contra monstruos para sus compañeros Warriors.",
+    "unlock": "Claire no tiene requisito de antigüedad del servidor ni necesita un paquete prémium; se desbloquea con 10 de sus fragmentos. La Marca avanzada de Claire, que se usa en una pantalla de evento específica, permite ascenderla más adelante a su forma UR.",
+    "overview": [
+      "Claire es el carry SSR que la mayoría de los jugadores debería desarrollar. Rain of Arrows golpea cinco veces cada 5 s, Celestial Judgment añade un potente ataque de área y su pasiva permite que tus tres Warriors con más ATQ inflijan hasta un 16% más de daño a los monstruos (24% con todas las estrellas).",
+      "Rinde de forma fiable tanto en PvE como en PvP y, con la inversión adecuada, supera con creces a Celia. Además, es la única heroína con una segunda forma: Advanced Mark de Claire la promociona a Claire UR. El cambio es irreversible; las fuentes discrepan sobre cuánto progreso se conserva y una guía lo relaciona con la segunda semana del evento Era of Revival."
+    ],
+    "investment": "Vale la pena invertir fragmentos Omni SSR en ella, sobre todo porque más adelante puede ascender a UR. No requiere que el servidor alcance cierto día ni comprar un paquete premium, así que puedes empezar a desarrollarla fácilmente.",
+    "squadFit": "Rinde mejor en un equipo centrado en Warriors, donde su pasiva potencia a Arthur, Marlena y tus demás Warriors contra los monstruos. Al principio es una sólida segunda carry junto a Marlena.",
+    "skills": {
+      "0": {
+        "effect": "blande a flag, infligiendo 94.5% to 270% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 207.9% a 594%"
+      },
+      "1": {
+        "effect": "Alza el estandarte de batalla con ambas manos e invoca una enorme espada sagrada que atraviesa el suelo e inflige del 406.77% al 1.162,2% del ATQ como daño físico a los enemigos a su alcance.",
+        "starUpgrades": [
+          "Estrella 10: aumenta daño to monsters by 8% for 7s",
+          "Estrella 30: Inflige 35% daño adicional each time",
+          "Estrella 50: daño adicional each time aumenta to 95%"
+        ],
+        "maxStars": "Con 50 estrellas: 793.2% a 2,266.29%"
+      },
+      "2": {
+        "effect": "Agita el estandarte y lanza 5 ráfagas rápidas de flechas contra un único objetivo; cada impacto inflige del 96.6% al 276% del ATQ como daño físico.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 212.52% a 607.2%"
+      },
+      "3": {
+        "effect": "En combate, los 3 Warriors del equipo con más ATQ infligen del 8.2% al 16% más de daño a los monstruos.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "kesso": {
+    "sourceHash": "31a1c285d9111fa44f6499f2d1501926db63170b7207b7888a0bb0c6cb91099d",
+    "summary": "Un lancero acompañado por un águila de guerra que obtiene un gran aumento de ATQ cuando está a punto de caer.",
+    "unlock": "Kesso es gratuito desde el principio y se desbloquea con 10 de sus fragmentos. Se consiguen en la Taberna y en eventos; los fragmentos Omni SSR completan los que falten.",
+    "overview": [
+      "Kesso funciona bien tanto en PvP como en PvE. El daño de Warhawk depende tanto de sus PV como de su ATQ, y Hunting Skills mantiene dos lanzas en vuelo cada 5 s.",
+      "Wild Survival es su punto fuerte: la primera vez que sus PV caen por debajo del 30%, obtiene hasta un 40% más de ATQ durante 5 s (56% con todas las estrellas). Si se activa en el momento oportuno, puede convertir un intercambio desfavorable en una victoria."
+    ],
+    "investment": "Las listas de clasificación lo sitúan aproximadamente en el rango B, así que conviértelo en tu cuarto o quinto SSR al que subir estrellas, en lugar de darle prioridad al principio.",
+    "squadFit": "Es un carry Warrior, por lo que recibe tanto la bonificación pasiva de Harper como la mejora de Claire contra monstruos.",
+    "skills": {
+      "0": {
+        "effect": "lanza a spear, infligiendo 94.5% to 270% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 207.9% a 594%"
+      },
+      "1": {
+        "effect": "Silba para invocar un águila de guerra, que ataca durante 10 s con entre el 105% y el 300% del ATQ de Kesso y el 25% de sus PV.",
+        "starUpgrades": [
+          "Estrella 10: Rex's inherited ATQ aumenta by 40%",
+          "Estrella 30: Rex's inherited ATQ aumenta by 60%",
+          "Estrella 50: Rex's inherited ATQ aumenta by 100%"
+        ],
+        "maxStars": "Con 50 estrellas: 305% a 500%"
+      },
+      "2": {
+        "effect": "Quickly lanza 2 spears, aleatoriamente attacking 2 enemigos, each infligiendo 350.7% to 1,002% ATQ daño físico.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 20% daño adicional",
+          "Estrella 35: Split Shot +1",
+          "Estrella 45: daño adicional aumenta to 50%"
+        ],
+        "maxStars": "Con 45 estrellas: 526.05% a 1,503%"
+      },
+      "3": {
+        "effect": "En combate, la primera vez que sus PV caen por debajo del 30%, aumenta su ATQ del 20.5% al 40% durante 5 s.",
+        "starUpgrades": [
+          "Estrella 20: Efecto aumentado en 4%",
+          "Estrella 45: Efecto aumentado en 2% and Duration +1s",
+          "Estrella 50: Efecto aumentado en 10%"
+        ],
+        "maxStars": "Con 50 estrellas: 36.5% a 56%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "sivir": {
+    "sourceHash": "fe09edd4020f211835ca3fd9f97ba745408358936027a06cce484a4228e587fb",
+    "summary": "Una combatiente de lanza rota con una bonificación fija de ATQ y un estilo directo, ideal como carry versátil para PvP.",
+    "unlock": "Sivir está disponible desde el primer día y se desbloquea con 10 de sus fragmentos, que se consiguen en la Taberna y en eventos.",
+    "overview": [
+      "Sivir es un carry versátil para PvP. Hunter Bloodline aumenta directamente su ATQ hasta un 16% (24% con todas las estrellas). La bonificación funciona en cualquier situación, no solo contra monstruos, por lo que Sivir se adapta mejor a los combates contra jugadores que los carries SSR orientados al PvE.",
+      "Shield Strike es un ataque fiable contra un solo objetivo, y Wild Pursuit añade dos golpes de lanza aleatorios a su definitiva."
+    ],
+    "investment": "Es un SSR razonable para desarrollar si buscas un carry orientado al PvP antes de tener disponibles tus UR.",
+    "squadFit": "Encaja en un equipo de Warriors junto a Marlena y Harper.",
+    "skills": {
+      "0": {
+        "effect": "lanza a broken spear, infligiendo 78.75% to 225% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 173.25% a 495%"
+      },
+      "1": {
+        "effect": "lanza 2 broken spears, aleatoriamente attacking 2 enemigos, each infligiendo 350.7% to 1,002% ATQ daño físico.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 20% daño adicional",
+          "Estrella 30: Attack objetivo +1",
+          "Estrella 50: daño adicional aumenta to 50%"
+        ],
+        "maxStars": "Con 50 estrellas: 526.05% a 1,503%"
+      },
+      "2": {
+        "effect": "lanza a escudo, infligiendo 300.3% to 858% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 660.66% a 1,887.6%"
+      },
+      "3": {
+        "effect": "En combate, aumenta ATQ by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: efecto +1,6%",
+          "45★: efecto +2,4%",
+          "50★: efecto +4%"
+        ],
+        "maxStars": "A 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "ash": {
+    "sourceHash": "2fe5b97109d87379d323cec3b3285eadd6c660412e6fe048682b08f83cee5e26",
+    "summary": "Una arquera fiable contra objetivos únicos, eficaz en PvE y contra jefes, que potencia a tus Rangers más fuertes contra monstruos.",
+    "unlock": "Ash está disponible desde el primer día y se desbloquea con 10 de sus fragmentos. Se consiguen mediante reclutamientos de la Taberna y en eventos; no hace falta que el servidor tenga cierta antigüedad ni comprar un paquete prémium.",
+    "overview": [
+      "Ash es fácil de conseguir y mejora bien, por lo que constituye una gran inversión durante la fase inicial y media del juego. Está hecha para eliminar objetivos prioritarios y destaca especialmente en los combates contra jefes.",
+      "La mejora de su pasiva la hizo muy útil en PvE: tus dos Rangers con más ATQ infligen hasta un 24% más de daño a los monstruos (33% con todas las estrellas). Sin embargo, carece de ataques de área y de utilidad, lo que puede perjudicarla en contenidos centrados en el PvP."
+    ],
+    "investment": "Es una gran inversión durante la fase inicial y media del juego, sobre todo si tu cuenta se centra en el PvE.",
+    "squadFit": "Funciona mejor en un equipo de Rangers, donde su pasiva beneficia a Cynthia, Red Lady o Shadow.",
+    "skills": {
+      "0": {
+        "effect": "Shoots an arrow, infligiendo 81.9% to 234% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 180.18% a 514.8%"
+      },
+      "1": {
+        "effect": "Fires a giant arrow, infligiendo 445.2% to 1,272% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 979.44% a 2,798.4%"
+      },
+      "2": {
+        "effect": "lanza 2 special arrows, aleatoriamente attacking 2 objetivos, each infligiendo 252% to 720% ATQ daño físico.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 554.4% a 1,584%"
+      },
+      "3": {
+        "effect": "En combate, los 2 Rangers del equipo con más ATQ infligen del 12.3% al 24% más de daño a los monstruos.",
+        "starUpgrades": [
+          "20★: efecto +3%",
+          "Estrella 45: Efecto aumentado en 3%",
+          "50★: el efecto aumenta otro 3%"
+        ],
+        "maxStars": "Con 50 estrellas: 21.3% a 33%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "bestar": {
+    "sourceHash": "71a090b301f8ede85f6e32b8eca324a5537ecf57c465f48f34e796e36e2f02a2",
+    "summary": "Una especialista en Hemorragia cuyos ataques de gatos fantasmales se vuelven más potentes cuanto más dura el combate.",
+    "unlock": "Bestar es gratuita desde el principio y se desbloquea con 10 de sus fragmentos. Se consiguen en los sorteos de la Taberna y en eventos; un fragmento Omni SSR completa los que falten.",
+    "overview": [
+      "Bestar desgasta a los enemigos con el paso del tiempo. Sus dos habilidades aplican Sangrado y su pasiva añade hasta un 30% de daño contra cualquier objetivo afectado por Sangrado (45% con todas las estrellas). Cuando empieza a atacar, todo lo que alcanza recibe mucho más daño.",
+      "Por eso destaca en combates prolongados y contra jefes, y progresa mejor cuando puede mantener Sangrado aplicado de forma constante."
+    ],
+    "investment": "Vale la pena desarrollarla si juegas mucho contenido de jefes o combates PvE prolongados.",
+    "squadFit": "Es una carry Ranger que forma una buena pareja con Ash en un equipo inicial de Rangers.",
+    "skills": {
+      "0": {
+        "effect": "lanza a cat bell, infligiendo 81.9% to 234% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 180.18% a 514.8%"
+      },
+      "1": {
+        "effect": "Invoca un grupo de gatos fantasma que infligen del 314.37% al 898.2% del ATQ a los enemigos a su alcance y aplican Sangrado, que causa un 15% del ATQ como daño físico por segundo durante 7 s.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 691.61% a 1,976.04%"
+      },
+      "2": {
+        "effect": "invoca 1 black cat, infligiendo 138.6% to 396% ATQ daño físico to a objetivo único, causing Bleed, inflicting 30% ATQ daño físico por segundo for 3s.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 304.92% a 871.2%"
+      },
+      "3": {
+        "effect": "En combate, aumenta daño infligido to Bleeding enemigos by 15.38% to 30%.",
+        "starUpgrades": [
+          "20★: efecto +3%",
+          "Estrella 45: Efecto aumentado en 4.5%",
+          "Estrella 50: Efecto aumentado en 7.5%"
+        ],
+        "maxStars": "Con 50 estrellas: 30.38% a 45%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "grenwald": {
+    "sourceHash": "bc659b173189a9cf1d64560e5be9c2819a21f67ccf19d674e58563710e62fff0",
+    "summary": "Un Warlock lanzaconjuros que inflige mucho daño explosivo a un solo objetivo y obtiene daño adicional contra monstruos.",
+    "unlock": "Grenwald está disponible desde el primer día y se desbloquea con 10 de sus fragmentos. Se consiguen en la Taberna, en la Tienda de la Alianza y en eventos. Algunas fuentes escriben su nombre como Greenwald.",
+    "overview": [
+      "Grenwald se especializa en el daño explosivo contra un solo objetivo y es especialmente eficaz en PvE, donde su pasiva añade hasta un 20% de daño contra monstruos (30% con todas las estrellas).",
+      "Es un carry provisional popular al principio si no puedes desarrollar a Marlena de inmediato, pero tiene poca defensa y necesita que un tanque como Arthur se coloque delante para protegerlo."
+    ],
+    "investment": "Es un buen carry para las primeras etapas mientras esperas a conseguir héroes UR, especialmente en PvE.",
+    "squadFit": "Coloca a Arthur u otro tanque resistente delante de él. En un equipo de Warlocks, combina bien con Hastar y Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Agita la varita y libera un rayo que inflige a un enemigo del 72.45% al 207% del ATQ como daño de energía.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 159.39% a 455.4%"
+      },
+      "1": {
+        "effect": "Alza la varita y hace que unos espíritus salgan de los cuerpos enemigos a su alcance, infligiendo a todos los objetivos del 332.85% al 951% del ATQ como daño de energía.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 20% daño adicional and aumenta ATQ by 7.5% for 7s",
+          "Estrella 30: daño adicional aumenta to 55%",
+          "Estrella 50: daño adicional aumenta to 115%"
+        ],
+        "maxStars": "Con 50 estrellas: 715.63% a 2,044.65%"
+      },
+      "2": {
+        "effect": "invoca a soul claw, infligiendo 292.95% to 837% ATQ daño de energía to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 644.49% a 1,841.4%"
+      },
+      "3": {
+        "effect": "En combate, aumenta daño infligido to monsters by 10.25% to 20%.",
+        "starUpgrades": [
+          "Estrella 20: Efecto aumentado en 2%",
+          "Estrella 45: Efecto aumentado en 3%",
+          "50★: efecto +5%"
+        ],
+        "maxStars": "Con 50 estrellas: 20.25% a 30%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "celia": {
+    "sourceHash": "1e9be506ff5150c32273e0a9fc20dd82e114bb44e098441d38c3e1f8467495d7",
+    "summary": "Una support de PvE que lanza dagas, aumenta el daño contra monstruos y mejora los recursos obtenidos al derrotarlos.",
+    "unlock": "Celia está disponible desde el primer día y se desbloquea con 10 de sus fragmentos, que se consiguen en los reclutamientos de la Taberna y en eventos.",
+    "overview": [
+      "Celia es, en esencia, un personaje híbrido para PvE. Su daño llega en ráfagas aleatorias, pero su pasiva es el motivo para llevarla: eliminar monstruos Resource y Elite puede otorgar hasta un 40% más de recursos (60% con todas las estrellas), una gran ayuda para el farmeo.",
+      "Su dependencia de los objetivos aleatorios y su menor progresión la hacen menos fiable a largo plazo que un carry dedicado como Claire."
+    ],
+    "investment": "Es gratuita, así que merece la pena usarla al principio, pero no inviertas demasiados recursos en ella.",
+    "squadFit": "Ocupa el puesto de apoyo hasta que Harper se desbloquee el día 20 del servidor, y sigue siendo útil en un equipo de farmeo gracias a su bonificación de recursos.",
+    "skills": {
+      "0": {
+        "effect": "lanza a dagger, infligiendo 47.25% to 135% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 103.95% a 297%"
+      },
+      "1": {
+        "effect": "lanza a dagger that ricochets 3 times, infligiendo 311.22% to 889.2% ATQ daño físico to 3 random objetivos.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 25% daño adicional",
+          "Estrella 30: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 684.68% a 1,956.24%"
+      },
+      "2": {
+        "effect": "lanza 2 daggers simultaneously, infligiendo 214.2% to 612% ATQ daño físico to 2 random objetivos.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 25% daño adicional",
+          "Estrella 35: daño adicional aumenta to 60%",
+          "Estrella 45: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 45 estrellas: 471.24% a 1,346.4%"
+      },
+      "3": {
+        "effect": "En combate, aumenta del 6.15% al 12% el daño infligido a monstruos y del 20.5% al 40% los 3 tipos de recursos que obtiene el equipo al derrotar monstruos Resource y Elite.",
+        "starUpgrades": [
+          "Estrella 20: daño bonus aumenta by 1.2%. Resource bonus aumenta by 4%",
+          "Estrella 45: daño bonus aumenta by 1.8%. Resource bonus aumenta by 6%",
+          "Estrella 50: daño bonus aumenta by 3%. Resource bonus aumenta by 10%"
+        ],
+        "maxStars": "Con 50 estrellas: 12.15% / 40.5% a 18% / 60%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "stellar": {
+    "sourceHash": "a76cf80010dde369c2cb8cfde70e7c9121671726be1b997932da44dcec15e3b2",
+    "summary": "Una support de temática estelar con buen daño, una gran bonificación contra monstruos para sus mejores Warlocks y una curación decisiva al caer.",
+    "unlock": "Stellar está disponible desde el primer día y se desbloquea con 10 de sus fragmentos. Se consiguen en la Tienda de la Alianza, en eventos y en las invocaciones de la Taberna.",
+    "overview": [
+      "Stellar es una support SSR con un considerable potencial ofensivo. Destructive Comet inflige mucho daño de área, y Wishing Star aumenta hasta un 48% durante 5 s el daño contra monstruos de tus dos Warlocks principales (59,2% con todas las estrellas). Por eso destaca en equipos Warlock de PvE.",
+      "Final Starlight le da una capacidad única para salvar la situación: cuando recibe daño mortal, cura al aliado con menos PV hasta un 600% de su ATQ (1.320% con todas las estrellas)."
+    ],
+    "investment": "7–8★ ofrecen un buen equilibrio entre daño y bonificaciones. Llegar a 9★ o más maximiza su valor y progresión en PvE.",
+    "squadFit": "Cubre el puesto de apoyo hasta que se desbloquee Harper y sigue siendo fuerte en equipos de PvE. Encaja de forma natural en un equipo inicial de Warlocks con Hastar y Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "lanza a stardust, infligiendo 94.5% to 270% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 25% daño adicional",
+          "Estrella 25: daño adicional aumenta to 60%",
+          "Estrella 50: daño adicional aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 207.9% a 594%"
+      },
+      "1": {
+        "effect": "Invoca una lluvia de meteoritos que aumenta del 24.6% al 48% durante 5 s el daño a monstruos de los 2 Warlocks aliados más poderosos.",
+        "starUpgrades": [
+          "Estrella 10: Efecto aumentado en 4.2%",
+          "Estrella 30: Duration +2s",
+          "Estrella 50: Efecto aumentado en 5.5%"
+        ],
+        "maxStars": "Con 50 estrellas: 35.8% a 59.2%"
+      },
+      "2": {
+        "effect": "invoca a comet, infligiendo 346.5% to 990% ATQ DMG to enemigos dentro del alcance.",
+        "starUpgrades": [
+          "Estrella 15: aumenta daño recibido by monsters by 8% for 3s",
+          "Estrella 35: Inflige 35% daño adicional",
+          "Estrella 45: daño adicional aumenta to 95%"
+        ],
+        "maxStars": "Con 45 estrellas: 675.68% a 1,930.5%"
+      },
+      "3": {
+        "effect": "Cuando Stellar recibe daño mortal en combate, consume su última luz estelar antes de morir y cura al aliado con menos PV en una cantidad equivalente del 210% al 600% del ATQ.",
+        "starUpgrades": [
+          "Estrella 20: Restores 25% extra PV",
+          "Estrella 45: Extra PV recovery aumenta to 60%",
+          "Estrella 50: Extra PV recovery aumenta to 120%"
+        ],
+        "maxStars": "Con 50 estrellas: 462% a 1,320%"
+      },
+      "4": {
+        "effect": "ATQ, PV and DEF +10%"
+      }
+    }
+  },
+  "durant": {
+    "sourceHash": "609c592772be41a2b0c434d9b92294b582526e19e06865cca3799390a2b027f0",
+    "summary": "Un tanque de mandoble de nivel bajo, pero útil para defender tu territorio durante las primeras etapas.",
+    "unlock": "Durant es un héroe inicial gratuito, disponible desde el primer día y desbloqueable con 10 de sus fragmentos. Se consiguen mediante reclutamientos de la Taberna y en eventos; no hace falta una antigüedad concreta del servidor ni un paquete prémium.",
+    "overview": [
+      "Durant es uno de los cuatro héroes SR iniciales y el único tanque SR. Es gratuito, aparece en la lista de héroes desde el primer día y mantiene la primera línea durante los primeros capítulos. Sin embargo, todas las listas de clasificación lo sitúan en C, y las habilidades SR tienen un límite de nivel 30 en lugar de 40.",
+      "El conjunto de habilidades de Durant es sencillo: Blade Fury blande una gran espada y golpea dos veces a todos los enemigos que tiene delante cada 7 s. Leap Slash añade un potente golpe contra un solo objetivo cada 5 s. Su ATQ es el más bajo de los 31 héroes, así que está para recibir golpes, no para infligir daño.",
+      "Aún resulta útil para defender tu territorio mientras te falten tanques con muchas estrellas, pero cualquier tanque Warrior SSR —Bella o Lucius— lo sustituye por completo."
+    ],
+    "investment": "Súbelo de nivel solo hasta donde lo requiera la fase actual. Si vas a gastar fragmentos SR, él es el SR que merece la pena conservar, pero reserva las insignias de habilidad y los materiales de mejora importantes para héroes SSR y UR. Si mejoras una habilidad, empieza por Blade Fury.",
+    "squadFit": "Al principio ocupa el segundo puesto de la primera línea junto a Arthur, o lidera desde el primer día un equipo formado solo por Warriors (Durant, Celia, Sivir, Kesso y William) para obtener la bonificación completa de facción. Sustitúyelo en cuanto tengas listo a Bella, Lucius o Daskal.",
+    "skills": {
+      "0": {
+        "effect": "golpea with a sword, infligiendo 73.5% to 175% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 15% daño adicional",
+          "Estrella 25: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 132.3% a 315%"
+      },
+      "1": {
+        "effect": "Blande una gran espada con ambas manos y golpea dos veces; cada golpe inflige del 285.6% al 680% del ATQ como daño físico a los enemigos que tiene delante.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 15% daño adicional",
+          "Estrella 30: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 514.08% a 1,224%"
+      },
+      "2": {
+        "effect": "Leaps with a sword and strikes heavily, infligiendo 246.75% to 587.5% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 15% daño adicional",
+          "Estrella 35: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 444.15% a 1,057.5%"
+      },
+      "3": {
+        "effect": "ATQ, PV, and DEF +5%"
+      }
+    }
+  },
+  "william": {
+    "sourceHash": "e2f675cfa60d9990b9ce80125edd1665d099095914e465294d848550697345a9",
+    "summary": "Un espadachín para dejar en el banquillo: está bien tenerlo al principio, pero no merece la pena desarrollarlo.",
+    "unlock": "William es un héroe inicial gratuito: 10 de sus fragmentos bastan para desbloquearlo en cualquier servidor, sin importar su antigüedad. Sus fragmentos se consiguen mediante reclutamientos de la Taberna.",
+    "overview": [
+      "William es un Warrior SR especializado en daño y uno de los cuatro héroes iniciales gratuitos. Todas las listas de clasificación lo sitúan en C: su poder a máximo desarrollo (524.421) ocupa el puesto 29 de 31 y sus habilidades tienen un límite de nivel 30.",
+      "Trátalo como un héroe provisional hasta que consigas un Warrior SSR o UR que inflija daño: Claire (gratis desde el principio), Kesso, Sivir, Marlena o Zoya. Todos son Warriors, así que conservarás la bonificación de facción al sustituirlo.",
+      "Twin Wind lanza dos golpes de viento de espada cada 5 s y Whirlwind Blade golpea a un grupo cada 10 s. Por eso, su único uso está en despejar las primeras oleadas de monstruos."
+    ],
+    "investment": "No inviertas en él más de lo que exijan las primeras fases. Si decides subir sus habilidades, prioriza Twin Wind y después Whirlwind Blade.",
+    "squadFit": "Ocupa el puesto de daño Warrior en un equipo formado solo por Warriors desde el primer día, junto a Durant, Celia, Sivir y Kesso. Déjalo en el banquillo cuando desarrolles a Claire o Marlena.",
+    "skills": {
+      "0": {
+        "effect": "Unleashes a sword wind, infligiendo 73.5% to 175% ATQ daño físico to a objetivo único.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 15% daño adicional",
+          "Estrella 25: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 132.3% a 315%"
+      },
+      "1": {
+        "effect": "blande a sword wind forward, infligiendo 259.35% to 617.5% ATQ daño físico to enemigos dentro del alcance.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 15% daño adicional",
+          "Estrella 30: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 466.83% a 1,111.5%"
+      },
+      "2": {
+        "effect": "Swiftly unleashes 2 sword winds, striking the objetivo twice, each infligiendo 165.9% to 395% ATQ daño físico.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 15% daño adicional",
+          "Estrella 35: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 298.62% a 711%"
+      },
+      "3": {
+        "effect": "ATQ, PV, and DEF +5%"
+      }
+    }
+  },
+  "robin": {
+    "sourceHash": "8f7554785f625ba34094ccbc9d8fa3369b0797a3da8d657fc7e6d41c9e72f13a",
+    "summary": "Una arquera para dejar en el banquillo: su fuego rápido no está a la altura de los verdaderos atacantes Ranger.",
+    "unlock": "Robin es un héroe inicial gratuito, disponible desde el primer día en cualquier servidor y desbloqueable con 10 de sus fragmentos. Se obtienen en los reclutamientos de la Taberna; los fragmentos Omni SR pueden sustituirlos.",
+    "overview": [
+      "Robin es un Ranger SR especializado en daño y uno de los cuatro héroes iniciales gratuitos. Todas las listas de clasificación lo sitúan en C; su poder a máximo desarrollo (523.779) ocupa el puesto 30 de 31 y sus habilidades tienen un límite de nivel 30.",
+      "Arrow of Retribution es su mejor habilidad: con todas las estrellas inflige hasta un 936% del ATQ a un enemigo cada 5 s. Las siete flechas de Rapid Fire también lo hacen aceptable contra los primeros jefes.",
+      "Solo es la opción adecuada el primer día, antes de conseguir un Ranger SSR. Ash y Bestar están disponibles gratis desde el principio y son mejores en todos los aspectos; Cynthia llega cuando el servidor cumple 6 días."
+    ],
+    "investment": "Súbelo solo hasta el nivel que necesite la fase actual y pasa sus fragmentos e insignias a un Ranger SSR o UR en cuanto consigas uno.",
+    "squadFit": "Ocupa el puesto de daño Ranger en una cuenta recién creada. Sustitúyelo por Ash o Bestar.",
+    "skills": {
+      "0": {
+        "effect": "Shoots a wooden arrow, infligiendo 65.1% to 155% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 15% daño adicional",
+          "Estrella 25: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 117.18% a 279%"
+      },
+      "1": {
+        "effect": "Rapidly shoots a un solo enemigo 7 times, each infligiendo 60.9% to 145% ATQ daño físico.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 15% daño adicional",
+          "Estrella 30: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 109.62% a 261%"
+      },
+      "2": {
+        "effect": "Fires a special arrow, delivering a heavy blow, infligiendo 218.4% to 520% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 15% daño adicional",
+          "Estrella 35: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 393.12% a 936%"
+      },
+      "3": {
+        "effect": "ATQ, PV, and DEF +5%"
+      }
+    }
+  },
+  "kafa": {
+    "sourceHash": "12abc9a377f48ae6bce925aa8d5556df117091c41afd154ea9de477709f78fcf",
+    "summary": "Un héroe de reserva que lanza café: simpático, pero demasiado débil para incluirlo en el equipo.",
+    "unlock": "Kafa es una heroína inicial gratuita: 10 de sus fragmentos bastan para desbloquearla en cualquier servidor, sin importar su antigüedad. Se consiguen mediante reclutamientos de la Taberna; los fragmentos Omni SR completan los que falten.",
+    "overview": [
+      "Kafa es la única Warlock SR especializada en daño y una de los cuatro héroes iniciales gratuitos. Todas las listas de clasificación la sitúan en C y su poder a máximo desarrollo (523.217) es el más bajo de los 31 héroes.",
+      "Con todas las estrellas, Double Expresso inflige hasta un 900% del ATQ a un enemigo cada 5 s, mientras que las cafeteras de Love Infusion golpean a un grupo e infligen hasta un 1.220,4%. Su daño es físico.",
+      "Su único uso es ocupar una plaza Warlock antes de que consigas otro. Grenwald es gratuito desde el principio y mucho más fuerte; Annie y Joker llegan cuando el servidor cumple 13 días."
+    ],
+    "investment": "No merece la pena subirla más de lo necesario para los primeros capítulos. Si mejoras una habilidad, empieza por Double Expresso.",
+    "squadFit": "Al principio puede ocupar el único puesto de Warlock detrás de un tanque como Arthur o Bella, con Celia como apoyo. Sustitúyela por Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "lanza a coffee bean, infligiendo 69.3% to 165% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 5: Inflige 15% daño adicional",
+          "Estrella 25: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 124.74% a 297%"
+      },
+      "1": {
+        "effect": "invoca 2 coffee pots, pouring hot coffee over the objetivo's head, infligiendo 284.76% to 678% ATQ daño físico to enemigos dentro del alcance.",
+        "starUpgrades": [
+          "Estrella 10: Inflige 15% daño adicional",
+          "Estrella 30: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 512.57% a 1,220.4%"
+      },
+      "2": {
+        "effect": "lanza 1 cup of coffee, infligiendo 210% to 500% ATQ daño físico to a un solo enemigo.",
+        "starUpgrades": [
+          "Estrella 15: Inflige 15% daño adicional",
+          "Estrella 35: daño adicional aumenta to 40%",
+          "Estrella 50: daño adicional aumenta to 80%"
+        ],
+        "maxStars": "Con 50 estrellas: 378% a 900%"
+      },
+      "3": {
+        "effect": "ATQ, PV, and DEF +5%"
+      }
+    }
+  }
+}

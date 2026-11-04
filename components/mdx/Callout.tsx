@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { Text } from "@/components/i18n/LanguageProvider";
 
 export type CalloutVariant = "tip" | "warning" | "lore";
 
@@ -40,7 +41,7 @@ export function Callout({ variant, title, children }: CalloutProps) {
       <div className="mb-2 flex items-center gap-2">
         <span aria-hidden="true">{icon}</span>
         <span className="font-display" style={labelStyle}>
-          {title ?? label}
+          {title ?? <Text>{label}</Text>}
         </span>
       </div>
       <div className="text-sm leading-relaxed text-text-secondary [&>p]:my-2 [&>p:first-child]:mt-0 [&>p:last-child]:mb-0">

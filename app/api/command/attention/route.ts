@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
+import { localizeJoinedTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
 
 type AttentionRow = {
   user_id: string;
@@ -8,6 +9,7 @@ type AttentionRow = {
   issue_key: string;
   reason: string;
   training_title: string | null;
+  training_source: TrainingSourceRow | null;
   created_at: string;
 };
 
@@ -69,7 +71,11 @@ export async function GET() {
        where e.alliance_mail_help is true
      )
      select a.user_id, p.in_game_name, a.issue_key, a.reason,
-            a.training_title, a.created_at
+            a.training_title, a.created_at,
+            (select jsonb_build_object('slug', c.slug, 'version', c.version, 'title', c.title, 'body', c.body)
+             from academy_content c
+             where c.slug = split_part(a.issue_key, ':', 2) and c.title = a.training_title
+             order by c.version desc limit 1) as training_source
      from attention a join profiles p on p.id = a.user_id
      join academy_enrollments scope on scope.user_id = a.user_id
      where ($1::uuid is null or scope.assigned_officer = $1)
@@ -77,5 +83,5 @@ export async function GET() {
      limit 500`,
     [trainingScope(officer, user.id)],
   );
-  return NextResponse.json({ attention });
+  return NextResponse.json({ attention: await localizeJoinedTrainingRows(attention) });
 }

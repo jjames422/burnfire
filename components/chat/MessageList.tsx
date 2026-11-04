@@ -1,4 +1,8 @@
 "use client";
+import { LocalizedNumber } from "@/components/layout/LocalizedNumber";
+
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api, apiPost } from "@/lib/api/client";
@@ -8,6 +12,7 @@ import type { ChannelMessagesPayload, ChatAttachmentInfo, ChatMessageRow, Sessio
 const QUICK_EMOJI = ["🔥", "❤️", "😂", "👏"];
 
 export function MessageList({ channelId, refreshVersion, onReply }: { channelId: string; refreshVersion: number; onReply: (id: string, label: string) => void }) {
+  const { t, locale } = useTranslation();
   const [messages, setMessages] = useState<ChatMessageRow[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [editing, setEditing] = useState<string | null>(null);
@@ -70,20 +75,20 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
 
   async function copyText(message: ChatMessageRow) {
     await navigator.clipboard.writeText(message.body);
-    setStatus("Message text copied.");
+    setStatus(t("Message text copied."));
     setOpenMenu(null);
   }
 
   async function copyLink(message: ChatMessageRow) {
     const link = `${window.location.origin}/chat?channel=${channelId}&message=${message.id}`;
     await navigator.clipboard.writeText(link);
-    setStatus("Message link copied.");
+    setStatus(t("Message link copied."));
     setOpenMenu(null);
   }
 
   function markUnread(message: ChatMessageRow) {
     window.localStorage.setItem(`chat-unread:${channelId}`, message.id);
-    setStatus("Marked unread from this message on this device.");
+    setStatus(t("Marked unread from this message on this device."));
     setOpenMenu(null);
   }
 
@@ -91,7 +96,7 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
     const shouldPin = !pinnedIds.has(message.id);
     const { error } = await apiPost(`/api/messages/${message.id}/pin`, { pin: shouldPin });
     setOpenMenu(null);
-    if (error) setStatus(`Pin unavailable: ${error}`);
+    if (error) setStatus(t("Pin unavailable: {error}", { error: t(error) }));
     else { setStatus(shouldPin ? "Message pinned." : "Message unpinned."); await load(); }
   }
 
@@ -103,7 +108,7 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
     const message=reportMessage;
     if(!message||reportReason.trim().length<3){setReportError("Please explain the problem in at least 3 characters.");return;}
     const { error } = await apiPost("/api/reports", { target_type: "message", target_id: message.id, reason: reportReason.trim() });
-    if(error)setReportError(error);else{setReportMessage(null);setStatus("Report sent privately to the moderation team.");}
+    if(error)setReportError(error);else{setReportMessage(null);setStatus(t("Report sent privately to the moderation team."));}
   }
 
   const threadRoot=messages.find((message)=>message.id===threadRootId)??null;
@@ -111,33 +116,33 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
 
   return (
     <div className="message-stream" onClick={() => openMenu && setOpenMenu(null)}>
-      {status && <button className="chat-status" onClick={() => setStatus(null)}>{status}<span>×</span></button>}
-      {messages.length === 0 && <div className="channel-welcome"><span>#</span><h3>This channel is ready.</h3><p>Start the first transmission and bring the survivors together.</p></div>}
+      {status && <button className="chat-status" onClick={() => setStatus(null)}>{t(status)}<span>×</span></button>}
+      {messages.length === 0 && <div className="channel-welcome"><span>#</span><h3><Text>{"This channel is ready."}</Text></h3><p><Text>{"Start the first transmission and bring the survivors together."}</Text></p></div>}
       {messages.map((message) => (
         <article id={`message-${message.id}`} key={message.id} className={`message-row ${message.parent_message_id ? "is-reply" : ""} ${pinnedIds.has(message.id) ? "is-pinned" : ""}`}>
           <div className="avatar-flame">{message.identity_label.slice(0, 1).toUpperCase()}</div>
           <div className="message-copy">
-            <div className="message-meta"><strong>{message.identity_label}</strong><time>{new Date(message.created_at).toLocaleString()}</time>{message.edited_at && <span>edited</span>}{pinnedIds.has(message.id) && <span className="pin-label">◆ Pinned</span>}</div>
-            {editing === message.id ? <div className="edit-row"><input value={editBody} onChange={(event) => setEditBody(event.target.value)} /><button onClick={() => save(message.id)}>Save</button><button onClick={() => setEditing(null)}>Cancel</button></div> : <p>{message.body}</p>}
-            {(attachments.get(message.id)??[]).map((attachment)=><a key={attachment.id} href={attachment.url} target="_blank" rel="noreferrer" className={`message-attachment ${attachment.mime_type.startsWith("image/")?"is-image":""}`}>{attachment.mime_type.startsWith("image/")&&attachment.url?<img src={attachment.url} alt={attachment.file_name}/>:<span>◆</span>}<div><strong>{attachment.file_name}</strong><small>{(attachment.size_bytes/1024/1024).toFixed(2)} MB</small></div></a>)}
+            <div className="message-meta"><strong dir="auto">{message.identity_label}</strong><time>{new Date(message.created_at).toLocaleString(locale)}</time>{message.edited_at && <span><Text>{"edited"}</Text></span>}{pinnedIds.has(message.id) && <span className="pin-label"><Text>{"◆ Pinned"}</Text></span>}</div>
+            {editing === message.id ? <div className="edit-row"><input dir="auto" value={editBody} onChange={(event) => setEditBody(event.target.value)} /><button onClick={() => save(message.id)}><Text>{"Save"}</Text></button><button onClick={() => setEditing(null)}><Text>{"Cancel"}</Text></button></div> : <p dir="auto">{message.body}</p>}
+            {(attachments.get(message.id)??[]).map((attachment)=><a key={attachment.id} href={attachment.url} target="_blank" rel="noreferrer" className={`message-attachment ${attachment.mime_type.startsWith("image/")?"is-image":""}`}>{attachment.mime_type.startsWith("image/")&&attachment.url?<img src={attachment.url} alt={attachment.file_name}/>:<span>◆</span>}<div><strong>{attachment.file_name}</strong><small><Text values={{ value1: String((attachment.size_bytes/1024/1024).toFixed(2) ?? "") }}>{"{value1}  MB"}</Text></small></div></a>)}
             <div className="reaction-row">
-              {Object.entries(message.reactions ?? {}).map(([emoji, total]) => <button key={emoji} onClick={() => react(message, emoji)} className="reaction-chip">{emoji} {total}</button>)}
+              {Object.entries(message.reactions ?? {}).map(([emoji, total]) => <button key={emoji} onClick={() => react(message, emoji)} className="reaction-chip">{emoji} {<LocalizedNumber value={total} />}</button>)}
             </div>
-            {!message.parent_message_id&&messages.some((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id)&&<button className="thread-link" onClick={()=>setThreadRootId(message.id)}>{messages.filter((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id).length} replies · View thread</button>}
+            {!message.parent_message_id&&messages.some((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id)&&<button className="thread-link" onClick={()=>setThreadRootId(message.id)}><Text values={{ length: messages.filter((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id).length.toLocaleString(locale) }}>{"{length}  replies · View thread"}</Text></button>}
           </div>
-          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)} title={`React ${emoji}`}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)} title="Reply">↩</button><button onClick={(event) => { event.stopPropagation(); setOpenMenu(openMenu === message.id ? null : message.id); }} title="More actions">•••</button>{message.author_id === userId && <><button onClick={() => { setEditing(message.id); setEditBody(message.body); }} title="Edit">✎</button><button onClick={() => remove(message.id)} title="Delete">⌫</button></>}</div>
+          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)} title={t("React {emoji}", { emoji: emoji })}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)} title={t("Reply")}>↩</button><button onClick={(event) => { event.stopPropagation(); setOpenMenu(openMenu === message.id ? null : message.id); }} title={t("More actions")}>•••</button>{message.author_id === userId && <><button onClick={() => { setEditing(message.id); setEditBody(message.body); }} title={t("Edit")}>✎</button><button onClick={() => remove(message.id)} title={t("Delete")}>⌫</button></>}</div>
           {openMenu === message.id && <div className="message-menu" onClick={(event) => event.stopPropagation()}>
-            <button onClick={() => copyText(message)}>Copy text</button>
-            <button onClick={() => copyLink(message)}>Copy message link</button>
-            <button onClick={() => { onReply(message.id, message.identity_label); setOpenMenu(null); }}>Reply</button>
-            <button onClick={() => markUnread(message)}>Mark unread</button>
-            <button onClick={() => pin(message)}>{pinnedIds.has(message.id) ? "Unpin message" : "Pin message"}</button>
-            <button className="danger" onClick={() => beginReport(message)}>Report message</button>
+            <button onClick={() => copyText(message)}><Text>{"Copy text"}</Text></button>
+            <button onClick={() => copyLink(message)}><Text>{"Copy message link"}</Text></button>
+            <button onClick={() => { onReply(message.id, message.identity_label); setOpenMenu(null); }}><Text>{"Reply"}</Text></button>
+            <button onClick={() => markUnread(message)}><Text>{"Mark unread"}</Text></button>
+            <button onClick={() => pin(message)}>{pinnedIds.has(message.id) ? t("Unpin message") : t("Pin message")}</button>
+            <button className="danger" onClick={() => beginReport(message)}><Text>{"Report message"}</Text></button>
           </div>}
         </article>
       ))}
-      {threadRoot&&<aside className="thread-panel"><header><div><span className="eyebrow">Thread</span><h3>{threadReplies.length} {threadReplies.length===1?"reply":"replies"}</h3></div><button onClick={()=>setThreadRootId(null)}>×</button></header><article className="thread-origin"><strong>{threadRoot.identity_label}</strong><p>{threadRoot.body}</p></article><div className="thread-replies">{threadReplies.map((reply)=><article key={reply.id}><div className="avatar-flame">{reply.identity_label.slice(0,1).toUpperCase()}</div><div><strong>{reply.identity_label}</strong><time>{new Date(reply.created_at).toLocaleString()}</time><p>{reply.body}</p></div></article>)}</div><button className="thread-reply" onClick={()=>onReply(threadRoot.id,threadRoot.identity_label)}>Reply in thread</button></aside>}
-      {reportMessage&&<div className="report-backdrop" role="presentation" onClick={()=>setReportMessage(null)}><section className="report-dialog" role="dialog" aria-modal="true" aria-labelledby="report-title" onClick={(event)=>event.stopPropagation()}><span className="eyebrow">Private moderation report</span><h3 id="report-title">Report this message?</h3><blockquote>{reportMessage.body}</blockquote><label>What went wrong?</label><textarea autoFocus maxLength={500} value={reportReason} onChange={(event)=>{setReportReason(event.target.value);setReportError(null);}} placeholder="Spam, harassment, unsafe content, or another concern"/><small>{reportReason.length}/500</small>{reportError&&<p className="utility-error">{reportError}</p>}<div><button className="ghost-button" onClick={()=>setReportMessage(null)}>Cancel</button><button className="report-submit" onClick={submitReport}>Send private report</button></div></section></div>}
+      {threadRoot&&<aside className="thread-panel"><header><div><span className="eyebrow"><Text>{"Thread"}</Text></span><h3>{<LocalizedNumber value={threadReplies.length} />} {threadReplies.length===1?t("reply"):t("replies")}</h3></div><button onClick={()=>setThreadRootId(null)}>×</button></header><article className="thread-origin"><strong>{threadRoot.identity_label}</strong><p>{threadRoot.body}</p></article><div className="thread-replies">{threadReplies.map((reply)=><article key={reply.id}><div className="avatar-flame">{reply.identity_label.slice(0,1).toUpperCase()}</div><div><strong>{reply.identity_label}</strong><time>{new Date(reply.created_at).toLocaleString(locale)}</time><p>{reply.body}</p></div></article>)}</div><button className="thread-reply" onClick={()=>onReply(threadRoot.id,threadRoot.identity_label)}><Text>{"Reply in thread"}</Text></button></aside>}
+      {reportMessage&&<div className="report-backdrop" role="presentation" onClick={()=>setReportMessage(null)}><section className="report-dialog" role="dialog" aria-modal="true" aria-labelledby="report-title" onClick={(event)=>event.stopPropagation()}><span className="eyebrow"><Text>{"Private moderation report"}</Text></span><h3 id="report-title"><Text>{"Report this message?"}</Text></h3><blockquote>{reportMessage.body}</blockquote><label><Text>{"What went wrong?"}</Text></label><textarea autoFocus maxLength={500} value={reportReason} onChange={(event)=>{setReportReason(event.target.value);setReportError(null);}} placeholder={t("Spam, harassment, unsafe content, or another concern")}/><small>{<LocalizedNumber value={reportReason.length} />}/500</small>{reportError&&<p className="utility-error">{t(reportError)}</p>}<div><button className="ghost-button" onClick={()=>setReportMessage(null)}><Text>{"Cancel"}</Text></button><button className="report-submit" onClick={submitReport}><Text>{"Send private report"}</Text></button></div></section></div>}
       <div ref={bottom} />
     </div>
   );

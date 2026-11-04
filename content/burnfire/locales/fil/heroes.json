@@ -1,0 +1,1417 @@
+{
+  "zoya": {
+    "sourceHash": "372f6e9a729f33757ecb6b19979f80916e26f0eaa93cd03d80f737308b13f79b",
+    "summary": "Pinsan ni Marlena na nakatuon sa critical hit—malalakas ang dagger hit niya at iba ang paglakas niya sa late game.",
+    "unlock": "Lalabas sa ika-55 araw ng server. Kailangan ng 10 Zoya Shard para ma-unlock. Siya ang huling UR Warrior na darating.",
+    "overview": [
+      "Hawig ng kit ni Zoya ang kay Marlena, pero Crit Rate ang pinapataas ng passive niya sa halip na Energy damage. Kaya iba ang paglakas niya habang umuusad ang laro at nadaragdagan ang gear at buffs.",
+      "Dalawang gamit ang Mountain God Wrath: tuloy-tuloy itong nagdudulot ng damage sa loob ng 3s at pinapataas ang Energy damage na matatanggap ng mga tinamaan mula sa buong squad. Bawat isa sa 3 dagger ng Forest Hunter ay maaaring tumama nang hanggang 1,668% ng ATK, o 3,669.6% kapag kumpleto ang mga star."
+    ],
+    "investment": "Nakadepende siya sa star level at mas mahusay sa matataas na star. Dapat itaas siya ng light spender sa 8★ at itabi ang natitirang UR Omni Shard para sa mga susunod na hero. Puwede siyang itaas ng mga whale sa 10★.",
+    "squadFit": "Warrior carry siya kaya puwede siyang katabi ni Marlena at napapalakas silang dalawa ng buff ni Harper. Pinapalakas ng Energy-damage amplifier niya ang lahat ng iba pang Energy carry sa team.",
+    "skills": {
+      "0": { "effect": "Naghahagis ng forest dagger sa target at nagdudulot sa iisang kalaban ng Energy DMG na 87.15–249% ng ATK.", "starUpgrades": ["5★: +40% extra damage", "25★: tataas sa 100% ang extra damage", "50★: tataas sa 200% ang extra damage"], "maxStars": "Sa 50★: 261.45–747%" },
+      "1": { "effect": "Mabilis na naghahagis ng 3 espesyal na dagger sa 3 random na kalaban, bawat isa ay nagdudulot ng damage na 583.8–1,668% ng ATK.", "starUpgrades": ["10★: +1 blade", "30★: +60% extra damage", "50★: tataas sa 120% ang extra damage; +1 blade"], "maxStars": "Sa 50★: 1,284.36–3,669.6%" },
+      "2": { "effect": "Pinagdudugtong nang mahigpit ang mga kamay at nagpapatawag ng ipo-ipong berdeng dahon na nagdudulot sa mga kalaban sa saklaw ng Energy DMG na 73.5–210% ng ATK bawat segundo sa loob ng 3s. Habang nasa ipo-ipo, +20% ang Energy DMG na natatanggap ng mga kalaban.", "starUpgrades": ["15★: +60% extra damage", "35★: tataas sa 130% ang extra damage", "45★: tataas sa 200% ang extra damage"], "maxStars": "Sa 45★: 220.5–630%" },
+      "3": { "effect": "Habang nasa laban, pinapataas nang 8.2–16% ang Crit Rate.", "starUpgrades": ["20★: tataas nang 1.6% ang effect", "45★: tataas nang 2.4% ang effect", "50★: tataas nang 4% ang effect"], "maxStars": "Sa 50★: 16.2–24%" },
+      "4": { "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%." }
+    }
+  },
+  "marlena": {
+    "sourceHash": "ca7d1c9ca33d3cdb94ce03d4cd92a79e00781dc42887c934a9da12348f67cfe5",
+    "tierLists": "S sa 5 sa 6 tier list",
+    "summary": "Pangunahing UR damage dealer para sa lahat ng account—available sa unang araw at unang nirerekomendahan ng karamihan sa mga guide para sa UR Omni Shard.",
+    "unlock": "Available sa unang araw nang walang server-day requirement. Nakukuha ang mga shard niya sa Tavern recruitment, libreng banner pull, at event reward; kasama rin siya sa First Top Up pack (mga US$1).",
+    "overview": [
+      "Si Marlena ang damage dealer na unang pinalalakas sa karamihan ng guide dahil nagsasama-sama ang epekto ng mga skill niya. Nagpapakawala ang Peerless Blade ng tatlong sword wind sa mga random na kalaban, hanggang 1,020% ATK na Energy DMG bawat isa (3,382.5% kapag kumpleto ang mga star); nagdudulot ng AoE hit ang Crimson Bloom bawat 5s, at pinapataas ng War God's Will ang lahat ng Energy DMG niya nang hanggang 16% (24% kapag kumpleto ang mga star). Nagdaragdag pa ang Tenacity ng +20% ATK, HP, at DEF.",
+      "Available din siya sa unang araw, kaya halos lahat ng guide ay sumasang-ayong sa kanya unang dapat ilaan ang UR Omni Shard."
+    ],
+    "investment": "Siya ang unang prayoridad para sa UR Omni Shard, bago sina Harper, Cynthia, at Shadow. Simulan ang seryosong pag-invest kapag nasa 5–6★ na si Arthur; unang mahalagang target ang 8★ para mabuksan ang Tenacity.",
+    "squadFit": "Sina Arthur at Marlena ang core duo ng bawat bagong account. Warrior din siya kaya direktang pinapalakas siya ng Warrior's Anthem ni Harper; siya rin ang pangunahing damage dealer sa full-roster BF2 squad kasama si Cynthia.",
+    "skills": {
+      "0": { "effect": "Nagpapakawala ng sword wind at nagdudulot sa iisang target ng Energy DMG na 91.35–261% ng ATK.", "starUpgrades": ["5★: +40% extra damage", "25★: tataas sa 100% ang extra damage", "50★: tataas sa 200% ang extra damage; Awakening level 1: nagpapakawala ng 1 sword wind sa iisang kalaban at nagdudulot ng 783% ATK Energy DMG. Kapag nag-Crit, nakakakuha si Marlena ng 1 Battle Will stack, hanggang 2x ng bilang ng Warrior sa team; bawat stack ay +1% damage dealt at +1% damage reduction"], "maxStars": "Sa 50★: 274.05–783%" },
+      "1": { "effect": "Nagpapakawala ng 3 sword wind na bawat isa ay random na pumupuntirya sa kalaban at nagdudulot ng Energy DMG na 357–1,020% ng ATK.", "starUpgrades": ["10★: +1 Sword Wind; +20% damage ang bawat isa", "30★: +100% damage ang bawat isa", "50★: +1 Sword Wind; +140% damage ang bawat isa; Awakening level 40: nagpapakawala ng 3 sword wind sa random na mga kalaban, bawat isa ay 3,382.5% ATK Energy DMG, at 5 pang sword wind na may 60% ng orihinal na damage"], "maxStars": "Sa 50★: 1,183.88–3,382.5%" },
+      "2": { "effect": "Naghahagis ng pulang bulaklak na sumasabog kapag tumama, na nagdudulot sa mga target sa saklaw ng Energy DMG na 204.75–585% ng ATK.", "starUpgrades": ["15★: +20% extra damage at +12% ATK sa loob ng 3s", "35★: tataas sa 70% ang extra damage", "45★: tataas sa 150% ang extra damage; Awakening level 10: naghahagis ng 1 Crimson Blossom na sumasabog at nagdudulot sa lahat ng kalaban ng 1,462.5% ATK Energy DMG. Kung lampas 5 ang Battle Will ni Marlena, magkakaroon ng Dread ang lahat ng kalaban at bababa nang 5% ang damage nila"], "maxStars": "Sa 45★: 511.88–1,462.5%" },
+      "3": { "effect": "Habang nasa laban, pinapataas nang 8.2–16% ang Energy DMG na idinudulot niya.", "starUpgrades": ["20★: tataas nang 1.6% ang effect", "45★: tataas nang 2.4% ang effect", "50★: tataas nang 4% ang effect; Awakening level 20: +24% Energy DMG. Sa simula ng laban, aatakihin niya ang 3 kalabang may pinakamataas na HP at magdudulot ng 2,500% ATK Energy DMG; kapag tumama, nakakakuha siya ng 3 Battle Will stack"], "maxStars": "Sa 50★: 16.2–24%" },
+      "4": { "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%." }
+    }
+  },
+  "louis": {
+    "sourceHash": "bbcddfc6a79fe7090e32712f8c37e3ed6896e28b7937192f76d61a87ab0303aa",
+    "summary": "Tank na may chain-whip na nagpapababa ng damage, nagpapagaling sa sarili, at ayaw mamatay sa pinakamasamang sandali.",
+    "unlock": "Lalabas sa ika-62 araw ng server. Kailangan ng 10 Louis Shard para ma-unlock. Panglima siya sa anim na UR tank na darating.",
+    "overview": [
+      "Si Louis ang sandigan ng frontline at nakatuon ang buong kit niya sa pagbili ng oras para sa backline. Nagdudulot ng damage at nagpapagaling sa kanya ang Cross Whip, habang binibigyan nito ang buong squad ng malaking window ng damage reduction. Pinoprotektahan ng Force Link ang iba pang matitibay na kakampi laban sa Energy damage, at minsan bawat laban ay inililigtas siya ng Indomitable Spirit mula sa nakamamatay na tama.",
+      "Malaki ang pagdepende niya sa star level. Hindi siya gaanong maaasahan sa mababang star at maaaring mas mahusay si Shadow, pero tumataas nang husto ang bisa niya habang namumuhunan ka."
+    ],
+    "investment": "Puwedeng huminto sa 7★ ang light spender, bagama't 8★ ang rekomendasyon. Dapat maghangad ang mga whale ng 9–10★ para makita ang buong potensyal niya.",
+    "squadFit": "Bilang Ranger, bagay siya sa all-Ranger squad kasama sina Shadow, Cynthia, Red Lady, at Bell. Pinipili ng Force Link ang mga kakamping may pinakamataas na DEF, kaya pinakamabisa si Louis kapag may kasama siyang isa pang tank.",
+    "skills": {
+      "0": { "effect": "Iwinawasiwas ang bakal na kadena at nagdudulot sa iisang target ng Physical DMG na 87.15–249% ng ATK.", "starUpgrades": ["5★: +40% extra damage", "25★: tataas sa 100% ang extra damage", "50★: tataas sa 200% ang extra damage; exclusive weapon star 20: tataas sa 300%"], "maxStars": "Sa 50★: 261.45–747%" },
+      "1": { "effect": "Sabay na iwinawasiwas ang 2 kadena pasulong, nagdudulot sa mga kalaban sa saklaw ng damage na 299.25–855% ng ATK, nagpapagaling sa sarili ng 150% ng ATK, at binabawasan nang 15.38–30% sa loob ng 5s ang lahat ng damage na natatanggap.", "starUpgrades": ["10★: ilalapat din ang damage reduction sa 1 pinakamalapit na kakampi", "30★: ilalapat ang damage reduction sa lahat ng kakampi", "50★: +60% extra damage; exclusive weapon star 50: +5% damage reduction"], "maxStars": "Sa 50★: 478.8% / 15.38% hanggang 1,368% / 30%" },
+      "2": { "effect": "Nag-iipon ng enerhiya sa magkabilang kamay at lumilikha ng field na nagpapababa nang 9.23–18% sa loob ng 4s sa Energy DMG na natatanggap ng 2 kakamping nasa saklaw na may pinakamataas na DEF.", "starUpgrades": ["15★: tataas nang 8% ang effect", "35★: tataas nang 12% ang effect", "45★: +1 target; exclusive weapon star 40: dagdag na +1 target"], "maxStars": "Sa 45★: 21.23–30%" },
+      "3": { "effect": "Habang nasa laban, binabawasan nang 15.38–30% ang lahat ng damage na natatanggap niya. Kapag makakatanggap ng nakamamatay na damage, pumapasok siya sa undying state at naiiwan sa 1 HP sa loob ng 2s. Isang beses lang ito puwedeng ma-trigger.", "starUpgrades": ["20★: +1s sa tagal", "45★: dagdag na +1s sa tagal", "50★: dagdag na +1s sa tagal; exclusive weapon star 30: dagdag pang +1s"], "maxStars": "Sa 50★: 15.38–30%" },
+      "4": { "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%." }
+    }
+  },
+  "ulfrid": {
+    "sourceHash": "c72951978ddd3b42b6e86d8e4da8d1881df4370ccee008f0eedb8467f3201ce3",
+    "summary": "Tank na may dugong-lobo na gumaganti ng katumbas na damage sa sinumang umatake sa kanya.",
+    "unlock": "Lalabas sa ika-41 araw ng server. Kailangan ng 10 Ulfrid Shard para ma-unlock; nakukuha ang shard sa recruitment at events.",
+    "overview": [
+      "Gumaganti si Ulfrid sa mga umatake sa kanya. Sa halip na umasa sa sarili niyang damage, pinagbabayad niya ang kalabang nagta-target sa kanya—habang aktibo ang Lunar Howl, ibinabalik niya sa attacker ang hanggang 120% ng bawat tama sa loob ng 3s (162% kapag kumpleto ang mga star). Kapag sinamahan ng damage reduction ng Wolf Bloodline at team-wide reduction ng ultimate niya, napakahirap siyang patayin.",
+      "Ang hamon ay tamang timing. Nasa 3s lang ang pinakamalakas niyang epekto, kaya mas situational siya at mas madaling iwasan kaysa sa mga top-tier tank. Kaya nasa ibaba siya nina Arthur at Shadow."
+    ],
+    "investment": "Sapat na ang 8★ para sa light spender. Dapat itulak ng mga whale hanggang 10★.",
+    "squadFit": "Pinakamahusay siya sa mahahabang laban kung saan napipilitang umatake sa kanya ang kalaban. Sa Warlock squad, katabi niya si Billy para sa matibay na frontline; nakakatulong din sa kanya ang passive ni Nicole (+8% ATK sa bawat Warlock).",
+    "skills": {
+      "0": { "effect": "Humahampas gamit ang matutulis na kuko at nagdudulot sa iisang kalaban ng Physical DMG na 87.15–249% ng ATK.", "starUpgrades": ["5★: +40% extra damage", "25★: tataas sa 100% ang extra damage", "50★: tataas sa 200% ang extra damage; exclusive weapon star 20: tataas sa 300%"], "maxStars": "Sa 50★: 261.45–747%" },
+      "1": { "effect": "Nag-iipon ng lakas, sumusugod at kinakagat ang target, nagdudulot ng Physical DMG na 632.1–1,806% ng ATK at binabawasan nang 5.13–10% sa loob ng 4s ang lahat ng damage na natatanggap ng bawat kakampi.", "starUpgrades": ["10★: tataas nang 2% ang effect", "30★: tataas nang 3% ang effect", "50★: tataas nang 5% ang effect; exclusive weapon star 50: dagdag na 7%"], "maxStars": "Sa 50★: 632.1% / 15.13% hanggang 1,806% / 20%" },
+      "2": { "effect": "Umaalulong sa langit at pumapasok sa Berserk state: kapag napinsala, ibinabalik sa umatake ang 61.5–120% ng damage. Tumatagal ito nang 3s.", "starUpgrades": ["15★: tataas nang 12% ang effect", "35★: +1s sa tagal ng effect", "45★: tataas nang 30% ang effect; exclusive weapon star 40: +10% DEF habang nasa Berserk state"], "maxStars": "Sa 45★: 103.5–162%" },
+      "3": { "effect": "Habang nasa laban, binabawasan nang 8.2–16% ang lahat ng damage na natatanggap niya.", "starUpgrades": ["20★: tataas nang 1.6% ang effect", "45★: tataas nang 2.4% ang effect", "50★: tataas nang 4% ang effect; exclusive weapon star 30: dagdag na 5%"], "maxStars": "Sa 50★: 16.2–24%" },
+      "4": { "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%." }
+    }
+  },
+  "billy": {
+    "sourceHash": "b35900a012a741c4bfbeb160536bb917ecb85b2e1316c4f19bace88241722a46",
+    "summary": "Puppet-master na tank na nagpoprotekta sa mga carry laban sa stun at Energy burst sa halip na basta sumalo ng damage.",
+    "unlock": "Maa-unlock sa ika-83 araw ng server gamit ang 10 Billy Shard. Si Nicole lang ang UR hero na darating pagkatapos niya, kaya karaniwang may matibay nang tank core ang account pagdating ni Billy.",
+    "overview": [
+      "Depensibong tank si Billy na may dagdag na utility. Matibay siya dahil sa Puppet, pero ang tunay niyang halaga ay protektahan ang mga damage dealer: binibigyan ng ultimate niya ng 70% na tsansang makaiwas sa stun ang 3 kakamping may pinakamataas na ATK, at binabawasan ng Fate's Thread nang hanggang 24% (36% kapag kumpleto ang mga star) ang Energy DMG na natatanggap ng 2 kakamping may pinakamataas na ATK.",
+      "Direktang sagot siya sa mga kalabang maraming crowd control. Dinisenyo ang ultimate ni Red Lady para i-stun ang 2 pinakamalakas mong attacker, at isa si Billy sa iilang hero na kayang pigilan iyon. Mahalaga siya sa PvP at mahahabang laban."
+    ],
+    "investment": "8★ ang rekomendasyon para sa lahat—malaki ang dagdag nito sa survival. Puwedeng itaas ng mga whale sa 10★ para sa kumpletong optimization, pero hindi ito kailangan.",
+    "squadFit": "Pinakamainam siya sa squad kung saan madalas puntiryahin ang mga carry. Bagay siya sa lineup na maraming Warlock kasama sina Annie, Joker, at Nicole, at mahusay siyang counter sa mga kalabang gumagamit ng Red Lady.",
+    "skills": {
+      "0": { "effect": "Iwinawasiwas ang marionette at nagdudulot sa iisang kalaban ng Physical DMG na 87.15–249% ng ATK.", "starUpgrades": ["5★: +40% extra damage", "25★: tataas sa 100% ang extra damage", "50★: tataas sa 200% ang extra damage"], "maxStars": "Sa 50★: 261.45–747%" },
+      "1": { "effect": "Itinataas ang marionette stand at ibinabagsak ito sa lupa, na nagdudulot sa mga kalaban sa saklaw ng damage na 510.3–1,458% ng ATK. Nagkakaroon ng 70% tsansa ang 3 kakamping may pinakamataas na ATK na hindi tamaan ng stun.", "starUpgrades": ["10★: bababa nang 15% sa loob ng 5s ang lahat ng damage na natatanggap ng allied Defense Hero", "30★: +30% tsansa ng stun immunity", "50★: +100% extra damage at tataas nang 15% sa loob ng 5s ang damage na natatanggap ng 3 random na kalabang Hero"], "maxStars": "Sa 50★: 1,020.6–2,916%" },
+      "2": { "effect": "Iwinawasiwas ang marionette at nagdudulot sa iisang target ng Physical DMG na 216.3–618% ng ATK, habang binabawasan nang 12.3–24% sa loob ng 4s ang Energy DMG na natatanggap ng 2 kakamping may pinakamataas na ATK.", "starUpgrades": ["15★: tataas nang 6% ang damage reduction", "35★: +1 allied target", "45★: dagdag pang 6% damage reduction"], "maxStars": "Sa 45★: 216.3% / 24.3% hanggang 618% / 36%" },
+      "3": { "effect": "Habang nasa laban, binabawasan nang 8.2–16% ang lahat ng damage na natatanggap niya.", "starUpgrades": ["20★: tataas nang 3% ang effect", "45★: tataas nang 5% ang effect", "50★: dagdag na 8% bawas sa Energy DMG na natatanggap"], "maxStars": "Sa 50★: 16.2–24%" },
+      "4": { "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%." }
+    }
+  },
+  "arthur": {
+    "sourceHash": "de27f4b06959cbdb262d82eb35a4b40ce6b7976bda6278a24af8c4a359fc4e2a",
+    "tierLists": "S-Tier sa 6 sa 7 tier list",
+    "summary": "Panimulang tank na makukuha agad at isa pa rin sa pinakamahusay na tagapagtanggol sa unahan.",
+    "unlock": "Makukuha sa unang araw nang walang kundisyon sa edad ng server. Kailangan ng 10 Arthur Shards para ma-unlock; makukuha ang mga ito sa Tavern recruitment, Alliance Shop, at event rewards. Tinitiyak ng bawat ika-50 recruit pull ang 10 shard ng isang UR hero.",
+    "overview": [
+      "Si Arthur ang unang hero na dapat mong palakasin. Libre siya at naroon na sa unang araw, at hindi siya nawawalan ng silbi habang tumatagal. Simple ang tungkulin niya: pumuwesto sa harap, sumalo ng mga tama, at tulungang mabuhay ang mga nasa likod.",
+      "Ang Earthshattering ang nagpapabukod-tangi sa kanya. Malakas itong area attack, pero ang tunay na halaga ay ang aura na nagpapababa ng pinsala sa buong squad. Pinananatiling buhay siya ng Rock Solid sa pagitan ng mga ultimate, at palihim na pinatitibay ng Strong Will ang iba pang tank sa lineup. Kaya mahusay siyang ipares sa pangalawang tank.",
+      "Mabisa siya sa PvE farming gaya ng Rat Swarm waves, Rat King, at territory reclamation, gayundin sa PvP. Kaya halos lahat ng gabay ay inilalagay siya sa tuktok ng listahan ng mga tank."
+    ],
+    "investment": "Dalhin siya sa 8★ (star step 40), kung saan nagbubukas ang Tenacity at nakukuha niya ang pinakamalaking iisang dagdag sa stats. Iminumungkahi ng karamihan sa mga gabay na 5–6★ muna siya bago maglaan ng maraming shard kay Marlena. Unahin ang Earthshattering sa Skill Badges.",
+    "squadFit": "Sina Arthur at Marlena ang pangunahing pares na dapat gawing pundasyon ng bagong account. Bilang Warrior, pinapalakas din niya ang Warrior's Anthem ni Harper. Ibang uri ng pinsala ang binabawasan ng Physical damage reduction niya kaysa Energy reduction ni Shadow, kaya nagtutulungan sila kapag pinagsama.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang kalasag at nagdudulot sa iisang kalaban ng Physical DMG na 105%–300% ng ATK.",
+        "starUpgrades": [
+          "Star 5: +40% dagdag na pinsala",
+          "Star 25: tataas sa 100% ang dagdag na pinsala",
+          "Star 50: tataas sa 200% ang dagdag na pinsala"
+        ],
+        "maxStars": "Sa star 50: 315%–900%"
+      },
+      "1": {
+        "effect": "Ibinabagsak ang kalasag sa lupa, nagdudulot sa mga kalaban sa saklaw ng Physical DMG na 591.15%–1,689% ng ATK, at binabawasan ng 10.25%–20% ang Physical DMG na natatanggap ng mga kakampi sa saklaw sa loob ng 5 segundo.",
+        "starUpgrades": [
+          "Star 10: tataas nang 3% ang bawas sa Physical DMG",
+          "Star 30: tataas pa nang 4.5% ang epekto",
+          "Star 50: tataas pa nang 7.5% ang epekto"
+        ],
+        "maxStars": "Sa star 50: 591.15% / 25.25% hanggang 1,689% / 35%"
+      },
+      "2": {
+        "effect": "Nagbibigay ng shield na katumbas ng 5.25%–15% ng kasalukuyang maximum HP. Sumasalo ito ng 50% ng pinsalang natatanggap at tumatagal nang 3 segundo.",
+        "starUpgrades": [
+          "Star 15: tataas nang 20% ang epekto ng shield",
+          "Star 35: tataas nang 30% ang epekto ng shield",
+          "Star 45: tataas nang 50% ang epekto ng shield"
+        ],
+        "maxStars": "Sa star 45: 10.5%–30%"
+      },
+      "3": {
+        "effect": "Habang lumalaban, binabawasan nang 3.08%–6% ang lahat ng pinsalang natatanggap ng mga kakamping tank hero.",
+        "starUpgrades": [
+          "Star 20: tataas nang 0.6% ang epekto",
+          "Star 45: tataas nang 0.9% ang epekto",
+          "Star 50: tataas nang 1.5% ang epekto"
+        ],
+        "maxStars": "Sa star 50: 6.08%–9%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng cooldown ng skill +10%."
+      }
+    }
+  },
+  "cynthia": {
+        "sourceHash": "a665e08be8417aed15f02a00a270d41f3eda570b5f60735582ac26b1a1f903c7",
+        "summary": "Carry na Energy na may talim-buwan, malalakas na tama sa iisang target, at Crit buff na lumalakas sa bawat star.",
+        "unlock": "Maaaring i-unlock kapag 6 na araw na ang server, gamit ang 10 Cynthia Shard. Itinuturing siyang premium hero sa ilang ranking: kadalasan ay sa mga bayad na pack nakukuha ang mga shard niya kaya bihira siya sa karaniwang pull. Ginagarantiyahan pa rin ng bawat ika-50 recruit pull ang 10 UR Shard.",
+        "overview": [
+          "Malakas na Energy damage dealer si Cynthia na nagpapalakas din ng sarili niyang Crit. Pangunahing atake niya ang Lunar Hunt—tatlong blade na tuwirang tumatama sa target at umaabot sa 600% ATK bawat isa (1,800% kapag kumpleto ang mga star), kada 5 segundo. Sa Moonfall Dance, tinatamaan niya ang maraming kalaban habang nadaragdagan pa ang Crit Rate niya bukod sa passive.",
+          "Malaki ang itinatapang niya sa pagdami ng star. Kapag pareho ang puhunan, karaniwang mas mahusay si Marlena, pero natural na pangalawang carry si Cynthia kapag buo na ang pangunahing squad mo."
+        ],
+        "investment": "Sulit siyang bigyan ng UR Omni Shard, pero dapat unahin ng free-to-play at light spender na tapusin ang pag-level kay Marlena. Malakas at maaasahang target ng light spender ang 8★; puwede siyang dalhin ng mga whale sa 10★ para sa buong burst damage.",
+        "squadFit": "Pangalawang carry siya sa full-roster squad ng BF2 kasama si Marlena. Bilang Ranger, bagay din siya sa all-Ranger squad kasama sina Shadow, Louis, Red Lady, at Bell, kung saan pinapalakas siya ng Battle Anthem ni Bell.",
+        "skills": {
+          "0": {
+            "effect": "Gumagamit ng moon blade para magdulot sa iisang kalaban ng Energy DMG na 87.15% hanggang 249% ng ATK.",
+            "starUpgrades": [
+              "5★: +40% damage",
+              "25★: tataas sa 100% ang dagdag na damage",
+              "50★: tataas sa 200% ang dagdag na damage. Awakening level 1: pinakakawalan ang Moon Blade sa iisang kalaban at nagdudulot ng 747% ATK Energy DMG; nakakakuha rin ng 1 Moonlight stack. Katumbas ng 4 na ulit ng bilang ng Ranger sa team ang pinakamataas na stack. Bawat stack ay nagbibigay kay Cynthia ng 1% Energy DMG Bonus"
+            ],
+            "maxStars": "Sa 50★: 261.45% hanggang 747%"
+          },
+          "1": {
+            "effect": "Pinapataas ang Crit Rate nang 8.2% hanggang 16%. Nagpapakawala ng dambuhalang moon blade na nagdudulot sa mga kalaban sa saklaw ng 520.8% hanggang 1,488% ATK Energy DMG.",
+            "starUpgrades": [
+              "10★: +40% damage",
+              "30★: tatamaan ang lahat ng kalaban",
+              "50★: tataas sa 100% ang dagdag na damage. Awakening level 20: pinapataas ang Crit Rate nang 16%. Nagpapakawala ng 1 dambuhalang Moon Blade na nagdudulot sa mga kalaban sa saklaw ng 2,976% ATK Energy DMG at gumagamit ng hanggang 10 Moonlight stack. Nagdudulot din sa mga kalaban ng karagdagang Energy DMG na 60% ATK × bilang ng nagamit na Moonlight stack"
+            ],
+            "maxStars": "Sa 50★: 8.2% / 1,041.6% hanggang 16% / 2,976%"
+          },
+          "2": {
+            "effect": "Random na nagla-lock sa 3 target at nagpapakawala ng 3 moon blade; bawat isa ay nagdudulot ng 210% hanggang 600% ATK Energy DMG.",
+            "starUpgrades": [
+              "15★: +40% damage",
+              "35★: tataas sa 100% ang dagdag na damage",
+              "45★: tataas sa 200% ang dagdag na damage. Awakening level 10: random na nagla-lock sa 3 target at nagpapakawala ng 3 moon blade; bawat isa ay nagdudulot ng 1,800% ATK Energy DMG. Nagdudulot din ng karagdagang 20% damage at nagbibigay ng 2 Moonlight stack"
+            ],
+            "maxStars": "Sa 45★: 630% hanggang 1,800%"
+          },
+          "3": {
+            "effect": "Habang nasa laban, pinapataas ang Crit Rate nang 8.2% hanggang 16%.",
+            "starUpgrades": [
+              "20★: tataas nang 1.6% ang effect",
+              "45★: tataas nang 2.4% ang effect",
+              "50★: tataas nang 4% ang effect. Awakening level 40: habang nasa laban, pinapataas ang Crit Rate nang 24%. Nagdudulot ng karagdagang 20% damage ang mga Crit hit"
+            ],
+            "maxStars": "Sa 50★: 16.2% hanggang 24%"
+          },
+          "4": {
+            "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+          }
+        }
+  },
+  "shadow": {
+    "sourceHash": "ab3db8a5d6afdfb523ae2f97b07ee5cce1b6d83e20b4b849ce21be8220729122",
+    "tierLists": "S-tier sa 2 sa 3 tier list",
+    "summary": "Tank na nagpapababa sa DEF at Energy DMG ng kalaban habang malakas ding umatake.",
+    "unlock": "Lalabas siya sa Tavern kapag 6 na araw na ang server; kailangan ng 10 Shadow Shard para ma-unlock. Itinuturing siyang premium hero sa maraming ranking: pangunahing nakukuha ang mga shard niya sa top-up reward at bayad na pack, at bihira siyang makuha sa karaniwang summon.",
+    "overview": [
+      "Iba ang paraan ng pag-tank ni Shadow kaysa kay Arthur. Sa halip na protektahan ang squad, pinahihina niya ang kalaban. Binabawasan ng Shadow Strike ang DEF ng kalaban nang hanggang 30% sa loob ng 3s (54% kapag kumpleto ang mga star), kaya mas malakas ang lahat ng carry sa likod niya; binabawasan naman ng Shadow Hunt ang Energy DMG ng buong kalabang team nang hanggang 13% (22% kapag kumpleto ang mga star).",
+      "Mahalaga ang bawas sa Energy DMG dahil Energy damage ang karamihan sa pinakamalalakas na carry, gaya nina Marlena, Cynthia, Red Lady, at Annie. May sarili rin siyang Energy resistance na hanggang 20% (35% kapag kumpleto ang mga star), kaya mahirap siyang talunin ng mga carry na iyon.",
+      "Mas malakas siyang umatake kaysa sa inaasahan sa isang tank. Dahil sa smoke bomb at dalawang AoE skill, tuloy-tuloy siyang nakakadagdag ng damage sa buong laban sa halip na sumalo lang ng tama."
+    ],
+    "investment": "Kapag gumagamit ng UR Omni Shard, karaniwang inuuna si Marlena, kasunod sina Harper at Cynthia, saka si Shadow. Sa 8★ nabubuksan ang Tenacity, at pinakamalaki ang dagdag sa DEF reduction ng Shadow Strike sa 45★.",
+    "squadFit": "Siya ang nasa frontline ng full-roster BF2 squad (Shadow + Daskal + Harper + Marlena + Cynthia). Isinusuko ng lineup na ito ang buong faction bonus, pero sulit ang DEF reduction niya. Nakikinabang din si Bell sa kanya sa all-Ranger squad.",
+    "skills": {
+      "0": {
+        "effect": "Random na naghahagis ng 3 smoke bomb; bawat isa ay nagdudulot sa iisang kalaban ng Physical DMG na 29.4–84% ng ATK.",
+        "starUpgrades": [
+          "5★: +40% extra damage",
+          "25★: tataas sa 100% ang extra damage",
+          "50★: tataas sa 200% ang extra damage"
+        ],
+        "maxStars": "Sa 50★: 88.2–252%"
+      },
+      "1": {
+        "effect": "Nagpapakawala ng gumugulong na itim na ulap, na nagdudulot sa lahat ng kalaban ng Physical DMG na 387.45–1,107% ng ATK at nagpapababa ng Energy DMG nila nang 5.2–13% sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: tataas nang 3% ang effect",
+          "30★: dagdag pang 3% sa effect",
+          "50★: dagdag pang 3% sa effect"
+        ],
+        "maxStars": "Sa 50★: 387.45% / 14.2% hanggang 1,107% / 22%"
+      },
+      "2": {
+        "effect": "Naghahagis ng malaking smoke cartridge, na nagdudulot sa mga kalaban sa saklaw ng Physical DMG na 194.25–555% ng ATK at nagpapababa ng DEF nila nang 15.38–30% sa loob ng 3s.",
+        "starUpgrades": [
+          "15★: tataas nang 4.5% ang effect",
+          "35★: tataas nang 7.5% ang effect",
+          "45★: tataas nang 12% ang effect"
+        ],
+        "maxStars": "Sa 45★: 194.25% / 39.38% hanggang 555% / 54%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, binabawasan nang 8.3–20% ang Energy DMG na natatanggap niya.",
+        "starUpgrades": [
+          "20★: tataas nang 5% ang effect",
+          "45★: tataas nang 5% ang effect",
+          "50★: tataas nang 5% ang effect"
+        ],
+        "maxStars": "Sa 50★: 23.3–35%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "daskal": {
+    "sourceHash": "a80440a8c4257258290c07ef7e6e17ba7e0ded364746cdf3bbd3bf98b859f35e",
+    "summary": "Tank na nagpapagaling sa sarili, nagbibigay ng shield sa buong squad, at umaalalay kapag mababa na ang HP ng damage dealer.",
+    "unlock": "Lalabas siya sa ika-27 araw ng server. Kailangan ng 10 Daskal Shard para ma-unlock; nakukuha ang mga shard sa recruit pull, at ginagarantiyahan ng bawat ika-50 pull ang 10 UR shard.",
+    "overview": [
+      "Nakatuon si Daskal sa survival. Pinapagaling niya ang sarili gamit ang Deadly Pierce, binibigyan ng shield ang bawat kakampi gamit ang Bloodshed Defense—na may 6.4s cooldown, pinakamaikli sa mga tank—at nagbibigay ng emergency shield kapag bumaba sa 50% ang HP ng damage dealer mo.",
+      "Dahil dito, pinakamabisa siya sa PvP at mahahabang laban kung saan maaaring mapabagsak ang squad ng opening burst. Hindi ganoon kalaki ang ambag niya sa raw stats sa PvE, kaya mas angkop siya sa digmaan kaysa sa farming."
+    ],
+    "investment": "Para sa light spender, magandang itaas siya sa 8★: dito nabubuksan ang Tenacity at ito ang pinakamalaki niyang power spike. Puwede siyang itaas ng mga whale sa 10★ para sa mas malalakas na shield at healing, pero hindi ito kailangan maliban kung malaki ang puhunan mo sa PvP.",
+    "squadFit": "Ang mga shield niya ang nagbibigay ng oras sa full-roster BF2 squad; katabi niya si Shadow sa frontline, kasama sina Harper, Marlena, at Cynthia sa likod. Kapag kasama si Arthur, bumubuo sila ng matibay na Warrior frontline: binabawasan ni Arthur ang Physical damage na natatanggap ng kakampi, at pinoprotektahan ng shield ni Daskal laban sa anumang damage type.",
+    "skills": {
+      "0": {
+        "effect": "Sinusugatan ang target at nagdudulot sa iisang kalaban ng Physical DMG na 87.15–249% ng ATK.",
+        "starUpgrades": [
+          "5★: +40% extra damage",
+          "25★: tataas sa 100% ang extra damage",
+          "50★: tataas sa 200% ang extra damage; exclusive weapon star 20: tataas sa 300%"
+        ],
+        "maxStars": "Sa 50★: 261.45–747%"
+      },
+      "1": {
+        "effect": "Nag-iipon ng enerhiya at nagbibigay sa bawat kakampi ng shield na katumbas ng 126–360% ng max DEF nito. Sumasalo ang shield ng 50% ng papasok na damage sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: +30% shield effect",
+          "30★: +30% shield effect",
+          "50★: +30% shield effect; exclusive weapon star 50: dagdag na +30%"
+        ],
+        "maxStars": "Sa 50★: 239.4–684%"
+      },
+      "2": {
+        "effect": "Tinutusok ang target gamit ang two-handed sword, nagdudulot ng Physical DMG na 323.4–924% ng ATK, at nagbabalik ng HP na katumbas ng 42–120% ng ATK.",
+        "starUpgrades": [
+          "15★: +60% HP restoration",
+          "35★: tataas sa 150% ang dagdag na HP recovery",
+          "45★: tataas sa 300% ang dagdag na HP recovery; exclusive weapon star 40: tataas sa 400%"
+        ],
+        "maxStars": "Sa 45★: 323.4% / 168% hanggang 924% / 480%"
+      },
+      "3": {
+        "effect": "Kapag bumaba sa 50% ang HP ng DPS hero mo, nagkakaroon siya ng shield na katumbas ng 5.25–15% ng max HP. Sumasalo ito ng 50% damage sa loob ng 5s.",
+        "starUpgrades": [
+          "20★: tagal ng shield +2s",
+          "45★: +20% shield effect",
+          "50★: +30% shield effect; exclusive weapon star 30: makakakuha rin ng shield ang Support Hero kapag mas mababa sa 50% ang HP"
+        ],
+        "maxStars": "Sa 50★: 7.88–22.5%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "red-lady": {
+        "sourceHash": "0002d8f0b8a80b3ac8bd521c6dc5e3c8d31a575017caedb16c642dcc24940826",
+        "summary": "Carry na malakas sa burst na tumatarget sa pinakamalalakas umatake sa kalaban, nagpapalaki sa damage na tinatanggap nila, at nagpapa-stun sa kanila.",
+        "unlock": "Lalabas sa listahan ng hero kapag 34 na araw na ang server; kailangan ng 10 Red Lady Shard para ma-unlock siya.",
+        "overview": [
+          "Isa si Red Lady sa pinaka-maaasahang damage dealer sa laro, kapwa sa PvE at PvP. Dinisenyo ang kit niya para hanapin ang mahahalagang target: tuwirang tinatamaan ng Crimson Rose ang dalawang kalabang may pinakamataas na ATK, na may 35% tsansang ma-stun sila nang 5 segundo—at kayang magpasya sa laban ang carry na naka-stun.",
+          "Malakas na skill na ang Bloodthirsty Slaughter, at pinapataas pa nito ang damage na matatanggap ng target mula sa lahat ng kakampi. Kaya nakapaghahanda siya ng mga kill at siya rin ang tumatapos sa mga ito."
+        ],
+        "investment": "Maaaring huminto sa 8★ ang light spender at mag-ipon ng UR Omni Shard. Dapat umabot sa 9★ ang mid spender para sa mas mahusay na paglakas, at sa 10★ ang mga whale para sa buong damage at pinakamabisang stun.",
+        "squadFit": "Ranger carry siya at bagay katabi nina Cynthia, Shadow, Louis, at Bell. Tinatarget ng Inspiration ni Bell ang dalawang kakamping may pinakamataas na ATK, at kadalasan ay kasama siya roon. Mag-ingat sa kalabang si Billy, dahil nagbibigay ng stun resistance ang ultimate nito.",
+        "skills": {
+          "0": {
+            "effect": "Naghahagis ng scalpel at nagdudulot sa iisang kalaban ng Energy DMG na 87.15% hanggang 249% ng ATK.",
+            "starUpgrades": [
+              "5★: +40% damage",
+              "25★: tataas sa 100% ang dagdag na damage",
+              "50★: tataas sa 200% ang dagdag na damage"
+            ],
+            "maxStars": "Sa 50★: 261.45% hanggang 747%"
+          },
+          "1": {
+            "effect": "Ipinapatawag ang Crimson Rose at nagdudulot sa 2 kalabang may pinakamataas na ATK ng Energy DMG na 628.95% hanggang 1,797% ng ATK; may 35% tsansang ma-stun ang mga target nang 5s.",
+            "starUpgrades": [
+              "10★: +40% damage",
+              "30★: +1 Attack Target",
+              "50★: tataas sa 140% ang dagdag na damage"
+            ],
+            "maxStars": "Sa 50★: 1,592.64% hanggang 4,550.4%"
+          },
+          "2": {
+            "effect": "Nagla-lock sa isang target, nagdudulot dito ng 342.3% hanggang 978% ATK bilang Energy DMG, at pinapataas nang 8.2% hanggang 16% ang damage na matatanggap nito sa loob ng 3s.",
+            "starUpgrades": [
+              "15★: +40% damage",
+              "35★: tataas sa 100% ang dagdag na damage",
+              "45★: tataas sa 200% ang dagdag na damage"
+            ],
+            "maxStars": "Sa 45★: 1,026.9% / 8.2% hanggang 2,934% / 16%"
+          },
+          "3": {
+            "effect": "Habang nasa laban, pinapataas ang ATK nang 8.2% hanggang 16%.",
+            "starUpgrades": [
+              "20★: tataas nang 1.6% ang effect",
+              "45★: tataas nang 2.4% ang effect",
+              "50★: tataas nang 4% ang effect"
+            ],
+            "maxStars": "Sa 50★: 16.2% hanggang 24%"
+          },
+          "4": {
+            "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+          }
+        }
+      },
+  "annie": {
+    "sourceHash": "57735f2e10e53ff51a22cc79b50e0d80f9565143192a50ce88ccffd5760b8c11",
+    "summary": "Espesyalista sa AoE Burn na mabilis lumilinis ng alon ng kalaban at patuloy na kumikiskis ng damage kahit tapos na siyang umatake.",
+    "unlock": "Ma-unlock kapag 13 na araw na ang server—kasabay ni Joker—gamit ang 10 Annie Shard. Walang premium pack na kailangan para makuha siya, kaya maaabot siya ng free account sa pag-iipon ng shard.",
+    "overview": [
+      "Mas nakasalalay si Annie sa tuloy-tuloy na damage kaysa sa burst. Malawak ang tama ng dalawang malalakas niyang skill at nag-iiwan ang mga ito ng Burn, kaya patuloy na napipinsala ang mga kalaban kahit natamaan na sila. Mas mabilis din ang cooldown ng Surprise Gift kaysa sa karamihan ng active skill: 4.5 segundo.",
+      "Dahil dito, maaasahan siyang damage dealer sa PvE at mahusay maglinis ng mga alon ng kalaban. Gumagana rin siya sa PvP, pero mas mababa roon ang damage niya kaysa sa pinakamalalakas na burst carry."
+    ],
+    "investment": "Sapat na ang 7–8★ kung karamihan ng puhunan mo ay para sa PvP. Kung PvE ang pokus mo, mas sulit siya sa 9–10★.",
+    "squadFit": "Pinapalakas ng Burn niya ang tama ni Nicole—umaabot sa 40% ang bonus damage ng Inferno Array sa mga target na may Burn (45% kapag kumpleto ang mga star)—kaya natural silang magkapareha. Tinatapos ng pag-target ni Joker sa kalabang may pinakamababang HP ang mga pinahina ng Burn niya sa Warlock squad.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang magic wand para mag-anyong kendi at magdulot sa iisang kalaban ng Energy DMG na 87.15% hanggang 249% ng ATK.",
+        "starUpgrades": [
+          "5★: +40% damage",
+          "25★: tataas sa 100% ang dagdag na damage",
+          "50★: tataas sa 200% ang dagdag na damage. Awakening level 1: iwinawasiwas ang wand para mag-anyong kendi at magdulot sa iisang kalaban ng 747% ATK Energy DMG; may 50% tsansang lagyan ito ng Burn nang 2s, na nagdudulot ng 200% ATK Energy DMG bawat segundo. Kapag matagumpay na naglapat ng Burn ang team, naglalapat din ng 1 Scorch stack. Awakening level 40: iwinawasiwas ang wand para mag-anyong kendi at magdulot sa iisang kalaban ng 747% ATK Energy DMG; may 50% tsansang lagyan ng Burn ang target at 1 kalabang DPS sa loob ng 2s, na nagdudulot ng 200% ATK Energy DMG bawat segundo. Kapag matagumpay na naglapat ng Burn ang team, naglalapat din ng 1 Scorch stack"
+        ],
+        "maxStars": "Sa 50★: 261.45% hanggang 747%"
+      },
+      "1": {
+        "effect": "Nagpapatawag ng 2 garapon ng sumasabog na kendi, tinatarget ang 2 kalabang may pinakamataas na ATK, at nagdudulot ng 414.54% hanggang 1,184.4% ATK DMG at Burn na nagdudulot ng 100% ATK damage bawat segundo sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: +1 Attack Target",
+          "30★: kung may Burn ang target, minsanang magdudulot ng dagdag na 900% Attack Damage",
+          "50★: +200% damage. Awakening level 20: nagpapatawag ng 2 garapon ng sumasabog na kendi, tinatarget ang 2 kalabang may pinakamataas na ATK, at nagdudulot ng 3,553.2% ATK DMG at Burn na nagdudulot ng 100% ATK damage bawat segundo sa loob ng 5s. Nagdudulot din sa lahat ng kalabang may Scorch ng 1 beses na Energy DMG na katumbas ng 250% ATK ni Annie × bilang ng Scorch stack ng target"
+        ],
+        "maxStars": "Sa 50★: 1,243.62% hanggang 3,553.2%"
+      },
+      "2": {
+        "effect": "Naghahagis ng kahon ng regalo at nagdudulot sa mga kalaban sa saklaw ng 187.95% hanggang 537% ATK Energy DMG, saka nilalagyan sila ng Burn na nagdudulot ng 100% ATK Energy DMG bawat segundo sa loob ng 2s.",
+        "starUpgrades": [
+          "15★: +2s tagal ng Burn",
+          "35★: +100% damage",
+          "45★: tataas sa 200% ang dagdag na damage. Awakening level 10: naghahagis ng kahon ng regalo at nagdudulot sa mga kalaban sa saklaw ng 1,611% ATK Energy DMG, saka nilalagyan sila ng Burn na nagdudulot ng 100% ATK Energy DMG bawat segundo sa loob ng 2s. Tataas pa nang 15% ang damage, at madadagdagan ng 4% sa bawat Scorch stack ng target"
+        ],
+        "maxStars": "Sa 45★: 563.85% hanggang 1,611%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas ang Energy DMG na idinudulot nang 8.2% hanggang 16%.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "joker": {
+    "sourceHash": "a7b8ce8fc6a8f9c40e97bee07580a8b9bcb4bf28a6a49dad5db42f459f259ab2",
+    "summary": "Tagahagis ng baraha at tagatapos na tuwirang sumusugod sa mga kalabang pinakamababa ang HP at tumitiyak na mamatay sila.",
+    "unlock": "Available kapag 13 na araw na ang server, kasabay ni Annie, at kailangan ng 10 Joker Shard para ma-unlock siya. Walang premium pack na kailangan. Tinatawag pa rin siya ng ilang source na Jester.",
+    "overview": [
+      "Tagatapos si Joker. Tinatarget kapwa ng auto attack at ultimate niya ang mga kalabang pinakamababa ang natitirang HP, at tinatamaan ng Joker Ace ang dalawang pinakamababa ang HP ng hanggang 2,019% ATK bawat isa (5,047.5% kapag kumpleto ang mga star)—sapat para burahin ang hero na napahina na.",
+      "Pinakamalakas siya sa maaga hanggang gitnang bahagi ng laro, kung kailan kayang tapusin agad ng burst niya ang laban. Mahusay din siya sa PvP, pero nakadepende sa star ang lakas niya. Siya rin ang nag-iisang UR carry na Physical damage ang idinudulot, mahalaga kapag nag-iipon ng Energy resistance ang kalaban (Shadow, Billy, Louis)."
+    ],
+    "investment": "Nakadepende sa star ang lakas niya kaya mahina ang kulang sa star na Joker. Unang target ang 8★ para mabuksan ang Tenacity bago magpasya kung itutuloy pa ang pag-invest.",
+    "squadFit": "Tinatapos niya ang mga pinahina ng iba pang squad—kapwa auto attack at ultimate niya ang tumatarget sa pinakamababang HP—at natural siyang kapareha nina Annie at Nicole sa Warlock squad. Magandang sagot ang Physical damage niya laban sa lineup na lumalaban sa Energy damage.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng baraha at nagdudulot sa target na may pinakamababang HP ng Physical DMG na 87.15% hanggang 249% ng ATK.",
+        "starUpgrades": [
+          "5★: +40% damage",
+          "25★: tataas sa 100% ang dagdag na damage",
+          "50★: tataas sa 200% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 261.45% hanggang 747%"
+      },
+      "1": {
+        "effect": "Naghahagis ng 2 Joker card at nagdudulot sa 2 kalabang may pinakamababang HP ng 706.65% hanggang 2,019% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +40% damage",
+          "30★: tataas sa 150% ang dagdag na damage",
+          "50★: +1 Attack Target"
+        ],
+        "maxStars": "Sa 50★: 1,766.63% hanggang 5,047.5%"
+      },
+      "2": {
+        "effect": "Naghahagis ng heart card at nagdudulot sa 2 random na target ng 283.5% hanggang 810% ng ATK bilang Physical DMG.",
+        "starUpgrades": [
+          "15★: +40% damage",
+          "35★: tataas sa 100% ang dagdag na damage",
+          "45★: nilalagyan ng Burn ang target at nagdudulot ng 400% Attack Damage bawat segundo sa loob ng 3s"
+        ],
+        "maxStars": "Sa 45★: 567% hanggang 1,620%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas ang Crit Rate nang 8.2% hanggang 16%.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "harper": {
+    "sourceHash": "cb6cb547faf611d4eba6e6a836eda19c57f94ce98744b62ae3febfb7a6d68af9",
+    "summary": "Pinakamahusay na offensive support sa laro—paulit-ulit na ATK buff para sa buong squad at mas malaki pa para sa mga Warrior.",
+    "unlock": "Lalabas kapag 20 araw na ang server; kailangan ng 10 Harper Shard para ma-unlock siya. Hindi siya nakatali sa premium pack.",
+    "overview": [
+      "Hindi gaanong nagdudulot ng damage si Harper—pinapalakas niya ang lahat ng iba pa. Pinapataas ng War Flute Sound ang ATK ng bawat kakampi nang hanggang 30% sa loob ng 5 segundo, kada 14 segundo (34.5% kapag kumpleto ang mga star), at permanenteng nagdaragdag ang Warrior's Anthem ng hanggang 12% ATK sa bawat Warrior sa team (18% kapag kumpleto ang mga star). Nagpapatong ang dalawang buff na ito.",
+      "Ang Vitality Bubble naman ang dagdag na tulong para mas tumagal nang kaunti ang pinakamahinang hero mo. Sa kabuuan, siya ang pinakamahusay na offensive support sa laro."
+    ],
+    "investment": "Pangalawa siya sa prayoridad sa UR Omni Shard, kasunod ni Marlena. Dalhin siya sa 8★ para mabuksan ang Tenacity, na nagpapabilis din sa pagitan ng ATK buff niya.",
+    "squadFit": "Pinakamabisa siya kung marami kang mailalagay na Warrior—nakikinabang sa passive niya sina Arthur, Daskal, Marlena, at Zoya. Siya ang support sa full-roster squad ng BF2. Bago siya ma-unlock sa ika-20 araw ng server, maaaring pumalit sa support slot sina Celia o Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Tumutugtog ng flute para gumawa ng bula at magdulot sa iisang kalaban ng 87.15% hanggang 249% ATK bilang Energy DMG.",
+        "starUpgrades": [
+          "5★: +40% damage",
+          "25★: tataas sa 100% ang dagdag na damage",
+          "50★: tataas sa 200% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 261.45% hanggang 747%"
+      },
+      "1": {
+        "effect": "Tumutugtog si Harper ng war flute para magbigay-inspirasyon sa mga kakampi, at pinapataas ang ATK ng lahat ng kakamping hero nang 15.38% hanggang 30% sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: pagkatapos gamitin, pinapataas nang 4.5% ang Energy DMG na idinudulot ng lahat ng kakampi sa loob ng 7s",
+          "30★: tataas nang 4.5% ang ATK bonus",
+          "50★: +5s tagal ng ATK bonus"
+        ],
+        "maxStars": "Sa 50★: 19.88% hanggang 34.5%"
+      },
+      "2": {
+        "effect": "Gumagawa si Harper ng bula na nagpapababa nang 8.2% hanggang 16% sa damage na matatanggap ng kakamping may pinakamababang HP sa loob ng 4s.",
+        "starUpgrades": [
+          "15★: tataas nang 1.6% ang effect",
+          "35★: tataas nang 2.4% ang effect",
+          "45★: +1 Target"
+        ],
+        "maxStars": "Sa 45★: 12.2% hanggang 20%"
+      },
+      "3": {
+        "effect": "Habang lumalaban, pinapataas nang 6.15% hanggang 12% ang ATK ng lahat ng kakamping Warrior Hero.",
+        "starUpgrades": [
+          "20★: tataas nang 1.2% ang effect",
+          "45★: tataas nang 1.8% ang effect",
+          "50★: tataas nang 3% ang effect"
+        ],
+        "maxStars": "Sa 50★: 12.15% hanggang 18%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "bell": {
+    "sourceHash": "fc333b92200ae59abcef48c426863173c44bf0c032d77cf75a3e718389c8d101",
+    "summary": "Katumbas ng Harper para sa Ranger—direktang pinapalakas ang dalawang pinakamalakas umatake at pinagagaling ang pinakamahinang kakampi.",
+    "unlock": "Lalabas sa listahan ng hero kapag 69 na araw na ang server; kailangan ng 10 Bell Shard para ma-unlock siya.",
+    "overview": [
+      "Ginagawa ni Bell para sa mga Ranger ang ginagawa ni Harper para sa mga Warrior. Binibigyan ng Battle Anthem ang bawat Ranger sa team ng hanggang +12% ATK (18% kapag kumpleto ang mga star), at binibigyan ng Inspiration ang dalawang hero na may pinakamataas na ATK ng hanggang +50% ATK sa loob ng 5 segundo (55% kapag kumpleto ang mga star)—mas makitid ang saklaw na buff kaysa kay Harper, pero mas malakas para sa mahahalagang hero.",
+      "May kakayahan si Bell na wala kay Harper: nagpapagaling ang Healing Sound ng kakamping may pinakamababang HP kada 5 segundo."
+    ],
+    "investment": "Wala pang partikular na target na star sa aming tala. Ligtas na unang milestone ang 8★ para mabuksan ang Tenacity, at pinapabilis din nito ang pag-ikot ng mga buff niya.",
+    "squadFit": "Pinakamabisa siya sa all-Ranger squad kasama sina Shadow, Cynthia, Red Lady, at Louis, kung saan napapalakas ng passive niya ang lahat at natatamaan nina Inspiration sina Cynthia at Red Lady.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang kampana para magpakawala ng mga nota at magdulot sa iisang target ng 87.15% hanggang 249% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +40% damage",
+          "25★: tataas sa 100% ang dagdag na damage",
+          "50★: tataas sa 200% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 261.45% hanggang 747%"
+      },
+      "1": {
+        "effect": "Nagbibigay-inspirasyon sa 2 kakamping may pinakamataas na ATK at pinapataas ang ATK nila nang 25.63% hanggang 50% sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: tataas nang 5% ang effect",
+          "30★: +2s tagal ng effect",
+          "50★: +1 Target"
+        ],
+        "maxStars": "Sa 50★: 30.63% hanggang 55%"
+      },
+      "2": {
+        "effect": "Pinapagaling ang kakamping may pinakamababang HP nang katumbas ng 63% hanggang 180% ATK.",
+        "starUpgrades": [
+          "15★: +40% HP restoration",
+          "35★: tataas sa 100% ang dagdag na HP recovery",
+          "45★: tataas sa 200% ang dagdag na HP recovery"
+        ],
+        "maxStars": "Sa 45★: 189% hanggang 540%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas nang 6.15% hanggang 12% ang ATK ng lahat ng kakamping Ranger Hero.",
+        "starUpgrades": [
+          "20★: tataas nang 1.2% ang effect",
+          "45★: tataas nang 1.8% ang effect",
+          "50★: tataas nang 3% ang effect"
+        ],
+        "maxStars": "Sa 50★: 12.15% hanggang 18%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "nicole": {
+    "sourceHash": "a7228a782f042fa3d6670d0394c7e4226b2fa28b688a18b93ead46d60f666b58",
+    "summary": "Dedikadong healer na may lakas umatake—mas malakas ang tama ng ultimate niya sa mga kalaban na may Burn.",
+    "unlock": "Siya ang huling UR hero na darating: lalabas siya kapag 97 na araw na ang server, at kailangan ng 10 Nicole Shard para ma-unlock.",
+    "overview": [
+      "Si Nicole ang pinakatuon sa pagpapagaling sa buong laro. May napapagaling ang bawat auto attack, at pinagagaling ng Heartwarming Flame ang dalawang hero na may pinakamababang HP kada 5 segundo. Pero hindi lang siya healer—tinatamaan ng Inferno Array ang bawat kalaban at nagdudulot ng hanggang 40% dagdag na damage sa mga may Burn na (45% kapag kumpleto ang mga star).",
+      "Dahilan ang passive niya kung bakit bagay siya sa Warlock squad. Nagbibigay ang Flame Soul Power ng hanggang +8% ATK sa bawat kakamping Warlock (10% kapag kumpleto ang mga star), kaya pinakamabisa siya kapag karamihan ng lineup ay kapareho niya ng faction."
+    ],
+    "investment": "Wala pang partikular na target na star sa aming tala. Unang milestone ang 8★ para mabuksan ang Tenacity; ituloy pa ang pag-level kung permanenteng bahagi siya ng Warlock squad mo.",
+    "squadFit": "Bagay na kapareha niya sina Annie, na nag-iiwan ng Burn para sa bonus damage ng ultimate niya, at si Joker. Ilagay sa frontline sina Billy o Ulfrid para makinabang sa Warlock ATK bonus niya ang bawat slot.",
+    "skills": {
+      "0": {
+        "effect": "Nagpapakawala ng apoy at nagdudulot sa iisang target ng 87.15% hanggang 249% ATK Physical DMG, saka pinagagaling ang kakamping may pinakamababang HP nang 10k + 50% ng ATK.",
+        "starUpgrades": [
+          "5★: +40% damage at nagbabalik ng 5k HP",
+          "25★: tataas sa 100% ang dagdag na damage at sa 15k ang dagdag na HP recovery",
+          "50★: tataas sa 200% ang dagdag na damage at sa 30k ang dagdag na HP recovery"
+        ],
+        "maxStars": "Sa 50★: 261.45% hanggang 747%"
+      },
+      "1": {
+        "effect": "Nagpapatawag ng haliging-apoy at nagdudulot sa lahat ng kalaban ng 367.5% hanggang 1,050% ATK Physical DMG. Kung may Burn ang mga target, tataas nang 20.5% hanggang 40% ang damage.",
+        "starUpgrades": [
+          "10★: +100% damage",
+          "30★: tataas sa 200% ang dagdag na damage",
+          "50★: tataas nang 5% ang damage mula sa Burn status"
+        ],
+        "maxStars": "Sa 50★: 1,102.5% / 25.5% hanggang 3,150% / 45%"
+      },
+      "2": {
+        "effect": "Naghahagis ng 2 bolang-apoy at pinagagaling ang 2 kakamping may pinakamababang HP nang 80k + 27.3% hanggang 78% ATK.",
+        "starUpgrades": [
+          "15★: nagbabalik ng karagdagang 80k HP; tataas pa nang 70% ang ATK bonus sa healing",
+          "35★: nagbabalik ng karagdagang 150k HP; tataas pa nang 140% ang ATK bonus sa healing",
+          "45★: nagbabalik ng karagdagang 250k HP; tataas pa nang 210% ang ATK bonus sa healing"
+        ],
+        "maxStars": "Sa 45★: 84.63% hanggang 241.8%"
+      },
+      "3": {
+        "effect": "Sa laban, +4.1% hanggang 8% ATK ang lahat ng kakamping Warlock Hero.",
+        "starUpgrades": [
+          "20★: +3.5% Attack Speed ang lahat ng kakamping Warlock Hero",
+          "45★: tataas nang 2% ang ATK bonus",
+          "50★: +6.5% Attack Speed ang lahat ng Warlock Hero"
+        ],
+        "maxStars": "Sa 50★: 6.1% hanggang 10%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +20%; bilis ng skill cooldown +10%."
+      }
+    }
+  },
+  "bella": {
+    "sourceHash": "6a2f993cbbde50ef9f12c7d301a1e26c2bd269ee6932ea713037b29ca496004c",
+    "summary": "Libreng tank na may palakol at hindi tinatablan ng monster damage—maaasahang pansamantalang kapalit habang hindi pa napapalakas ang UR tank mo.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Bella Shard para ma-unlock siya. Nakukuha ang shard sa Tavern recruitment at event reward, at puwedeng ipalit ang Bella fragment sa Alliance Shop.",
+    "overview": [
+      "Para sa PvE ginawa si Bella. Pinabababa nang malaki ng passive at Crimson Prayer niya ang damage mula sa monster, kaya napapanatili niya ang frontline habang nagfa-farm sa maaga hanggang gitnang bahagi ng laro nang mas matagal kaysa sa aasahan sa rarity niya.",
+      "Kapag kumpleto ang build niya, umaabot siya sa 773,500 power, isa sa pinakamataas sa mga SSR, pero mas mababa pa rin ang sariling stat niya kaysa sa UR tank (mga 1.97M HP kapag kumpleto ang mga star, kumpara sa 3.0M ni Arthur). Pangunahing para sa monster ang kit niya—binabawasan din ng Bloody Requiem nang 6% ang ATK ng kalaban—kaya mas kaunti ang naiaambag niya sa PvP."
+    ],
+    "investment": "Kapaki-pakinabang siyang panimulang tank kung wala ka pang ibang tank na maraming star, pero palitan siya kapag mayroon na. Hindi inirerekomendang bilhin ang shard niya sa Alliance Shop—may mas magandang paggagamitan ng mga coin na iyon.",
+    "squadFit": "Gamitin siya bilang pangalawang tank katabi ni Arthur habang hinihintay ang UR tank. Palitan siya agad kapag handa na si Daskal, Shadow, o ibang UR tank.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas nang isang kamay ang dambuhalang palakol at nagdudulot sa iisang target ng 81.9% hanggang 234% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 180.18% hanggang 514.8%"
+      },
+      "1": {
+        "effect": "Hinahawakan ang dalawang palakol at nagdudulot sa mga target sa saklaw ng 459.27% hanggang 1,312.2% ATK DMG, saka binabawasan nang 6% ang ATK nila sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 1,010.39% hanggang 2,886.84%"
+      },
+      "2": {
+        "effect": "Pinagkrus ang mga kamay na parang nagdarasal at binabawasan nang 15.38% hanggang 30% ang damage na matatanggap mula sa mga monster sa loob ng 3s.",
+        "starUpgrades": [
+          "15★: tataas nang 3% ang effect",
+          "35★: tataas nang 4.5% ang effect",
+          "45★: tataas nang 7.5% ang effect"
+        ],
+        "maxStars": "Sa 45★: 30.38% hanggang 45%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, binabawasan nang 8.2% hanggang 16% ang damage na matatanggap mula sa mga monster.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "kafa": {
+    "sourceHash": "12abc9a377f48ae6bce925aa8d5556df117091c41afd154ea9de477709f78fcf",
+    "summary": "Pang-bench na hero na naghahagis ng kape—kaibig-ibig, pero masyadong mahina para isama sa laban.",
+    "unlock": "Libreng panimulang hero: 10 Kafa Shard ang magbubukas sa kanya sa anumang server, anuman ang edad nito. Nakukuha ang shard sa Tavern recruit at napupunan ng SR Omni Shard ang kulang.",
+    "overview": [
+      "Si Kafa lang ang SR Warlock damage dealer at isa sa apat na libreng panimulang hero. C ang rating sa kanya ng bawat tier list, at pinakamababa sa 31 hero ang full-build power niya (523,217).",
+      "Nagbibigay ang Double Expresso ng hanggang 900% ATK sa iisang kalaban kada 5 segundo kapag kumpleto ang mga star, at tumatama sa grupo ang mga palayok ng kape ng Love Infusion nang hanggang 1,220.4%. Physical ang damage niya.",
+      "Isa lang ang silbi niya: punan ang Warlock slot bago ka magkaroon ng ibang Warlock. Libre at mas malakas si Grenwald mula simula, at dumarating sina Annie at Joker kapag 13 na araw na ang server."
+    ],
+    "investment": "Hindi sulit siyang i-level nang higit sa kailangan ng mga unang chapter. Kung magle-level ka ng skill, Double Expresso muna.",
+    "squadFit": "Pinupunan niya ang nag-iisang Warlock slot sa simula, nasa likod ng tank gaya nina Arthur o Bella at may Celia bilang support. Palitan siya ni Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng butil ng kape at nagdudulot sa iisang kalaban ng 69.3% hanggang 165% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +15% damage",
+          "25★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 124.74% hanggang 297%"
+      },
+      "1": {
+        "effect": "Nagpapatawag ng 2 palayok ng kape at ibinubuhos ang mainit na kape sa ulo ng target, na nagdudulot sa mga kalaban sa saklaw ng 284.76% hanggang 678% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +15% damage",
+          "30★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 512.57% hanggang 1,220.4%"
+      },
+      "2": {
+        "effect": "Naghahagis ng 1 tasa ng kape at nagdudulot sa iisang kalaban ng 210% hanggang 500% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +15% damage",
+          "35★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 378% hanggang 900%"
+      },
+      "3": {
+        "effect": "ATK, HP, at DEF +5%."
+      }
+    }
+  },
+  "robin": {
+    "sourceHash": "8f7554785f625ba34094ccbc9d8fa3369b0797a3da8d657fc7e6d41c9e72f13a",
+    "summary": "Mamamanang pang-bench tier na hindi kayang makipagsabayan ng mabilis na pana niya sa mga totoong Ranger carry.",
+    "unlock": "Libreng panimulang hero: 10 Robin Shard ang magbubukas sa kanya mula unang araw sa anumang server. Nakukuha ang shard sa Tavern recruit at maaaring ipalit dito ang SR Omni Shard.",
+    "overview": [
+      "SR Ranger damage dealer si Robin at isa sa apat na libreng panimulang hero. C ang rating sa kanya ng bawat tier list, pang-30 sa 31 hero ang full-build power niya (523,779), at hanggang 30 lang ang skill cap niya.",
+      "Pinakamahusay niyang skill ang Arrow of Retribution—hanggang 936% ATK sa iisang kalaban kada 5 segundo kapag kumpleto ang mga star—at sapat para makayanan ang mga unang boss ang pitong palaso ng Rapid Fire.",
+      "Tamang piliin lang siya sa unang araw, bago ka magkaroon ng SSR Ranger. Parehong libre sa simula sina Ash at Bestar at mas mahusay sila sa lahat ng paraan; dumarating naman si Cynthia kapag 6 na araw na ang server."
+    ],
+    "investment": "I-level lang siya hanggang kailangan ng kasalukuyang yugto at ilipat ang shard at badge sa SSR o UR Ranger sa oras na dumating ito.",
+    "squadFit": "Pinupunan niya ang Ranger damage slot sa bagong account. Palitan siya ni Ash o Bestar.",
+    "skills": {
+      "0": {
+        "effect": "Nagpapakawala ng palasong kahoy at nagdudulot sa iisang kalaban ng 65.1% hanggang 155% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +15% damage",
+          "25★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 117.18% hanggang 279%"
+      },
+      "1": {
+        "effect": "Mabilis na pinapana ang iisang kalaban nang 7 beses; bawat tama ay nagdudulot ng 60.9% hanggang 145% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +15% damage",
+          "30★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 109.62% hanggang 261%"
+      },
+      "2": {
+        "effect": "Nagpapakawala ng espesyal na palaso para magdulot ng malakas na tama sa iisang kalaban, na may 218.4% hanggang 520% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +15% damage",
+          "35★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 393.12% hanggang 936%"
+      },
+      "3": {
+        "effect": "ATK, HP, at DEF +5%."
+      }
+    }
+  },
+  "william": {
+    "sourceHash": "e2f675cfa60d9990b9ce80125edd1665d099095914e465294d848550697345a9",
+    "summary": "Swordsman na pang-bench tier. Ayos siyang makuha sa simula, pero hindi sulit palakasin.",
+    "unlock": "Libreng panimulang hero: 10 William Shard ang magbubukas sa kanya sa anumang server, anuman ang edad nito. Nakukuha ang shard sa Tavern recruitment.",
+    "overview": [
+      "SR Warrior damage dealer si William at isa sa apat na libreng panimulang hero. C ang rating sa kanya ng bawat tier list: 29 sa 31 hero ang full-build power niya (524,421), at hanggang 30 lang ang skill cap niya.",
+      "Nagpapakawala ang Twin Wind ng dalawang sword-wind hit kada 5 segundo, at tinatamaan ng Whirlwind Blade ang grupo kada 10 segundo, kaya kapaki-pakinabang lang siya sa paglilinis ng mga unang alon ng monster.",
+      "Ituring siyang pansamantalang kapalit hanggang magkaroon ka ng SSR o UR Warrior damage dealer—sina Claire (libre mula simula), Kesso, Sivir, Marlena, o Zoya. Warrior silang lahat kaya mananatili ang faction bonus mo kapag pinalitan siya."
+    ],
+    "investment": "Huwag siyang palakasin nang higit sa kailangan ng mga unang yugto. Kung magle-level ka ng skill niya, Twin Wind muna, saka Whirlwind Blade.",
+    "squadFit": "Pinupunan niya ang Warrior damage slot sa all-Warrior squad mula unang araw kasama sina Durant, Celia, Sivir, at Kesso. I-bench siya kapag napalakas na si Claire o Marlena.",
+    "skills": {
+      "0": {
+        "effect": "Nagpapakawala ng sword wind at nagdudulot sa iisang target ng 73.5% hanggang 175% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +15% damage",
+          "25★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 132.3% hanggang 315%"
+      },
+      "1": {
+        "effect": "Iwinawasiwas pasulong ang sword wind at nagdudulot sa mga kalaban sa saklaw ng 259.35% hanggang 617.5% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +15% damage",
+          "30★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 466.83% hanggang 1,111.5%"
+      },
+      "2": {
+        "effect": "Mabilis na nagpapakawala ng 2 sword wind at tinatamaan nang dalawang beses ang target; bawat isa ay nagdudulot ng 165.9% hanggang 395% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +15% damage",
+          "35★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 298.62% hanggang 711%"
+      },
+      "3": {
+        "effect": "ATK, HP, at DEF +5%."
+      }
+    }
+  },
+  "claire": {
+    "sourceHash": "012b837a15f0bdc797ec267d2bdc813e0a1267604337861445631e1ed2095ce8",
+    "summary": "Isa sa pinakamahuhusay na SSR carry—malakas ang burst at tuloy-tuloy na damage, at nagpapalakas ng monster damage ng mga kapwa niya Warrior.",
+    "unlock": "Walang hinihinging server-day o premium pack; kailangan ng 10 Claire Shard para ma-unlock siya. Sa kalaunan, ginagamit ang Advanced Mark ni Claire sa itinalagang event screen para i-promote siya sa UR form.",
+    "overview": [
+      "Si Claire ang SSR carry na dapat palakasin ng karamihan ng player. Limang tama ang Rain of Arrows kada limang segundo, nagdaragdag ng malakas na area hit ang Celestial Judgment, at pinapataas ng passive niya nang hanggang 16% ang damage sa mga monster ng tatlong Warrior na may pinakamataas na ATK (24% kapag kumpleto ang mga star).",
+      "Maaasahan ang performance niya sa PvE at PvP, at sa tamang puhunan ay nalalamangan niya nang malaki si Celia. Siya rin ang nag-iisang hero na may ikalawang anyo: ipinopromote siya ng Advanced Mark ni Claire tungo sa Claire UR. Isang direksiyon lang ang pagbabago, hindi pare-pareho ang sinasabi ng mga source tungkol sa dami ng progress na madadala, at iniuugnay ito ng isang guide sa ikalawang linggo ng Era of Revival event."
+    ],
+    "investment": "Sulit siyang paglaanan ng SSR Omni Shard, lalo't maaari siyang i-promote sa UR sa kalaunan. Hindi siya nangangailangan ng server-day o premium pack kaya madali siyang simulan.",
+    "squadFit": "Pinakamabisa siya sa team na maraming Warrior, kung saan pinapalakas ng passive niya sina Arthur, Marlena, at iba mo pang Warrior laban sa mga monster. Malakas siyang pangalawang carry katabi ni Marlena sa unang bahagi ng laro.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang watawat at nagdudulot sa iisang kalaban ng 94.5% hanggang 270% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 207.9% hanggang 594%"
+      },
+      "1": {
+        "effect": "Itinataas ang watawat ng labanan gamit ang dalawang kamay at nagpapatawag ng dambuhalang banal na espada para tumagos sa lupa, na nagdudulot sa mga kalaban sa saklaw ng 406.77% hanggang 1,162.2% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: pinapataas nang 8% ang damage sa mga monster sa loob ng 7s",
+          "30★: +35% damage sa bawat tama",
+          "50★: tataas sa 95% ang dagdag na damage sa bawat tama"
+        ],
+        "maxStars": "Sa 50★: 793.2% hanggang 2,266.29%"
+      },
+      "2": {
+        "effect": "Iwinawasiwas ang watawat at nagpapakawala ng mga palaso sa 5 mabilis na sunod-sunod na atake sa iisang target; bawat isa ay nagdudulot ng 96.6% hanggang 276% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 212.52% hanggang 607.2%"
+      },
+      "3": {
+        "effect": "Sa laban, nagdudulot ng 8.2% hanggang 16% dagdag na damage sa mga monster ang 3 Warrior sa team na may pinakamataas na ATK.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "kesso": {
+    "sourceHash": "31a1c285d9111fa44f6499f2d1501926db63170b7207b7888a0bb0c6cb91099d",
+    "summary": "Tagahagis ng sibat na nagpapatawag ng agila-pandigma at biglang lumalakas ang ATK kapag malapit na siyang matalo.",
+    "unlock": "Libreng makukuha mula simula; kailangan ng 10 Kesso Shard para ma-unlock siya. Nakukuha ang shard sa Tavern at event, at napupunan ng SSR Omni Shard ang kulang.",
+    "overview": [
+      "Mahusay si Kesso sa PvP at PvE. Nakabatay sa HP niya pati sa ATK ang lakas ng Warhawk niya, at pinananatili ng Hunting Skills na lumilipad ang dalawang sibat kada limang segundo.",
+      "Ang nakakatuwang bahagi ay ang Wild Survival: sa unang pagkakataong bumaba sa 30% ang HP niya, nakakakuha siya ng hanggang +40% ATK sa loob ng 5 segundo (56% kapag kumpleto ang mga star). Kapag tama ang tiyempo, kaya nitong gawing panalo ang palitang matatalo sana."
+    ],
+    "investment": "Nasa bandang B ang rating niya sa tier list kaya gawin siyang pang-apat o panglimang SSR na lalagyan ng star, hindi pangunahing prayoridad sa simula.",
+    "squadFit": "Warrior carry siya kaya gumagana sa kanya ang passive ni Harper at monster buff ni Claire.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng sibat at nagdudulot sa iisang kalaban ng 94.5% hanggang 270% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 207.9% hanggang 594%"
+      },
+      "1": {
+        "effect": "Sumisipol para magpatawag ng agilang-pandigma na umaatake gamit ang 105% hanggang 300% ng ATK ni Kesso at 25% HP sa loob ng 10s.",
+        "starUpgrades": [
+          "10★: tataas nang 40% ang namamanang ATK ni Rex",
+          "30★: tataas nang 60% ang namamanang ATK ni Rex",
+          "50★: tataas nang 100% ang namamanang ATK ni Rex"
+        ],
+        "maxStars": "Sa 50★: 305% hanggang 500%"
+      },
+      "2": {
+        "effect": "Mabilis na naghahagis ng 2 sibat at random na umaatake sa 2 kalaban; bawat isa ay nagdudulot ng 350.7% hanggang 1,002% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +20% damage",
+          "35★: +1 Split Shot",
+          "45★: tataas sa 50% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 526.05% hanggang 1,503%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, sa unang pagbaba ng HP mo sa 30%, pinapataas ang ATK nang 20.5% hanggang 40% sa loob ng 5s.",
+        "starUpgrades": [
+          "20★: tataas nang 4% ang effect",
+          "45★: tataas nang 2% ang effect at +1s ang tagal",
+          "50★: tataas nang 10% ang effect"
+        ],
+        "maxStars": "Sa 50★: 36.5% hanggang 56%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "sivir": {
+    "sourceHash": "fe09edd4020f211835ca3fd9f97ba745408358936027a06cce484a4228e587fb",
+    "summary": "Mandirigmang may sirang sibat at tuwirang ATK passive—simple at all-around na PvP carry.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Sivir Shard para ma-unlock siya. Nakukuha ang shard sa Tavern at event.",
+    "overview": [
+      "All-around PvP carry si Sivir. Tuwirang ATK boost ang Hunter Bloodline—hanggang 16%, o 24% kapag kumpleto ang mga star—at gumagana ito saanman, hindi lang laban sa monster. Dahil dito, mas angkop si Sivir sa mga labanang player-versus-player kaysa sa SSR carry na nakatuon sa PvE.",
+      "Maaasahang tama sa iisang target ang Shield Strike, at nagdaragdag ang Wild Pursuit ng dalawang random na tama ng sibat sa ultimate."
+    ],
+    "investment": "Katamtamang SSR na puwedeng palakasin kung gusto mo ng PvP carry bago maging handa ang mga UR mo.",
+    "squadFit": "Bagay siya sa Warrior squad kasama nina Marlena at Harper.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng sirang sibat at nagdudulot sa iisang kalaban ng 78.75% hanggang 225% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 173.25% hanggang 495%"
+      },
+      "1": {
+        "effect": "Naghahagis ng 2 sirang sibat at random na umaatake sa 2 kalaban; bawat isa ay nagdudulot ng 350.7% hanggang 1,002% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +20% damage",
+          "30★: +1 Attack Target",
+          "50★: tataas sa 50% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 526.05% hanggang 1,503%"
+      },
+      "2": {
+        "effect": "Naghahagis ng shield at nagdudulot sa iisang kalaban ng 300.3% hanggang 858% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 660.66% hanggang 1,887.6%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas ang ATK nang 8.2% hanggang 16%.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "ash": {
+    "sourceHash": "2fe5b97109d87379d323cec3b3285eadd6c660412e6fe048682b08f83cee5e26",
+    "summary": "Maaasahang mamamana para sa iisang target na mahusay sa PvE at boss fight, at nagpapalakas sa mga Ranger na pinakamataas ang ATK laban sa mga monster.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Ash Shard para ma-unlock siya. Nakukuha ang shard sa Tavern recruitment at event, walang kailangang edad ng server o premium pack.",
+    "overview": [
+      "Madaling makuha si Ash at mahusay lumakas kaya magandang puhunan siya sa maaga hanggang gitnang bahagi ng laro. Dinisenyo siya para alisin ang mahahalagang target at mahusay siya lalo na sa boss fight.",
+      "Dahil sa pagbabago sa passive niya, kapaki-pakinabang na siya sa PvE—nagbibigay ng hanggang 24% dagdag na damage sa mga monster ang dalawang Ranger sa team na may pinakamataas na ATK (33% kapag kumpleto ang mga star). Kahinaan niya ang kawalan ng AoE at utility kaya maaaring mahirapan siya sa content na maraming PvP."
+    ],
+    "investment": "Magandang puhunan sa maaga hanggang gitnang bahagi ng laro, lalo na kung PvE ang pokus ng account mo.",
+    "squadFit": "Pinakamabisa siya sa Ranger squad, kung saan tumatama ang passive niya kina Cynthia, Red Lady, o Shadow.",
+    "skills": {
+      "0": {
+        "effect": "Nagpapakawala ng palaso at nagdudulot sa iisang target ng 81.9% hanggang 234% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 180.18% hanggang 514.8%"
+      },
+      "1": {
+        "effect": "Nagpapakawala ng dambuhalang palaso at nagdudulot sa iisang target ng 445.2% hanggang 1,272% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 979.44% hanggang 2,798.4%"
+      },
+      "2": {
+        "effect": "Nagpapakawala ng 2 espesyal na palaso at random na umaatake sa 2 target; bawat isa ay nagdudulot ng 252% hanggang 720% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 554.4% hanggang 1,584%"
+      },
+      "3": {
+        "effect": "Sa laban, nagdudulot ng 12.3% hanggang 24% dagdag na damage sa mga monster ang 2 Ranger sa team na may pinakamataas na ATK.",
+        "starUpgrades": [
+          "20★: tataas nang 3% ang effect",
+          "45★: tataas nang 3% ang effect",
+          "50★: tataas nang 3% ang effect"
+        ],
+        "maxStars": "Sa 50★: 21.3% hanggang 33%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "bestar": {
+    "sourceHash": "71a090b301f8ede85f6e32b8eca324a5537ecf57c465f48f34e796e36e2f02a2",
+    "summary": "Espesyalista sa Bleed na umaatake gamit ang multong pusa at lalo pang lumalakas habang humahaba ang laban.",
+    "unlock": "Libreng makukuha mula simula; kailangan ng 10 Bestar Shard para ma-unlock siya. Nakukuha ang shard sa Tavern draw at event, at napupunan ng SSR Omni Shard ang kulang.",
+    "overview": [
+      "Unti-unting dinudurog ni Bestar ang mga kalaban. Naglalapat ng Bleed ang dalawang skill niya, at nagdaragdag ang passive ng hanggang 30% damage (45% kapag kumpleto ang mga star) laban sa anumang may Bleed—kaya kapag nagsimula na siya, mas malaki ang damage ng bawat tama niya.",
+      "Dahil dito, pinakamabisa siya sa mahahabang laban at boss scenario, at pinakamahusay siyang lumalakas kapag tuloy-tuloy siyang nakakapaglapat ng Bleed."
+    ],
+    "investment": "Sulit siyang palakasin kung madalas kang sumabak sa boss content o mahahabang PvE fight.",
+    "squadFit": "Ranger carry siya at bagay ipares kay Ash sa maagang Ranger squad.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng kampanilya ng pusa at nagdudulot sa iisang target ng 81.9% hanggang 234% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 180.18% hanggang 514.8%"
+      },
+      "1": {
+        "effect": "Nagpapatawag ng grupo ng multong pusa para magdulot sa mga kalaban sa saklaw ng 314.37% hanggang 898.2% ATK DMG at maglapat ng Bleed na nagdudulot ng 15% ATK Physical DMG bawat segundo sa loob ng 7s.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 691.61% hanggang 1,976.04%"
+      },
+      "2": {
+        "effect": "Nagpapatawag ng 1 itim na pusa at nagdudulot sa iisang target ng 138.6% hanggang 396% ATK Physical DMG, saka nilalagyan ito ng Bleed na nagdudulot ng 30% ATK Physical DMG bawat segundo sa loob ng 3s.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 304.92% hanggang 871.2%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas nang 15.38% hanggang 30% ang damage na idinudulot sa mga kalaban na may Bleed.",
+        "starUpgrades": [
+          "20★: tataas nang 3% ang effect",
+          "45★: tataas nang 4.5% ang effect",
+          "50★: tataas nang 7.5% ang effect"
+        ],
+        "maxStars": "Sa 50★: 30.38% hanggang 45%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "grenwald": {
+    "sourceHash": "bc659b173189a9cf1d64560e5be9c2819a21f67ccf19d674e58563710e62fff0",
+    "summary": "Warlock na nagpapakawala ng spell, may malakas na burst sa iisang target at dagdag na damage laban sa monster.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Grenwald Shard para ma-unlock siya. Nakukuha ang shard sa Tavern, Alliance Shop, at event. Greenwald ang baybay ng pangalan niya sa ilang source.",
+    "overview": [
+      "Espesyalista si Grenwald sa malakas na burst sa iisang target at mabisa siya lalo na sa PvE, kung saan nagdaragdag ang passive niya ng hanggang 20% damage laban sa mga monster (30% kapag kumpleto ang mga star).",
+      "Sikat siyang panimulang kapalit na carry habang hinihintay si Marlena, pero mababa ang depensa niya at kailangan niya ng tank gaya ni Arthur sa harapan para manatiling buhay."
+    ],
+    "investment": "Magandang panimulang carry habang hinihintay mo ang mga UR, lalo na para sa PvE.",
+    "squadFit": "Ilagay si Arthur o ibang matibay na tank sa harap niya. Sa Warlock squad, bagay siya kina Hastar at Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang wand at nagpapakawala ng kidlat para magdulot sa iisang kalaban ng 72.45% hanggang 207% ATK Energy DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 159.39% hanggang 455.4%"
+      },
+      "1": {
+        "effect": "Itinataas ang wand at pinapalabas ang mga espiritu mula sa katawan ng mga kalaban sa saklaw, na nagdudulot sa lahat ng target ng 332.85% hanggang 951% ATK Energy DMG.",
+        "starUpgrades": [
+          "10★: +20% damage at +7.5% ATK sa loob ng 7s",
+          "30★: tataas sa 55% ang dagdag na damage",
+          "50★: tataas sa 115% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 715.63% hanggang 2,044.65%"
+      },
+      "2": {
+        "effect": "Nagpapatawag ng kuko ng kaluluwa at nagdudulot sa iisang kalaban ng 292.95% hanggang 837% ATK Energy DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 644.49% hanggang 1,841.4%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas nang 10.25% hanggang 20% ang damage na idinudulot sa mga monster.",
+        "starUpgrades": [
+          "20★: tataas nang 2% ang effect",
+          "45★: tataas nang 3% ang effect",
+          "50★: tataas nang 5% ang effect"
+        ],
+        "maxStars": "Sa 50★: 20.25% hanggang 30%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "durant": {
+    "sourceHash": "609c592772be41a2b0c434d9b92294b582526e19e06865cca3799390a2b027f0",
+    "summary": "Tank na may greatsword at mababa ang tier, pero kapaki-pakinabang pa rin sa maagang depensa ng teritoryo mo.",
+    "unlock": "Libreng panimulang hero: 10 Durant Shard ang magbubukas sa kanya mula unang araw. Nakukuha ang shard sa Tavern recruitment at event, walang kailangang edad ng server o premium pack.",
+    "overview": [
+      "Isa si Durant sa apat na panimulang SR hero at siya lang ang SR tank. Libre siya, nasa listahan ng hero mula unang araw at humahawak sa frontline sa mga unang chapter—pero C ang rating sa kanya ng bawat tier list, at hanggang level 30 lang ang SR skill sa halip na 40.",
+      "Simple ang kit niya: dalawang beses iwinawasiwas ng Blade Fury ang greatsword sa lahat ng nasa harapan kada 7 segundo, at nagdaragdag ng malakas na tama sa iisang target ang Leap Slash kada 5 segundo. Pinakamababa ang ATK niya sa 31 hero kaya para sumalo ng tama ang papel niya, hindi para magdulot ng damage.",
+      "Kapaki-pakinabang pa rin siya sa pagdepensa ng teritoryo habang kulang ka sa tank na maraming star, pero tuluyan siyang mapapalitan ng sinumang SSR Warrior tank—sina Bella o Lucius."
+    ],
+    "investment": "I-level lang siya hanggang kailangan ng kasalukuyang yugto. Kung gagamit ka man ng SR Shard, siya ang SR na sulit magkaroon, pero itabi ang Skill Badge at mahahalagang materyal para sa SSR at UR hero. Blade Fury ang unang i-level kung magpapalakas ka ng skill.",
+    "squadFit": "Sa simula, pinupunan niya ang pangalawang frontline slot katabi ni Arthur, o namumuno sa all-Warrior squad mula unang araw (Durant, Celia, Sivir, Kesso, William) para makuha ang buong faction bonus. Palitan siya agad kapag handa na sina Bella, Lucius, o Daskal.",
+    "skills": {
+      "0": {
+        "effect": "Tumataga gamit ang espada at nagdudulot sa iisang target ng 73.5% hanggang 175% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +15% damage",
+          "25★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 132.3% hanggang 315%"
+      },
+      "1": {
+        "effect": "Dalawang beses iwinawasiwas gamit ang dalawang kamay ang greatsword; bawat tama ay nagdudulot sa mga kalaban sa harapan ng 285.6% hanggang 680% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +15% damage",
+          "30★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 514.08% hanggang 1,224%"
+      },
+      "2": {
+        "effect": "Tumatalon at humahampas nang malakas gamit ang espada, na nagdudulot sa iisang kalaban ng 246.75% hanggang 587.5% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +15% damage",
+          "35★: tataas sa 40% ang dagdag na damage",
+          "50★: tataas sa 80% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 444.15% hanggang 1,057.5%"
+      },
+      "3": {
+        "effect": "ATK, HP, at DEF +5%."
+      }
+    }
+  },
+  "stellar": {
+    "sourceHash": "a76cf80010dde369c2cb8cfde70e7c9121671726be1b997932da44dcec15e3b2",
+    "summary": "Support na may temang bituin at tunay na damage, malaking monster-damage buff para sa pinakamalalakas na Warlock, at clutch heal kapag mamatay.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Stellar Shard para ma-unlock siya. Nakukuha ang shard sa Alliance Shop, event, at Tavern pull.",
+    "overview": [
+      "SSR support si Stellar na may malakas ding opensa. Malakas na AoE hit ang Destructive Comet, at binibigyan ng Wishing Star ang dalawang Warlock na pinakamataas ang ATK ng hanggang 48% dagdag na damage laban sa mga monster sa loob ng 5 segundo (59.2% kapag kumpleto ang mga star), kaya mahusay siya sa Warlock PvE squad.",
+      "Natatangi ang clutch na halaga ng Final Starlight—kapag nakatanggap siya ng nakamamatay na damage, pinagagaling niya bago mamatay ang kakamping may pinakamababang HP nang hanggang 600% ATK (1,320% kapag kumpleto ang mga star)."
+    ],
+    "investment": "Magandang balanse ng damage at buff ang 7–8★. Sulit ituloy sa 9★ pataas para mapalaki ang halaga at paglakas niya sa PvE.",
+    "squadFit": "Pinupunan niya ang support slot hanggang ma-unlock si Harper at nananatili siyang malakas sa PvE squad. Natural siyang bagay sa maagang Warlock lineup kasama sina Hastar at Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "Nagpapakawala ng stardust at nagdudulot sa iisang kalaban ng 94.5% hanggang 270% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 207.9% hanggang 594%"
+      },
+      "1": {
+        "effect": "Nagpapatawag ng meteor shower at pinapataas nang 24.6% hanggang 48% ang damage sa mga monster ng 2 Warlock na pinakamataas ang ATK sa loob ng 5s.",
+        "starUpgrades": [
+          "10★: tataas nang 4.2% ang effect",
+          "30★: +2s tagal",
+          "50★: tataas nang 5.5% ang effect"
+        ],
+        "maxStars": "Sa 50★: 35.8% hanggang 59.2%"
+      },
+      "2": {
+        "effect": "Nagpapatawag ng kometa at nagdudulot sa mga kalaban sa saklaw ng 346.5% hanggang 990% ATK DMG.",
+        "starUpgrades": [
+          "15★: pinapataas nang 8% ang damage na matatanggap ng mga monster sa loob ng 3s",
+          "35★: +35% damage",
+          "45★: tataas sa 95% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 675.68% hanggang 1,930.5%"
+      },
+      "3": {
+        "effect": "Kapag nakatanggap si Stellar ng nakamamatay na damage sa laban, ginagamit niya ang huling starlight bago mamatay para pagalingin ang kakamping may pinakamababang HP nang 210% hanggang 600% ATK.",
+        "starUpgrades": [
+          "20★: +25% HP recovery",
+          "45★: tataas sa 60% ang dagdag na HP recovery",
+          "50★: tataas sa 120% ang dagdag na HP recovery"
+        ],
+        "maxStars": "Sa 50★: 462% hanggang 1,320%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "celia": {
+    "sourceHash": "1e9be506ff5150c32273e0a9fc20dd82e114bb44e098441d38c3e1f8467495d7",
+    "summary": "Support sa PvE na naghahagis ng dagger at nagpapalakas ng monster damage at resource na nakukuha sa pagpatay ng monster.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Celia Shard para ma-unlock siya. Nakukuha ang shard sa Tavern recruitment at event.",
+    "overview": [
+      "Hybrid para sa PvE si Celia. Random na burst ang damage niya, at dahilan para gamitin siya ang passive: nagbibigay ng hanggang +40% resource (60% kapag kumpleto ang mga star) mula sa pagpatay ng Resource at Elite monster, malaking tulong sa farming.",
+      "Dahil random ang pagtutok niya at mas mahina ang paglakas niya, hindi siya kasing maaasahan sa pangmatagalan ng dedikadong carry gaya ni Claire."
+    ],
+    "investment": "Libre siya kaya sulit gamitin sa simula, pero huwag maglagay ng malaking puhunan sa kanya.",
+    "squadFit": "Hawak niya ang support slot hanggang ma-unlock si Harper sa ika-20 araw ng server, at nananatili siyang kapaki-pakinabang sa farming squad dahil sa resource bonus.",
+    "skills": {
+      "0": {
+        "effect": "Naghahagis ng dagger at nagdudulot sa iisang target ng 47.25% hanggang 135% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 103.95% hanggang 297%"
+      },
+      "1": {
+        "effect": "Naghahagis ng dagger na tumatalbog nang 3 beses at nagdudulot sa 3 random na target ng 311.22% hanggang 889.2% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 684.68% hanggang 1,956.24%"
+      },
+      "2": {
+        "effect": "Sabay na naghahagis ng 2 dagger at nagdudulot sa 2 random na target ng 214.2% hanggang 612% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 471.24% hanggang 1,346.4%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, pinapataas nang 6.15% hanggang 12% ang damage sa mga monster; pinapataas din nang 20.5% hanggang 40% para sa squad mo ang 3 uri ng resource na nakukuha sa pagtalo sa Resource at Elite Monster.",
+        "starUpgrades": [
+          "20★: tataas nang 1.2% ang damage bonus at nang 4% ang resource bonus",
+          "45★: tataas nang 1.8% ang damage bonus at nang 6% ang resource bonus",
+          "50★: tataas nang 3% ang damage bonus at nang 10% ang resource bonus"
+        ],
+        "maxStars": "Sa 50★: 12.15% / 40.5% hanggang 18% / 60%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "lucius": {
+    "sourceHash": "ebabe35c7623f997871d5035c929dbea73d5ff47bd7c632d123660edab17556c",
+    "summary": "Tank na may dalawang-kamay na palakol at malalakas na tama sa iisang target—maaasahang paglaanan ng SSR Omni Shard.",
+    "unlock": "Available mula unang araw; kailangan ng 10 Lucius Shard para ma-unlock siya. Nakukuha ang shard sa Tavern at event, at maaaring punan ng SSR Omni Shard ang kulang.",
+    "overview": [
+      "Matibay at madaling gamitin si Lucius bilang tank para sa free-to-play at nagbabayad na player. Malakas ang tama ng Whirlwind Cut at Decapitation sa iisang kalaban, at sa 778,239 power, pinakamataas ang full-build power niya sa lahat ng SSR.",
+      "Monster-focused din tulad ng kay Bella ang passive niya, kaya pinakamalakas siya sa PvE. Mas kaunti ang naitutulong niya sa squad kaysa kina Arthur o Griffith, kaya nasa bandang B ang rating niya sa tier list."
+    ],
+    "investment": "Sulit siyang bigyan ng SSR Omni Shard. Karamihan sa shard niya ay nakukuha sa Tavern kaya madali siyang patuloy na i-level.",
+    "squadFit": "Magandang pansamantalang kapalit sa pangalawang tank slot ni Arthur habang hindi pa napapalakas ang UR tank mo. Bilang Warrior, nakikinabang din siya sa Warrior's Anthem ni Harper.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang malaking palakol at nagdudulot sa iisang kalaban ng 81.9% hanggang 234% ATK Physical DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 180.18% hanggang 514.8%"
+      },
+      "1": {
+        "effect": "Malakas na iwinawasiwas ang malaking palakol at nagdudulot sa iisang kalaban sa harapan ng 373.8% hanggang 1,068% ATK Physical DMG.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: +1.5s tagal ng stun sa mga kalaban",
+          "50★: tataas sa 90% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 710.22% hanggang 2,029.2%"
+      },
+      "2": {
+        "effect": "Itinataas ang malaking palakol gamit ang dalawang kamay at ibinabagsak ito, na nagdudulot sa iisang kalaban ng 298.2% hanggang 852% ATK Physical DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 656.04% hanggang 1,874.4%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, binabawasan nang 8.2% hanggang 16% ang damage na matatanggap mula sa mga monster.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "griffith": {
+    "sourceHash": "bba961991a5ccad95d3fc52e9a4032abc442c08884886b4d37dc5764a78af94c",
+    "summary": "Tank na may serpent flute na sumasalo sa squad laban sa monster damage at nakakakagat nang malakas sa iisang target.",
+    "unlock": "Walang hinihinging server-day; kailangan ng 10 Griffith Shard para ma-unlock siya. Nakukuha ang shard sa event, Alliance Shop, at Tavern recruitment.",
+    "overview": [
+      "Pinakamalakas si Griffith sa PvE. Pinalilibutan siya ng Serpent Veil ng espiritung ahas na nagpapababa nang hanggang 30% sa monster damage na matatanggap ng mga kakamping malapit sa kanya sa loob ng 4 segundo (39% kapag kumpleto ang mga star), at binabawasan pa ng passive niya nang hanggang 16% ang monster damage na siya mismo ang matatanggap.",
+      "Malakas ang tama sa iisang target ng Venomous Bite, hanggang 2,303.4% ATK kapag kumpleto ang mga star. Laban lang sa monster umepekto ang mga bawas niya kaya mas mahina siya sa PvP, pero binibigyan siya ng A rating ng ilang tier list para sa PvE at boss fight."
+    ],
+    "investment": "Magandang paglaanan ng SSR Shard kung PvE ang pokus ng account mo—malakas siyang pangalawang tank laban sa Rat King at iba pang boss. Tapusin muna ang mga unang star niya bago magsimula ng ibang tank.",
+    "squadFit": "Hawak niya ang frontline slot katabi ni Arthur o Bella sa boss squad, at mapupunan niya ang puwang sa squad na nakatuon sa Ranger hanggang mapalakas sina Shadow o Louis.",
+    "skills": {
+      "0": {
+        "effect": "Iwinawasiwas ang snake flute. Nagdudulot ang espiritung ahas ng 88.2% hanggang 252% ATK Physical DMG sa iisang kalaban.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 194.04% hanggang 554.4%"
+      },
+      "1": {
+        "effect": "Inuutusan ang espiritung ahas na umikot sa caster at binabawasan nang 15.38% hanggang 30% ang monster DMG na matatanggap ng mga kakamping hero sa saklaw sa loob ng 4s.",
+        "starUpgrades": [
+          "10★: tataas nang 3% ang effect",
+          "30★: +1s tagal",
+          "50★: tataas nang 6% ang effect"
+        ],
+        "maxStars": "Sa 50★: 24.38% hanggang 39%"
+      },
+      "2": {
+        "effect": "Ginagabayan ang espiritung ahas gamit ang snake flute para malakas nitong kagatin ang target, at magdulot sa iisang kalaban ng 366.45% hanggang 1,047% ATK DMG.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 806.19% hanggang 2,303.4%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, binabawasan nang 8.2% hanggang 16% ang damage na matatanggap mula sa mga monster.",
+        "starUpgrades": [
+          "20★: tataas nang 1.6% ang effect",
+          "45★: tataas nang 2.4% ang effect",
+          "50★: tataas nang 4% ang effect"
+        ],
+        "maxStars": "Sa 50★: 16.2% hanggang 24%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  },
+  "hastar": {
+    "sourceHash": "414ce2ddbc58eb80d1b5b721de54b64f50ba5d38e6ec52a1a28b76cd191d7b04",
+    "summary": "Tank na Warlock na may galamay, nagpapastun, malakas tumama, at gumagawa ng shield sa sarili kapag alanganin na.",
+    "unlock": "Walang hinihinging server-day; kailangan ng 10 Hastar Shard para ma-unlock siya. Nakukuha ang shard sa Tavern draw at event, at maaaring ipalit ang SSR Omni Shard sa kulang.",
+    "overview": [
+      "Isa si Hastar sa mas kumpletong SSR tank. Pinagsasama niya ang crowd control, malakas na ultimate na tumatama sa mga nasa harapan, at emergency shield na kusang lumalabas kapag malapit na siyang matalo.",
+      "Ang maikling stun ng Undercurrent ang nagtatangi sa kanya sa mga tank na nagbabawas ng monster damage—nagagamit niya ito para guluhin ang mga kalaban, hindi lang para mabuhay laban sa kanila."
+    ],
+    "investment": "Makatuwirang paglaanan ng SSR Shard kung binubuo mo ang Warlock squad, pero pansamantala pa rin siya hanggang dumating sina Billy o Ulfrid.",
+    "squadFit": "Natural na panimulang tank siya sa Warlock lineup kasama sina Grenwald at Stellar, at kalaunan sina Annie, Joker, at Nicole.",
+    "skills": {
+      "0": {
+        "effect": "Hinahampas ng mga galamay ang iisang kalaban at nagdudulot ng 85.05% hanggang 243% ATK Energy DMG.",
+        "starUpgrades": [
+          "5★: +25% damage",
+          "25★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 187.11% hanggang 534.6%"
+      },
+      "1": {
+        "effect": "Ibinabagsak sa lupa ang dambuhalang galamay at nagdudulot sa mga kalaban sa harapan ng 576.45% hanggang 1,647% ATK bilang Energy DMG.",
+        "starUpgrades": [
+          "10★: +25% damage",
+          "30★: tataas sa 60% ang dagdag na damage",
+          "50★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 50★: 1,268.19% hanggang 3,623.4%"
+      },
+      "2": {
+        "effect": "Umaahon ang mga galamay mula sa lupa at pinatatalbog sa ere ang kalaban, na nagdudulot sa iisang target ng 207.9% hanggang 594% ATK Energy DMG at nagpapa-stun dito nang 1s.",
+        "starUpgrades": [
+          "15★: +25% damage",
+          "35★: tataas sa 60% ang dagdag na damage",
+          "45★: tataas sa 120% ang dagdag na damage"
+        ],
+        "maxStars": "Sa 45★: 457.38% hanggang 1,306.8%"
+      },
+      "3": {
+        "effect": "Habang nasa laban, kapag unang bumaba sa 40% ang HP, nagkakaroon ng shield na katumbas ng 3.15% hanggang 9% ng kasalukuyang max HP, na sumasalo ng 50% ng papasok na damage sa loob ng 5s.",
+        "starUpgrades": [
+          "20★: tataas nang 25% ang shield effect",
+          "45★: +2s tagal ng shield",
+          "50★: tataas nang 55% ang shield effect"
+        ],
+        "maxStars": "Sa 50★: 5.67% hanggang 16.2%"
+      },
+      "4": {
+        "effect": "ATK, HP, at DEF +10%."
+      }
+    }
+  }
+}

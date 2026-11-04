@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Communication de l’alliance",
+    "body": "Bienvenue chez BurnFire (BF2) ! Lisez régulièrement le chat de l’alliance. Les annonces importantes, les stratégies d’événements, les consignes opérationnelles et les avis des dirigeants y sont communiqués. Les membres doivent se tenir informés et suivre les consignes applicables de l’alliance.",
+    "questions": {
+      "check-chat": {
+        "prompt": "Que doivent faire les membres concernant le chat de l’alliance ?",
+        "options": [
+          "Le lire régulièrement",
+          "Le lire uniquement après un message d’un officier",
+          "L’ignorer s’ils utilisent le site"
+        ],
+        "explanation": "Les annonces importantes, stratégies, consignes et avis des dirigeants sont diffusés dans le chat de l’alliance."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Site et chat facultatif",
+    "body": "BF2 propose des guides d’alliance, stratégies d’événements, annonces, questions-réponses, échanges avec les dirigeants, aide au recrutement et ressources de formation via son site et un serveur de chat externe facultatif. La participation au chat externe est encouragée, mais non obligatoire. Aucun membre ne peut être pénalisé pour avoir préféré communiquer via le site. Choisissez votre préférence : chat externe, site BF2 ou les deux.",
+    "questions": {
+      "check-preference": {
+        "prompt": "Le chat externe est-il obligatoire pour les membres BF2 ?",
+        "options": [
+          "Oui, il est obligatoire",
+          "Non. Il est encouragé et la communication via le site reste possible",
+          "Uniquement pour les recrues"
+        ],
+        "explanation": "Le chat externe est encouragé, mais non obligatoire. Les membres ne doivent pas être pénalisés pour préférer le site."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Courrier d’alliance obligatoire",
+    "body": "La lecture du courrier d’alliance est obligatoire. Distinct des autres notifications en jeu et du chat de l’alliance, il sert à diffuser uniformément les consignes importantes. Apprenez où le trouver, comment l’ouvrir, pourquoi le lire et comment reconnaître les consignes officielles. Le site ne peut pas détecter l’ouverture du courrier en jeu. Demandez l’aide d’un officier si vous ne trouvez pas le courrier d’alliance.",
+    "questions": {
+      "check-mail": {
+        "prompt": "Vous ne savez pas ouvrir le courrier d’alliance. Que faire ?",
+        "options": [
+          "Ignorer le courrier d’alliance",
+          "Demander de l’aide et utiliser le guide fourni",
+          "Supposer que le site peut confirmer son ouverture"
+        ],
+        "explanation": "Le courrier d’alliance est obligatoire. Le site ne peut pas détecter sa lecture en jeu ; demandez de l’aide si nécessaire."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Identité et conduite des joueurs",
+    "body": "Conservez un pseudonyme unique et reconnaissable. Les noms génériques ou répétés comme « Doctor » compliquent l’identification des membres et l’administration de l’alliance. L’intimidation, le harcèlement, les menaces, les propos abusifs, les conflits personnels inutiles et la divulgation d’informations privées d’un membre sans son autorisation sont inacceptables. Communiquez de manière respectueuse et constructive.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "Quelle conduite est attendue dans les échanges de l’alliance ?",
+        "options": [
+          "Une communication respectueuse et constructive",
+          "Des menaces lorsqu’un joueur est en désaccord",
+          "La divulgation d’informations privées des membres"
+        ],
+        "explanation": "Les membres doivent communiquer respectueusement, sans harcèlement ni divulgation d’informations privées sans autorisation."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Règles du serveur et alliances protégées",
+    "body": "Respectez les règles applicables du serveur. Ne pillez pas les caravanes ni les Opérations spéciales provenant de votre serveur. Ne recrutez ni ne débauchez les membres des alliances du Top 10 et n’attaquez pas ces alliances. Les activités interserveurs autorisées diffèrent des activités interdites sur votre serveur. Suivez la politique actuelle de l’alliance et interrogez les dirigeants en cas de doute sur l’éligibilité.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Vous trouvez une caravane provenant de votre serveur. Que faire ?",
+        "options": [
+          "Ne pas la piller",
+          "La piller si personne ne regarde",
+          "Demander à un autre membre de la piller"
+        ],
+        "explanation": "Les membres BF2 ne doivent pas piller les caravanes de leur propre serveur."
+      },
+      "check-protected-alliance": {
+        "prompt": "Peut-on attaquer une alliance du Top 10 ou recruter ses membres ?",
+        "options": [
+          "Oui, en demandant d’abord",
+          "Non",
+          "Uniquement pendant un événement"
+        ],
+        "explanation": "Il est interdit d’attaquer les alliances du Top 10 et de recruter ou débaucher leurs membres."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Gestion des conflits et diplomatie",
+    "body": "Les membres ne sont pas autorisés à déclencher des guerres ni à proférer des menaces au nom de BF2. Si un autre joueur ou une autre alliance pose problème, contactez les dirigeants avant toute escalade. Ne prétendez pas parler au nom des dirigeants BF2 sans autorisation.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Un joueur d’une autre alliance pose problème. Que faire ?",
+        "options": [
+          "Menacer son alliance au nom de BF2",
+          "Contacter les dirigeants avant toute escalade",
+          "Déclarer vous-même une guerre"
+        ],
+        "explanation": "Les membres ne peuvent ni déclencher des guerres ni proférer des menaces pour BF2. Contactez les dirigeants."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Caravanes interserveurs et Opérations spéciales",
+    "body": "Distinguez les cibles de votre serveur, celles d’autres serveurs, celles protégées par les règles du serveur et celles autorisées par la politique actuelle de l’alliance. Ne pillez pas les caravanes ni les Opérations spéciales de votre serveur. La navigation dans l’interface et les détails d’éligibilité doivent être vérifiés par les dirigeants avant publication comme consignes officielles. Demandez l’aide d’un officier en cas de doute.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "Que faut-il vérifier avant d’interagir avec une éventuelle cible interserveurs ?",
+        "options": [
+          "Son serveur et son éligibilité selon les règles actuelles",
+          "Seulement si elle semble précieuse",
+          "Rien si un autre membre l’a partagée"
+        ],
+        "explanation": "Vérifiez le serveur et l’éligibilité actuelle de la cible ; interrogez les dirigeants si les mécanismes ou les règles ne sont pas clairs."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Position de l’alliance et rassemblement",
+    "body": "Restez raisonnablement près du marqueur BF2 et de la zone de rassemblement. Si vous êtes loin, suivez le chemin indiqué en jeu : Alliance → Point de rassemblement → Relocaliser. Le site ne peut pas vérifier indépendamment une relocalisation en jeu. Demandez de l’aide si vous ne trouvez pas le point de rassemblement.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "Quel chemin en jeu est indiqué pour revenir au rassemblement ?",
+        "options": [
+          "Alliance → Point de rassemblement → Relocaliser",
+          "Carte → Boutique → Acheter",
+          "Chat → Profil → Déplacer"
+        ],
+        "explanation": "Le chemin indiqué est Alliance → Point de rassemblement → Relocaliser. Le site ne peut pas vérifier la relocalisation."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Relocalisations directes",
+    "body": "Des Relocalisations directes peuvent être disponibles dans la boutique de l’alliance. Apprenez où les trouver et quand un repositionnement peut être approprié. Aucune dépense d’argent réel n’est exigée.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "Des achats en argent réel sont-ils exigés pour se repositionner ?",
+        "options": [
+          "Oui",
+          "Non",
+          "Uniquement pour les recrues"
+        ],
+        "explanation": "Des Relocalisations directes peuvent être disponibles dans la boutique de l’alliance ; aucune dépense d’argent réel n’est exigée."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Ralliements et fouilles d’alliance",
+    "body": "Lorsque vous lancez un ralliement ou une fouille d’alliance, annoncez-le dans le chat de l’alliance pour permettre aux autres de participer. Communiquez, coopérez, invitez les membres et favorisez la progression collective. Ne faites pas discrètement des fouilles d’alliance en solo lorsque la participation de l’alliance devrait être proposée.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "Que faire au lancement d’un ralliement ou d’une fouille d’alliance ?",
+        "options": [
+          "L’annoncer dans le chat pour que les autres puissent participer",
+          "Le garder secret",
+          "Attendre la fin pour en parler"
+        ],
+        "explanation": "Annoncer les ralliements et les fouilles permet aux membres de participer et favorise la progression collective."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Recherche hebdomadaire d’alliance",
+    "body": "La contribution minimale hebdomadaire à la recherche d’alliance est de 3 200. Donnez à la recherche choisie par les dirigeants. Utilisez l’aide d’alliance, rejoignez les ralliements si possible, participez aux activités et soutenez la progression de la recherche. Les diamants et achats en argent réel ne sont jamais exigés.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "Quel est le minimum hebdomadaire de contribution à la recherche ?",
+        "options": [
+          "320",
+          "3 200",
+          "32 000"
+        ],
+        "explanation": "Le minimum est de 3 200. Les diamants et achats en argent réel ne sont jamais exigés."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Rangs et progression dans l’alliance",
+    "body": "Les rangs se gagnent par la participation et la contribution : dons à la recherche, aide d’alliance, ralliements et fouilles, activité, coopération et implication dans la direction. R2 est un membre standard ; R3 et au-delà sont des fonctions de direction. L’activité sur le site ou la réussite d’un quiz ne promeut personne automatiquement. Vous pouvez exprimer votre intérêt pour devenir officier R3 ; cet intérêt ne vaut ni acceptation de candidature ni promotion.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "Terminer le quiz du site promeut-il automatiquement un membre ?",
+        "options": [
+          "Oui, au rang R3",
+          "Non. Le rang se gagne par la participation et la contribution",
+          "Oui, s’il utilise le chat externe"
+        ],
+        "explanation": "L’activité sur le site et la réussite des quiz ne promeuvent pas automatiquement les membres."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protocole de pillage interserveurs et d’Opérations secrètes",
+    "body": "Règle essentielle : ne partagez jamais une cible d’Opérations secrètes déjà frappée deux fois. Avant tout partage, vérifiez son serveur, son éligibilité et les informations d’attaque ou de frappes. Ne pillez pas les caravanes de votre serveur. N’attaquez ni ne partagez les cibles inéligibles selon les règles du serveur ou la politique actuelle de l’alliance. En cas de litige, contactez les dirigeants ; ne menacez pas une autre alliance au nom de BF2. Utilisez les ressources de formation BF2 ou demandez l’aide d’un officier. La navigation détaillée dans l’interface et les mécanismes des cibles sont soumis à la revue des dirigeants, car ils n’ont pas été vérifiés indépendamment.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Vous trouvez une caravane de votre propre serveur. Que faire ?",
+        "options": [
+          "Ne pas la piller",
+          "La partager pour que d’autres la pillent",
+          "L’attaquer avant de vérifier"
+        ],
+        "explanation": "Les caravanes du même serveur ne doivent pas être pillées."
+      },
+      "check-two-hits": {
+        "prompt": "Une cible d’Opérations secrètes a déjà été frappée deux fois. Faut-il la partager ?",
+        "options": [
+          "Oui, immédiatement",
+          "Non",
+          "Uniquement avec les officiers"
+        ],
+        "explanation": "Ne partagez pas une cible d’Opérations secrètes déjà frappée deux fois."
+      },
+      "check-target-checks": {
+        "prompt": "Que vérifier avant de partager une éventuelle cible interserveurs ?",
+        "options": [
+          "Son éligibilité, son serveur et les informations pertinentes d’attaque ou de frappes",
+          "Seulement le nom de la cible",
+          "Si elle est déjà populaire"
+        ],
+        "explanation": "Vérifiez son éligibilité, son serveur et les informations pertinentes d’attaque ou de frappes."
+      },
+      "check-threats": {
+        "prompt": "Faut-il menacer une autre alliance au nom de BF2 ?",
+        "options": [
+          "Non. Contactez les dirigeants",
+          "Oui, si vous êtes contrarié",
+          "Oui, si l’autre joueur a commencé"
+        ],
+        "explanation": "Les membres ne sont pas autorisés à menacer autrui ni à déclencher des guerres pour BF2."
+      },
+      "check-request-help": {
+        "prompt": "Une recrue ne sait pas accéder aux Opérations spéciales interserveurs. Que faire ?",
+        "options": [
+          "Utiliser le guide BF2 ou demander à un officier",
+          "Deviner jusqu’à y arriver",
+          "Demander le partage d’une cible non vérifiée"
+        ],
+        "explanation": "Utilisez la formation BF2 approuvée ou demandez l’aide d’un officier."
+      }
+    }
+  }
+}

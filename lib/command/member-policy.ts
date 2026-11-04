@@ -15,10 +15,15 @@ export function canAssignRank(
   siteAdmin: boolean,
   currentRank: AllianceRank | null,
   nextRank: AllianceRank,
+  isRegent = false,
 ): boolean {
   if (siteAdmin) return true;
   if (actorRank !== "r4" && actorRank !== "r5") return false;
-  const ceiling = ranks.indexOf(actorRank);
+  const ceiling = ranks.indexOf(actorRank === "r4" && isRegent ? "r5" : actorRank);
   return ranks.indexOf(nextRank) < ceiling &&
     (currentRank === null || ranks.indexOf(currentRank) < ceiling);
+}
+
+export function canAppointRegent(actorRank: AllianceRank | null, siteAdmin: boolean): boolean {
+  return siteAdmin || actorRank === "r5";
 }

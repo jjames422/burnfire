@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError, requireUser } from "@/lib/server/http";
+import { getLocale } from "@/lib/i18n/server";
+import { localizeContent } from "@/lib/server/academy-localization";
 
 export async function GET() {
   const { user, response } = await requireUser();
@@ -11,7 +13,10 @@ export async function GET() {
   );
   if (!enrolled) return jsonError("Redeem a BF2 recruit invitation to read alliance announcements.", 403);
 
-  const announcements = await query(
+  const announcements = await query<{
+    id: string; slug: string; version: number; title: string; body: string;
+    published_at: string | null; required: boolean; acknowledged_at: string | null;
+  }>(
     `select c.id, c.slug, c.version, c.title, c.body, c.published_at,
             c.required, a.acknowledged_at
      from academy_content c
@@ -20,5 +25,6 @@ export async function GET() {
      order by c.published_at desc nulls last, c.slug`,
     [user.id],
   );
-  return NextResponse.json({ announcements });
+  const locale = await getLocale();
+  return NextResponse.json({ announcements: announcements.map((entry) => localizeContent(entry, locale)) });
 }

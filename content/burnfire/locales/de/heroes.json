@@ -1,0 +1,1587 @@
+{
+  "zoya": {
+    "sourceHash": "372f6e9a729f33757ecb6b19979f80916e26f0eaa93cd03d80f737308b13f79b",
+    "summary": "Marlena ähnelt sie als kritische Schadensausteilerin: Ihre starken Dolchtreffer entwickeln sich im späteren Spiel anders.",
+    "unlock": "Erscheint am 55. Servertag und wird mit 10 Zoya-Fragmenten freigeschaltet. Sie ist die letzte UR-Kriegerin, die eintrifft.",
+    "overview": [
+      "Zoyas Fähigkeiten ähneln stark denen von Marlena, doch ihre Passivfähigkeit erhöht die kritische Trefferchance statt des Energieschadens. Deshalb skaliert sie im späteren Spiel anders, wenn sich Ausrüstung und Boni summieren.",
+      "Mountain God Wrath erfüllt zwei Aufgaben: Die Fähigkeit verursacht 3 Sek. lang stetigen Schaden und lässt getroffene Gegner mehr Energieschaden vom gesamten Team erleiden. Jeder der drei Dolche von Forest Hunter verursacht bis zu 1.668 % des ANG, mit allen Sternen 3.669,6 %."
+    ],
+    "investment": "Sie ist sternabhängig und wird mit höheren Sternen deutlich stärker. Spieler mit kleinen Ausgaben sollten sie auf 8★ bringen und die übrigen UR-Omni-Fragmente für kommende Helden sparen. Vielspieler können sie auf 10★ bringen.",
+    "squadFit": "Als Krieger-Schadensausteilerin passt sie neben Marlena; Harpers Bonus stärkt beide. Ihr Energieschaden-Verstärker erhöht den Schaden aller anderen Energie-Angreifer im Team.",
+    "skills": {
+      "0": {
+        "effect": "Wirft einen Walddolch auf das Ziel und verursacht einem Gegner 87,15%–249% des ANG als Energieschaden.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Wirft schnell 3 Spezialdolche auf 3 zufällige Gegner und verursacht jedem 583,8%–1.668% des ANG als Schaden.",
+        "starUpgrades": [
+          "10★: Klinge +1",
+          "30★: zusätzlicher Schaden +60 %",
+          "50★: zusätzlicher Schaden steigt auf 120 %; Klinge +1"
+        ],
+        "maxStars": "Bei 50★: 1.284,36–3.669,6 %"
+      },
+      "2": {
+        "effect": "Presst die Hände zusammen und beschwört einen Wirbel grüner Blätter, der Gegner in Reichweite 3 Sek. lang pro Sekunde 73,5%–210% des ANG als Energieschaden zufügt. Gegner im Wirbel erleiden dabei 20 % mehr Energieschaden.",
+        "starUpgrades": [
+          "15★: zusätzlicher Schaden +60 %",
+          "35★: zusätzlicher Schaden steigt auf 130 %",
+          "45★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 45★: 220,5%–630%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf die kritische Trefferchance um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "marlena": {
+    "sourceHash": "ca7d1c9ca33d3cdb94ce03d4cd92a79e00781dc42887c934a9da12348f67cfe5",
+    "tierLists": "S in 5 von 6 Ranglisten",
+    "summary": "Der wichtigste UR-Schadensheld für jedes Konto: ab dem ersten Tag verfügbar und für die meisten Guides die erste Wahl für UR-Omni-Fragmente.",
+    "unlock": "Ab dem ersten Tag ohne Serveralter-Anforderung verfügbar. Fragmente gibt es durch Tavernen-Beschwörungen, kostenlose Banner-Beschwörungen und Eventbelohnungen; auch das First-Top-Up-Paket (etwa 1 US-Dollar) enthält sie.",
+    "overview": [
+      "Marlena ist der Schadensheld, den die meisten Guides zuerst empfehlen, weil ihre Fähigkeiten ineinandergreifen. Peerless Blade schleudert drei Schwertwinde auf zufällige Gegner und verursacht pro Wind bis zu 1.020 % ANG als Energieschaden (mit allen Sternen 3.382,5 %); Crimson Bloom fügt alle 5 Sek. einen Flächentreffer hinzu, und War God's Will erhöht ihren gesamten Energieschaden um bis zu 16 % (mit allen Sternen 24 %). Zähigkeit gewährt zusätzlich +20 % ANG, LP und DEF.",
+      "Da sie bereits am ersten Tag verfügbar ist, empfehlen fast alle Guides, UR-Omni-Fragmente zuerst in sie zu investieren."
+    ],
+    "investment": "Sie hat bei UR-Omni-Fragmenten oberste Priorität, noch vor Harper, Cynthia und Shadow. Investiere stärker in sie, sobald Arthur etwa 5–6★ erreicht; der erste wichtige Meilenstein ist 8★ für Zähigkeit.",
+    "squadFit": "Arthur und Marlena sind das Kern-Duo jedes neuen Kontos. Als Kriegerin wird sie direkt durch Harpers Warrior's Anthem verstärkt und ist neben Cynthia die wichtigste Schadensquelle im vollständigen BF2-Team.",
+    "skills": {
+      "0": {
+        "effect": "Entfesselt einen Schwertwind und verursacht einem Ziel 91,35%–261% des ANG als Energieschaden.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %; Erwachen Stufe 1: Entfesselt 1 Schwertwind gegen einen einzelnen Gegner und verursacht 783 % ANG als Energieschaden. Bei einem kritischen Treffer erhält Marlena 1 Stapel Battle Will, höchstens das Doppelte der Krieger im Team; jeder Stapel erhöht den verursachten Schaden um 1 % und verringert den erlittenen Schaden um 1 %."
+        ],
+        "maxStars": "Bei 50★: 274,05%–783%"
+      },
+      "1": {
+        "effect": "Entfesselt 3 Schwertwinde, die jeweils zufällig einen Gegner anvisieren und 357%–1.020% des ANG als Energieschaden verursachen.",
+        "starUpgrades": [
+          "10★: Schwertwind +1; jeder verursacht 20 % zusätzlichen Schaden",
+          "30★: jeder verursacht 100 % zusätzlichen Schaden",
+          "50★: Schwertwind +1; jeder verursacht 140 % zusätzlichen Schaden; Erwachen Stufe 40: Entfesselt 3 Schwertwinde gegen zufällige Gegner, jeder verursacht 3.382,5 % ANG als Energieschaden, danach folgen 5 weitere Winde mit 60 % des ursprünglichen Schadens"
+        ],
+        "maxStars": "Bei 50★: 1.183,88–3.382,5 %"
+      },
+      "2": {
+        "effect": "Wirft eine scharlachrote Blüte, die beim Aufprall explodiert und Zielen in Reichweite 204,75%–585% des ANG als Energieschaden zufügt.",
+        "starUpgrades": [
+          "15★: zusätzlicher Schaden +20 % und ANG +12 % für 3 Sek.",
+          "35★: zusätzlicher Schaden steigt auf 70 %",
+          "45★: zusätzlicher Schaden steigt auf 150 %; Erwachen Stufe 10: Wirft 1 Crimson Blossom, die explodiert und allen Gegnern 1.462,5 % ANG als Energieschaden zufügt. Hat Marlena mehr als 5 Stapel Battle Will, erleiden alle Gegner Dread und verursachen 5 % weniger Schaden"
+        ],
+        "maxStars": "Bei 45★: 511,88–1.462,5 %"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf den verursachten Energieschaden um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %; Erwachen Stufe 20: Energieschaden +24 %. Zu Kampfbeginn greift sie die 3 Gegner mit den höchsten LP an und verursacht 2.500 % ANG als Energieschaden; bei einem Treffer erhält sie 3 Stapel Battle Will"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "louis": {
+    "sourceHash": "bbcddfc6a79fe7090e32712f8c37e3ed6896e28b7937192f76d61a87ab0303aa",
+    "summary": "Ein Kettenpeitschen-Tank mit Schadensverringerung, Selbstheilung und der Weigerung, im ungünstigsten Moment zu sterben.",
+    "unlock": "Erscheint am 62. Servertag und wird mit 10 Louis-Fragmenten freigeschaltet. Er ist der fünfte von sechs UR-Tanks, die eintreffen.",
+    "overview": [
+      "Louis ist der Anker der Front und sein gesamtes Kit verschafft der hinteren Reihe Zeit. Cross Whip verursacht Schaden, heilt ihn und gewährt dem ganzen Team ein großes Zeitfenster mit verringerter Schadensaufnahme. Force Link schützt andere widerstandsfähige Verbündete vor Energieschaden, und Indomitable Spirit rettet ihn einmal pro Kampf vor einem tödlichen Treffer.",
+      "Er ist stark von Sternen abhängig. Bei wenigen Sternen ist er weniger zuverlässig und Shadow kann besser sein, doch mit Investitionen steigt seine Effektivität deutlich."
+    ],
+    "investment": "Spieler mit kleinen Ausgaben können bei 7★ aufhören, empfohlen werden jedoch 8★. Vielspieler sollten 9–10★ anstreben, um sein volles Potenzial zu entfalten.",
+    "squadFit": "Als Ranger passt er in ein reines Ranger-Team mit Shadow, Cynthia, Red Lady und Bell. Force Link wählt Verbündete mit der höchsten DEF; daher ist Louis neben einem weiteren Tank am stärksten.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt die Eisenkette und verursacht einem Ziel physischen Schaden in Höhe von 87,15%–249% des ANG.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %; exklusives Waffensternlevel 20: auf 300 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Schwingt gleichzeitig zwei Ketten nach vorn, verursacht Gegnern in Reichweite Schaden in Höhe von 299,25%–855% des ANG, heilt sich um 150 % des ANG und verringert 5 Sek. lang den gesamten erlittenen Schaden um 15,38%–30%.",
+        "starUpgrades": [
+          "10★: Schadensverringerung gilt zusätzlich für den nächsten Verbündeten",
+          "30★: Schadensverringerung gilt für alle Verbündeten",
+          "50★: zusätzlicher Schaden +60 %; exklusives Waffensternlevel 50: Schadensverringerung +5 %"
+        ],
+        "maxStars": "Bei 50★: 478,8 % / 15,38 % bis 1.368 % / 30 %"
+      },
+      "2": {
+        "effect": "Lädt beide Hände auf und erzeugt ein Energiefeld, das den Energieschaden der zwei Verbündeten in Reichweite mit der höchsten DEF 4 Sek. lang um 9,23%–18% senkt.",
+        "starUpgrades": [
+          "15★: Effekt +8 %",
+          "35★: Effekt +12 %",
+          "45★: Ziele +1; exklusives Waffensternlevel 40: Ziele +1 zusätzlich"
+        ],
+        "maxStars": "Bei 45★: 21,23%–30%"
+      },
+      "3": {
+        "effect": "Verringert im Kampf den gesamten erlittenen Schaden um 15,38%–30% und geht bei tödlichem Schaden in einen unsterblichen Zustand über, wobei er 2 Sek. lang 1 LP behält. Dieser Effekt kann nur einmal ausgelöst werden.",
+        "starUpgrades": [
+          "20★: Dauer +1 Sek.",
+          "45★: Dauer +1 Sek.",
+          "50★: Dauer +1 Sek.; exklusives Waffensternlevel 30: Dauer +1 Sek. zusätzlich"
+        ],
+        "maxStars": "Bei 50★: 15,38%–30%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "ulfrid": {
+    "sourceHash": "c72951978ddd3b42b6e86d8e4da8d1881df4370ccee008f0eedb8467f3201ce3",
+    "summary": "Ein Tank mit Wolfsblut, der jeden Angreifer bestraft, indem er dessen Schaden direkt zurückwirft.",
+    "unlock": "Wird am 41. Servertag verfügbar; zum Freischalten werden 10 Ulfrid-Fragmente benötigt, die es durch Beschwörungen und Events gibt.",
+    "overview": [
+      "Ulfrid kontert Angriffe. Statt auf eigenen Schaden zu setzen, lässt er Gegner für den Fokus auf ihn bezahlen: Während Lunar Howl reflektiert er 3 Sek. lang bis zu 120 % jedes Treffers zurück an den Angreifer (mit allen Sternen 162 %). Zusammen mit der Schadensverringerung von Wolf Bloodline und der Teamreduktion seiner ultimativen Fähigkeit ist er wirklich schwer zu besiegen.",
+      "Entscheidend ist das Timing. Sein großer Vorteil gilt nur innerhalb eines 3-Sekunden-Fensters; dadurch ist er situationsabhängiger und leichter auszuspielen als Top-Tanks. Deshalb steht er eine Stufe unter Arthur und Shadow."
+    ],
+    "investment": "Spieler mit kleinen Ausgaben können bei 8★ aufhören. Vielspieler sollten ihn auf 10★ bringen.",
+    "squadFit": "Am besten ist er in längeren Kämpfen, in denen der Gegner gezwungen ist, ihn anzugreifen. In einem Hexenmeister-Team bildet er mit Billy eine sehr widerstandsfähige Front; auch Nicoles Passivfähigkeit (+8 % ANG je Hexenmeister) hilft ihm.",
+    "skills": {
+      "0": {
+        "effect": "Schlägt mit scharfen Klauen zu und verursacht einem Gegner physischen Schaden in Höhe von 87,15%–249% des ANG.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %; exklusives Waffensternlevel 20: auf 300 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Lädt seine Kraft auf, springt vor und beißt das Ziel, verursacht physischen Schaden in Höhe von 632,1%–1.806% des ANG und verringert 4 Sek. lang den gesamten erlittenen Schaden aller Verbündeten um 5,13%–10%.",
+        "starUpgrades": [
+          "10★: Effekt +2 %",
+          "30★: Effekt +3 %",
+          "50★: Effekt +5 %; exklusives Waffensternlevel 50: zusätzlich +7 %"
+        ],
+        "maxStars": "Bei 50★: 632,1 % / 15,13 % bis 1.806 % / 20 %"
+      },
+      "2": {
+        "effect": "Heult zum Himmel und versetzt sich in den Berserkerzustand: Bei erlittenem Schaden reflektiert er 61,5%–120% davon auf den Angreifer zurück. Hält 3 Sek. an.",
+        "starUpgrades": [
+          "15★: Effekt +12 %",
+          "35★: Effektdauer +1 Sek.",
+          "45★: Effekt +30 %; exklusives Waffensternlevel 40: DEF im Berserkerzustand +10 %"
+        ],
+        "maxStars": "Bei 45★: 103,5%–162%"
+      },
+      "3": {
+        "effect": "Verringert im Kampf den gesamten erlittenen Schaden um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %; exklusives Waffensternlevel 30: zusätzlich +5 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "billy": {
+    "sourceHash": "b35900a012a741c4bfbeb160536bb917ecb85b2e1316c4f19bace88241722a46",
+    "summary": "Ein Puppenspieler-Tank, der deine Schadensausteiler vor Betäubungen und Energieschaden schützt, statt nur Treffer einzustecken.",
+    "unlock": "Wird am 83. Servertag mit 10 Billy-Fragmenten freigeschaltet. Unter den UR-Helden erscheint nur Nicole später, daher haben die meisten Spieler bis zu Billys Ankunft bereits einen Tank-Kern aufgebaut.",
+    "overview": [
+      "Billy ist ein defensiver Tank mit zusätzlichem Nutzen. Puppet macht ihn selbst widerstandsfähig, doch seinen Platz verdient er durch den Schutz deiner Schadensausteiler: Seine ultimative Fähigkeit gibt den drei Verbündeten mit dem höchsten ANG eine 70 % Chance auf Betäubungsimmunität, und Fate's Thread senkt den erlittenen Energieschaden der zwei stärksten Verbündeten um bis zu 24 % (mit allen Sternen 36 %).",
+      "Damit ist er eine direkte Antwort auf Gegner mit viel Kontrolle. Red Ladys ultimative Fähigkeit soll deine zwei stärksten Angreifer betäuben, und Billy gehört zu den wenigen Helden, die das verhindern können. Er ist in PvP und längeren Kämpfen wertvoll."
+    ],
+    "investment": "8★ werden allen empfohlen – sie erhöhen die Überlebensfähigkeit deutlich. Vielspieler können zur vollständigen Optimierung auf 10★ gehen, nötig ist das aber nicht.",
+    "squadFit": "Am besten ist er in Teams, in denen deine Schadensausteiler angegriffen werden. Er passt zu einer Hexenmeister-Aufstellung mit Annie, Joker und Nicole und kontert Gegner mit Red Lady stark.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt die Marionette und verursacht einem Gegner physischen Schaden in Höhe von 87,15%–249% des ANG.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Hebt den Marionettenständer an und schlägt ihn auf den Boden. Gegner in Reichweite erleiden 510,3 %–1.458 % des ANG als Schaden. Die drei Verbündeten mit dem höchsten ANG erhalten eine Chance von 70 % auf Betäubungsimmunität.",
+        "starUpgrades": [
+          "10★: erlittener Schaden verbündeter Verteidigungshelden 5 Sek. lang −15 %",
+          "30★: Chance auf Betäubungsimmunität +30 %",
+          "50★: zusätzlicher Schaden +100 % und erlittener Schaden von 3 zufälligen Gegnerhelden 5 Sek. lang +15 %"
+        ],
+        "maxStars": "Bei 50★: 1.020,6–2.916 %"
+      },
+      "2": {
+        "effect": "Schwingt die Marionette, verursacht einem Ziel physischen Schaden in Höhe von 216,3%–618% des ANG und senkt den erlittenen Energieschaden der zwei Verbündeten mit dem höchsten ANG 4 Sek. lang um 12,3%–24%.",
+        "starUpgrades": [
+          "15★: Schadensverringerung +6 %",
+          "35★: verbündete Ziele +1",
+          "45★: Schadensverringerung um weitere 6 % erhöht"
+        ],
+        "maxStars": "Bei 45★: 216,3 % / 24,3 % bis 618 % / 36 %"
+      },
+      "3": {
+        "effect": "Verringert im Kampf den gesamten erlittenen Schaden um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +3 %",
+          "45★: Effekt +5 %",
+          "50★: erlittenen Energieschaden zusätzlich um 8 % verringert"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "arthur": {
+    "sourceHash": "de27f4b06959cbdb262d82eb35a4b40ce6b7976bda6278a24af8c4a359fc4e2a",
+    "tierLists": "S-Rang in 6 von 7 Ranglisten",
+    "summary": "Der Starttank für alle und weiterhin einer der besten Anker der Frontlinie.",
+    "unlock": "Ab dem ersten Tag verfügbar, ohne Mindestalter des Servers. Zum Freischalten werden 10 Arthur-Splitter benötigt; sie gibt es bei Tavernen-Rekrutierungen, im Allianzshop und als Eventbelohnung. Jede 50. Rekrutierung garantiert 10 Splitter eines UR-Helden.",
+    "overview": [
+      "Arthur ist der erste Held, in den ihr investieren solltet. Er ist kostenlos, ab Tag eins verfügbar und bleibt dauerhaft nützlich. Seine Aufgabe ist einfach: vorne stehen, Treffer einstecken und die Verbündeten hinter ihm schwerer besiegbar machen.",
+      "Erdbeben macht ihn besonders. Der Flächenangriff ist stark, doch sein eigentlicher Wert ist die Schadensreduktionsaura für den ganzen Trupp. Felsfest hält ihn zwischen Ultimates am Leben, und Unbeugsamer Wille macht nebenbei die übrigen Tanks im Team zäher. Daher passt er gut zu einem zweiten Tank.",
+      "Er eignet sich sowohl fürs PvE-Farmen — Rattenschwarm-Wellen, Rattenkönig und Gebietsrückeroberung — als auch für PvP. Fast jeder Leitfaden zählt ihn deshalb zu den besten Tanks."
+    ],
+    "investment": "Bringt ihn auf 8★ (Sternstufe 40): Dort wird Zähigkeit freigeschaltet, sein größter einzelner Attributsprung. Die meisten Leitfäden empfehlen 5–6★, bevor ihr massenhaft Splitter in Marlena steckt. Fähigkeitsabzeichen zuerst für Erdbeben verwenden.",
+    "squadFit": "Arthur und Marlena sind das Kernduo, um das neue Konten ihr Team aufbauen sollten. Als Krieger verstärkt er auch Harpers Kriegerhymne. Arthurs Reduktion physischer Schäden ergänzt Shadows Reduktion von Energieschaden und deckt mit ihm zusammen eine andere Schadensart ab.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt den Schild und verursacht einem einzelnen Gegner physischen Schaden in Höhe von 105%–300% ANG.",
+        "starUpgrades": [
+          "Stern 5: zusätzlicher Schaden +40 %",
+          "Stern 25: zusätzlicher Schaden auf 100 % erhöht",
+          "Stern 50: zusätzlicher Schaden auf 200 % erhöht"
+        ],
+        "maxStars": "Bei 50 Sternen: 315%–900%"
+      },
+      "1": {
+        "effect": "Schlägt den Schild auf den Boden, verursacht Gegnern in Reichweite physischen Schaden in Höhe von 591,15%–1.689% ANG und senkt den erlittenen physischen Schaden von Verbündeten in Reichweite 5 s lang um 10,25%–20%.",
+        "starUpgrades": [
+          "Stern 10: Reduktion physischen Schadens +3 %",
+          "Stern 30: Effekt um weitere 4,5 % erhöht",
+          "Stern 50: Effekt um weitere 7,5 % erhöht"
+        ],
+        "maxStars": "Bei 50 Sternen: 591,15 % / 25,25 % bis 1.689 % / 35 %"
+      },
+      "2": {
+        "effect": "Gewährt einen Schild in Höhe von 5,25%–15% der aktuellen maximalen LP. Er absorbiert 50 % des erlittenen Schadens und hält 3 s.",
+        "starUpgrades": [
+          "Stern 15: Schildwirkung +20 %",
+          "Stern 35: Schildwirkung +30 %",
+          "Stern 45: Schildwirkung +50 %"
+        ],
+        "maxStars": "Bei 45 Sternen: 10,5%–30%"
+      },
+      "3": {
+        "effect": "Senkt im Kampf sämtlichen erlittenen Schaden verbündeter Tankhelden um 3,08%–6%.",
+        "starUpgrades": [
+          "Stern 20: Effekt +0,6 %",
+          "Stern 45: Effekt +0,9 %",
+          "Stern 50: Effekt +1,5 %"
+        ],
+        "maxStars": "Bei 50 Sternen: 6,08%–9%"
+      },
+      "4": {
+        "effect": "ANG, LP und VTD +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "shadow": {
+    "sourceHash": "ab3db8a5d6afdfb523ae2f97b07ee5cce1b6d83e20b4b849ce21be8220729122",
+    "tierLists": "S-Rang in 2 von 3 Ranglisten",
+    "summary": "Ein Tank, der gegnerische DEF und Energieschaden senkt und zugleich selbst ordentlich Schaden verursacht.",
+    "unlock": "Er erscheint am 6. Servertag in der Taverne; zum Freischalten werden 10 Shadow-Fragmente benötigt. Mehrere Ranglisten stufen ihn als Premium-Helden ein: Fragmente gibt es hauptsächlich durch Auflade-Belohnungen und kostenpflichtige Pakete, bei normalen Beschwörungen nur selten.",
+    "overview": [
+      "Shadow tankt anders als Arthur. Statt das Team zu schützen, schwächt er die Gegner. Shadow Strike senkt ihre DEF 3 Sek. lang um bis zu 30 % (mit allen Sternen 54 %) und macht so alle Schadensausteiler hinter ihm gefährlicher; Shadow Hunt senkt den Energieschaden des gesamten gegnerischen Teams um bis zu 13 % (mit allen Sternen 22 %).",
+      "Die Verringerung des Energieschadens ist wichtig, weil die meisten Top-Schadensausteiler im Spiel – Marlena, Cynthia, Red Lady und Annie – Energieschaden verursachen. Seine eigene Energieresistenz beträgt bis zu 20 % (mit allen Sternen 35 %), wodurch diese Helden ihn nur schwer besiegen.",
+      "Außerdem verursacht er für einen Tank überraschend viel Schaden. Mit seinen Rauchbomben und zwei Flächenfähigkeiten trägt er während des ganzen Kampfes Schaden bei, statt nur Treffer einzustecken."
+    ],
+    "investment": "Bei UR-Omni-Fragmenten lautet die übliche Reihenfolge: zuerst Marlena, dann Harper, Cynthia und schließlich Shadow. Zähigkeit wird bei 8★ freigeschaltet; die stärkste Verbesserung von Shadow Strikes DEF-Senkung kommt bei 45★.",
+    "squadFit": "Er steht in der vollständigen BF2-Aufstellung (Shadow + Daskal + Harper + Marlena + Cynthia) an der Front. Das Team verzichtet auf den vollen Fraktionsbonus, aber seine DEF-Senkung ist den Tausch wert. Auch Bell profitiert in einem Team nur aus Rangern von ihm.",
+    "skills": {
+      "0": {
+        "effect": "Wirft zufällig 3 Rauchbomben; jede verursacht einem einzelnen Gegner physischen Schaden in Höhe von 29,4%–84% des ANG.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 88,2%–252%"
+      },
+      "1": {
+        "effect": "Entfesselt einen wallenden schwarzen Nebel, verursacht allen Gegnern physischen Schaden in Höhe von 387,45%–1.107% des ANG und senkt ihren Energieschaden 5 Sek. lang um 5,2%–13%.",
+        "starUpgrades": [
+          "10★: Effekt +3 %",
+          "30★: Effekt um weitere 3 % erhöht",
+          "50★: Effekt um weitere 3 % erhöht"
+        ],
+        "maxStars": "Bei 50★: 387,45 % / 14,2 % bis 1.107 % / 22 %"
+      },
+      "2": {
+        "effect": "Wirft eine große Rauchkartusche, verursacht Gegnern in Reichweite physischen Schaden in Höhe von 194,25%–555% des ANG und senkt ihre DEF 3 Sek. lang um 15,38%–30%.",
+        "starUpgrades": [
+          "15★: Effekt +4,5 %",
+          "35★: Effekt +7,5 %",
+          "45★: Effekt +12 %"
+        ],
+        "maxStars": "Bei 45★: 194,25 % / 39,38 % bis 555 % / 54 %"
+      },
+      "3": {
+        "effect": "Verringert im Kampf den erlittenen Energieschaden um 8,3%–20%.",
+        "starUpgrades": [
+          "20★: Effekt +5 %",
+          "45★: Effekt +5 %",
+          "50★: Effekt +5 %"
+        ],
+        "maxStars": "Bei 50★: 23,3%–35%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "daskal": {
+    "sourceHash": "a80440a8c4257258290c07ef7e6e17ba7e0ded364746cdf3bbd3bf98b859f35e",
+    "summary": "Ein selbstheilender Tank, der das ganze Team abschirmt und einspringt, wenn die LP deines Schadensausteilers niedrig sind.",
+    "unlock": "Er erscheint am 27. Servertag. Zum Freischalten werden 10 Daskal-Fragmente benötigt; Fragmente gibt es durch Beschwörungen, und jede 50. Beschwörung garantiert 10 UR-Fragmente.",
+    "overview": [
+      "Daskal ist auf Überleben ausgelegt. Mit Deadly Pierce heilt er sich selbst, Bloodshed Defense verleiht jedem Verbündeten einen Schild – mit 6,4 Sek. die kürzeste ultimative Abklingzeit aller Tanks – und Resolute Fight aktiviert einen Notschild, wenn die LP deines Schadensausteilers unter 50 % fallen.",
+      "Dadurch ist er besonders stark in PvP und langen Kämpfen, in denen ein Eröffnungsstoß das Team ausschalten kann. Sein Beitrag zu den Grundwerten ist im PvE weniger beeindruckend; er ist eher ein Kriegstank als ein Farm-Held."
+    ],
+    "investment": "Spieler mit kleinen Ausgaben sollten ihn auf 8★ bringen: Dort schaltet er Zähigkeit frei und erreicht seinen größten Kraftsprung. Vielspieler können für stärkere Schilde und Heilung auf 10★ gehen, nötig ist das aber nur bei großen PvP-Investitionen.",
+    "squadFit": "Seine Schilde verschaffen dem vollständigen BF2-Team Zeit: Er steht neben Shadow an der Front, Harper, Marlena und Cynthia dahinter. Zusammen mit Arthur bildet er eine starke Krieger-Frontreihe: Arthur senkt den physischen Schaden für Verbündete, Daskals Schild schützt vor allen Schadensarten.",
+    "skills": {
+      "0": {
+        "effect": "Schlitzt das Ziel auf und verursacht einem Gegner physischen Schaden in Höhe von 87,15%–249% des ANG.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %; exklusives Waffensternlevel 20: auf 300 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Bündelt Energie und gewährt jedem Verbündeten einen Schild in Höhe von 126%–360% seiner max. DEF. Er absorbiert 5 Sek. lang 50 % des erlittenen Schadens.",
+        "starUpgrades": [
+          "10★: Schildwirkung +30 %",
+          "30★: Schildwirkung +30 %",
+          "50★: Schildwirkung +30 %; exklusives Waffensternlevel 50: zusätzlich +30 %"
+        ],
+        "maxStars": "Bei 50★: 239,4%–684%"
+      },
+      "2": {
+        "effect": "Sticht mit einem Zweihandschwert auf das Ziel ein, verursacht 323.4% bis 924% des ANG als physischen Schaden und stellt LP in Höhe von 42% bis 120% des ANG wieder her.",
+        "starUpgrades": [
+          "15★: zusätzliche LP-Wiederherstellung +60 %",
+          "35★: zusätzliche LP-Wiederherstellung steigt auf 150 %",
+          "45★: zusätzliche LP-Wiederherstellung steigt auf 300 %; exklusives Waffensternlevel 40: auf 400 %"
+        ],
+        "maxStars": "Bei 45★: 323,4 % / 168 % bis 924 % / 480 %"
+      },
+      "3": {
+        "effect": "Fallen die LP deines DPS-Helden unter 50 %, erhält er einen Schild in Höhe von 5,25%–15% seiner max. LP. Er absorbiert 5 Sek. lang 50 % Schaden.",
+        "starUpgrades": [
+          "20★: Schilddauer +2 Sek.",
+          "45★: Schildwirkung +20 %",
+          "50★: Schildwirkung +30 %; exklusives Waffensternlevel 30: Auch der Support-Held erhält bei weniger als 50 % LP einen Schild"
+        ],
+        "maxStars": "Bei 50★: 7,88%–22,5%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "cynthia": {
+    "sourceHash": "a665e08be8417aed15f02a00a270d41f3eda570b5f60735582ac26b1a1f903c7",
+    "summary": "Ein Energy-Carry mit Mondklinge, hohem Einzelschaden und einem Krit-Bonus, der mit jedem Stern wächst.",
+    "unlock": "Cynthia kann ab dem 6. Servertag mit 10 ihrer Fragmente freigeschaltet werden. In mehreren Ranglisten gilt sie als Premiumheldin: Ihre Fragmente stammen überwiegend aus kostenpflichtigen Paketen und erscheinen nur selten bei normalen Beschwörungen. Jede 50. Rekrutierung garantiert jedoch 10 UR-Fragmente.",
+    "overview": [
+      "Cynthia verursacht hohen Energieschaden und verstärkt zugleich ihre eigenen kritischen Treffer. Lunar Hunt ist ihre wichtigste Fähigkeit: Alle 5 s schleudert sie drei zielverfolgende Klingen, die jeweils bis zu 600% des ANG verursachen (1.800% mit allen Sternen). Moonfall Dance trifft mehrere Gegner und erhöht zusätzlich zu ihrem Passiv ihre Krit-Chance.",
+      "Mit steigender Sternzahl wird sie deutlich stärker. Bei gleicher Investition ist Marlena meist überlegen, doch sobald dein Hauptteam steht, ist Cynthia der naheliegende zweite Carry."
+    ],
+    "investment": "UR-Omni-Fragmente sind eine gute Investition in sie, doch Free-to-play-Spieler und Gelegenheitsspieler sollten zuerst Marlena fertig entwickeln. Für Spieler mit geringem Budget sind 8★ ein solides Ziel; Vielspender können sie für maximalen Explosionsschaden auf 10★ bringen.",
+    "squadFit": "Sie ist neben Marlena der zweite Carry im vollständigen BF2-Team. Als Ranger passt sie außerdem in ein reines Ranger-Team mit Shadow, Louis, Red Lady und Bell, dessen Battle Anthem ihre Angriffe verstärkt.",
+    "skills": {
+      "0": {
+        "effect": "nutzt a moon blade to deal 87.15% to 249% ANG Energieschaden to a einen Gegner.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "Stern 50: Der Zusatzschaden steigt um 200%. Erwachen Stufe 1: Entfesselt Moon Blade gegen einen einzelnen Gegner, verursacht 747% des ANG als Energieschaden und erhält 1 Moonlight-Stapel. Die maximale Stapelzahl entspricht dem 4-Fachen der Ranger in deinem Team. Jeder Stapel gewährt Cynthia 1% Energieschadensbonus."
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Erhöht die Krit-Chance um 8.2% bis 16%. Feuert eine große Mondklinge ab, die Gegner in Reichweite mit 520.8% bis 1.488% des ANG als Energieschaden trifft.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 40% zusätzlicher Schaden",
+          "Stern 30: Verursacht Schaden to alle Gegner",
+          "Stern 50: Der Zusatzschaden steigt um 100%. Erwachen Stufe 20: Erhöht die Krit-Chance um 16%. Entfesselt eine große Moon Blade, die Gegner in Reichweite mit 2.976% des ANG als Energieschaden trifft und bis zu 10 Moonlight-Stapel verbraucht. Fügt Gegnern zusätzlich Energieschaden in Höhe von 60% des ANG multipliziert mit den verbrauchten Moonlight-Stapeln zu."
+        ],
+        "maxStars": "Bei 50 Sternen: 8.2% / 1,041.6% bis 16% / 2,976%"
+      },
+      "2": {
+        "effect": "zufällig locks onto 3 Ziele, launching 3 moon blades, each verursacht 210% to 600% ANG Energieschaden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 40% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 100%",
+          "Stern 45: zusätzlicher Schaden erhöht to 200%.Awakening level 10: zufällig locks onto 3 Ziele, launching 3 moon blades, each verursacht 1,800% ANG Energieschaden. Verursacht an additional 20% Schaden and gewährt 2 stacks of Moonlight"
+        ],
+        "maxStars": "Bei 45 Sternen: 630% bis 1,800%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf die kritische Trefferchance um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "Stern 50: Effekt erhöht sich um 4%.Awakening level 40: Im Kampf, erhöht 24% Krit-Chance. kritische Treffer deal an additional 20% Schaden"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "red-lady": {
+    "sourceHash": "0002d8f0b8a80b3ac8bd521c6dc5e3c8d31a575017caedb16c642dcc24940826",
+    "summary": "Ein Burst-Carry, der die gefährlichsten Gegner ins Visier nimmt, ihren erlittenen Schaden erhöht und sie betäuben kann.",
+    "unlock": "Red Lady erscheint am 34. Servertag in der Heldenliste. Mit 10 ihrer Fragmente wird sie freigeschaltet.",
+    "overview": [
+      "Red Lady gehört sowohl im PvE als auch im PvP zu den beständigsten Schadensausteilern. Ihr Arsenal sucht gezielt wichtige Ziele: Crimson Rose greift die beiden gegnerischen Helden mit dem höchsten ANG an und hat eine Chance von 35%, sie 5 s lang zu betäuben – ein betäubter Carry kann den Kampf entscheiden.",
+      "Bloodthirsty Slaughter verursacht selbst großen Schaden und lässt das Ziel zusätzlich mehr Schaden durch alle anderen erleiden. So bereitet Red Lady Kills vor und führt sie zugleich aus."
+    ],
+    "investment": "Spieler mit geringem Budget können bei 8★ aufhören und ihre UR-Omni-Fragmente sparen. Spieler mit mittlerem Budget sollten für bessere Skalierung 9★ anstreben; Vielspender können sie für maximalen Schaden und Betäubung auf 10★ bringen.",
+    "squadFit": "Als Ranger-Carry passt sie zu Cynthia, Shadow, Louis und Bell. Bells Inspiration zielt auf die beiden Verbündeten mit dem höchsten ANG – meist gehört Red Lady dazu. Achte auf gegnerischen Billy, dessen Ultimate Betäubungsresistenz gewährt.",
+    "skills": {
+      "0": {
+        "effect": "wirft a scalpel, verursacht 87.15% to 249% ANG Energieschaden to a einen Gegner",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Beschwört Crimson Rose, die den 2 Gegnern mit dem höchsten ANG 628.95% bis 1.797% des ANG als Energieschaden zufügt und sie mit einer Chance von 35% 5 s lang betäubt.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 40% zusätzlicher Schaden",
+          "Stern 30: Attack Ziel +1",
+          "Stern 50: zusätzlicher Schaden erhöht to 140%"
+        ],
+        "maxStars": "Bei 50 Sternen: 1,592.64% bis 4,550.4%"
+      },
+      "2": {
+        "effect": "Fixiert ein Ziel, verursacht bei ihm 342.3% bis 978% des ANG als Energieschaden und erhöht den erlittenen Schaden 3 s lang um 8.2% bis 16%.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 40% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 100%",
+          "45★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 45 Sternen: 1,026.9% / 8.2% bis 2,934% / 16%"
+      },
+      "3": {
+        "effect": "Im Kampf, erhöht 8.2% to 16% ANG.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "annie": {
+    "sourceHash": "57735f2e10e53ff51a22cc79b50e0d80f9565143192a50ce88ccffd5760b8c11",
+    "summary": "Eine Spezialistin für Verbrennung und Flächenangriffe, die Gegnerwellen beseitigt und Gegner auch nach dem Treffer weiter schwächt.",
+    "unlock": "Annie wird am 13. Servertag freigeschaltet, am selben Tag wie Joker; dafür werden 10 ihrer Fragmente benötigt. Sie ist nicht an ein Premium-Paket gebunden, sodass auch kostenlose Spieler sie durch das Ansparen von Fragmenten erhalten können.",
+    "overview": [
+      "Annie setzt auf gleichmäßigen Schaden statt auf einzelne Schadensspitzen. Ihre beiden starken Fähigkeiten treffen einen großen Bereich und verursachen Verbrennung, sodass Gegner auch nach dem Treffer weiter Schaden erleiden. Surprise Gift hat mit 4,5 s zudem eine kürzere Abklingzeit als die meisten aktiven Fähigkeiten.",
+      "Dadurch verursacht sie im PvE zuverlässig Schaden und räumt Gegnerwellen effizient ab. Auch im PvP ist sie brauchbar, richtet dort aber weniger Schaden an als die stärksten Burst-Carries."
+    ],
+    "investment": "7–8★ reichen aus, wenn du den Großteil deiner Ressourcen in PvP investierst. Liegt dein Schwerpunkt auf PvE, lohnt sie sich besonders bei 9–10★.",
+    "squadFit": "Ihre Verbrennung lässt Nicole härter zuschlagen: Inferno Array verursacht bis zu 40 % zusätzlichen Schaden an brennenden Zielen (45 % bei vollständig ausgebauten Sternen). Die beiden ergänzen sich daher hervorragend. In einem Warlock-Team erledigt Joker mit seiner Zielauswahl für Gegner mit den wenigsten LP die von Annies Verbrennung geschwächten Feinde.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt einen Zauberstab, erschafft ein Bonbon und verursacht bei einem einzelnen Gegner 87.15%–249% des ANG als Energieschaden.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "Stern 50: Der Zusatzschaden steigt um 200%. Erwachen Stufe 1: Schwingt den Zauberstab und erschafft ein Bonbon, das einem einzelnen Gegner 747% des ANG als Energieschaden zufügt. Mit 50% Wahrscheinlichkeit wird Verbrennung 2 s lang angewendet (200% des ANG als Energieschaden pro Sekunde). Jedes erfolgreiche Anwenden von Verbrennung durch das Team fügt außerdem 1 Scorch-Stapel hinzu. Erwachen Stufe 40: Erschafft ein Bonbon, das einem Gegner 747% des ANG als Energieschaden zufügt, und wendet mit 50% Wahrscheinlichkeit 2 s lang Verbrennung auf das Ziel und einen zufälligen DPS-Gegner an (200% des ANG als Energieschaden pro Sekunde). Jedes erfolgreiche Anwenden von Verbrennung durch das Team fügt außerdem 1 Scorch-Stapel hinzu."
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Beschwört zwei explosive Bonbongläser, die auf die beiden Gegner mit dem höchsten ANG zielen, 414.54%–1.184,4% des ANG verursachen und Verbrennung anwenden. Diese verursacht 5 s lang pro Sekunde Schaden in Höhe von 100% des ANG.",
+        "starUpgrades": [
+          "Stern 10: Attack Ziel +1",
+          "Stern 30: If the Ziel is brennende, verursacht an additional 900% Attack Schaden once",
+          "Stern 50: Der Zusatzschaden steigt um 200%. Erwachen Stufe 20: Beschwört zwei explosive Bonbongläser, die auf die beiden Gegner mit dem höchsten ANG zielen, 3.553,2% des ANG verursachen und Verbrennung anwenden. Diese verursacht 5 s lang pro Sekunde Schaden in Höhe von 100% des ANG. Zusätzlich wird allen Gegnern mit Scorch einmal Energieschaden in Höhe von Annies 250% ANG multipliziert mit den Scorch-Stapeln des Ziels zugefügt."
+        ],
+        "maxStars": "Bei 50 Sternen: 1,243.62% bis 3,553.2%"
+      },
+      "2": {
+        "effect": "Wirft eine Geschenkbox und verursacht Gegnern in Reichweite 187.95%–537% des ANG als Energieschaden. Außerdem wird 2 s lang Verbrennung angewendet, die pro Sekunde 100% des ANG als Energieschaden verursacht.",
+        "starUpgrades": [
+          "Stern 15: brennende Duration +2s",
+          "Stern 35: Verursacht 100% zusätzlicher Schaden",
+          "Stern 45: Der Zusatzschaden steigt um 200%. Erwachen Stufe 10: Wirft eine Geschenkbox, verursacht Gegnern in Reichweite 1.611% des ANG als Energieschaden und wendet 2 s lang Verbrennung an (100% des ANG als Energieschaden pro Sekunde). Der Schaden erhöht sich zusätzlich um 15% und um weitere 4% pro Scorch-Stapel des Ziels."
+        ],
+        "maxStars": "Bei 45 Sternen: 563.85% bis 1,611%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf den verursachten Energieschaden um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "joker": {
+    "sourceHash": "a7b8ce8fc6a8f9c40e97bee07580a8b9bcb4bf28a6a49dad5db42f459f259ab2",
+    "summary": "Ein Karten werfender Vollstrecker, der Gegner mit den wenigsten LP anvisiert und ausschaltet.",
+    "unlock": "Joker ist ab dem 13. Servertag verfügbar, am selben Tag wie Annie, und wird mit 10 seiner Fragmente freigeschaltet. Er ist nicht an ein Premium-Paket gebunden. Manche Quellen nennen ihn weiterhin Jester.",
+    "overview": [
+      "Joker ist ein Finisher. Sowohl sein automatischer Angriff als auch sein Ultimate zielen auf Gegner mit den wenigsten LP. Joker Ace trifft die beiden geschwächtesten Gegner und verursacht bei jedem bis zu 2.019% des ANG (5.047,5% mit allen Sternen) – genug, um einen bereits angeschlagenen Helden auszuschalten.",
+      "Zu Beginn und in der mittleren Spielphase ist er am stärksten, wenn sein Explosivschaden Kämpfe schnell beenden kann. Auch im PvP ist er gut, aber stark von seinen Sternen abhängig. Er ist außerdem der einzige UR-Carry mit physischem Schaden – ein Vorteil gegen Gegner, die Energieresistenz aufbauen, etwa Shadow, Billy und Louis."
+    ],
+    "investment": "Seine Stärke hängt von seinen Sternen ab: Ein halb ausgebauter Joker bleibt hinter seinem Potenzial zurück. Das erste Ziel sind 8★ für Tenacity; danach kannst du entscheiden, ob du weiter investierst.",
+    "squadFit": "Er erledigt Gegner, die das Team zuvor geschwächt hat: Sowohl seine automatischen Angriffe als auch sein Ultimate zielen auf Gegner mit den wenigsten LP. In einem Warlock-Team passt er gut zu Annie und Nicole. Sein physischer Schaden ist wirksam gegen Teams mit hoher Energieresistenz.",
+    "skills": {
+      "0": {
+        "effect": "wirft a card, verursacht 87.15% to 249% ANG physischer Schaden to the lowest LP Ziel.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "wirft 2 joker cards, verursacht 706.65% to 2,019% ANG physischer Schaden to 2 mit den wenigsten LP Gegner.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 40% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 150%",
+          "Stern 50: Attack Ziel +1"
+        ],
+        "maxStars": "Bei 50 Sternen: 1,766.63% bis 5,047.5%"
+      },
+      "2": {
+        "effect": "wirft a heart card, verursacht 283.5% to 810% ANG as physischer Schaden to 2 random Ziele.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 40% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 100%",
+          "Stern 45: Inflicts Verbrennung on the Ziel, verursacht 400% Attack Schaden pro Sekunde for 3s"
+        ],
+        "maxStars": "Bei 45 Sternen: 567% bis 1,620%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf die kritische Trefferchance um 8,2%–16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "harper": {
+    "sourceHash": "cb6cb547faf611d4eba6e6a836eda19c57f94ce98744b62ae3febfb7a6d68af9",
+    "summary": "Die beste offensive Unterstützung im Spiel: Er erhöht regelmäßig den ANG des ganzen Teams und verstärkt Warriors zusätzlich.",
+    "unlock": "Harper erscheint am 20. Servertag und wird mit 10 seiner Fragmente freigeschaltet. Er ist nicht von einem Premium-Paket abhängig.",
+    "overview": [
+      "Harper selbst verursacht wenig Schaden; stattdessen verstärkt er den Schaden aller anderen. War Flute Sound erhöht alle 14 s für 5 s den ANG jedes Verbündeten um bis zu 30% (34,5% mit allen Sternen). Warrior’s Anthem erhöht dauerhaft den ANG aller Warriors im Team um bis zu 12% (18% mit allen Sternen). Beide Boni sind miteinander stapelbar.",
+      "Vitality Bubble ist ein kleiner zusätzlicher Schutz, der deinen schwächsten Helden etwas länger am Leben hält. Zusammengenommen machen ihn diese Fähigkeiten zur besten offensiven Unterstützung im Spiel."
+    ],
+    "investment": "Nach Marlena hat er als Zweiter Priorität für UR-Omni-Fragmente. Bringe ihn auf 8★, um Tenacity freizuschalten und zugleich den Abstand zwischen seinen ANG-Boni zu verkürzen.",
+    "squadFit": "Mit möglichst vielen Warriors im Team ist er am stärksten: Arthur, Daskal, Marlena und Zoya profitieren alle von seinem Passiv. Er ist der Support im vollständigen BF2-Team. Bis er am 20. Servertag freigeschaltet wird, können Celia oder Stellar diesen Platz übernehmen.",
+    "skills": {
+      "0": {
+        "effect": "Plays a flute to create bubbles, verursacht 87.15% to 249% ANG as Energieschaden to a einen Gegner.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Harper spielt eine Kriegsflöte, um seine Verbündeten zu inspirieren, und erhöht den ANG aller verbündeten Helden 5 s lang um 15.38% bis 30%.",
+        "starUpgrades": [
+          "Stern 10: Erhöht nach dem Einsatz 7 s lang den von allen Verbündeten verursachten Energieschaden um 4.5%.",
+          "Stern 30: ANG bonus erhöht by 4.5%",
+          "Stern 50: ANG bonus duration +5s"
+        ],
+        "maxStars": "Bei 50 Sternen: 19.88% bis 34.5%"
+      },
+      "2": {
+        "effect": "Harper erschafft eine Blase, die den erlittenen Schaden des Verbündeten mit den wenigsten LP 4 s lang um 8.2% bis 16% verringert.",
+        "starUpgrades": [
+          "Stern 15: Effekt erhöht sich um 1.6%",
+          "Stern 35: Effekt erhöht sich um 2.4%",
+          "Stern 45: Ziel +1"
+        ],
+        "maxStars": "Bei 45 Sternen: 12.2% bis 20%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf den ANG aller verbündeten Warrior-Helden um 6.15% bis 12%.",
+        "starUpgrades": [
+          "Stern 20: Effekt erhöht sich um 1.2%",
+          "Stern 45: Effekt erhöht sich um 1.8%",
+          "50★: Effekt um weitere 3 % erhöht"
+        ],
+        "maxStars": "Bei 50 Sternen: 12.15% bis 18%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "bell": {
+    "sourceHash": "fc333b92200ae59abcef48c426863173c44bf0c032d77cf75a3e718389c8d101",
+    "summary": "Harpers Gegenstück für Ranger: Sie verstärkt direkt deine beiden stärksten Angreifer und heilt den schwächsten Verbündeten.",
+    "unlock": "Bell erscheint am 69. Servertag in der Heldenliste und wird mit 10 ihrer Fragmente freigeschaltet.",
+    "overview": [
+      "Bell übernimmt für Ranger die Rolle, die Harper für Warrior hat. Battle Anthem gewährt jedem Ranger im Team bis zu +12% ANG (18% mit allen Sternen). Inspiration gibt deinen beiden Helden mit dem höchsten ANG für 5 s bis zu +50% ANG (55% mit allen Sternen) – ein gezielterer Bonus als Harpers, der bei den entscheidenden Helden aber deutlich stärker ist.",
+      "Healing Sound bietet Bell etwas, das Harper fehlt: Alle 5 s heilt sie tatsächlich den Verbündeten mit den wenigsten LP."
+    ],
+    "investment": "In unseren Notizen gibt es noch kein festes Sternziel für sie. 8★ ist ein sicherer erster Meilenstein, an dem Tenacity freigeschaltet wird und sich zugleich ihr Bonuszyklus verkürzt.",
+    "squadFit": "Am besten ist sie in einem reinen Ranger-Team mit Shadow, Cynthia, Red Lady und Louis aufgehoben. Ihre passive Fähigkeit stärkt das ganze Team, während Inspiration Cynthia und Red Lady zugutekommt.",
+    "skills": {
+      "0": {
+        "effect": "Waves a bell to release musical notes, verursacht 87.15% to 249% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "5★: zusätzlicher Schaden +40 %",
+          "25★: zusätzlicher Schaden steigt auf 100 %",
+          "50★: zusätzlicher Schaden steigt auf 200 %"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Inspiriert die 2 Verbündeten mit dem höchsten ANG und erhöht ihren ANG 5 s lang um 25.63% bis 50%.",
+        "starUpgrades": [
+          "Stern 10: Effekt erhöht sich um 5%",
+          "Stern 30: Effect Duration +2s",
+          "Stern 50: Ziel +1"
+        ],
+        "maxStars": "Bei 50 Sternen: 30.63% bis 55%"
+      },
+      "2": {
+        "effect": "heilt the mit den wenigsten LP Verbündeter for 63% to 180% ANG.",
+        "starUpgrades": [
+          "Stern 15: Restores 40% extra LP",
+          "Stern 35: Extra LP recovery erhöht to 100%",
+          "Stern 45: Extra LP recovery erhöht to 200%"
+        ],
+        "maxStars": "Bei 45 Sternen: 189% bis 540%"
+      },
+      "3": {
+        "effect": "Im Kampf, erhöht ANG of all allied Ranger Heroes by 6.15% to 12%.",
+        "starUpgrades": [
+          "Stern 20: Effekt erhöht sich um 1.2%",
+          "Stern 45: Effekt erhöht sich um 1.8%",
+          "50★: Effekt um weitere 3 % erhöht"
+        ],
+        "maxStars": "Bei 50 Sternen: 12.15% bis 18%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "nicole": {
+    "sourceHash": "a7228a782f042fa3d6670d0394c7e4226b2fa28b688a18b93ead46d60f666b58",
+    "summary": "Eine spezialisierte Heilerin mit offensiver Stärke: Ihr Ultimate trifft brennende Gegner deutlich härter.",
+    "unlock": "Nicole ist die letzte UR-Heldin, die erscheint: Sie kommt am 97. Servertag und wird mit 10 ihrer Fragmente freigeschaltet.",
+    "overview": [
+      "Nicole ist die spezialisierteste Heilerin im Spiel. Jeder automatische Angriff heilt einen Verbündeten, und Heartwarming Flame heilt alle 5 s deine beiden Helden mit den wenigsten LP. Sie ist aber nicht nur Heilerin: Inferno Array trifft alle Gegner und verursacht bis zu 40% mehr Schaden an bereits brennenden Zielen (45% mit allen Sternen).",
+      "Ihr Passiv ist der Grund, weshalb sie besonders gut in ein Warlock-Team passt. Flame Soul Power erhöht den ANG jedes verbündeten Warlocks um bis zu +8% (10% mit allen Sternen); am stärksten ist sie daher, wenn der Großteil des Teams ihrer Fraktion angehört."
+    ],
+    "investment": "Unsere Notizen nennen noch kein bestimmtes Sternziel. 8★ ist der erste Meilenstein für Tenacity; investiere weiter, wenn sie fest zu deinem Warlock-Team gehört.",
+    "squadFit": "Sie harmoniert besonders gut mit Annie, deren Verbrennung den Zusatzschaden ihres Ultimates vorbereitet, sowie mit Joker. Stelle Billy oder Ulfrid in die Front, damit ihr ANG-Bonus für Warlocks auf jeden Platz im Team wirkt.",
+    "skills": {
+      "0": {
+        "effect": "Entfesselt Flammen, verursacht bei einem einzelnen Ziel 87.15% bis 249% des ANG als physischen Schaden und heilt den Verbündeten mit den wenigsten LP um 10k + 50% des ANG.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 40% zusätzlicher Schaden and restores 5k LP",
+          "Stern 25: zusätzlicher Schaden erhöht to 100%, extra LP recovery erhöht to 15k",
+          "Stern 50: zusätzlicher Schaden erhöht to 200%, extra LP recovery erhöht to 30k"
+        ],
+        "maxStars": "Bei 50★: 261,45%–747%"
+      },
+      "1": {
+        "effect": "Beschwört eine Feuersäule, die allen Gegnern 367.5% bis 1.050% des ANG als physischen Schaden zufügt. Sind die Ziele verbrannt, steigt der Schaden um 20.5% bis 40%.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 100% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 200%",
+          "Stern 50: Schaden from Verbrennung status erhöht by 5%"
+        ],
+        "maxStars": "Bei 50 Sternen: 1,102.5% / 25.5% bis 3,150% / 45%"
+      },
+      "2": {
+        "effect": "wirft 2 fireballs, heilend the 2 mit den wenigsten LP Verbündete for 80k + 27.3% to 78% ANG.",
+        "starUpgrades": [
+          "Stern 15: Restores 80k extra LP, heilend ANG bonus erhöht by an extra 70%",
+          "Stern 35: Restores 150k extra LP, heilend ANG bonus erhöht by an extra 140%",
+          "Stern 45: Restores 250k extra LP, heilend ANG bonus erhöht by an extra 210%"
+        ],
+        "maxStars": "Bei 45 Sternen: 84.63% bis 241.8%"
+      },
+      "3": {
+        "effect": "In battle, all allied Hexer Heroes ANG +4.1% to 8%",
+        "starUpgrades": [
+          "Stern 20: All allied Hexer Heroes' Angriffstempo +3.5%",
+          "Stern 45: ANG bonus erhöht by 2%",
+          "Stern 50: All Hexer Heroes Angriffstempo +6.5%"
+        ],
+        "maxStars": "Bei 50 Sternen: 6.1% bis 10%"
+      },
+      "4": {
+        "effect": "ANG, LP und DEF +20 %; Abklingzeitgeschwindigkeit der Fähigkeiten +10 %."
+      }
+    }
+  },
+  "bella": {
+    "sourceHash": "6a2f993cbbde50ef9f12c7d301a1e26c2bd269ee6932ea713037b29ca496004c",
+    "summary": "Ein kostenloser Axt-Tank, der Monsterschaden gut wegsteckt und bis zum Ausbau deiner UR-Tanks als verlässliche Übergangslösung dient.",
+    "unlock": "Bella ist ab dem ersten Tag verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Fragmente gibt es bei Tavernen-Rekrutierungen und als Eventbelohnungen; im Allianz-Shop können ebenfalls Bella-Fragmente eingetauscht werden.",
+    "overview": [
+      "Bella ist auf PvE ausgelegt. Ihre passive Fähigkeit und Crimson Prayer können den Schaden von Monstern stark verringern. Dadurch hält sie beim Farmen im frühen bis mittleren Spielverlauf deutlich länger die Front, als ihre Seltenheit vermuten lässt.",
+      "Voll ausgebaut erreicht sie 773.500 Power und gehört damit zu den SSR mit dem höchsten Wert. Ihre eigenen Werte bleiben jedoch weit hinter denen eines UR-Tanks zurück: etwa 1,97 Mio. LP mit allen Sternen gegenüber Arthurs 3,0 Mio. Ihr Kit richtet sich vor allem gegen Monster – Bloody Requiem senkt außerdem den gegnerischen ANG um 6% –, weshalb sie im PvP deutlich weniger beiträgt."
+    ],
+    "investment": "Sie ist ein nützlicher Tank für den Einstieg, solange du noch keinen anderen Tank mit vielen Sternen hast. Sobald du einen solchen Tank bekommst, solltest du sie ersetzen. Ihre Fragmente im Allianzladen zu kaufen, ist nicht empfehlenswert – für diese Münzen gibt es bessere Verwendungsmöglichkeiten.",
+    "squadFit": "Sie kann Arthurs zweiten Tank-Platz einnehmen, bis deine UR-Tanks einsatzbereit sind. Sobald Daskal, Shadow oder ein anderer UR-Tank bereit ist, solltest du sie austauschen.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt eine gewaltige Axt mit einer Hand und verursacht bei einem einzelnen Ziel physischen Schaden in Höhe von 81.9%–234% des ANG.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 180.18% bis 514.8%"
+      },
+      "1": {
+        "effect": "Führt zwei Äxte und verursacht bei Zielen in Reichweite Schaden in Höhe von 459.27%–1,312.2% des ANG. Außerdem verringert sich deren ANG 5 s lang um 6%.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 1,010.39% bis 2,886.84%"
+      },
+      "2": {
+        "effect": "Legt die Hände zum Gebet zusammen und verringert 3 s lang den erlittenen Schaden durch Monster um 15.38% bis 30%.",
+        "starUpgrades": [
+          "Stern 15: Effekt erhöht sich um 3%",
+          "Stern 35: Effekt erhöht sich um 4.5%",
+          "Stern 45: Effekt erhöht sich um 7.5%"
+        ],
+        "maxStars": "Bei 45 Sternen: 30.38% bis 45%"
+      },
+      "3": {
+        "effect": "Verringert im Kampf den erlittenen Schaden durch Monster um 8.2% bis 16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP und VTD +10 %"
+      }
+    }
+  },
+  "lucius": {
+    "sourceHash": "ebabe35c7623f997871d5035c929dbea73d5ff47bd7c632d123660edab17556c",
+    "summary": "Ein Tank mit zwei Äxten, starken Treffern gegen einzelne Ziele und einer sinnvollen Verwendung für SSR-Omni-Fragmente.",
+    "unlock": "Lucius ist ab dem ersten Tag verfügbar und wird mit 10 seiner Fragmente freigeschaltet. Fragmente gibt es in der Taverne und bei Events; fehlende Exemplare lassen sich durch SSR-Omni-Fragmente ersetzen.",
+    "overview": [
+      "Lucius ist ein zuverlässiger, unkomplizierter Tank für Free-to-play-Spieler ebenso wie für zahlende Spieler. Whirlwind Cut und Decapitation treffen beide einen einzelnen Gegner mit hohem Schaden. Mit 778.239 Power bei vollständigem Ausbau hat er die höchste End-Power aller SSR.",
+      "Wie bei Bella ist auch sein Passiv auf Monster ausgerichtet, weshalb er im PvE am stärksten ist. Er bietet dem Team weniger zusätzlichen Nutzen als Arthur oder Griffith, weshalb ihn Ranglisten etwa auf Stufe B einordnen."
+    ],
+    "investment": "Es lohnt sich, SSR-Omni-Fragmente in ihn zu investieren. Die meisten seiner Fragmente erhältst du in der Taverne, sodass du ihn leicht weiterentwickeln kannst.",
+    "squadFit": "Bis deine UR-Tanks ausgebaut sind, ist er ein guter Ersatz für Arthurs zweiten Tank-Platz. Als Warrior profitiert er außerdem von Harpers Warrior's Anthem.",
+    "skills": {
+      "0": {
+        "effect": "schwingt a great axe, verursacht 81.9% to 234% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 180.18% bis 514.8%"
+      },
+      "1": {
+        "effect": "Vigorously schwingt a great axe, verursacht 373.8% to 1,068% ANG physischer Schaden to a einen Gegner in front.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: Stuns Gegner for an additional 1.5s",
+          "Stern 50: zusätzlicher Schaden erhöht to 90%"
+        ],
+        "maxStars": "Bei 50 Sternen: 710.22% bis 2,029.2%"
+      },
+      "2": {
+        "effect": "Hebt eine große Axt mit beiden Händen und schlägt auf einen Gegner herab, dem er 298.2% bis 852% des ANG als physischen Schaden zufügt.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 656.04% bis 1,874.4%"
+      },
+      "3": {
+        "effect": "Im Kampf, verringert erlittener Schaden from monsters by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "griffith": {
+    "sourceHash": "bba961991a5ccad95d3fc52e9a4032abc442c08884886b4d37dc5764a78af94c",
+    "summary": "Ein Flötentank mit Schlangenmotiv, der das Team vor Monsterschaden schützt und mit einem kräftigen Biss ein Einzelziel trifft.",
+    "unlock": "Für Griffith gibt es keine Voraussetzung zum Servertag; mit 10 seiner Fragmente wird er freigeschaltet. Fragmente erhält man bei Events, im Allianz-Shop und durch Tavernen-Rekrutierungen.",
+    "overview": [
+      "Griffiths Stärke liegt im PvE. Serpent Veil umgibt ihn mit einer Geisterschlange, die den von nahen Verbündeten erlittenen Monsterschaden 4 s lang um bis zu 30% verringert (39% mit allen Sternen). Sein Passiv senkt zusätzlich seinen eigenen erlittenen Monsterschaden um bis zu 16%.",
+      "Venomous Bite trifft ein einzelnes Ziel mit hohem Schaden, bei allen Sternen bis zu 2.303,4% des ANG. Seine Schadensreduktionen wirken nur gegen Monster, daher ist er im PvP schwächer. Mehrere Ranglisten stufen ihn für PvE und Bosskämpfe dennoch mit A ein."
+    ],
+    "investment": "SSR-Fragmente sind bei ihm gut eingesetzt, wenn dein Konto auf PvE ausgerichtet ist: Gegen Rat King und andere Bosse ist er ein starker zweiter Tank. Schließe zuerst seine frühen Sternstufen ab, bevor du mit dem Ausbau eines weiteren Tanks beginnst.",
+    "squadFit": "In Boss-Teams steht er neben Arthur oder Bella in der Front. Bis Shadow oder Louis ausgebaut sind, kann er auch ein Team mit Schwerpunkt auf Rangern ergänzen.",
+    "skills": {
+      "0": {
+        "effect": "Waves the snake flute. The spirit snake verursacht 88.2% to 252% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 194.04% bis 554.4%"
+      },
+      "1": {
+        "effect": "Befiehlt einer Geisterschlange, den Zaubernden zu umkreisen, und verringert 4 s lang den erlittenen Monsterschaden verbündeter Helden in einem bestimmten Umkreis um 15.38% bis 30%.",
+        "starUpgrades": [
+          "10★: Effekt +3 %",
+          "Stern 30: Duration +1s",
+          "Stern 50: Effekt erhöht sich um 6%"
+        ],
+        "maxStars": "Bei 50 Sternen: 24.38% bis 39%"
+      },
+      "2": {
+        "effect": "Lenkt die Geisterschlange mit der Schlangenflöte und lässt sie das Ziel heftig beißen, wodurch einem einzelnen Gegner 366.45% bis 1.047% des ANG als Schaden zugefügt werden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 806.19% bis 2,303.4%"
+      },
+      "3": {
+        "effect": "Im Kampf, verringert erlittener Schaden from monsters by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "hastar": {
+    "sourceHash": "414ce2ddbc58eb80d1b5b721de54b64f50ba5d38e6ec52a1a28b76cd191d7b04",
+    "summary": "Ein tentakelbewehrter Warlock-Tank, der Gegner betäubt, hart zuschlägt und sich in Gefahr mit einem Schild schützt.",
+    "unlock": "Für Hastar gibt es keine Voraussetzung zum Servertag; mit 10 seiner Fragmente wird er freigeschaltet. Fragmente erhält man bei Tavernen-Ziehungen und Events. Ein SSR-Omni-Fragment kann ein fehlendes Hastar-Fragment ersetzen.",
+    "overview": [
+      "Hastar ist einer der vielseitigsten SSR-Tanks. Er verbindet Massenkontrolle, ein starkes nach vorn gerichtetes Ultimate und einen Notschild, der genau dann aktiviert wird, wenn er sonst besiegt würde.",
+      "Der kurze Betäubungseffekt von Undercurrent unterscheidet ihn von Tanks, die Monsterschaden reduzieren: Er kann Gegner stören, statt lediglich ihre Angriffe zu überstehen."
+    ],
+    "investment": "SSR-Fragmente in ihn zu investieren, ist sinnvoll, wenn du ein Warlock-Team aufbauen möchtest. Bis Billy oder Ulfrid verfügbar sind, bleibt er jedoch ein Übergangsheld.",
+    "squadFit": "Er ist der naheliegende Tank für ein Warlock-Team mit Grenwald und Stellar sowie später Annie, Joker und Nicole.",
+    "skills": {
+      "0": {
+        "effect": "Lashes a einen Gegner with tentacles, verursacht 85.05% to 243% ANG Energieschaden.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 187.11% bis 534.6%"
+      },
+      "1": {
+        "effect": "Schlägt mit einem gewaltigen Tentakel auf den Boden und verursacht bei Gegnern vor ihm 576.45% bis 1.647% des ANG als Energieschaden.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 1,268.19% bis 3,623.4%"
+      },
+      "2": {
+        "effect": "Tentakel brechen aus dem Boden hervor, schleudern den Gegner in die Luft und verursachen bei einem einzelnen Gegner 207.9% bis 594% des ANG als Energieschaden. Außerdem wird er 1 s lang betäubt.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 457.38% bis 1,306.8%"
+      },
+      "3": {
+        "effect": "Sinken seine LP im Kampf zum ersten Mal unter 40%, erhält er einen Schild in Höhe von 3.15% bis 9% seiner aktuellen max. LP. Der Schild absorbiert 5 s lang 50% des erlittenen Schadens.",
+        "starUpgrades": [
+          "Stern 20: Schild effect increases by 25%",
+          "Stern 45: Schild Duration +2s",
+          "Stern 50: Schild effect increases by 55%"
+        ],
+        "maxStars": "Bei 50 Sternen: 5.67% bis 16.2%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "claire": {
+    "sourceHash": "012b837a15f0bdc797ec267d2bdc813e0a1267604337861445631e1ed2095ce8",
+    "summary": "Einer der besten SSR-Carries: hoher Explosivschaden, zuverlässiger Schaden und ein Monsterbonus für ihre Warrior-Teammitglieder.",
+    "unlock": "Claire hat keine Voraussetzung zum Servertag und benötigt kein Premium-Paket; 10 ihrer Fragmente schalten sie frei. Claires Advanced Mark, das auf einem dafür vorgesehenen Eventbildschirm eingesetzt wird, befördert sie später in ihre UR-Form.",
+    "overview": [
+      "Claire ist der SSR-Carry, den die meisten Spieler ausbauen sollten. Rain of Arrows trifft alle 5 s fünfmal, Celestial Judgment fügt einen starken Flächenangriff hinzu und ihr Passiv lässt deine drei Warriors mit dem höchsten ANG Monstern bis zu 16% mehr Schaden zufügen (24% mit allen Sternen).",
+      "Sie ist sowohl im PvE als auch im PvP zuverlässig und liegt bei passender Investition deutlich vor Celia. Außerdem ist sie die einzige Heldin mit einer zweiten Form: Claires Advanced Mark befördert sie zu Claire UR. Die Änderung ist unumkehrbar, die Quellen sind sich uneinig darüber, wie viel Fortschritt übernommen wird, und ein Guide verknüpft sie mit der zweiten Woche des Era-of-Revival-Events."
+    ],
+    "investment": "SSR-Omni-Fragmente sind bei ihr gut angelegt, zumal sie später zu UR befördert werden kann. Weder ein bestimmter Servertag noch ein Premium-Paket ist erforderlich, sodass du problemlos mit ihrem Ausbau beginnen kannst.",
+    "squadFit": "Am besten ist sie in einem Team mit vielen Warriors aufgehoben: Ihre passive Fähigkeit stärkt Arthur, Marlena und deine anderen Warriors im Kampf gegen Monster. Zu Beginn ist sie neben Marlena ein starker zweiter Carry.",
+    "skills": {
+      "0": {
+        "effect": "schwingt a flag, verursacht 94.5% to 270% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 207.9% bis 594%"
+      },
+      "1": {
+        "effect": "Hebt die Kampfflagge mit beiden Händen und beschwört ein riesiges heiliges Schwert, das in den Boden fährt und Gegnern in Reichweite 406.77% bis 1.162,2% des ANG als physischen Schaden zufügt.",
+        "starUpgrades": [
+          "Stern 10: erhöht Schaden to monsters by 8% for 7s",
+          "Stern 30: Verursacht 35% zusätzlicher Schaden each time",
+          "Stern 50: zusätzlicher Schaden each time erhöht to 95%"
+        ],
+        "maxStars": "Bei 50 Sternen: 793.2% bis 2,266.29%"
+      },
+      "2": {
+        "effect": "Schwingt die Kampfflagge und lässt Pfeile in 5 schnellen Angriffen auf ein einzelnes Ziel niedergehen. Jeder Treffer verursacht 96.6% bis 276% des ANG als physischen Schaden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 212.52% bis 607.2%"
+      },
+      "3": {
+        "effect": "Die 3 Warrior im Team mit dem höchsten ANG verursachen im Kampf 8.2% bis 16% mehr Schaden an Monstern.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "kesso": {
+    "sourceHash": "31a1c285d9111fa44f6499f2d1501926db63170b7207b7888a0bb0c6cb91099d",
+    "summary": "Ein Speerwerfer mit Kriegsadler-Beschwörung, der kurz vor dem K. o. einen starken ANG-Schub erhält.",
+    "unlock": "Kesso ist von Anfang an kostenlos verfügbar und wird mit 10 seiner Fragmente freigeschaltet. Fragmente gibt es in der Taverne und bei Events; fehlende Exemplare können durch SSR-Omni-Fragmente ergänzt werden.",
+    "overview": [
+      "Kesso ist sowohl im PvP als auch im PvE gut. Warhawks Schaden richtet sich nach seinen LP und seinem ANG, und Hunting Skills lässt alle 5 s zwei Speere fliegen.",
+      "Wild Survival ist sein besonderer Vorteil: Sinkt seine LP zum ersten Mal unter 30%, erhält er 5 s lang bis zu +40% ANG (56% mit allen Sternen). Richtig eingesetzt kann der Bonus einen verlorenen Schlagabtausch noch wenden."
+    ],
+    "investment": "In Ranglisten liegt er ungefähr auf Stufe B. Er sollte daher eher dein vierter oder fünfter SSR sein, dessen Sterne du erhöhst, und keine frühe Priorität.",
+    "squadFit": "Als Warrior-Carry profitiert er sowohl von Harpers passiver Fähigkeit als auch von Claires Bonus gegen Monster.",
+    "skills": {
+      "0": {
+        "effect": "wirft a spear, verursacht 94.5% to 270% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 207.9% bis 594%"
+      },
+      "1": {
+        "effect": "Pfeift und beschwört einen Kriegsadler, der 10 s lang mit 105% bis 300% von Kessos ANG und 25% seiner LP angreift.",
+        "starUpgrades": [
+          "Stern 10: Rex's inherited ANG erhöht by 40%",
+          "Stern 30: Rex's inherited ANG erhöht by 60%",
+          "Stern 50: Rex's inherited ANG erhöht by 100%"
+        ],
+        "maxStars": "Bei 50 Sternen: 305% bis 500%"
+      },
+      "2": {
+        "effect": "Quickly wirft 2 spears, zufällig attacking 2 Gegner, each verursacht 350.7% to 1,002% ANG physischer Schaden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 20% zusätzlicher Schaden",
+          "Stern 35: Split Shot +1",
+          "Stern 45: zusätzlicher Schaden erhöht to 50%"
+        ],
+        "maxStars": "Bei 45 Sternen: 526.05% bis 1,503%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf seinen ANG 5 s lang um 20.5% bis 40%, wenn seine LP zum ersten Mal unter 30% sinken.",
+        "starUpgrades": [
+          "Stern 20: Effekt erhöht sich um 4%",
+          "Stern 45: Effekt erhöht sich um 2% and Duration +1s",
+          "Stern 50: Effekt erhöht sich um 10%"
+        ],
+        "maxStars": "Bei 50 Sternen: 36.5% bis 56%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "sivir": {
+    "sourceHash": "fe09edd4020f211835ca3fd9f97ba745408358936027a06cce484a4228e587fb",
+    "summary": "Eine Kämpferin mit zerbrochenem Speer und festem ANG-Passiv – ein unkomplizierter, vielseitiger PvP-Carry.",
+    "unlock": "Sivir ist ab dem ersten Tag verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Diese erhält man in der Taverne und bei Events.",
+    "overview": [
+      "Sivir ist ein vielseitiger PvP-Carry. Hunter Bloodline erhöht ihren ANG direkt um bis zu 16% (24% mit allen Sternen). Der Bonus wirkt überall, nicht nur gegen Monster, weshalb Sivir besser für Kämpfe gegen Spieler geeignet ist als auf PvE ausgerichtete SSR-Carries.",
+      "Shield Strike ist ihr zuverlässiger Angriff gegen ein einzelnes Ziel; Wild Pursuit fügt ihrem Ultimate zwei zufällige Speertreffer hinzu."
+    ],
+    "investment": "Sie ist ein solider SSR-Ausbau, wenn du einen auf PvP ausgerichteten Carry möchtest, bevor deine UR-Helden verfügbar sind.",
+    "squadFit": "Sie passt zusammen mit Marlena und Harper in ein Warrior-Team.",
+    "skills": {
+      "0": {
+        "effect": "wirft a broken spear, verursacht 78.75% to 225% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 173.25% bis 495%"
+      },
+      "1": {
+        "effect": "wirft 2 broken spears, zufällig attacking 2 Gegner, each verursacht 350.7% to 1,002% ANG physischer Schaden.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 20% zusätzlicher Schaden",
+          "Stern 30: Attack Ziel +1",
+          "Stern 50: zusätzlicher Schaden erhöht to 50%"
+        ],
+        "maxStars": "Bei 50 Sternen: 526.05% bis 1,503%"
+      },
+      "2": {
+        "effect": "wirft a Schild, verursacht 300.3% to 858% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 660.66% bis 1,887.6%"
+      },
+      "3": {
+        "effect": "Im Kampf, erhöht ANG by 8.2% to 16%.",
+        "starUpgrades": [
+          "20★: Effekt +1,6 %",
+          "45★: Effekt +2,4 %",
+          "50★: Effekt +4 %"
+        ],
+        "maxStars": "Bei 50★: 16,2%–24%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "ash": {
+    "sourceHash": "2fe5b97109d87379d323cec3b3285eadd6c660412e6fe048682b08f83cee5e26",
+    "summary": "Eine zuverlässige Bogenschützin mit Einzelschaden, stark im PvE und gegen Bosse, die deine besten Ranger gegen Monster verstärkt.",
+    "unlock": "Ash ist ab dem ersten Tag verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Fragmente gibt es bei Tavernen-Rekrutierungen und Events; ein bestimmtes Serveralter oder ein Premium-Paket ist nicht erforderlich.",
+    "overview": [
+      "Ash ist leicht zu erhalten und skaliert gut, weshalb sie eine hervorragende Investition im frühen bis mittleren Spielverlauf ist. Sie ist darauf ausgelegt, wichtige Ziele auszuschalten, und besonders effektiv in Bosskämpfen.",
+      "Durch die Überarbeitung ihres Passivs ist sie im PvE sehr nützlich: Deine beiden Ranger mit dem höchsten ANG verursachen Monstern bis zu 24% mehr Schaden (33% mit allen Sternen). Ihr fehlen jedoch Flächenangriffe und Teamnutzen, was sie in PvP-lastigen Inhalten schwächer macht."
+    ],
+    "investment": "Sie ist eine hervorragende Investition für die frühe bis mittlere Spielphase, besonders wenn dein Konto auf PvE ausgerichtet ist.",
+    "squadFit": "Am besten ist sie in einem Ranger-Team, wo ihre passive Fähigkeit Cynthia, Red Lady oder Shadow zugutekommt.",
+    "skills": {
+      "0": {
+        "effect": "Shoots an arrow, verursacht 81.9% to 234% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 180.18% bis 514.8%"
+      },
+      "1": {
+        "effect": "Fires a giant arrow, verursacht 445.2% to 1,272% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 979.44% bis 2,798.4%"
+      },
+      "2": {
+        "effect": "schleudert 2 special arrows, zufällig attacking 2 Ziele, each verursacht 252% to 720% ANG physischer Schaden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 554.4% bis 1,584%"
+      },
+      "3": {
+        "effect": "Die 2 Ranger im Team mit dem höchsten ANG verursachen im Kampf 12.3% bis 24% mehr Schaden an Monstern.",
+        "starUpgrades": [
+          "20★: Effekt +3 %",
+          "Stern 45: Effekt erhöht sich um 3%",
+          "50★: Effekt um weitere 3 % erhöht"
+        ],
+        "maxStars": "Bei 50 Sternen: 21.3% bis 33%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "bestar": {
+    "sourceHash": "71a090b301f8ede85f6e32b8eca324a5537ecf57c465f48f34e796e36e2f02a2",
+    "summary": "Eine auf Blutung spezialisierte Heldin, deren Geisterkatzen-Angriffe mit zunehmender Kampfdauer stärker werden.",
+    "unlock": "Bestar ist von Anfang an kostenlos verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Fragmente gibt es bei Tavernen-Ziehungen und Events; ein SSR-Omni-Fragment kann fehlende Fragmente ersetzen.",
+    "overview": [
+      "Bestar zermürbt Gegner über längere Zeit. Beide ihrer Fähigkeiten verursachen Blutung, und ihr Passiv erhöht den Schaden gegen blutende Ziele um bis zu 30% (45% mit allen Sternen). Sobald sie in Fahrt kommt, trifft daher jeder ihrer Angriffe deutlich härter.",
+      "Dadurch ist sie besonders stark in längeren Kämpfen und gegen Bosse. Am besten entwickelt sie sich, wenn sie Blutung dauerhaft aufrechterhalten kann."
+    ],
+    "investment": "Ihr Ausbau lohnt sich, wenn du häufig Bossinhalte oder lange PvE-Kämpfe spielst.",
+    "squadFit": "Als Ranger-Carry ergänzt sie Ash in einem frühen Ranger-Team.",
+    "skills": {
+      "0": {
+        "effect": "wirft a cat bell, verursacht 81.9% to 234% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 180.18% bis 514.8%"
+      },
+      "1": {
+        "effect": "Beschwört eine Gruppe Katzengespenster, die Gegnern in Reichweite 314.37% bis 898.2% des ANG zufügt und Blutung verursacht. Diese fügt 7 s lang pro Sekunde physischen Schaden in Höhe von 15% des ANG zu.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 691.61% bis 1,976.04%"
+      },
+      "2": {
+        "effect": "beschwört 1 black cat, verursacht 138.6% to 396% ANG physischer Schaden to a einzelnes Ziel, causing Bleed, inflicting 30% ANG physischer Schaden pro Sekunde for 3s.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 304.92% bis 871.2%"
+      },
+      "3": {
+        "effect": "Im Kampf, erhöht verursachter Schaden to Bleeding Gegner by 15.38% to 30%.",
+        "starUpgrades": [
+          "20★: Effekt +3 %",
+          "Stern 45: Effekt erhöht sich um 4.5%",
+          "Stern 50: Effekt erhöht sich um 7.5%"
+        ],
+        "maxStars": "Bei 50 Sternen: 30.38% bis 45%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "grenwald": {
+    "sourceHash": "bc659b173189a9cf1d64560e5be9c2819a21f67ccf19d674e58563710e62fff0",
+    "summary": "Ein zaubernder Warlock, der hohen Explosivschaden an Einzelzielen und zusätzlichen Schaden gegen Monster verursacht.",
+    "unlock": "Grenwald ist ab dem ersten Tag verfügbar und wird mit 10 seiner Fragmente freigeschaltet. Fragmente erhält man in der Taverne, im Allianz-Shop und bei Events. Manche Quellen schreiben seinen Namen als Greenwald.",
+    "overview": [
+      "Grenwald ist auf hohen Explosivschaden gegen ein einzelnes Ziel spezialisiert und besonders effektiv im PvE, wo sein Passiv den Schaden gegen Monster um bis zu 20% erhöht (30% mit allen Sternen).",
+      "Er ist ein beliebter Übergangs-Carry für den Spielbeginn, wenn du Marlena nicht sofort aufbauen kannst. Seine Verteidigung ist jedoch niedrig, daher braucht er einen Tank wie Arthur vor sich, um zu überleben."
+    ],
+    "investment": "Er ist ein guter Carry für den Spielbeginn, solange du noch auf UR-Helden wartest, besonders im PvE.",
+    "squadFit": "Stelle Arthur oder einen anderen robusten Tank vor ihn. In einem Warlock-Team harmoniert er mit Hastar und Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Schwingt den Zauberstab und entfesselt einen Blitz, der einem einzelnen Gegner 72.45% bis 207% des ANG als Energieschaden zufügt.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 159.39% bis 455.4%"
+      },
+      "1": {
+        "effect": "Hebt den Zauberstab und lässt Geister aus den Körpern der Gegner in Reichweite hervortreten. Allen Zielen werden 332.85% bis 951% des ANG als Energieschaden zugefügt.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 20% zusätzlicher Schaden and erhöht ANG by 7.5% for 7s",
+          "Stern 30: zusätzlicher Schaden erhöht to 55%",
+          "Stern 50: zusätzlicher Schaden erhöht to 115%"
+        ],
+        "maxStars": "Bei 50 Sternen: 715.63% bis 2,044.65%"
+      },
+      "2": {
+        "effect": "beschwört a soul claw, verursacht 292.95% to 837% ANG Energieschaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 644.49% bis 1,841.4%"
+      },
+      "3": {
+        "effect": "Im Kampf, erhöht verursachter Schaden to monsters by 10.25% to 20%.",
+        "starUpgrades": [
+          "Stern 20: Effekt erhöht sich um 2%",
+          "Stern 45: Effekt erhöht sich um 3%",
+          "50★: Effekt +5 %"
+        ],
+        "maxStars": "Bei 50 Sternen: 20.25% bis 30%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "celia": {
+    "sourceHash": "1e9be506ff5150c32273e0a9fc20dd82e114bb44e098441d38c3e1f8467495d7",
+    "summary": "Eine PvE-Supporterin mit Wurfdolchen, die Monsterschaden und die bei Monsterkills erhaltenen Ressourcen erhöht.",
+    "unlock": "Celia ist ab dem ersten Tag verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Diese gibt es bei Tavernen-Rekrutierungen und Events.",
+    "overview": [
+      "Celia ist vor allem ein PvE-Hybrid. Ihr Schaden tritt in zufälligen Schüben auf, doch ihr Passiv macht sie lohnenswert: Kills von Resource- und Elite-Monstern gewähren bis zu +40% Ressourcen (60% mit allen Sternen) – ein deutlicher Vorteil beim Farmen.",
+      "Ihre zufällige Zielauswahl und die schwächere Skalierung machen sie auf lange Sicht weniger zuverlässig als einen spezialisierten Carry wie Claire."
+    ],
+    "investment": "Da sie kostenlos ist, lohnt sie sich für den frühen Einsatz, aber investiere nicht zu viele Ressourcen in sie.",
+    "squadFit": "Sie besetzt den Support-Platz, bis Harper am 20. Servertag freigeschaltet wird, und bleibt wegen ihres Ressourcenbonus in einem Farmteam nützlich.",
+    "skills": {
+      "0": {
+        "effect": "wirft a dagger, verursacht 47.25% to 135% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 103.95% bis 297%"
+      },
+      "1": {
+        "effect": "wirft a dagger that ricochets 3 times, verursacht 311.22% to 889.2% ANG physischer Schaden to 3 random Ziele.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 25% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 684.68% bis 1,956.24%"
+      },
+      "2": {
+        "effect": "wirft 2 daggers simultaneously, verursacht 214.2% to 612% ANG physischer Schaden to 2 random Ziele.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 25% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 60%",
+          "Stern 45: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 45 Sternen: 471.24% bis 1,346.4%"
+      },
+      "3": {
+        "effect": "Erhöht im Kampf den verursachten Monsterschaden um 6.15% bis 12% und die 3 Arten von Ressourcen, die das Team durch das Besiegen von Resource- und Elite-Monstern erhält, um 20.5% bis 40%.",
+        "starUpgrades": [
+          "Stern 20: Schaden bonus erhöht by 1.2%. Resource bonus erhöht by 4%",
+          "Stern 45: Schaden bonus erhöht by 1.8%. Resource bonus erhöht by 6%",
+          "Stern 50: Schaden bonus erhöht by 3%. Resource bonus erhöht by 10%"
+        ],
+        "maxStars": "Bei 50 Sternen: 12.15% / 40.5% bis 18% / 60%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "stellar": {
+    "sourceHash": "a76cf80010dde369c2cb8cfde70e7c9121671726be1b997932da44dcec15e3b2",
+    "summary": "Eine Supporterin mit Sternenthema, starkem Schaden, einem großen Monsterbonus für ihre besten Warlocks und einer rettenden Heilung beim Tod.",
+    "unlock": "Stellar ist ab dem ersten Tag verfügbar und wird mit 10 ihrer Fragmente freigeschaltet. Fragmente gibt es im Allianz-Shop, bei Events und durch Tavernen-Beschwörungen.",
+    "overview": [
+      "Stellar ist ein SSR-Support mit beträchtlicher Offensivkraft. Destructive Comet verursacht hohen Flächenschaden, und Wishing Star erhöht den Schaden gegen Monster deiner beiden stärksten Warlocks 5 s lang um bis zu 48% (59,2% mit allen Sternen). Damit eignet sie sich ausgezeichnet für Warlock-PvE-Teams.",
+      "Final Starlight verleiht ihr einen einzigartigen Rettungseffekt: Erleidet sie tödlichen Schaden, heilt sie den Verbündeten mit den wenigsten LP um bis zu 600% ihres ANG (1.320% mit allen Sternen)."
+    ],
+    "investment": "7–8★ bieten ein gutes Verhältnis von Schaden und Boni. Mit 9★ oder mehr schöpfst du ihren PvE-Wert und ihre Skalierung voll aus.",
+    "squadFit": "Sie besetzt den Support-Platz, bis Harper freigeschaltet wird, und bleibt in PvE-Teams stark. Für ein frühes Warlock-Team passt sie hervorragend zu Hastar und Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "schleudert a stardust, verursacht 94.5% to 270% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 25% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 60%",
+          "Stern 50: zusätzlicher Schaden erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 207.9% bis 594%"
+      },
+      "1": {
+        "effect": "Beschwört einen Meteoritenschauer und erhöht 5 s lang den verursachten Monsterschaden der 2 stärksten verbündeten Warlocks um 24.6% bis 48%.",
+        "starUpgrades": [
+          "Stern 10: Effekt erhöht sich um 4.2%",
+          "Stern 30: Duration +2s",
+          "Stern 50: Effekt erhöht sich um 5.5%"
+        ],
+        "maxStars": "Bei 50 Sternen: 35.8% bis 59.2%"
+      },
+      "2": {
+        "effect": "beschwört a comet, verursacht 346.5% to 990% ANG DMG to Gegner in Reichweite.",
+        "starUpgrades": [
+          "Stern 15: erhöht erlittener Schaden by monsters by 8% for 3s",
+          "Stern 35: Verursacht 35% zusätzlicher Schaden",
+          "Stern 45: zusätzlicher Schaden erhöht to 95%"
+        ],
+        "maxStars": "Bei 45 Sternen: 675.68% bis 1,930.5%"
+      },
+      "3": {
+        "effect": "Erleidet Stellar im Kampf tödlichen Schaden, verbraucht sie vor ihrem Tod ihr letztes Sternenlicht und heilt den Verbündeten mit den wenigsten LP um 210% bis 600% des ANG.",
+        "starUpgrades": [
+          "Stern 20: Restores 25% extra LP",
+          "Stern 45: Extra LP recovery erhöht to 60%",
+          "Stern 50: Extra LP recovery erhöht to 120%"
+        ],
+        "maxStars": "Bei 50 Sternen: 462% bis 1,320%"
+      },
+      "4": {
+        "effect": "ANG, LP and VTD +10%"
+      }
+    }
+  },
+  "durant": {
+    "sourceHash": "609c592772be41a2b0c434d9b92294b582526e19e06865cca3799390a2b027f0",
+    "summary": "Ein Großschwert-Tank niedriger Stufe, der zu Beginn dennoch bei der Verteidigung deines Gebiets nützlich ist.",
+    "unlock": "Durant ist ein kostenloser Starterheld, ab dem ersten Tag verfügbar und mit 10 seiner Fragmente freischaltbar. Fragmente gibt es bei Tavernen-Rekrutierungen und Events; ein bestimmtes Serveralter oder ein Premium-Paket ist nicht erforderlich.",
+    "overview": [
+      "Durant ist einer der vier SR-Starterhelden und der einzige SR-Tank. Er ist kostenlos, steht vom ersten Tag an in der Heldenliste und hält in den ersten Kapiteln die Front. Trotzdem stufen ihn alle Ranglisten mit C ein, und SR-Fähigkeiten sind nur bis Stufe 30 statt 40 verbesserbar.",
+      "Durants Fähigkeiten sind einfach: Blade Fury schwingt alle 7 s ein Großschwert und trifft damit zweimal alle Gegner vor ihm. Leap Slash fügt alle 5 s einen schweren Treffer gegen ein einzelnes Ziel hinzu. Sein ANG ist der niedrigste aller 31 Helden; er soll Treffer einstecken, nicht Schaden verursachen.",
+      "Solange dir Tanks mit vielen Sternen fehlen, hilft er weiterhin bei der Verteidigung deines Gebiets. Jeder SSR-Warrior-Tank – Bella oder Lucius – ersetzt ihn jedoch vollständig."
+    ],
+    "investment": "Verbessere ihn nur so weit, wie es die aktuelle Stufe erfordert. Wenn du überhaupt SR-Fragmente ausgibst, ist er der SR, den es sich zu behalten lohnt. Bewahre Skill Badges und wertvolle Verbesserungsmaterialien jedoch für SSR- und UR-Helden auf. Falls du eine Fähigkeit verbesserst, hat Blade Fury Vorrang.",
+    "squadFit": "Zu Beginn besetzt er neben Arthur den zweiten Platz in der Front oder bildet vom ersten Tag an das Zentrum eines reinen Warrior-Teams (Durant, Celia, Sivir, Kesso und William), das den vollen Fraktionsbonus erhält. Tausche ihn aus, sobald Bella, Lucius oder Daskal bereit ist.",
+    "skills": {
+      "0": {
+        "effect": "schlägt with a sword, verursacht 73.5% to 175% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 15% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 132.3% bis 315%"
+      },
+      "1": {
+        "effect": "Schwingt ein Großschwert mit beiden Händen und trifft zweimal. Jeder Schlag verursacht bei Gegnern vor ihm 285.6% bis 680% des ANG als physischen Schaden.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 15% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 514.08% bis 1,224%"
+      },
+      "2": {
+        "effect": "Leaps with a sword and strikes heavily, verursacht 246.75% to 587.5% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 15% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 444.15% bis 1,057.5%"
+      },
+      "3": {
+        "effect": "ANG, LP, and VTD +5%"
+      }
+    }
+  },
+  "william": {
+    "sourceHash": "e2f675cfa60d9990b9ce80125edd1665d099095914e465294d848550697345a9",
+    "summary": "Ein Schwertkämpfer für die Ersatzbank: Zu Beginn ist es in Ordnung, ihn zu haben, aber ein Ausbau lohnt sich nicht.",
+    "unlock": "William ist ein kostenloser Starterheld: 10 seiner Fragmente schalten ihn auf jedem Server und unabhängig von dessen Alter frei. Fragmente erhält man durch Tavernen-Rekrutierungen.",
+    "overview": [
+      "William ist ein SR-Warrior-Schadensausteiler und einer der vier kostenlosen Starterhelden. Jede Rangliste stuft ihn mit C ein: Seine Power bei vollem Ausbau (524.421) liegt auf Platz 29 von 31, und seine Fähigkeiten sind auf Stufe 30 begrenzt.",
+      "Nutze ihn als Übergangslösung, bis du einen SSR- oder UR-Warrior-Schadensausteiler hast: Claire (von Anfang an kostenlos), Kesso, Sivir, Marlena oder Zoya. Sie sind alle Warrior, sodass der Fraktionsbonus beim Wechsel erhalten bleibt.",
+      "Twin Wind feuert alle 5 s zwei Schwertwind-Angriffe ab, und Whirlwind Blade trifft alle 10 s eine Gruppe. Nützlich ist er daher vor allem beim Räumen der frühen Monsterwellen."
+    ],
+    "investment": "Investiere nicht mehr in ihn, als die frühen Stufen erfordern. Wenn du seine Fähigkeiten verbesserst, hat zuerst Twin Wind und danach Whirlwind Blade Vorrang.",
+    "squadFit": "Er besetzt den Warrior-Schadensplatz in einem reinen Warrior-Team vom ersten Tag an, zusammen mit Durant, Celia, Sivir und Kesso. Sobald Claire oder Marlena ausgebaut ist, sollte er auf die Bank.",
+    "skills": {
+      "0": {
+        "effect": "Unleashes a sword wind, verursacht 73.5% to 175% ANG physischer Schaden to a einzelnes Ziel.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 15% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 132.3% bis 315%"
+      },
+      "1": {
+        "effect": "schwingt a sword wind forward, verursacht 259.35% to 617.5% ANG physischer Schaden to Gegner in Reichweite.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 15% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 466.83% bis 1,111.5%"
+      },
+      "2": {
+        "effect": "Swiftly unleashes 2 sword winds, striking the Ziel twice, each verursacht 165.9% to 395% ANG physischer Schaden.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 15% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 298.62% bis 711%"
+      },
+      "3": {
+        "effect": "ANG, LP, and VTD +5%"
+      }
+    }
+  },
+  "robin": {
+    "sourceHash": "8f7554785f625ba34094ccbc9d8fa3369b0797a3da8d657fc7e6d41c9e72f13a",
+    "summary": "Eine Bogenschützin für die Ersatzbank, deren Schnellfeuer mit den echten Ranger-Schadensausteilern nicht mithalten kann.",
+    "unlock": "Robin ist ein kostenloser Starterheld, ab dem ersten Tag auf jedem Server verfügbar und mit 10 seiner Fragmente freischaltbar. Fragmente gibt es bei Tavernen-Rekrutierungen; SR-Omni-Fragmente können sie ersetzen.",
+    "overview": [
+      "Robin ist ein SR-Ranger-Schadensausteiler und einer der vier kostenlosen Starterhelden. Jede Rangliste stuft ihn mit C ein; seine Power bei vollem Ausbau (523.779) liegt auf Platz 30 von 31, und seine Fähigkeiten sind auf Stufe 30 begrenzt.",
+      "Arrow of Retribution ist seine beste Fähigkeit: Mit allen Sternen verursacht sie alle 5 s bis zu 936% des ANG an einem Gegner. Die sieben Pfeile von Rapid Fire machen ihn auch gegen frühe Bosse brauchbar.",
+      "Er ist nur am ersten Tag die richtige Wahl, bevor du einen SSR-Ranger hast. Ash und Bestar sind beide von Anfang an kostenlos verfügbar und in jeder Hinsicht besser; Cynthia erscheint, sobald der Server 6 Tage alt ist."
+    ],
+    "investment": "Verbessere ihn nur so weit, wie es die aktuelle Stufe erfordert. Sobald ein SSR- oder UR-Ranger verfügbar ist, solltest du dessen Ausbau mit seinen Fragmenten und Abzeichen fördern.",
+    "squadFit": "Auf einem brandneuen Konto besetzt er den Ranger-Schadensplatz. Ersetze ihn durch Ash oder Bestar.",
+    "skills": {
+      "0": {
+        "effect": "Shoots a wooden arrow, verursacht 65.1% to 155% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 15% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 117.18% bis 279%"
+      },
+      "1": {
+        "effect": "Rapidly shoots a einen Gegner 7 times, each verursacht 60.9% to 145% ANG physischer Schaden.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 15% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 109.62% bis 261%"
+      },
+      "2": {
+        "effect": "Fires a special arrow, delivering a heavy blow, verursacht 218.4% to 520% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 15% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 393.12% bis 936%"
+      },
+      "3": {
+        "effect": "ANG, LP, and VTD +5%"
+      }
+    }
+  },
+  "kafa": {
+    "sourceHash": "12abc9a377f48ae6bce925aa8d5556df117091c41afd154ea9de477709f78fcf",
+    "summary": "Ein Ersatzheld, der mit Kaffee wirft: sympathisch, aber zu schwach für den Kampfeinsatz.",
+    "unlock": "Kafa ist eine kostenlose Starterheldin: 10 ihrer Fragmente schalten sie auf jedem Server und unabhängig von dessen Alter frei. Fragmente gibt es bei Tavernen-Rekrutierungen; SR-Omni-Fragmente können fehlende Fragmente ergänzen.",
+    "overview": [
+      "Kafa ist die einzige SR-Warlock-Schadensausteilerin und eine der vier kostenlosen Starterhelden. Jede Rangliste stuft sie mit C ein, und ihre Power bei vollem Ausbau (523.217) ist die niedrigste aller 31 Helden.",
+      "Double Expresso verursacht mit allen Sternen alle 5 s bis zu 900% des ANG an einem Gegner, während die Kaffeekannen von Love Infusion eine Gruppe mit bis zu 1.220,4% treffen. Ihr Schaden ist physisch.",
+      "Sie kann lediglich einen Warlock-Platz besetzen, solange du noch keinen anderen Warlock hast. Grenwald ist von Beginn an kostenlos und deutlich stärker; Annie und Joker erscheinen, sobald der Server 13 Tage alt ist."
+    ],
+    "investment": "Es lohnt sich nicht, sie über das für die ersten Kapitel nötige Maß hinaus zu verbessern. Falls du eine Fähigkeit aufwertest, hat Double Expresso Vorrang.",
+    "squadFit": "Zu Beginn kann sie den einzigen Warlock-Platz hinter einem Tank wie Arthur oder Bella besetzen, während Celia Unterstützung leistet. Ersetze sie durch Grenwald.",
+    "skills": {
+      "0": {
+        "effect": "wirft a coffee bean, verursacht 69.3% to 165% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 5: Verursacht 15% zusätzlicher Schaden",
+          "Stern 25: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 124.74% bis 297%"
+      },
+      "1": {
+        "effect": "Beschwört 2 Kaffeekannen und gießt heißen Kaffee über die Köpfe der Ziele, wodurch Gegnern in Reichweite 284.76% bis 678% des ANG als physischer Schaden zugefügt wird.",
+        "starUpgrades": [
+          "Stern 10: Verursacht 15% zusätzlicher Schaden",
+          "Stern 30: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 512.57% bis 1,220.4%"
+      },
+      "2": {
+        "effect": "wirft 1 cup of coffee, verursacht 210% to 500% ANG physischer Schaden to a einen Gegner.",
+        "starUpgrades": [
+          "Stern 15: Verursacht 15% zusätzlicher Schaden",
+          "Stern 35: zusätzlicher Schaden erhöht to 40%",
+          "Stern 50: zusätzlicher Schaden erhöht to 80%"
+        ],
+        "maxStars": "Bei 50 Sternen: 378% bis 900%"
+      },
+      "3": {
+        "effect": "ANG, LP, and VTD +5%"
+      }
+    }
+  }
+}

@@ -1,4 +1,8 @@
 "use client";
+import { LocalizedNumber } from "@/components/layout/LocalizedNumber";
+
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+
 
 import { useEffect, useState, type SubmitEvent } from "react";
 import { api, apiPost } from "@/lib/api/client";
@@ -140,16 +144,18 @@ const METRICS: { key: string; label: string }[] = [
   { key: "interested_in_r3", label: "Interested in future R3" },
 ];
 
-function dateLabel(value: string | null | undefined): string {
+function dateLabel(value: string | null | undefined, locale: string): string {
   if (!value) return "—";
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(value));
+  return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(new Date(value));
 }
 
 function Status({ children }: { children: string }) {
-  return <span className="inline-flex border border-border px-2 py-1 text-xs capitalize text-text-secondary">{children.replaceAll("_", " ")}</span>;
+  const { t, locale } = useTranslation();
+  return <span className="inline-flex border border-border px-2 py-1 text-xs capitalize text-text-secondary">{t(children.replaceAll("_", " "))}</span>;
 }
 
 export function CommandPanel() {
+  const { t, locale } = useTranslation();
   const [tab, setTab] = useState<Tab>("overview");
   const [overview, setOverview] = useState<Overview | null>(null);
   const [recruits, setRecruits] = useState<Recruit[]>([]);
@@ -422,17 +428,16 @@ export function CommandPanel() {
     <div className="command-workspace mx-auto max-w-7xl py-4">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
         <div>
-          <span className="eyebrow">BurnFire · BF2 leadership</span>
-          <h1 className="mt-2 font-display text-4xl font-semibold">{overview?.assigned_only ? "Training headquarters" : "Command Center"}</h1>
+          <span className="eyebrow"><Text>{"BurnFire · BF2 leadership"}</Text></span>
+          <h1 className="mt-2 font-display text-4xl font-semibold">{overview?.assigned_only ? t("Training headquarters") : t("Command Center")}</h1>
           <p className="mt-2 max-w-2xl text-sm text-text-secondary">
-            {overview?.assigned_only ? "Your assigned members. Their next milestone. Your opportunity to help." : "Recruit onboarding, identity verification, training compliance, and officer follow-up."}
-            All figures below are loaded from current records.
-          </p>
+            {overview?.assigned_only ? t("Your assigned members. Their next milestone. Your opportunity to help.") : t("Recruit onboarding, identity verification, training compliance, and officer follow-up.")}
+            <Text>{"All figures below are loaded from current records."}</Text></p>
         </div>
-        {overview && <Status>{overview.is_site_admin ? "site administrator" : `${overview.officer_rank?.toUpperCase()} ${overview.assigned_only ? "trainer" : "officer"}`}</Status>}
+        {overview && <Status>{overview.is_site_admin ? t("site administrator") : `${overview.officer_rank?.toUpperCase()} ${overview.assigned_only ? t("trainer") : t("officer")}`}</Status>}
       </header>
 
-      <nav className="mb-7 flex flex-wrap gap-2" aria-label="Command Center sections">
+      <nav className="mb-7 flex flex-wrap gap-2" aria-label={t("Command Center sections")}>
         {tabs.map((item) => (
           <button
             key={item.id}
@@ -440,24 +445,23 @@ export function CommandPanel() {
             onClick={() => { setTab(item.id); setError(null); }}
             className={`border px-4 py-2 text-sm ${tab === item.id ? "border-accent bg-accent text-text-primary" : "border-border bg-surface text-text-secondary hover:text-text-primary"}`}
           >
-            {item.label}
+            {t(item.label)}
           </button>
         ))}
       </nav>
 
       {error && (
         <p role="alert" className="mb-5 border border-warning/40 bg-surface p-3 text-sm text-warning">
-          {error}
+          {t(error)}
         </p>
       )}
       {loading ? (
-        <p className="text-sm text-text-secondary">Loading command records…</p>
+        <p className="text-sm text-text-secondary"><Text>{"Loading command records…"}</Text></p>
       ) : error?.includes("permission") || error?.includes("Sign in") ? (
         <section className="border border-border bg-surface p-6">
-          <h2 className="font-display text-xl font-semibold">Officer access required</h2>
+          <h2 className="font-display text-xl font-semibold"><Text>{"Officer access required"}</Text></h2>
           <p className="mt-2 text-sm text-text-secondary">
-            The Command Center is available to verified BurnFire R3 officers and above.
-          </p>
+            <Text>{"The Command Center is available to verified BurnFire R3 officers and above."}</Text></p>
         </section>
       ) : (
         <>
@@ -465,11 +469,11 @@ export function CommandPanel() {
           {tab === "overview" && overview && (
             <section>
               <TrainingDashboard metrics={overview.metrics} assignedOnly={overview.assigned_only} recruits={recruits} total={total} onRecruit={openRecruit} onMembers={() => setTab("recruits")} onSupport={() => setTab("followups")} />
-              <h2 className="mb-4 mt-8 font-display text-2xl">Training pulse</h2>
+              <h2 className="mb-4 mt-8 font-display text-2xl"><Text>{"Training pulse"}</Text></h2>
               <div className="training-pulse">
                 {METRICS.map((metric) => (
                   <article key={metric.key}>
-                    <p className="text-xs text-text-secondary">{metric.label}</p>
+                    <p className="text-xs text-text-secondary">{t(metric.label)}</p>
                     <strong className="mt-2 block font-display text-3xl">
                       {overview.metrics[metric.key] ?? "0"}
                     </strong>
@@ -479,35 +483,33 @@ export function CommandPanel() {
               <section className="mt-8 border border-border bg-surface p-5">
                 <div className="flex flex-wrap items-end justify-between gap-3">
                   <div>
-                    <h2 className="font-display text-2xl font-semibold">Members Requiring Attention</h2>
-                    <p className="mt-1 text-sm text-text-secondary">Derived from incomplete onboarding, pending identity, missed checks, help requests, stalled sections, and current acknowledgments.</p>
+                    <h2 className="font-display text-2xl font-semibold"><Text>{"Members Requiring Attention"}</Text></h2>
+                    <p className="mt-1 text-sm text-text-secondary"><Text>{"Derived from incomplete onboarding, pending identity, missed checks, help requests, stalled sections, and current acknowledgments."}</Text></p>
                   </div>
-                  <button onClick={() => void loadAttention()} className="border border-border px-3 py-2 text-sm">Refresh</button>
+                  <button onClick={() => void loadAttention()} className="border border-border px-3 py-2 text-sm"><Text>{"Refresh"}</Text></button>
                 </div>
                 <div className="mt-4 overflow-x-auto">
-                  <table className="w-full min-w-[650px] text-left text-sm">
-                    <thead className="text-xs uppercase text-text-secondary"><tr><th className="py-2">Recruit</th><th className="py-2">Requirement</th><th className="py-2">Reason</th><th className="py-2">Since</th></tr></thead>
+                  <table className="w-full min-w-[650px] text-start text-sm">
+                    <thead className="text-xs uppercase text-text-secondary"><tr><th className="py-2"><Text>{"Recruit"}</Text></th><th className="py-2"><Text>{"Requirement"}</Text></th><th className="py-2"><Text>{"Reason"}</Text></th><th className="py-2"><Text>{"Since"}</Text></th></tr></thead>
                     <tbody>
                       {attention.slice(0, 20).map((item, index) => (
                         <tr key={`${item.user_id}:${item.issue_key}:${index}`} className="border-t border-border">
                           <td className="py-2"><button onClick={() => void openRecruit(item.user_id)} className="text-accent-bright underline">{item.in_game_name}</button></td>
                           <td className="py-2">{item.training_title ?? item.issue_key}</td>
-                          <td className="py-2">{item.reason}</td>
-                          <td className="py-2">{dateLabel(item.created_at)}</td>
+                          <td className="py-2">{t(item.reason)}</td>
+                          <td className="py-2">{dateLabel(item.created_at, locale)}</td>
                         </tr>
                       ))}
-                      {attention.length === 0 && <tr><td className="py-4 text-text-secondary" colSpan={4}>No members currently require follow-up.</td></tr>}
+                      {attention.length === 0 && <tr><td className="py-4 text-text-secondary" colSpan={4}><Text>{"No members currently require follow-up."}</Text></td></tr>}
                     </tbody>
                   </table>
-                  {attention.length > 20 && <p className="mt-3 text-xs text-text-secondary">Showing the first 20 of {attention.length} current attention records.</p>}
+                  {attention.length > 20 && <p className="mt-3 text-xs text-text-secondary"><Text values={{ length: attention.length.toLocaleString(locale) }}>{"Showing the first 20 of {length}  current attention records."}</Text></p>}
                 </div>
               </section>
               <section className="mt-8 border border-border bg-surface p-5">
-                <h2 className="font-display text-2xl font-semibold">Invite a recruit</h2>
+                <h2 className="font-display text-2xl font-semibold"><Text>{"Invite a recruit"}</Text></h2>
                 <p className="mt-2 text-sm text-text-secondary">
-                  The secure link is single-use and expires after 14 days. The invited member can
-                  sign in with email and complete the academy on the website.
-                </p>
+                  <Text>{"The secure link is single-use and expires after 14 days. The invited member can sign in with email and complete the academy on the website."}</Text></p>
                 <form onSubmit={handleInvite} className="mt-4 flex flex-wrap gap-3">
                   <input
                     type="email"
@@ -515,7 +517,7 @@ export function CommandPanel() {
                     maxLength={254}
                     value={inviteEmail}
                     onChange={(event) => setInviteEmail(event.target.value)}
-                    placeholder="recruit@example.com"
+                    placeholder={t("recruit@example.com")}
                     className="min-w-60 flex-1 border border-border bg-bg px-3 py-2"
                   />
                   <button
@@ -523,16 +525,16 @@ export function CommandPanel() {
                     disabled={inviteBusy}
                     className="interactive-lift border border-accent bg-accent px-5 py-2 font-display font-semibold disabled:opacity-50"
                   >
-                    {inviteBusy ? "Creating…" : "Create and send invitation"}
+                    {inviteBusy ? t("Creating…") : t("Create and send invitation")}
                   </button>
                 </form>
-                {inviteError && <p role="alert" className="mt-3 text-sm text-warning">{inviteError}</p>}
+                {inviteError && <p role="alert" className="mt-3 text-sm text-warning">{t(inviteError)}</p>}
                 {invitation && (
                   <div className="mt-4 border border-border bg-bg p-4">
                     <p className="text-sm">
                       {invitation.email_sent
-                        ? "Invitation email sent."
-                        : "Email service is not configured; share this secure link directly."}
+                        ? t("Invitation email sent.")
+                        : t("Email service is not configured; share this secure link directly.")}
                     </p>
                     {invitation.email_error && <p className="mt-1 text-sm text-warning">{invitation.email_error}</p>}
                     <a className="mt-2 block break-all text-sm text-accent-bright underline" href={invitation.invitation_url}>
@@ -548,23 +550,23 @@ export function CommandPanel() {
             <section>
               <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
                 <div>
-                  <h2 className="font-display text-2xl font-semibold">Recruit support signals</h2>
-                  <p className="mt-1 text-sm text-text-secondary">Counts are derived from latest quiz attempts and unresolved help records.</p>
+                  <h2 className="font-display text-2xl font-semibold"><Text>{"Recruit support signals"}</Text></h2>
+                  <p className="mt-1 text-sm text-text-secondary"><Text>{"Counts are derived from latest quiz attempts and unresolved help records."}</Text></p>
                 </div>
-                <a href="/api/command/reports?format=csv" className="border border-accent px-4 py-2 text-sm hover:bg-accent">Export minimal CSV</a>
+                <a href="/api/command/reports?format=csv" className="border border-accent px-4 py-2 text-sm hover:bg-accent"><Text>{"Export minimal CSV"}</Text></a>
               </div>
               <div className="grid gap-5 lg:grid-cols-2">
                 <section className="overflow-x-auto border border-border">
-                  <h3 className="bg-surface px-3 py-3 font-display text-lg">Training sections generating confusion</h3>
-                  <table className="w-full text-left text-sm">
-                    <thead className="text-xs text-text-secondary"><tr><th className="px-3 py-2">Section</th><th className="px-3 py-2">Latest failures</th><th className="px-3 py-2">Help requests</th></tr></thead>
+                  <h3 className="bg-surface px-3 py-3 font-display text-lg"><Text>{"Training sections generating confusion"}</Text></h3>
+                  <table className="w-full text-start text-sm">
+                    <thead className="text-xs text-text-secondary"><tr><th className="px-3 py-2"><Text>{"Section"}</Text></th><th className="px-3 py-2"><Text>{"Latest failures"}</Text></th><th className="px-3 py-2"><Text>{"Help requests"}</Text></th></tr></thead>
                     <tbody>{reports.confusion.map((row) => <tr key={row.slug} className="border-t border-border"><td className="px-3 py-2">{row.title}</td><td className="px-3 py-2">{row.failed_latest}</td><td className="px-3 py-2">{row.help_requests}</td></tr>)}</tbody>
                   </table>
                 </section>
                 <section className="overflow-x-auto border border-border">
-                  <h3 className="bg-surface px-3 py-3 font-display text-lg">Unresolved work by assigned officer</h3>
-                  <table className="w-full text-left text-sm">
-                    <thead className="text-xs text-text-secondary"><tr><th className="px-3 py-2">Officer</th><th className="px-3 py-2">Open tasks</th></tr></thead>
+                  <h3 className="bg-surface px-3 py-3 font-display text-lg"><Text>{"Unresolved work by assigned officer"}</Text></h3>
+                  <table className="w-full text-start text-sm">
+                    <thead className="text-xs text-text-secondary"><tr><th className="px-3 py-2"><Text>{"Officer"}</Text></th><th className="px-3 py-2"><Text>{"Open tasks"}</Text></th></tr></thead>
                     <tbody>{reports.officer_followups.map((row) => <tr key={row.officer} className="border-t border-border"><td className="px-3 py-2">{row.officer}</td><td className="px-3 py-2">{row.unresolved_tasks}</td></tr>)}</tbody>
                   </table>
                 </section>
@@ -575,13 +577,13 @@ export function CommandPanel() {
           {tab === "recruits" && (
             <section>
               <section className="mb-6 border border-border bg-surface p-4">
-                <h2 className="font-display text-xl font-semibold">Invitation activity</h2>
+                <h2 className="font-display text-xl font-semibold"><Text>{"Invitation activity"}</Text></h2>
                 <div className="mt-3 overflow-x-auto">
-                  <table className="w-full min-w-[650px] text-left text-sm">
-                    <thead className="text-xs uppercase text-text-secondary"><tr><th className="py-2">Email</th><th className="py-2">Created</th><th className="py-2">Opened</th><th className="py-2">Redeemed</th><th className="py-2">Status</th></tr></thead>
+                  <table className="w-full min-w-[650px] text-start text-sm">
+                    <thead className="text-xs uppercase text-text-secondary"><tr><th className="py-2"><Text>{"Email"}</Text></th><th className="py-2"><Text>{"Created"}</Text></th><th className="py-2"><Text>{"Opened"}</Text></th><th className="py-2"><Text>{"Redeemed"}</Text></th><th className="py-2"><Text>{"Status"}</Text></th></tr></thead>
                     <tbody>
-                      {invitations.map((item) => <tr key={item.id} className="border-t border-border"><td className="py-2">{item.email}</td><td className="py-2">{dateLabel(item.created_at)}</td><td className="py-2">{item.opened_at ? dateLabel(item.opened_at) : "Not opened"}</td><td className="py-2">{item.redeemed_at ? dateLabel(item.redeemed_at) : "Not redeemed"}</td><td className="py-2"><Status>{item.status}</Status></td></tr>)}
-                      {invitations.length === 0 && <tr><td className="py-3 text-text-secondary" colSpan={5}>No recent invitations.</td></tr>}
+                      {invitations.map((item) => <tr key={item.id} className="border-t border-border"><td className="py-2">{item.email}</td><td className="py-2">{dateLabel(item.created_at, locale)}</td><td className="py-2">{item.opened_at ? dateLabel(item.opened_at, locale) : t("Not opened")}</td><td className="py-2">{item.redeemed_at ? dateLabel(item.redeemed_at, locale) : t("Not redeemed")}</td><td className="py-2"><Status>{item.status}</Status></td></tr>)}
+                      {invitations.length === 0 && <tr><td className="py-3 text-text-secondary" colSpan={5}><Text>{"No recent invitations."}</Text></td></tr>}
                     </tbody>
                   </table>
                 </div>
@@ -593,26 +595,26 @@ export function CommandPanel() {
                 <input
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Search in-game name or game ID"
+                  placeholder={t("Search in-game name or game ID")}
                   className="min-w-60 flex-1 border border-border bg-surface px-3 py-2"
                 />
                 <select
                   value={sort}
                   onChange={(event) => { setSort(event.target.value); void loadRecruits(1, search, event.target.value); }}
                   className="border border-border bg-surface px-3 py-2"
-                  aria-label="Sort recruits"
+                  aria-label={t("Sort recruits")}
                 >
-                  <option value="started">Start date</option>
-                  <option value="activity">Last activity</option>
-                  <option value="name">Player name</option>
-                  <option value="identity">Identity status</option>
+                  <option value="started"><Text>{"Start date"}</Text></option>
+                  <option value="activity"><Text>{"Last activity"}</Text></option>
+                  <option value="name"><Text>{"Player name"}</Text></option>
+                  <option value="identity"><Text>{"Identity status"}</Text></option>
                 </select>
-                <button className="border border-border bg-surface px-4 py-2">Search</button>
+                <button className="border border-border bg-surface px-4 py-2"><Text>{"Search"}</Text></button>
               </form>
               <div className="overflow-x-auto border border-border">
-                <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+                <table className="w-full min-w-[900px] border-collapse text-start text-sm">
                   <thead className="bg-surface text-xs uppercase text-text-secondary">
-                    <tr>{["Player", "Preference", "Invitation opened", "Identity", "Training acknowledgments", "Quiz", "Follow-ups", "Last activity"].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
+                    <tr>{[t("Player"), t("Preference"), t("Invitation opened"), t("Identity"), t("Training acknowledgments"), t("Quiz"), t("Follow-ups"), t("Last activity")].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
                   </thead>
                   <tbody>
                     {recruits.map((recruit) => (
@@ -623,25 +625,25 @@ export function CommandPanel() {
                           </button>
                           {recruit.email && <small className="block text-text-secondary">{recruit.email}</small>}
                         </td>
-                        <td className="px-3 py-3"><Status>{recruit.communication_preference ?? "not selected"}</Status></td>
-                        <td className="px-3 py-3">{recruit.invitation_opened_at ? "Yes" : "No"}</td>
+                        <td className="px-3 py-3"><Status>{recruit.communication_preference ?? t("not selected")}</Status></td>
+                        <td className="px-3 py-3">{recruit.invitation_opened_at ? t("Yes") : t("No")}</td>
                         <td className="px-3 py-3"><Status>{recruit.identity_status}</Status></td>
-                        <td className="px-3 py-3">{recruit.required_acknowledgments}/{recruit.required_total}</td>
-                        <td className="px-3 py-3">{recruit.latest_quiz_passed === null ? "Not taken" : recruit.latest_quiz_passed ? "Passed" : "Needs retry"}</td>
-                        <td className="px-3 py-3">{recruit.open_followups}</td>
-                        <td className="px-3 py-3">{dateLabel(recruit.last_activity)}</td>
+                        <td className="px-3 py-3">{<LocalizedNumber value={recruit.required_acknowledgments} />}/{<LocalizedNumber value={recruit.required_total} />}</td>
+                        <td className="px-3 py-3">{recruit.latest_quiz_passed === null ? t("Not taken") : recruit.latest_quiz_passed ? t("Passed") : t("Needs retry")}</td>
+                        <td className="px-3 py-3">{<LocalizedNumber value={recruit.open_followups} />}</td>
+                        <td className="px-3 py-3">{dateLabel(recruit.last_activity, locale)}</td>
                       </tr>
                     ))}
-                    {recruits.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={8}>No matching recruit records.</td></tr>}
+                    {recruits.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={8}><Text>{"No matching recruit records."}</Text></td></tr>}
                   </tbody>
                 </table>
               </div>
               <div className="mt-4 flex items-center justify-between text-sm text-text-secondary">
-                <span>{total} tracked recruit{total === 1 ? "" : "s"}</span>
+                <span>{t("Tracked recruits: {total}", { total })}</span>
                 <div className="flex gap-2">
-                  <button disabled={page <= 1} onClick={() => void loadRecruits(page - 1)} className="border border-border px-3 py-1 disabled:opacity-40">Previous</button>
-                  <span className="px-2">Page {page}</span>
-                  <button disabled={page * 30 >= total} onClick={() => void loadRecruits(page + 1)} className="border border-border px-3 py-1 disabled:opacity-40">Next</button>
+                  <button disabled={page <= 1} onClick={() => void loadRecruits(page - 1)} className="border border-border px-3 py-1 disabled:opacity-40"><Text>{"Previous"}</Text></button>
+                  <span className="px-2"><Text values={{ page: page.toLocaleString(locale) }}>{"Page {page}"}</Text></span>
+                  <button disabled={page * 30 >= total} onClick={() => void loadRecruits(page + 1)} className="border border-border px-3 py-1 disabled:opacity-40"><Text>{"Next"}</Text></button>
                 </div>
               </div>
             </section>
@@ -649,21 +651,21 @@ export function CommandPanel() {
 
           {tab === "training" && (
             <section className="overflow-x-auto border border-border">
-              <table className="w-full min-w-[750px] border-collapse text-left text-sm">
+              <table className="w-full min-w-[750px] border-collapse text-start text-sm">
                 <thead className="bg-surface text-xs uppercase text-text-secondary">
-                  <tr>{["Recruit", "Requirement", "Progress", "Knowledge check", "Acknowledgment"].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
+                  <tr>{[t("Recruit"), t("Requirement"), t("Progress"), t("Knowledge check"), t("Acknowledgment")].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
                 </thead>
                 <tbody>
                   {training.map((row) => (
                     <tr key={`${row.user_id}:${row.slug}`} className="border-t border-border">
                       <td className="px-3 py-3">{row.in_game_name}</td>
                       <td className="px-3 py-3">{row.title}</td>
-                      <td className="px-3 py-3"><Status>{row.needs_assistance ? "needs_assistance" : row.status}</Status></td>
-                      <td className="px-3 py-3">{row.quiz_passed === null ? "Not taken" : row.quiz_passed ? "Passed" : "Failed"}</td>
-                      <td className="px-3 py-3">{row.acknowledged_at ? dateLabel(row.acknowledged_at) : "Pending"}</td>
+                      <td className="px-3 py-3"><Status>{row.needs_assistance ? t("needs_assistance") : row.status}</Status></td>
+                      <td className="px-3 py-3">{row.quiz_passed === null ? t("Not taken") : row.quiz_passed ? t("Passed") : t("Failed")}</td>
+                      <td className="px-3 py-3">{row.acknowledged_at ? dateLabel(row.acknowledged_at, locale) : t("Pending")}</td>
                     </tr>
                   ))}
-                  {training.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={5}>No published training records.</td></tr>}
+                  {training.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={5}><Text>{"No published training records."}</Text></td></tr>}
                 </tbody>
               </table>
             </section>
@@ -676,25 +678,25 @@ export function CommandPanel() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h2 className="font-display text-xl font-semibold">{followup.in_game_name}</h2>
-                      <p className="mt-1 text-sm text-text-secondary">{followup.training_title ?? followup.issue_key} · {followup.reason}</p>
-                      <p className="mt-1 text-xs text-text-secondary">Created {dateLabel(followup.created_at)}</p>
+                      <p className="mt-1 text-sm text-text-secondary">{followup.training_title ?? followup.issue_key} · {t(followup.reason)}</p>
+                      <p className="mt-1 text-xs text-text-secondary"><Text values={{ value1: String(dateLabel(followup.created_at, locale) ?? "") }}>{"Created {value1}"}</Text></p>
                     </div>
                     <label className="text-sm">
-                      <span className="sr-only">Follow-up status</span>
+                      <span className="sr-only"><Text>{"Follow-up status"}</Text></span>
                       <select
                         value={followup.status}
                         onChange={(event) => setFollowups((current) => current.map((task) => task.id === followup.id ? { ...task, status: event.target.value as Followup["status"] } : task))}
                         className="border border-border bg-bg px-3 py-2"
                       >
-                        <option value="open">Open</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="awaiting_response">Awaiting response</option>
-                        <option value="resolved">Resolved</option>
+                        <option value="open"><Text>{"Open"}</Text></option>
+                        <option value="contacted"><Text>{"Contacted"}</Text></option>
+                        <option value="awaiting_response"><Text>{"Awaiting response"}</Text></option>
+                        <option value="resolved"><Text>{"Resolved"}</Text></option>
                       </select>
                     </label>
                   </div>
                   <label className="mt-3 block text-sm">
-                    <span className="mb-1 block text-text-secondary">Internal officer notes</span>
+                    <span className="mb-1 block text-text-secondary"><Text>{"Internal officer notes"}</Text></span>
                     <textarea
                       rows={2}
                       maxLength={4000}
@@ -705,16 +707,15 @@ export function CommandPanel() {
                   </label>
                   {followup.edits?.map((edit, index) => (
                     <p key={`${edit.edited_at}:${index}`} className="mt-2 border-t border-border pt-2 text-xs text-text-secondary">
-                      Previous update · {edit.editor_name ?? "Officer"} · {dateLabel(edit.edited_at)} · {edit.previous_status}
+                      <Text>{"Previous update ·"}</Text>{" "}{edit.editor_name ?? t("Officer")} · {dateLabel(edit.edited_at, locale)} · {edit.previous_status}
                       {edit.previous_notes ? ` · ${edit.previous_notes}` : ""}
                     </p>
                   ))}
                   <button onClick={() => void updateFollowup(followup)} className="mt-3 border border-accent px-4 py-2 text-sm hover:bg-accent">
-                    Save follow-up
-                  </button>
+                    <Text>{"Save follow-up"}</Text></button>
                 </article>
               ))}
-              {followups.length === 0 && <p className="border border-border bg-surface p-6 text-sm text-text-secondary">No unresolved follow-ups.</p>}
+              {followups.length === 0 && <p className="border border-border bg-surface p-6 text-sm text-text-secondary"><Text>{"No unresolved follow-ups."}</Text></p>}
             </section>
           )}
 
@@ -756,10 +757,11 @@ function RecruitDetailPanel({
   onEditNote: (id: string, body: string) => Promise<void>;
   canAssign: boolean;
 }) {
+  const { t, locale } = useTranslation();
   const [editingNote, setEditingNote] = useState<string | null>(null);
 
   if (!detail) {
-    return <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4"><p className="border border-border bg-surface p-6">Loading recruit record…</p></div>;
+    return <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4"><p className="border border-border bg-surface p-6"><Text>{"Loading recruit record…"}</Text></p></div>;
   }
   const recruit = detail.recruit;
   const status = String(recruit.identity_status ?? "pending");
@@ -768,61 +770,60 @@ function RecruitDetailPanel({
       <section className="mx-auto max-w-4xl border border-border bg-bg p-5 sm:p-8">
         <header className="flex items-start justify-between gap-4">
           <div>
-            <span className="eyebrow">Recruit record</span>
+            <span className="eyebrow"><Text>{"Recruit record"}</Text></span>
             <h2 className="mt-1 font-display text-3xl font-semibold">{String(recruit.in_game_name)}</h2>
             {typeof recruit.email === "string" && <p className="mt-1 text-sm text-text-secondary">{recruit.email}</p>}
           </div>
-          <button onClick={onClose} className="border border-border px-3 py-2 text-sm">Close</button>
+          <button onClick={onClose} className="border border-border px-3 py-2 text-sm"><Text>{"Close"}</Text></button>
         </header>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <p className="border border-border p-3 text-sm">Communication: {String(recruit.communication_preference ?? "Not selected")}</p>
+          <p className="border border-border p-3 text-sm"><Text values={{ value1: t(String(recruit.communication_preference ?? "Not selected").replaceAll("_", " ")) }}>{"Communication: {value1}"}</Text></p>
           <label className="border border-border p-3 text-sm">
-            Assigned officer
-            <select
+            <Text>{"Assigned officer"}</Text><select
               value={String(recruit.assigned_officer ?? "")}
               disabled={!canAssign}
               onChange={(event) => { void onAssign(event.target.value); }}
               className="mt-2 block w-full border border-border bg-bg px-2 py-1"
             >
-              <option value="">Unassigned</option>
+              <option value=""><Text>{"Unassigned"}</Text></option>
               {detail.officers.map((officer) => <option key={officer.id} value={officer.id}>{officer.in_game_name} · {officer.game_rank.toUpperCase()}</option>)}
             </select>
           </label>
-          <p className="border border-border p-3 text-sm">Game ID: {String(recruit.game_identifier ?? "Not submitted")}</p>
-          <p className="border border-border p-3 text-sm">Academy started: {dateLabel(String(recruit.started_at ?? ""))}</p>
+          <p className="border border-border p-3 text-sm"><Text values={{ value1: String(String(recruit.game_identifier ?? t("Not submitted")) ?? "") }}>{"Game ID: {value1}"}</Text></p>
+          <p className="border border-border p-3 text-sm"><Text values={{ value1: String(dateLabel(String(recruit.started_at ?? ""), locale) ?? "") }}>{"Academy started: {value1}"}</Text></p>
         </div>
         <section className="mt-6 border border-border bg-surface p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div><h3 className="font-display text-xl font-semibold">Identity verification</h3><p className="mt-1 text-sm text-text-secondary">The website does not access game data; verify the submitted identity manually.</p></div>
-            <Status>{status}</Status>
+            <div><h3 className="font-display text-xl font-semibold"><Text>{"Identity verification"}</Text></h3><p className="mt-1 text-sm text-text-secondary"><Text>{"The website does not access game data; verify the submitted identity manually."}</Text></p></div>
+            <Status>{t(status)}</Status>
           </div>
           <div className="mt-3 flex gap-2">
-            <button onClick={() => void onVerify(true)} className="border border-tip px-3 py-2 text-sm">Mark verified</button>
-            <button onClick={() => void onVerify(false)} className="border border-border px-3 py-2 text-sm">Return to pending</button>
+            <button onClick={() => void onVerify(true)} className="border border-tip px-3 py-2 text-sm"><Text>{"Mark verified"}</Text></button>
+            <button onClick={() => void onVerify(false)} className="border border-border px-3 py-2 text-sm"><Text>{"Return to pending"}</Text></button>
           </div>
           {detail.identity_history.length > 0 && (
             <ul className="mt-4 space-y-2 text-xs text-text-secondary">
-              {detail.identity_history.map((item, index) => <li key={`${item.changed_at}:${index}`}>{item.previous_status} → {item.new_status} · {item.changed_by_name ?? "Officer"} · {dateLabel(item.changed_at)}{item.note ? ` · ${item.note}` : ""}</li>)}
+              {detail.identity_history.map((item, index) => <li key={`${item.changed_at}:${index}`}>{item.previous_status} → {item.new_status} · {item.changed_by_name ?? t("Officer")} · {dateLabel(item.changed_at, locale)}{item.note ? ` · ${item.note}` : ""}</li>)}
             </ul>
           )}
         </section>
         <section className="mt-6">
-          <h3 className="font-display text-xl font-semibold">Onboarding timeline</h3>
-          {detail.invitation && <p className="mt-2 text-sm text-text-secondary">Invitation created {dateLabel(detail.invitation.created_at)} · opened {detail.invitation.opened_at ? dateLabel(detail.invitation.opened_at) : "not yet"} · redeemed {dateLabel(detail.invitation.redeemed_at)}</p>}
+          <h3 className="font-display text-xl font-semibold"><Text>{"Onboarding timeline"}</Text></h3>
+          {detail.invitation && <p className="mt-2 text-sm text-text-secondary"><Text>{"Invitation created"}</Text>{" "}{dateLabel(detail.invitation.created_at, locale)} {" "}<Text>{"· opened"}</Text>{" "}{detail.invitation.opened_at ? dateLabel(detail.invitation.opened_at, locale) : t("not yet")} {" "}<Text>{"· redeemed"}</Text>{" "}{dateLabel(detail.invitation.redeemed_at, locale)}</p>}
           <ol className="mt-3 space-y-2">
             {detail.training.map((item) => (
               <li key={item.slug} className="flex flex-wrap items-center justify-between gap-2 border border-border p-3 text-sm">
-                <span>{item.title}{item.verification_status === "leadership_review" ? " · mechanics need leadership review" : ""}</span>
-                <span className="flex gap-2"><Status>{item.status}</Status><Status>{item.quiz_passed === null ? "quiz not taken" : item.quiz_passed ? "quiz passed" : "quiz failed"}</Status><Status>{item.acknowledged_at ? "acknowledged" : "ack pending"}</Status></span>
+                <span>{item.title}{item.verification_status === "leadership_review" ? t(" · mechanics need leadership review") : ""}</span>
+                <span className="flex gap-2"><Status>{item.status}</Status><Status>{item.quiz_passed === null ? t("quiz not taken") : item.quiz_passed ? t("quiz passed") : t("quiz failed")}</Status><Status>{item.acknowledged_at ? t("acknowledged") : t("ack pending")}</Status></span>
               </li>
             ))}
           </ol>
         </section>
         <section className="mt-6">
-          <h3 className="font-display text-xl font-semibold">Private officer notes</h3>
+          <h3 className="font-display text-xl font-semibold"><Text>{"Private officer notes"}</Text></h3>
           <form onSubmit={onAddNote} className="mt-3">
-            <textarea name="note" required maxLength={4000} rows={3} className="w-full border border-border bg-surface px-3 py-2" placeholder="Visible to authorized officers only" />
-            <button className="mt-2 border border-accent px-4 py-2 text-sm">Add note</button>
+            <textarea name="note" required maxLength={4000} rows={3} className="w-full border border-border bg-surface px-3 py-2" placeholder={t("Visible to authorized officers only")} />
+            <button className="mt-2 border border-accent px-4 py-2 text-sm"><Text>{"Add note"}</Text></button>
           </form>
           <ul className="mt-4 space-y-3">
             {detail.notes.map((note) => (
@@ -839,27 +840,25 @@ function RecruitDetailPanel({
                   >
                     <textarea name="body" required maxLength={4000} defaultValue={note.body} rows={3} className="w-full border border-border bg-bg px-3 py-2 text-sm" />
                     <div className="mt-2 flex gap-2">
-                      <button className="border border-accent px-3 py-1 text-xs">Save edit</button>
-                      <button type="button" onClick={() => setEditingNote(null)} className="border border-border px-3 py-1 text-xs">Cancel</button>
+                      <button className="border border-accent px-3 py-1 text-xs"><Text>{"Save edit"}</Text></button>
+                      <button type="button" onClick={() => setEditingNote(null)} className="border border-border px-3 py-1 text-xs"><Text>{"Cancel"}</Text></button>
                     </div>
                   </form>
                 ) : (
                   <>
                     <p className="whitespace-pre-wrap text-sm">{note.body}</p>
                     <div className="mt-2 flex items-center justify-between gap-2">
-                      <small className="text-text-secondary">{note.author_name} · {dateLabel(note.created_at)}{note.updated_at !== note.created_at ? " · edited" : ""}</small>
-                      <button type="button" onClick={() => setEditingNote(note.id)} className="text-xs text-accent-bright underline">Edit</button>
+                      <small className="text-text-secondary">{note.author_name} · {dateLabel(note.created_at, locale)}{note.updated_at !== note.created_at ? t(" · edited") : ""}</small>
+                      <button type="button" onClick={() => setEditingNote(note.id)} className="text-xs text-accent-bright underline"><Text>{"Edit"}</Text></button>
                     </div>
                   </>
                 )}
                 {detail.note_history.filter((history) => history.note_id === note.id).map((history, index) => (
-                  <p key={`${history.edited_at}:${index}`} className="mt-2 border-t border-border pt-2 text-xs text-text-secondary">
-                    Previous version · {history.editor_name ?? "Officer"} · {dateLabel(history.edited_at)}: {history.previous_body}
-                  </p>
+                  <p key={`${history.edited_at}:${index}`} className="mt-2 border-t border-border pt-2 text-xs text-text-secondary"><Text values={{ value1: String(history.editor_name ?? t("Officer") ?? ""), value2: String(dateLabel(history.edited_at, locale) ?? ""), previous_body: String(history.previous_body ?? "") }}>{"Previous version · {value1} · {value2}: {previous_body}"}</Text></p>
                 ))}
               </li>
             ))}
-            {detail.notes.length === 0 && <li className="text-sm text-text-secondary">No internal notes.</li>}
+            {detail.notes.length === 0 && <li className="text-sm text-text-secondary"><Text>{"No internal notes."}</Text></li>}
           </ul>
         </section>
       </section>
@@ -868,6 +867,7 @@ function RecruitDetailPanel({
 }
 
 function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: () => Promise<void> }) {
+  const { t, locale } = useTranslation();
   const [selected, setSelected] = useState<ContentItem | null>(null);
   const [questionsJson, setQuestionsJson] = useState("[]");
   const [message, setMessage] = useState<string | null>(null);
@@ -902,7 +902,7 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
     let questions: unknown;
     try {
       questions = JSON.parse(questionsJson);
-      if (!Array.isArray(questions)) throw new Error("Questions must be a JSON array.");
+      if (!Array.isArray(questions)) throw new Error(t("Questions must be a JSON array."));
     } catch (parseError) {
       setMessage(parseError instanceof Error ? parseError.message : "Questions JSON is invalid.");
       return;
@@ -925,7 +925,7 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
       setMessage(result.error ?? "Draft could not be saved.");
       return;
     }
-    setMessage("Draft saved. Publish it when leadership approves the content.");
+    setMessage(t("Draft saved. Publish it when leadership approves the content."));
     await refresh();
     setSelected({
       ...selected,
@@ -942,7 +942,7 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
     setBusy(false);
     if (result.error) setMessage(result.error);
     else {
-      setMessage("New version published. Members must acknowledge this version.");
+      setMessage(t("New version published. Members must acknowledge this version."));
       setSelected(null);
       await refresh();
     }
@@ -952,15 +952,15 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
     <div className="grid gap-6 lg:grid-cols-[minmax(16rem,1fr)_2fr]">
       <section className="border border-border bg-surface p-4">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-display text-xl font-semibold">Published and draft content</h2>
-          <button onClick={createNew} className="border border-accent px-3 py-2 text-xs">New</button>
+          <h2 className="font-display text-xl font-semibold"><Text>{"Published and draft content"}</Text></h2>
+          <button onClick={createNew} className="border border-accent px-3 py-2 text-xs"><Text>{"New"}</Text></button>
         </div>
         <ul className="mt-4 space-y-2">
           {content.filter((item) => item.status !== "retired").map((item) => (
             <li key={item.id}>
-              <button onClick={() => choose(item)} className="w-full border border-border bg-bg p-3 text-left hover:border-accent">
+              <button onClick={() => choose(item)} className="w-full border border-border bg-bg p-3 text-start hover:border-accent">
                 <span className="block text-sm">{item.title}</span>
-                <small className="text-text-secondary">{item.content_type} · v{item.version} · {item.status}{item.verification_status === "leadership_review" ? " · review needed" : ""}</small>
+                <small className="text-text-secondary">{t(item.content_type)} {" "}<Text>{"· v"}</Text>{<LocalizedNumber value={item.version} />} · {t(item.status)}{item.verification_status === "leadership_review" ? t(" · review needed") : ""}</small>
               </button>
             </li>
           ))}
@@ -968,22 +968,22 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
       </section>
       <section className="border border-border bg-surface p-4 sm:p-6">
         {!selected ? (
-          <p className="text-sm text-text-secondary">Select an item or create a new content draft.</p>
+          <p className="text-sm text-text-secondary"><Text>{"Select an item or create a new content draft."}</Text></p>
         ) : (
           <form onSubmit={save} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="text-sm">Slug<input name="slug" required maxLength={100} defaultValue={selected.slug} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
-              <label className="text-sm">Title<input name="title" required maxLength={160} defaultValue={selected.title} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
-              <label className="text-sm">Type<select name="content_type" defaultValue={selected.content_type} className="mt-1 w-full border border-border bg-bg px-3 py-2"><option value="rule">Rule</option><option value="module">Training module</option><option value="announcement">Announcement</option></select></label>
-              <label className="text-sm">Mechanics verification<select name="verification_status" defaultValue={selected.verification_status} className="mt-1 w-full border border-border bg-bg px-3 py-2"><option value="verified">Verified</option><option value="leadership_review">Leadership review required</option></select></label>
+              <label className="text-sm"><Text>{"Slug"}</Text><input name="slug" required maxLength={100} defaultValue={selected.slug} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
+              <label className="text-sm"><Text>{"Title"}</Text><input name="title" required maxLength={160} defaultValue={selected.title} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
+              <label className="text-sm"><Text>{"Type"}</Text><select name="content_type" defaultValue={selected.content_type} className="mt-1 w-full border border-border bg-bg px-3 py-2"><option value="rule"><Text>{"Rule"}</Text></option><option value="module"><Text>{"Training module"}</Text></option><option value="announcement"><Text>{"Announcement"}</Text></option></select></label>
+              <label className="text-sm"><Text>{"Mechanics verification"}</Text><select name="verification_status" defaultValue={selected.verification_status} className="mt-1 w-full border border-border bg-bg px-3 py-2"><option value="verified"><Text>{"Verified"}</Text></option><option value="leadership_review"><Text>{"Leadership review required"}</Text></option></select></label>
             </div>
-            <label className="block text-sm">Training content<textarea name="body" required maxLength={30000} rows={8} defaultValue={selected.body} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
-            <label className="flex items-center gap-2 text-sm"><input name="required" type="checkbox" defaultChecked={selected.required} />Required onboarding content</label>
-            <label className="block text-sm">Quiz questions as JSON<textarea value={questionsJson} onChange={(event) => setQuestionsJson(event.target.value)} rows={10} className="mt-1 w-full border border-border bg-bg px-3 py-2 font-mono text-xs" /></label>
-            {message && <p role="status" className="text-sm text-text-secondary">{message}</p>}
+            <label className="block text-sm"><Text>{"Training content"}</Text><textarea name="body" required maxLength={30000} rows={8} defaultValue={selected.body} className="mt-1 w-full border border-border bg-bg px-3 py-2" /></label>
+            <label className="flex items-center gap-2 text-sm"><input name="required" type="checkbox" defaultChecked={selected.required} /><Text>{"Required onboarding content"}</Text></label>
+            <label className="block text-sm"><Text>{"Quiz questions as JSON"}</Text><textarea value={questionsJson} onChange={(event) => setQuestionsJson(event.target.value)} rows={10} className="mt-1 w-full border border-border bg-bg px-3 py-2 font-mono text-xs" /></label>
+            {message && <p role="status" className="text-sm text-text-secondary">{t(message)}</p>}
             <div className="flex flex-wrap gap-2">
-              <button disabled={busy} className="border border-border px-4 py-2 text-sm disabled:opacity-50">{busy ? "Saving…" : "Save draft"}</button>
-              <button type="button" disabled={busy || !selected.id || selected.status !== "draft"} onClick={() => void publish()} className="border border-accent bg-accent px-4 py-2 text-sm disabled:opacity-50">Publish version</button>
+              <button disabled={busy} className="border border-border px-4 py-2 text-sm disabled:opacity-50">{busy ? t("Saving…") : t("Save draft")}</button>
+              <button type="button" disabled={busy || !selected.id || selected.status !== "draft"} onClick={() => void publish()} className="border border-accent bg-accent px-4 py-2 text-sm disabled:opacity-50"><Text>{"Publish version"}</Text></button>
             </div>
           </form>
         )}

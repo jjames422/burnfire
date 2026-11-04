@@ -1,4 +1,6 @@
 "use client";
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+
 
 import { useEffect, useState } from "react";
 import clsx from "clsx";
@@ -26,6 +28,7 @@ const NOT_REACTED: Record<ReactionType, boolean> = {
 };
 
 export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
+  const { t, locale } = useTranslation();
   const [counts, setCounts] = useState(ZERO_COUNTS);
   const [reacted, setReacted] = useState(NOT_REACTED);
   const [loading, setLoading] = useState(true);
@@ -42,7 +45,7 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
       if (cancelled) return;
       if (!data) {
         setLoading(false);
-        setError("Reaction totals are unavailable right now.");
+        setError(t("Reaction totals are unavailable right now."));
         return;
       }
       setCounts(data.counts);
@@ -88,7 +91,7 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
           disabled={loading || !signedIn || reacted[type]}
           onClick={() => handleReact(type)}
           aria-pressed={reacted[type]}
-          aria-label={label}
+          aria-label={t(label)}
           className={clsx(
             "interactive-lift flex items-center gap-2 border px-3 py-2 text-sm font-medium disabled:cursor-default",
             reacted[type]
@@ -97,14 +100,14 @@ export function ReactionBar({ alliance, guideSlug }: ReactionBarProps) {
           )}
         >
           <span aria-hidden="true">{icon}</span>
-          <span className="tabular-nums">{counts[type]}</span>
+          <span className="tabular-nums">{counts[type].toLocaleString(locale)}</span>
         </button>
       ))}
       </div>
       {!loading && !signedIn && (
-        <p className="mt-2 text-xs text-text-secondary">Sign in below to react. Guests can view counts only.</p>
+        <p className="mt-2 text-xs text-text-secondary"><Text>{"Sign in below to react. Guests can view counts only."}</Text></p>
       )}
-      {error && <p className="mt-2 text-xs text-warning">{error}</p>}
+      {error && <p className="mt-2 text-xs text-warning">{t(error)}</p>}
     </div>
   );
 }

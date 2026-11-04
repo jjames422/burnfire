@@ -7,8 +7,25 @@ Command Center tab. R4 can approve R1-R3, R5 can manage lower ranks, and site ad
 can manage all alliance ranks. Confirming a rank updates the shared membership used by chat,
 academy, and command; there are no separate feature-specific role assignments.
 
+On a member card, click **Approve / change rank or title**. The editor opens at
+the member's current rank, so you can change a title without changing rank.
+For R4, choose **God of War**, **Diplomat**, **Goddess**, or **Recruiter**, then
+**Confirm approval**. Each special title has only one holder per alliance; remove
+the old appointment before assigning it to someone else. R5 always displays
+**Alliance Leader**.
+
+The Alliance Leader or a site administrator can also check **Regent** in the R4
+editor. There is only one Regent per alliance, and Regent must keep one of the
+four R4 titles. The member displays both, for example **Regent · Diplomat**.
+Regent remains R4 but has alliance-level R5 access, including R4 appointments,
+admin-only alliance chat, and editing/publishing academy content. Regent cannot
+appoint or replace R5, appoint/remove Regent (including themselves), grant site
+administration, or use account-recovery tools. To demote a Regent, the Alliance
+Leader or a site administrator must remove the appointment as part of the change.
+Changes to rank, special title, and Regent are recorded in leadership activity.
+
 The database synchronizes website permissions from rank: R1/R2 are members, R3/R4 are
-officers, and R5 is alliance admin. Site administration is independent in `platform_admins`;
+officers (except Regent), and R5/Regent are alliance admins. Site administration is independent in `platform_admins`;
 an R4 site administrator retains R4 identity with full website access.
 
 Officer workload cards and the rank-change timeline support leadership oversight. Recruit
@@ -44,8 +61,9 @@ alliance; the database enforces this with `user_id` as the membership's primary 
    `god_of_war`. The R5 must have `alliance_leader`. Every title and R5 are unique per alliance;
    the database rejects a second holder.
 5. Set `verified_at` to the current time and `verified_by` to the verifying officer's user ID.
-6. Website access is synchronized from the rank automatically: `member` for R1/R2, `officer`
-   for R3/R4, and `admin` for R5. Use the portal for normal approvals so the action is recorded.
+6. Set `is_regent` only for an R4 holding a special title. Website access is synchronized
+   automatically: `member` for R1/R2, `officer` for R3/R4, and `admin` for R5/Regent.
+   Use the portal for normal approvals so the action is recorded.
 7. Save.
 
 The site builds the public label from this live membership data. An unaffiliated profile appears

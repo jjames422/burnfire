@@ -2,13 +2,17 @@ import { NextResponse, type NextRequest } from "next/server";
 import { scoreQuiz } from "@/lib/academy/quiz-score";
 import { queryOne, withTransaction } from "@/lib/server/db";
 import { jsonError, requireUser } from "@/lib/server/http";
+import { getLocale } from "@/lib/i18n/server";
+import { localizeQuestion } from "@/lib/server/academy-localization";
 
 type QuizQuestion = {
   id: string;
+  slug: string;
   prompt: string;
   options: string[];
   correct_index: number;
   explanation: string;
+  sort_order: number;
 };
 
 export async function POST(request: NextRequest) {
@@ -31,16 +35,17 @@ export async function POST(request: NextRequest) {
   if (!enrolled) return jsonError("Redeem a BF2 recruit invitation to continue.", 403);
   if (!enrolled.game_identifier?.trim()) return jsonError("Enter your required in-game tag before taking a knowledge check.", 409);
 
+  const locale = await getLocale();
   const result = await withTransaction(async (client) => {
-    const contentResult = await client.query<{ id: string; title: string }>(
-      `select id, title from academy_content where slug = $1 and status = 'published'`,
+    const contentResult = await client.query<{ id: string; slug: string; version: number; title: string }>(
+      `select id, slug, version, title from academy_content where slug = $1 and status = 'published'`,
       [slug],
     );
     const content = contentResult.rows[0];
     if (!content) return { error: "This training section is not currently published.", status: 404 };
 
     const questionResult = await client.query<QuizQuestion>(
-      `select id, prompt, options, correct_index, explanation
+      `select id, slug, prompt, options, correct_index, explanation, sort_order
        from academy_questions where content_id = $1 order by sort_order, id`,
       [content.id],
     );
@@ -99,12 +104,16 @@ export async function POST(request: NextRequest) {
       passed,
       correct_count: correctCount,
       question_count: questionCount,
-      results: questions.map((question) => ({
-        id: question.id,
-        correct: storedAnswers[question.id] === question.correct_index,
-        correct_index: question.correct_index,
-        explanation: question.explanation,
-      })),
+      results: questions.map((question) => {
+        const display = localizeQuestion(content, question, locale);
+        return {
+          id: question.id,
+          correct: storedAnswers[question.id] === question.correct_index,
+          correct_index: question.correct_index,
+          explanation: display.explanation,
+          localization: display.localization,
+        };
+      }),
     };
   });
 

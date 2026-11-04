@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Text } from "@/components/i18n/LanguageProvider";
 
 export default function NotFound() {
   return (
@@ -6,15 +7,15 @@ export default function NotFound() {
       <p className="mb-3 font-display text-sm font-semibold tracking-widest text-accent uppercase">
         404
       </p>
-      <h1 className="font-display text-3xl font-bold text-text-primary">Page not found</h1>
+      <h1 className="font-display text-3xl font-bold text-text-primary"><Text>Page not found</Text></h1>
       <p className="mt-4 text-text-secondary">
-        That page doesn&apos;t exist, or hasn&apos;t been written yet.
+        <Text>{"That page doesn't exist, or hasn't been written yet."}</Text>
       </p>
       <Link
         href="/"
         className="interactive-lift mt-8 inline-flex items-center border border-border px-5 py-3 font-display font-semibold text-text-primary hover:border-accent-bright hover:text-accent-bright"
       >
-        Back home
+        <Text>Back home</Text>
       </Link>
     </main>
   );

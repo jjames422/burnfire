@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { canManageLeadership, requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
+import { localizeTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
 
 type RouteContext = { params: Promise<{ userId: string }> };
 
@@ -40,8 +41,8 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
        where e.user_id = $1`,
       [userId],
     ),
-    query(
-      `select c.id, c.slug, c.title, c.version, c.verification_status,
+    query<TrainingSourceRow & Record<string, unknown>>(
+      `select c.id, c.slug, c.title, c.version, c.body, c.verification_status,
               coalesce(p.status, 'not_started') as status,
               p.updated_at, p.completed_at, a.acknowledged_at,
               latest.passed as quiz_passed, latest.created_at as quiz_at
@@ -97,7 +98,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
   return NextResponse.json({
     recruit,
     invitation,
-    training,
+    training: await localizeTrainingRows(training),
     followups,
     notes,
     note_history: noteHistory,

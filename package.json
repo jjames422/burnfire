@@ -8,8 +8,9 @@
     "typecheck": "next typegen && tsc --noEmit",
     "check:migrations": "node scripts/check-migrations.mjs",
     "check:source": "node scripts/check-source.mjs",
+    "check:localization": "node --experimental-strip-types scripts/check-localization.mjs",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
-    "ci": "npm run typecheck && npm run check:source && npm run check:migrations && npm run test && npm run build",
+    "ci": "npm run typecheck && npm run check:source && npm run check:localization && npm run check:migrations && npm run test && npm run build",
     "start": "next start"
   },
   "dependencies": {

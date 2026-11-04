@@ -1,10 +1,13 @@
 "use client";
+import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
+
 
 import { useEffect, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { api, apiPost } from "@/lib/api/client";
 
 export function InvitationRedeemer({ token }: { token: string }) {
+  const { t, locale } = useTranslation();
   const router = useRouter();
   const [inGameName, setInGameName] = useState("");
   const [validating, setValidating] = useState(true);
@@ -42,22 +45,20 @@ export function InvitationRedeemer({ token }: { token: string }) {
 
   return (
     <section className="mx-auto w-full max-w-xl border border-border bg-surface p-6 sm:p-8">
-      <span className="eyebrow">BF2 Recruit Academy</span>
-      <h1 className="mt-2 font-display text-3xl font-semibold">Redeem your invitation</h1>
+      <span className="eyebrow"><Text>{"BF2 Recruit Academy"}</Text></span>
+      <h1 className="mt-2 font-display text-3xl font-semibold"><Text>{"Redeem your invitation"}</Text></h1>
       <p className="mt-3 text-sm text-text-secondary">
-        This invitation is tied to the email address you used to sign in. Onboarding is available
-        on the website; optional chat participation is not required.
-      </p>
+        <Text>{"This invitation is tied to the email address you used to sign in. Onboarding is available on the website; optional chat participation is not required."}</Text></p>
       {validating ? (
-        <p className="mt-6 text-sm text-text-secondary">Checking invitation…</p>
+        <p className="mt-6 text-sm text-text-secondary"><Text>{"Checking invitation…"}</Text></p>
       ) : error ? (
         <p role="alert" className="mt-6 border border-warning/40 bg-bg p-3 text-sm text-warning">
-          {error}
+          {t(error)}
         </p>
       ) : (
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <label className="block text-sm">
-            <span className="mb-2 block text-text-secondary">Exact in-game player name</span>
+            <span className="mb-2 block text-text-secondary"><Text>{"Exact in-game player name"}</Text></span>
             <input
               required
               minLength={1}
@@ -68,13 +69,13 @@ export function InvitationRedeemer({ token }: { token: string }) {
               autoComplete="nickname"
             />
           </label>
-          {error && <p role="alert" className="text-sm text-warning">{error}</p>}
+          {error && <p role="alert" className="text-sm text-warning">{t(error)}</p>}
           <button
             type="submit"
             disabled={submitting}
             className="interactive-lift border border-accent bg-accent px-5 py-3 font-display font-semibold disabled:opacity-50"
           >
-            {submitting ? "Redeeming…" : "Join the academy"}
+            {submitting ? t("Redeeming…") : t("Join the academy")}
           </button>
         </form>
       )}

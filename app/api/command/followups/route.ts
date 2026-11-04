@@ -3,6 +3,7 @@ import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, withTransaction } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 import { resolveFollowup } from "@/lib/server/followups";
+import { localizeJoinedTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
 
 const FOLLOWUP_STATUSES = new Set([
   "open",
@@ -15,8 +16,13 @@ export async function GET(request: NextRequest) {
   const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const includeResolved = request.nextUrl.searchParams.get("resolved") === "true";
-  const followups = await query(
+  const followups = await query<Record<string, unknown> & {
+    training_title: string | null; training_source: TrainingSourceRow | null;
+  }>(
     `select f.id, f.user_id, p.in_game_name, f.issue_key, c.title as training_title,
+            case when c.id is null then null else jsonb_build_object(
+              'slug', c.slug, 'version', c.version, 'title', c.title, 'body', c.body
+            ) end as training_source,
             f.reason, f.status, f.assigned_to, assigned.in_game_name as assigned_officer_name,
             f.officer_notes, f.created_at, f.updated_at, f.resolved_at, history.edits
      from command_followups f
@@ -40,7 +46,7 @@ export async function GET(request: NextRequest) {
      limit 200`,
     [trainingScope(officer, user.id)],
   );
-  return NextResponse.json({ followups });
+  return NextResponse.json({ followups: await localizeJoinedTrainingRows(followups) });
 }
 
 export async function PATCH(request: NextRequest) {

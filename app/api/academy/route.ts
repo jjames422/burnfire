@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError, requireUser } from "@/lib/server/http";
 import { academyStepLimit } from "@/lib/server/academy";
+import { getLocale } from "@/lib/i18n/server";
+import { localizeTrainingSection } from "@/lib/server/academy-localization";
 
 type AcademyContentRow = {
   id: string;
@@ -22,6 +24,8 @@ type AcademyContentRow = {
     prompt: string;
     options: string[];
     sort_order: number;
+    correct_index: number;
+    explanation: string;
   }[];
 };
 
@@ -58,7 +62,8 @@ export async function GET() {
             coalesce(
               jsonb_agg(jsonb_build_object(
                 'id', q.id, 'slug', q.slug, 'prompt', q.prompt,
-                'options', q.options, 'sort_order', q.sort_order
+                'options', q.options, 'sort_order', q.sort_order,
+                'correct_index', q.correct_index, 'explanation', q.explanation
               ) order by q.sort_order) filter (where q.id is not null),
               '[]'::jsonb
             ) as questions
@@ -78,5 +83,9 @@ export async function GET() {
     [user.id],
   );
 
-  return NextResponse.json({ enrollment, content });
+  const locale = await getLocale();
+  return NextResponse.json({
+    enrollment,
+    content: content.map((section) => localizeTrainingSection(section, locale)),
+  });
 }

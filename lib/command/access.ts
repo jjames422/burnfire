@@ -12,6 +12,7 @@ const rankValue: Record<AllianceRank, number> = {
 export function hasOfficerAccess(
   rank: AllianceRank | null,
   minimum: OfficerRank,
+  isRegent = false,
 ): boolean {
-  return rank !== null && rankValue[rank] >= rankValue[minimum];
+  return rank !== null && (rankValue[rank] >= rankValue[minimum] || (rank === "r4" && isRegent));
 }
