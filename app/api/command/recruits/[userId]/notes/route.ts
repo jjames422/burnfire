@@ -1,12 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { queryOne } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 
 type RouteContext = { params: Promise<{ userId: string }> };
 
 export async function POST(request: NextRequest, { params }: RouteContext) {
-  const { user, response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const { userId } = await params;
   const body = await request.json().catch(() => null);
@@ -20,8 +20,9 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   }
 
   const recruit = await queryOne<{ user_id: string }>(
-    `select user_id from academy_enrollments where user_id = $1`,
-    [userId],
+    `select user_id from academy_enrollments where user_id = $1
+       and ($2::uuid is null or assigned_officer = $2)`,
+    [userId, trainingScope(officer, user.id)],
   );
   if (!recruit) return jsonError("Recruit was not found.", 404);
   const note = await queryOne<{ id: string }>(

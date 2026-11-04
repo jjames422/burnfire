@@ -1,0 +1,48 @@
+.training-hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 38px; border: 1px solid #554039; border-radius: 20px; background: radial-gradient(ellipse at 90% 15%, #713f302d, transparent 65%), linear-gradient(125deg, #25252d, #17181d); }
+.training-kicker { color: #c99e86; font-size: 9px; font-weight: 600; letter-spacing: 2px; }
+.training-hero h2 { margin: 16px 0; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; font-weight: 600; }
+.training-hero em { color: #ffba90; font-style: normal; }
+.training-hero p { color: #aaa5ad; font-size: 13px; max-width: 470px; line-height: 1.8; }
+.training-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.training-hero-actions button, .training-section-heading button { padding: 10px 16px; border: 1px solid #6c4a39; border-radius: 8px; color: #ffd2b5; font-size: 12px; background: #e58b4b10; }
+.training-completion { width: 180px; height: 180px; padding: 8px; border-radius: 50%; flex-shrink: 0; }
+.training-completion > div { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%; background: #1b1b22; }
+.training-completion strong { font-size: 40px; font-weight: 500; color: #ffe2cc; }
+.training-completion span { font-size: 8px; letter-spacing: 1px; color: #d3a68c; }
+.training-completion small { color: #99949d; margin-top: 10px; font-size: 10px; }
+.training-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 20px 0 34px; }
+.training-metrics article { padding: 22px; background: linear-gradient(135deg, #27262d, #1a1b20); border: 1px solid #ffffff15; border-radius: 14px; }
+.training-metrics strong { display: block; font-size: 38px; margin: 12px 0 6px; font-weight: 500; color: #ffceb0; }
+.training-metrics p { font-size: 12px; color: #b6b0b8; }
+.training-section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 28px 0 18px; }
+.training-section-heading h2 { margin-top: 6px; font-size: 24px; font-weight: 500; }
+.training-member-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.training-member { text-align: left; padding: 20px; border: 1px solid #ffffff18; background: #202127; border-radius: 14px; transition: border-color .2s; }
+.training-member:hover { border-color: #b78058; }
+.training-member-heading { display: flex; align-items: center; gap: 12px; }
+.training-avatar { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border-radius: 11px; color: #ffc49f; background: #4a3027; font-size: 12px; }
+.training-member-heading h3 { font-weight: 500; font-size: 14px; overflow-wrap: anywhere; }
+.training-member-heading p { font-size: 10px; color: #b9a79c; margin-top: 3px; }
+.training-member-heading > strong { margin-left: auto; font-size: 20px; color: #e8ba9e; font-weight: 500; }
+.training-progress { height: 5px; background: #37353f; margin: 22px 0 12px; border-radius: 5px; overflow: hidden; }
+.training-progress span { height: 100%; display: block; background: linear-gradient(90deg, #d77b4c, #ffd2a5); }
+.training-member-footer { display: flex; justify-content: space-between; gap: 10px; font-size: 10px; color: #a7a0ab; }
+.training-pulse { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; padding: 1px; border: 1px solid #ffffff15; background: #ffffff10; border-radius: 14px; overflow: hidden; }
+.training-pulse article { padding: 18px; background: #1d1e24; }
+.training-pulse article strong { font-size: 22px; font-weight: 500; color: #dec3af; }
+.training-empty { padding: 26px; border: 1px dashed #6a5142; border-radius: 14px; color: #bcb1a9; font-size: 13px; }
+.command-workspace button:focus-visible { outline: 2px solid #ffbc86; outline-offset: 3px; }
+@media (max-width: 800px) {
+  .training-hero { padding: 26px; gap: 20px; }
+  .training-completion { width: 140px; height: 140px; }
+  .training-completion strong { font-size: 32px; }
+  .training-metrics, .training-pulse { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .training-hero { flex-direction: column; align-items: flex-start; }
+  .training-completion { align-self: center; }
+  .training-member-grid { grid-template-columns: 1fr; }
+  .training-metrics article { padding: 16px; }
+  .training-section-heading { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .training-member { transition: none; } }

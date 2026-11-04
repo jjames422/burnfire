@@ -48,3 +48,11 @@ export function isLeadershipRank(rank: AllianceRank | null): boolean {
 export function canManageLeadership(officer: AllianceOfficer): boolean {
   return officer.is_site_admin || isLeadershipRank(officer.game_rank);
 }
+
+export function trainingScope(officer: AllianceOfficer, userId: string): string | null {
+  return !canManageLeadership(officer) ? userId : null;
+}
+
+export function canEditTraining(officer: AllianceOfficer): boolean {
+  return officer.is_site_admin || officer.game_rank === "r5";
+}

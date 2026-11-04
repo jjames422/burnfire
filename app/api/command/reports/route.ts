@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
 
 type ExportRow = Record<string, string | number | boolean | null>;
@@ -11,8 +11,9 @@ function csvCell(value: unknown): string {
 }
 
 export async function GET(request: NextRequest) {
-  const { response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
+  const scope = trainingScope(officer, user.id);
 
   const format = request.nextUrl.searchParams.get("format");
   if (format === "csv") {
@@ -52,8 +53,10 @@ export async function GET(request: NextRequest) {
          select count(*) as open_count from command_followups f
          where f.user_id = e.user_id and f.status <> 'resolved'
        ) tasks on true
+       where ($1::uuid is null or e.assigned_officer = $1)
        order by p.in_game_name
        limit 10000`,
+      [scope],
     );
     const columns = [
       ["Player", "in_game_name"],
@@ -85,6 +88,9 @@ export async function GET(request: NextRequest) {
          select distinct on (q.user_id, q.content_id)
            q.user_id, q.content_id, q.passed
          from academy_quiz_attempts q
+         where $1::uuid is null or exists (
+           select 1 from academy_enrollments e where e.user_id = q.user_id and e.assigned_officer = $1
+         )
          order by q.user_id, q.content_id, q.created_at desc
        )
        select c.slug, c.title,
@@ -92,18 +98,24 @@ export async function GET(request: NextRequest) {
               count(distinct p.user_id) filter (where p.needs_assistance)::int as help_requests
        from academy_content c
        left join latest_quiz l on l.content_id = c.id
-       left join academy_progress p on p.content_id = c.id
+       left join academy_progress p on p.content_id = c.id and ($1::uuid is null or exists (
+         select 1 from academy_enrollments e where e.user_id = p.user_id and e.assigned_officer = $1
+       ))
        where c.status = 'published' and c.content_type in ('rule', 'module')
        group by c.id order by failed_latest desc, help_requests desc, c.slug`,
+      [scope],
     ),
     query(
       `select coalesce(p.in_game_name, 'Unassigned') as officer,
               count(*)::int as unresolved_tasks
        from command_followups f
        left join profiles p on p.id = f.assigned_to
-       where f.status <> 'resolved'
+       where f.status <> 'resolved' and ($1::uuid is null or exists (
+         select 1 from academy_enrollments e where e.user_id = f.user_id and e.assigned_officer = $1
+       ))
        group by f.assigned_to, p.in_game_name
        order by unresolved_tasks desc, officer`,
+      [scope],
     ),
   ]);
   return NextResponse.json({ confusion, officer_followups: officerFollowups }, {

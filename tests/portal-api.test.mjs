@@ -130,6 +130,8 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     const appointed = await client.query("select game_rank, alliance_title from alliance_members where user_id = $1", [member.id]);
     assert.equal(appointed.rows[0].game_rank, "r4");
     assert.equal(appointed.rows[0].alliance_title, "goddess");
+    const titledPortal = await request("/api/portal", "GET", member.cookie);
+    assert.equal(titledPortal.data.access.alliance_title, "goddess", "Headquarters includes the approved title");
     const leaderRequest = await signIn(emails[3], "Portal test leader request");
     assert.equal((await request("/api/portal/apply", "POST", leaderRequest.cookie, { game_identifier: "TEST-LEADER-ID", requested_rank: "r5" })).response.status, 200);
     const leaderTask = (await request("/api/portal", "GET", admin.cookie)).data.tasks.find((item) => item.user_id === leaderRequest.id);

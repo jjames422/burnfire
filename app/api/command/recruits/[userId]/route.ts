@@ -1,12 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { canManageLeadership, requireCommandOfficer } from "@/lib/server/command";
+import { canManageLeadership, requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 
 type RouteContext = { params: Promise<{ userId: string }> };
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
-  const { officer, response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const { userId } = await params;
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId)) {
@@ -26,8 +26,8 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
      join users u on u.id = e.user_id
      left join profiles verifier on verifier.id = e.identity_verified_by
      left join profiles assigned on assigned.id = e.assigned_officer
-     where e.user_id = $1`,
-    [userId],
+     where e.user_id = $1 and ($2::uuid is null or e.assigned_officer = $2)`,
+    [userId, trainingScope(officer, user.id)],
   );
   if (!recruit) return jsonError("Recruit was not found.", 404);
 

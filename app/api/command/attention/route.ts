@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
 
 type AttentionRow = {
@@ -12,7 +12,7 @@ type AttentionRow = {
 };
 
 export async function GET() {
-  const { response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
 
   const attention = await query<AttentionRow>(
@@ -71,8 +71,11 @@ export async function GET() {
      select a.user_id, p.in_game_name, a.issue_key, a.reason,
             a.training_title, a.created_at
      from attention a join profiles p on p.id = a.user_id
+     join academy_enrollments scope on scope.user_id = a.user_id
+     where ($1::uuid is null or scope.assigned_officer = $1)
      order by a.created_at asc, p.in_game_name, a.issue_key
      limit 500`,
+    [trainingScope(officer, user.id)],
   );
   return NextResponse.json({ attention });
 }

@@ -40,7 +40,7 @@ function isQuestion(value: unknown): value is QuestionInput {
 }
 
 export async function GET() {
-  const { response } = await requireCommandOfficer("r4");
+  const { response } = await requireCommandOfficer("r5");
   if (response) return response;
   const content = await query(
     `select c.id, c.slug, c.version, c.content_type, c.title, c.body, c.required,
@@ -52,6 +52,7 @@ export async function GET() {
             ) order by q.sort_order) filter (where q.id is not null), '[]'::jsonb) as questions
      from academy_content c
      left join academy_questions q on q.content_id = c.id
+     where c.status <> 'retired'
      group by c.id
      order by c.slug, c.version desc`,
   );
@@ -59,7 +60,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const { user, response } = await requireCommandOfficer("r4");
+  const { user, response } = await requireCommandOfficer("r5");
   if (response) return response;
   const body = await request.json().catch(() => null);
   const action = body?.action;

@@ -10,6 +10,7 @@ import { RankRequestFields } from "./RankRequestFields";
 type Access = {
   in_game_name: string;
   game_rank: GameRank | null;
+  alliance_title: AllianceTitle | null;
   verified_at: string | null;
   is_site_admin: boolean;
   enrolled: boolean;
@@ -70,6 +71,7 @@ export function PortalHome() {
           <p>Your training, your alliance, your next move.<br />Everything you need. One headquarters.</p>
           <div className="portal-badges">
             <span>{access.game_rank ? access.game_rank.toUpperCase() : "ACADEMY APPLICANT"}</span>
+            {access.alliance_title && <span>{TITLE_LABELS[access.alliance_title]}</span>}
             {access.is_site_admin && <span className="portal-admin-badge">SITE ADMIN</span>}
             {access.game_rank && !access.verified_at && <span>AWAITING VERIFICATION</span>}
           </div>

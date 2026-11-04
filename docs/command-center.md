@@ -90,15 +90,21 @@ and are retained when a new version is published.
 
 Every Command Center API checks the signed-in account against its verified `alliance_members` row
 for `burnfire`, with an independent `platform_admins` override for site administrators. R3, R4,
-and R5 may use operational tools. Content editing, member approvals, and recruit reassignment
-require R4/R5 or site administration. An officer's `verified_at` must be set on the alliance
+and R5 may use operational tools. Content editing is limited to R5 and site administrators.
+Member management and recruit reassignment require R4/R5 or site administration, with signup
+approval tasks remaining site-admin only. An officer's `verified_at` must be set on the alliance
 membership before rank-based access is granted. Site administration never changes someone's
 game rank or makes them the alliance leader. Rank and permission management are described in
 [Managing roles and channels](./managing-roles-and-channels.md).
 
-R3 members can see recruit operational data, verify recruit identities, and manage follow-ups
-and internal notes. These operational lists are currently alliance-wide, not restricted to
-assigned recruits. Email addresses are exposed only to R4/R5 and site administrators. R3 cannot
+R3 trainers get a dedicated training dashboard with live metrics, completion rings, member
+progress cards, and support queues. They can see operational data, verify recruit identities,
+and manage follow-ups and internal notes only for recruits assigned to them. This scope also
+applies server-side to metrics, attention records, training, reports, CSV exports, individual
+recruit records, identity changes, notes, and follow-up updates. They cannot change content,
+questions, ranks, titles, or recruit assignments. Help resolution never overrides quiz scores.
+R4 retains alliance-wide tracking and member management but cannot edit content or questions.
+Email addresses are exposed only to R4/R5 and site administrators. R3 cannot
 change identity verification for R3 or higher; R4 cannot change verification for R5.
 
 Members & oversight is available from chat, the portal navigation, and the Command Center.
@@ -196,7 +202,9 @@ leadership.
 
 ## Leadership content
 
-Verified R4/R5 officers can edit content in the Command Center's Leadership CMS. Saving creates a
+Only verified R5 and site administrators can access the Command Center's Leadership CMS or its
+API. Retired versions are hidden from the content list, while their records and acknowledgments
+are preserved for history. Saving creates a
 draft version; publishing retires the previous published version and makes the new one current.
 Required rule and training versions need at least one quiz question before publication. Question
 answers are not returned to recruit endpoints. Publish a new version when members must review and

@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { canManageLeadership, requireCommandOfficer } from "@/lib/server/command";
+import { canManageLeadership, requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 
@@ -11,7 +11,7 @@ const SORT_COLUMNS: Record<string, string> = {
 };
 
 export async function GET(request: NextRequest) {
-  const { officer, response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
 
   const search = (request.nextUrl.searchParams.get("q") ?? "").trim();
@@ -24,10 +24,9 @@ export async function GET(request: NextRequest) {
   if (!(sort in SORT_COLUMNS)) return jsonError("Invalid recruit sort.");
 
   const searchPattern = `%${search}%`;
-  const whereSql = search
-    ? `where p.in_game_name ilike $1 or e.game_identifier ilike $1`
-    : "";
-  const params = search ? [searchPattern] : [];
+  const whereSql = `where ($1::uuid is null or e.assigned_officer = $1)
+    and (p.in_game_name ilike $2 or e.game_identifier ilike $2)`;
+  const params = [trainingScope(officer, user.id), searchPattern];
   const offset = (page - 1) * 30;
   const emailColumn = canManageLeadership(officer) ? "u.email," : "";
   const emailGroup = canManageLeadership(officer) ? ", u.email" : "";

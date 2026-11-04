@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { withTransaction } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 
@@ -28,8 +28,8 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
       `select e.identity_status, e.game_identifier, am.game_rank
        from academy_enrollments e
        join alliance_members am on am.user_id = e.user_id and am.alliance = 'burnfire'
-       where e.user_id = $1 for update of e`,
-      [userId],
+       where e.user_id = $1 and ($2::uuid is null or e.assigned_officer = $2) for update of e`,
+      [userId, trainingScope(officer, user.id)],
     );
     const enrollment = enrollmentResult.rows[0];
     if (!enrollment) return { error: "Recruit was not found.", status: 404 };
@@ -52,14 +52,14 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     const nextStatus = body.verified ? "verified" : "pending";
     await client.query(
       `update academy_enrollments set identity_status = $2,
-         identity_verified_by = case when $2 = 'verified' then $3 else null end,
+         identity_verified_by = case when $2 = 'verified' then $3::uuid else null end,
          identity_verified_at = case when $2 = 'verified' then now() else null end
        where user_id = $1`,
       [userId, nextStatus, user.id],
     );
     await client.query(
       `update alliance_members set verified_at = case when $2 = 'verified' then now() else null end,
-         verified_by = case when $2 = 'verified' then $3 else null end
+         verified_by = case when $2 = 'verified' then $3::uuid else null end
        where user_id = $1 and alliance = 'burnfire'`,
       [userId, nextStatus, user.id],
     );

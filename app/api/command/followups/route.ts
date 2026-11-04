@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, withTransaction } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 import { resolveFollowup } from "@/lib/server/followups";
@@ -12,7 +12,7 @@ const FOLLOWUP_STATUSES = new Set([
 ]);
 
 export async function GET(request: NextRequest) {
-  const { response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const includeResolved = request.nextUrl.searchParams.get("resolved") === "true";
   const followups = await query(
@@ -32,16 +32,19 @@ export async function GET(request: NextRequest) {
        left join profiles editor on editor.id = h.editor_id
        where h.followup_id = f.id
      ) history on true
-     ${includeResolved ? "" : "where f.status <> 'resolved'"}
+     where ($1::uuid is null or exists (
+       select 1 from academy_enrollments e where e.user_id = f.user_id and e.assigned_officer = $1
+     )) ${includeResolved ? "" : "and f.status <> 'resolved'"}
      order by case f.status when 'open' then 0 when 'contacted' then 1
               when 'awaiting_response' then 2 else 3 end, f.created_at asc
      limit 200`,
+    [trainingScope(officer, user.id)],
   );
   return NextResponse.json({ followups });
 }
 
 export async function PATCH(request: NextRequest) {
-  const { user, response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const body = await request.json().catch(() => null);
   const id = typeof body?.id === "string" ? body.id : "";
@@ -62,6 +65,9 @@ export async function PATCH(request: NextRequest) {
   ) {
     return jsonError("Invalid follow-up update.");
   }
+  if (assignedTo !== undefined && trainingScope(officer, user.id) !== null) {
+    return jsonError("Only leadership can reassign follow-up work.", 403);
+  }
 
   if (typeof assignedTo === "string") {
     const eligible = await query(
@@ -74,6 +80,13 @@ export async function PATCH(request: NextRequest) {
   }
 
   const result = await withTransaction(async (client) => {
+    const accessible = await client.query(
+      `select f.id from command_followups f
+       where f.id = $1 and ($2::uuid is null or exists (
+         select 1 from academy_enrollments e where e.user_id = f.user_id and e.assigned_officer = $2
+       )) for update of f`, [id, trainingScope(officer, user.id)],
+    );
+    if (!accessible.rowCount) return false;
     if (status === "resolved") {
       return resolveFollowup(client, id, user.id, { notes, assignedTo });
     }

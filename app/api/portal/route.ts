@@ -6,7 +6,7 @@ export async function GET() {
   const { user, response } = await requireUser();
   if (response) return response;
   const access = await queryOne<{ is_site_admin: boolean }>(
-    `select p.in_game_name, am.game_rank, am.verified_at,
+    `select p.in_game_name, am.game_rank, am.alliance_title, am.verified_at,
             is_platform_admin(p.id) as is_site_admin,
             e.user_id is not null as enrolled,
             e.completed_at, e.identity_status, e.game_identifier,

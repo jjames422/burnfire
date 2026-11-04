@@ -3,10 +3,11 @@
 import { useEffect, useState, type SubmitEvent } from "react";
 import { api, apiPost } from "@/lib/api/client";
 import { MemberManager } from "@/components/portal/MemberManager";
+import { TrainingDashboard } from "./TrainingDashboard";
 
 type Tab = "overview" | "recruits" | "training" | "followups" | "reports" | "content" | "members";
 type Metrics = Record<string, string>;
-type Overview = { metrics: Metrics; officer_rank: "r1" | "r2" | "r3" | "r4" | "r5" | null; is_site_admin: boolean };
+type Overview = { metrics: Metrics; officer_rank: "r1" | "r2" | "r3" | "r4" | "r5" | null; is_site_admin: boolean; can_edit_content: boolean; assigned_only: boolean };
 type Recruit = {
   user_id: string;
   in_game_name: string;
@@ -286,7 +287,7 @@ export function CommandPanel() {
     if (tab === "training") void loadTraining();
     if (tab === "followups") void loadFollowups();
     if (tab === "reports") void loadReports();
-    if (tab === "content" && overview && (overview.is_site_admin || overview.officer_rank === "r4" || overview.officer_rank === "r5")) void loadContent();
+    if (tab === "content" && overview?.can_edit_content) void loadContent();
   }, [tab, overview]);
 
   useEffect(() => {
@@ -298,7 +299,10 @@ export function CommandPanel() {
     api<RecruitDetail>(`/api/command/recruits/${encodeURIComponent(selectedId)}`)
       .then((result) => {
         if (!active) return;
-        if (result.error) setError(result.error);
+        if (result.error) {
+          setError(result.error);
+          setSelectedId(null);
+        }
         else setDetail(result.data);
       });
     return () => {
@@ -327,6 +331,7 @@ export function CommandPanel() {
   }
 
   async function openRecruit(userId: string) {
+    setDetail(null);
     setSelectedId(userId);
   }
 
@@ -411,20 +416,20 @@ export function CommandPanel() {
   }
 
   const leadership = Boolean(overview?.is_site_admin || overview?.officer_rank === "r4" || overview?.officer_rank === "r5");
-  const tabs = TABS.filter((item) => !["content", "members"].includes(item.id) || leadership);
+  const tabs = TABS.filter((item) => item.id === "content" ? overview?.can_edit_content : item.id === "members" ? leadership : true);
 
   return (
     <div className="command-workspace mx-auto max-w-7xl py-4">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
         <div>
           <span className="eyebrow">BurnFire · BF2 leadership</span>
-          <h1 className="mt-2 font-display text-4xl font-semibold">Command Center</h1>
+          <h1 className="mt-2 font-display text-4xl font-semibold">{overview?.assigned_only ? "Training headquarters" : "Command Center"}</h1>
           <p className="mt-2 max-w-2xl text-sm text-text-secondary">
-            Recruit onboarding, identity verification, training compliance, and officer follow-up.
+            {overview?.assigned_only ? "Your assigned members. Their next milestone. Your opportunity to help." : "Recruit onboarding, identity verification, training compliance, and officer follow-up."}
             All figures below are loaded from current records.
           </p>
         </div>
-        {overview && <Status>{`${overview.officer_rank} officer`}</Status>}
+        {overview && <Status>{overview.is_site_admin ? "site administrator" : `${overview.officer_rank?.toUpperCase()} ${overview.assigned_only ? "trainer" : "officer"}`}</Status>}
       </header>
 
       <nav className="mb-7 flex flex-wrap gap-2" aria-label="Command Center sections">
@@ -459,9 +464,11 @@ export function CommandPanel() {
           {tab === "members" && leadership && <MemberManager />}
           {tab === "overview" && overview && (
             <section>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <TrainingDashboard metrics={overview.metrics} assignedOnly={overview.assigned_only} recruits={recruits} total={total} onRecruit={openRecruit} onMembers={() => setTab("recruits")} onSupport={() => setTab("followups")} />
+              <h2 className="mb-4 mt-8 font-display text-2xl">Training pulse</h2>
+              <div className="training-pulse">
                 {METRICS.map((metric) => (
-                  <article key={metric.key} className="border border-border bg-surface p-4">
+                  <article key={metric.key}>
                     <p className="text-xs text-text-secondary">{metric.label}</p>
                     <strong className="mt-2 block font-display text-3xl">
                       {overview.metrics[metric.key] ?? "0"}
@@ -711,7 +718,7 @@ export function CommandPanel() {
             </section>
           )}
 
-          {tab === "content" && overview && (
+          {tab === "content" && overview?.can_edit_content && (
             <ContentEditor content={content} refresh={loadContent} />
           )}
         </>
@@ -949,7 +956,7 @@ function ContentEditor({ content, refresh }: { content: ContentItem[]; refresh: 
           <button onClick={createNew} className="border border-accent px-3 py-2 text-xs">New</button>
         </div>
         <ul className="mt-4 space-y-2">
-          {content.map((item) => (
+          {content.filter((item) => item.status !== "retired").map((item) => (
             <li key={item.id}>
               <button onClick={() => choose(item)} className="w-full border border-border bg-bg p-3 text-left hover:border-accent">
                 <span className="block text-sm">{item.title}</span>

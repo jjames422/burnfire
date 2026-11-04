@@ -1,12 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { withTransaction } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: NextRequest, { params }: RouteContext) {
-  const { user, response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const { id } = await params;
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
@@ -22,8 +22,8 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     const result = await client.query<{ body: string }>(
       `select n.body from command_notes n
        join academy_enrollments e on e.user_id = n.user_id
-       where n.id = $1 for update of n`,
-      [id],
+       where n.id = $1 and ($2::uuid is null or e.assigned_officer = $2) for update of n`,
+      [id, trainingScope(officer, user.id)],
     );
     const note = result.rows[0];
     if (!note) return false;

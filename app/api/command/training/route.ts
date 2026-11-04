@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { requireCommandOfficer } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query } from "@/lib/server/db";
 
 export async function GET() {
-  const { response } = await requireCommandOfficer();
+  const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
 
   const training = await query(
@@ -25,8 +25,10 @@ export async function GET() {
        on ack.user_id = e.user_id and ack.content_id = c.id
      where c.status = 'published' and c.required
        and c.content_type in ('rule', 'module')
+       and ($1::uuid is null or e.assigned_officer = $1)
      order by p.in_game_name, c.slug
      limit 5000`,
+    [trainingScope(officer, user.id)],
   );
   return NextResponse.json({ training });
 }
