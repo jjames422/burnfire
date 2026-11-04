@@ -143,6 +143,8 @@ An in-game tag/player ID is mandatory before quizzes or training acknowledgments
 skip required sections: progression is limited server-side to the first unacknowledged required
 section after identity submission and communication selection. Previously skipped saved positions
 resume at the earliest unmet requirement. Members may pause without advancing to another section.
+Quiz questions are numbered continuously across the published sections, including after resuming
+or navigating back to a previous section.
 
 ### Signup approvals
 
@@ -157,6 +159,25 @@ requests Alliance Leader. These are claims only and never grant permissions. A s
 approves the requested rank/title or selects different ones in Members & oversight. Approval
 records the decision and clears the task, updating the shared chat/academy/command membership.
 Site administration remains independent of alliance ranks and is not self-selectable.
+
+Site admins can search all accounts by name or email under Members & oversight, then open
+**Account support / reset** on any user, including users with incomplete profiles. Support
+actions require a recorded reason and an explicit confirmation for the selected user:
+
+- Reset quiz and academy progress: removes attempts, acknowledgments and section progress;
+  clears completion and returns to welcome. Preserves identity, rank, preferences and follow-ups.
+- Resolve selected officer issues: resolves only selected open issues, preserving officer notes
+  and history. Quiz scores and training completion are not changed.
+- Sign out of all sessions: revokes all browser sessions and pending passkey setup for that user.
+  Using it on yourself signs you out too.
+- Remove all passkeys: removes credentials and pending passkey setup. Email recovery and existing
+  sessions remain available; use the separate sign-out action to revoke sessions as well.
+- Reset identity verification: returns verification to pending and suspends rank-based access
+  until reviewed again, without deleting their game ID or rank. Site-admin status is independent.
+
+Every action is recorded transactionally in `user_recovery_history`; the latest 20 actions for
+the selected account are shown in the support panel. Ordinary officers cannot access this API
+or these controls.
 
 Passkey sign-in uses conditional browser autofill on the email field rather than a button that
 opens a security-key/QR-code chooser. A saved passkey for the current hostname can be selected

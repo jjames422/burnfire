@@ -450,6 +450,19 @@ create table if not exists academy_identity_history (
 create index if not exists academy_identity_history_user_idx
   on academy_identity_history (user_id, changed_at desc);
 
+create table if not exists user_recovery_history (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references users (id) on delete cascade,
+  actor_id uuid references users (id) on delete set null,
+  action text not null check (action in
+    ('academy_reset', 'resolve_followups', 'revoke_sessions', 'remove_passkeys', 'reset_identity')),
+  reason text not null check (char_length(trim(reason)) between 3 and 1000),
+  details jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+create index if not exists user_recovery_history_user_idx
+  on user_recovery_history (user_id, created_at desc);
+
 create table if not exists academy_content (
   id uuid primary key default gen_random_uuid(),
   slug text not null check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),

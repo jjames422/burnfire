@@ -55,6 +55,8 @@ export function RecruitAcademy() {
   const modules = data?.content ?? [];
   const totalSteps = modules.length + 4;
   const activeModule = step >= 3 && step < 3 + modules.length ? modules[step - 3] : null;
+  const questionOffset = modules.slice(0, Math.max(0, step - 3))
+    .reduce((count, item) => count + item.questions.length, 0);
 
   async function loadAcademy() {
     const result = await api<AcademyData>("/api/academy");
@@ -308,7 +310,7 @@ export function RecruitAcademy() {
               <h3 className="font-display text-xl font-semibold">Knowledge check</h3>
               {activeModule.questions.map((question, index) => (
                 <fieldset key={question.id} className="border border-border p-4">
-                  <legend className="px-2 text-sm font-medium">{index + 1}. {question.prompt}</legend>
+                  <legend className="px-2 text-sm font-medium">{questionOffset + index + 1}. {question.prompt}</legend>
                   <div className="mt-2 space-y-2">
                     {question.options.map((option, optionIndex) => (
                       <label key={optionIndex} className="flex cursor-pointer items-start gap-2 text-sm text-text-secondary">

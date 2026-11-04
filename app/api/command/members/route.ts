@@ -32,7 +32,8 @@ export async function GET(request: NextRequest) {
      left join membership_requests mr on mr.user_id = u.id
      left join profiles sponsor on sponsor.id = e.assigned_officer
      where ($2 or am.alliance = 'burnfire' or (am.user_id is null and e.user_id is not null))
-       and ($1 = '' or coalesce(p.in_game_name, 'Profile not completed') ilike '%' || $1 || '%')
+       and ($1 = '' or coalesce(p.in_game_name, 'Profile not completed') ilike '%' || $1 || '%'
+            or ($2 and u.email ilike '%' || $1 || '%'))
      order by (mr.status = 'pending') desc nulls last, u.created_at desc, u.id
      limit 101 offset $3`,
     [search, officer.is_site_admin, (page - 1) * 100],

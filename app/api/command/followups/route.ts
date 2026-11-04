@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { requireCommandOfficer } from "@/lib/server/command";
 import { query, withTransaction } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
+import { resolveFollowup } from "@/lib/server/followups";
 
 const FOLLOWUP_STATUSES = new Set([
   "open",
@@ -73,6 +74,9 @@ export async function PATCH(request: NextRequest) {
   }
 
   const result = await withTransaction(async (client) => {
+    if (status === "resolved") {
+      return resolveFollowup(client, id, user.id, { notes, assignedTo });
+    }
     const currentResult = await client.query<{
       status: string;
       officer_notes: string;
@@ -109,23 +113,6 @@ export async function PATCH(request: NextRequest) {
          where id = $1`,
         [id, nextStatus, nextNotes, nextAssigned],
       );
-      if (nextStatus === "resolved") {
-        if (current.issue_key === "help:alliance-mail") {
-          await client.query(
-            `update academy_enrollments set alliance_mail_help = false where user_id = $1`,
-            [current.user_id],
-          );
-        }
-        if (current.content_id) {
-          await client.query(
-            `update academy_progress set needs_assistance = false,
-               status = case when status = 'needs_assistance' then 'in_progress' else status end,
-               updated_at = now()
-             where user_id = $1 and content_id = $2`,
-            [current.user_id, current.content_id],
-          );
-        }
-      }
     }
     return true;
   });

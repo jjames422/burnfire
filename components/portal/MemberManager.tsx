@@ -6,6 +6,7 @@ import type { AllianceRank } from "@/lib/command/access";
 import { canAssignRank } from "@/lib/command/member-policy";
 import type { AllianceTitle } from "@/lib/api/types";
 import { R4_TITLES, TITLE_LABELS } from "@/lib/identity";
+import { UserRecovery } from "./UserRecovery";
 
 type Member = {
   id: string;
@@ -41,6 +42,7 @@ export function MemberManager() {
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [pending, setPending] = useState<{ member: Member; rank: AllianceRank; title: AllianceTitle | null } | null>(null);
+  const [supportUserId, setSupportUserId] = useState<string | null>(null);
 
   async function load(query = "", page = 1) {
     const result = await api<Roster>(`/api/command/members?q=${encodeURIComponent(query)}&page=${page}`);
@@ -54,7 +56,7 @@ export function MemberManager() {
   }, []);
   async function searchMembers(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    await load(search, data?.page ?? 1);
+    await load(search);
   }
   async function confirm() {
     if (!pending) return;
@@ -74,14 +76,15 @@ export function MemberManager() {
       <header className="portal-page-heading"><span className="portal-kicker">LEADERSHIP WORKSPACE</span><h1>People make<br /><em>the alliance.</em></h1><p>One membership. One rank. Consistent access across chat, academy, and command.</p></header>
       {error && <p className="portal-alert" role="alert">{error}</p>}
       {message && <p className="portal-notice" role="status">{message}</p>}
+      {data?.actor.is_site_admin && supportUserId && <UserRecovery key={supportUserId} userId={supportUserId} onClose={() => setSupportUserId(null)} onSaved={() => load(search, data.page)} />}
       {pending && <section className="portal-panel portal-confirm" aria-label="Confirm membership change"><h2>Approve {pending.member.in_game_name} as {pending.rank.toUpperCase()}?</h2><p>This verifies alliance membership and changes chat and Command Center permissions immediately. Site-admin privileges are separate and will not change.</p>
         {pending.rank === "r4" && <label className="portal-rank-select">Approved R4 title<select value={pending.title ?? ""} onChange={(event) => setPending({ ...pending, title: R4_TITLES.find((value) => value === event.target.value) ?? null })}><option value="">Officer (no special title)</option>{R4_TITLES.map((title) => <option value={title} key={title}>{TITLE_LABELS[title]}</option>)}</select></label>}
         {pending.rank === "r5" && <p>Title: Alliance Leader</p>}
         <p>Access: {pending.rank === "r1" || pending.rank === "r2" ? "Academy and private alliance chat" : "Academy, private alliance chat, and Command Center"}{pending.rank === "r4" || pending.rank === "r5" ? "; leadership controls according to rank" : ""}.</p>
         <div className="portal-actions"><button disabled={busy} onClick={() => void confirm()} className="portal-primary">{busy ? "Saving..." : "Confirm approval"}</button><button disabled={busy} onClick={() => setPending(null)} className="portal-secondary">Cancel</button></div></section>}
       {data && <>
-        <form className="portal-search" onSubmit={searchMembers}><label htmlFor="member-search">Find a player</label><input id="member-search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search in-game names" /><button className="portal-secondary">Search</button></form>
-        <div className="portal-section-heading"><h2>Members & applications</h2><span>UP TO 100 MATCHES</span></div>
+        <form className="portal-search" onSubmit={searchMembers}><label htmlFor="member-search">Find a player</label><input id="member-search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder={data.actor.is_site_admin ? "Search names or email addresses" : "Search in-game names"} /><button className="portal-secondary">Search</button></form>
+        <div className="portal-section-heading"><h2>{data.actor.is_site_admin ? "All users & account support" : "Members & applications"}</h2><span>100 USERS PER PAGE</span></div>
         <div className="portal-member-grid">{data.members.map((member) => {
           const eligible = member.profile_complete && (member.request_status !== "pending" || data.actor.is_site_admin) ? ranks.filter((rank) => canAssignRank(data.actor.game_rank, data.actor.is_site_admin, member.game_rank, rank) && (data.actor.is_site_admin || !member.is_site_admin)) : [];
           return <article className="portal-panel portal-member-card" key={member.id}>
@@ -89,6 +92,7 @@ export function MemberManager() {
             <p className={member.verified_at ? "portal-approved" : "portal-pending"}>{member.verified_at ? "Verified alliance member" : "Awaiting officer approval"}</p>
             <p className="portal-detail">Signed up: {new Date(member.signed_up_at).toLocaleString()}</p>
             {member.email && <p className="portal-detail">{member.email}</p>}
+            {data.actor.is_site_admin && <button className="portal-secondary portal-support-button" onClick={() => { setSupportUserId(member.id); setPending(null); }}>Account support / reset</button>}
             {!member.profile_complete && <p className="portal-pending">Waiting for this user to complete their player profile.</p>}
             {member.alliance_title && <p className="portal-detail">Title: {TITLE_LABELS[member.alliance_title]}</p>}
             {member.request_status === "pending" && <p className="portal-pending">Site-admin task: requests {member.requested_rank?.toUpperCase()}{member.requested_title ? ` / ${TITLE_LABELS[member.requested_title]}` : ""}</p>}

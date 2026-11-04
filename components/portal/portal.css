@@ -107,6 +107,14 @@
 .portal-alert, .portal-notice { padding: 15px 20px; margin: 15px 0; border: 1px solid #ffb38740; color: #ffc8a7; background: #ff90590a; border-radius: 10px; font-size: 12px; line-height: 1.8; }
 .portal-notice { border-color: #a4cda244; color: #c7e4c4; }
 .portal-confirm { margin-bottom: 24px; border-color: #ffab7b55; }
+.portal-support-button { margin-top: 16px; }
+.portal-recovery { margin-bottom: 24px; border-color: #ffab7b55; overflow-wrap: anywhere; }
+.portal-recovery .portal-section-heading { flex-wrap: wrap; gap: 16px; }
+.portal-recovery form { display: grid; gap: 12px; margin: 24px 0; }
+.portal-recovery fieldset { border: 1px solid var(--portal-line); padding: 16px; border-radius: 8px; }
+.portal-recovery-issue { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; }
+.portal-recovery-issue input { margin-top: 4px; flex-shrink: 0; }
+.portal-recovery li { border-top: 1px solid var(--portal-line); padding: 16px 0; font-size: 12px; }
 .portal-timeline > div { display: flex; gap: 14px; border-bottom: 1px solid var(--portal-line); padding: 15px 0; }
 .portal-timeline > div:last-child { border-bottom: 0; }
 .portal-timeline-dot { width: 6px; height: 6px; border-radius: 50%; background: #d6aa8e; flex-shrink: 0; margin-top: 8px; }
