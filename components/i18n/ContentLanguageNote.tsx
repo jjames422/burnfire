@@ -20,6 +20,10 @@ const notices = {
   ko: "영어 원문입니다. 이 버전의 번역은 검토 대기 중입니다.",
   pt: "Original em inglês. A tradução desta versão aguarda revisão.",
   ar: "النص الأصلي بالإنجليزية. ترجمة هذا الإصدار بانتظار المراجعة.",
+  "sr-Latn": "Original na engleskom. Prevod ove verzije čeka proveru.",
+  "sr-Cyrl": "Оригинал на енглеском. Превод ове верзије чека проверу.",
+  bs: "Original na engleskom. Prijevod ove verzije čeka provjeru.",
+  hr: "Izvornik na engleskom. Prijevod ove inačice čeka provjeru.",
 };
 
 export function ContentLanguageNote({ localization }: { localization?: ContentLanguage }) {

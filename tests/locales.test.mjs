@@ -3,9 +3,9 @@ import test from "node:test";
 import { direction, isLocale, languageNames, locales, matchLocale, negotiateLocale, preferenceCookie } from "../lib/i18n/locales.ts";
 import { translate } from "../lib/i18n/translate.ts";
 
-test("all twelve requested languages have native names and correct writing direction", () => {
-  assert.equal(locales.length, 12);
-  assert.equal(new Set(locales).size, 12);
+test("all sixteen requested languages have native names and correct writing direction", () => {
+  assert.equal(locales.length, 16);
+  assert.equal(new Set(locales).size, 16);
   for (const locale of locales) {
     assert.ok(languageNames[locale]);
     assert.ok(isLocale(locale));
@@ -23,6 +23,8 @@ test("browser languages are matched automatically without geolocation", () => {
     ["zh-HK", "zh-TW"], ["zh-MO", "zh-TW"], ["zh-SG", "zh-CN"],
     ["ja-JP", "ja"], ["ko-KR", "ko"], ["pt-BR", "pt"], ["ar-EG", "ar"],
     ["es-MX", "es"], ["de-AT", "de"],
+    ["sr-Latn-RS", "sr-Latn"], ["sr-Cyrl-RS", "sr-Cyrl"], ["sr-RS", "sr-Cyrl"], ["sr", "sr-Cyrl"],
+    ["sh", "sr-Latn"], ["bs-BA", "bs"], ["hr-HR", "hr"], ["hr", "hr"],
     ["fr;q=0.2,ru;q=0.9", "ru"], ["ru;q=0,fr;q=0.4", "fr"],
     ["ru;q=9,ja;q=0.9", "ja"], ["ru;q=NaN,fr;q=1.0", "fr"],
     ["ru;q=-1,ko;q=0.5", "ko"], ["xx-ZZ, de;q=0.5", "de"],

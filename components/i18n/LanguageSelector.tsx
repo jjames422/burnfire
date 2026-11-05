@@ -8,6 +8,7 @@ import "./language.css";
 const labels = {
   en: "Language", ru: "Язык", fil: "Wika", fr: "Langue", "zh-CN": "语言", "zh-TW": "語言",
   ja: "言語", es: "Idioma", de: "Sprache", ko: "언어", pt: "Idioma", ar: "اللغة",
+  "sr-Latn": "Jezik", "sr-Cyrl": "Језик", bs: "Jezik", hr: "Jezik",
 };
 const saveErrors = {
   en: "Allow cookies to save your language choice.",
@@ -22,6 +23,10 @@ const saveErrors = {
   ko: "언어 선택을 저장하려면 쿠키를 허용해 주세요.",
   pt: "Permita cookies para salvar sua escolha de idioma.",
   ar: "اسمح بملفات تعريف الارتباط لحفظ اختيار اللغة.",
+  "sr-Latn": "Dozvolite kolačiće da biste sačuvali izbor jezika.",
+  "sr-Cyrl": "Дозволите колачиће да бисте сачували избор језика.",
+  bs: "Dozvolite kolačiće da biste sačuvali odabir jezika.",
+  hr: "Dopustite kolačiće kako biste spremili odabir jezika.",
 };
 
 export function LanguageSelector() {

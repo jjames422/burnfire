@@ -1,0 +1,242 @@
+{
+  "rule-01-alliance-communication": {
+    "title": "Komunikacija u savezu",
+    "body": "Dobro došli u BurnFire (BF2)! Redovno čitajte čet saveza. Tamo se objavljuju važna obaveštenja, strategije za događaje, operativna uputstva i obaveštenja rukovodstva. Članovi su odgovorni da budu informisani i da slede važeća uputstva saveza.",
+    "questions": {
+      "check-chat": {
+        "prompt": "Šta se od članova očekuje u vezi sa četom saveza?",
+        "options": [
+          "Da ga redovno čitaju",
+          "Da ga čitaju tek kada im se javi oficir",
+          "Da ga zanemaruju ako koriste sajt"
+        ],
+        "explanation": "Važna obaveštenja, strategije, uputstva i obaveštenja rukovodstva dele se u četu saveza."
+      }
+    }
+  },
+  "rule-02-communication-platforms": {
+    "title": "Sajt i neobavezni čet",
+    "body": "BF2 pruža vodiče za savez, strategije za događaje, obaveštenja, pitanja i odgovore, komunikaciju sa rukovodstvom, pomoć pri regrutovanju i materijale za obuku preko svog sajta i neobaveznog spoljnog čet servera. Učešće u spoljnom četu se preporučuje, ali nije obavezno. Nijedan član ne sme da bude kažnjen zato što umesto toga izabere komunikaciju preko sajta. Izaberite šta vam više odgovara: spoljni čet, BF2 sajt ili oboje.",
+    "questions": {
+      "check-preference": {
+        "prompt": "Da li je spoljni čet obavezan za članove BF2?",
+        "options": [
+          "Da, obavezan je",
+          "Ne. Preporučuje se, a komunikacija preko sajta ostaje opcija",
+          "Samo za regrute"
+        ],
+        "explanation": "Spoljni čet se preporučuje, ali nije obavezan, a članovi ne smeju da budu kažnjeni ako im više odgovara sajt."
+      }
+    }
+  },
+  "rule-03-alliance-mail": {
+    "title": "Obavezna pošta saveza",
+    "body": "Čitanje pošte saveza je obavezno. Pošta saveza je odvojena od ostalih obaveštenja u igri i od četa saveza, a koristi se za dosledno slanje važnih uputstava. Naučite gde se nalazi, kako da je otvorite, zašto morate da je čitate i kako da prepoznate zvanična uputstva. Sajt ne može da otkrije da li je pošta u igri otvorena. Ako vam treba pomoć u pronalaženju pošte saveza, zatražite pomoć oficira.",
+    "questions": {
+      "check-mail": {
+        "prompt": "Ne znate kako da otvorite poštu saveza. Šta treba da uradite?",
+        "options": [
+          "Da zanemarite poštu saveza",
+          "Da zatražite pomoć i koristite priloženi vodič",
+          "Da pretpostavite da sajt može da potvrdi da ste je otvorili"
+        ],
+        "explanation": "Pošta saveza je obavezna. Sajt ne može da otkrije čitanje pošte u igri; po potrebi zatražite pomoć."
+      }
+    }
+  },
+  "rule-04-identity-and-conduct": {
+    "title": "Identitet igrača i ponašanje",
+    "body": "Koristite prepoznatljivo i jedinstveno ime igrača. Opšta ili ponovljena imena poput \"Doctor\" otežavaju prepoznavanje članova i upravljanje savezom. Maltretiranje, uznemiravanje, pretnje ili uvredljivo ponašanje, nepotrebne međuljudske drame i deljenje privatnih podataka drugog člana bez dozvole nisu prihvatljivi. Komunikacija u savezu neka bude sa poštovanjem i konstruktivna.",
+    "questions": {
+      "check-conduct": {
+        "prompt": "Kakvo se ponašanje očekuje u komunikaciji saveza?",
+        "options": [
+          "Komunikacija sa poštovanjem i konstruktivna",
+          "Pretnje kada se drugi igrač ne slaže",
+          "Deljenje privatnih podataka članova"
+        ],
+        "explanation": "Članovi moraju da komuniciraju sa poštovanjem i ne smeju da uznemiravaju druge niti da dele privatne podatke bez dozvole."
+      }
+    }
+  },
+  "rule-05-server-rules": {
+    "title": "Pravila servera i zaštićeni savezi",
+    "body": "Poštujte važeća pravila servera. Ne pljačkajte karavane ni specijalne operacije koje dolaze sa vašeg servera. Ne regrutujte i ne preotimajte članove iz saveza sa Top 10 liste i ne napadajte te saveze. Dozvoljene aktivnosti između servera razlikuju se od zabranjenih aktivnosti na istom serveru. Sledite trenutna pravila saveza i pitajte rukovodstvo kada niste sigurni da li je nešto dozvoljeno.",
+    "questions": {
+      "check-own-server": {
+        "prompt": "Pronašli ste karavan koji dolazi sa vašeg servera. Šta treba da uradite?",
+        "options": [
+          "Da ga ne pljačkate",
+          "Da ga opljačkate ako niko ne gleda",
+          "Da zamolite drugog člana da ga opljačka"
+        ],
+        "explanation": "Članovi BF2 ne smeju da pljačkaju karavane sa sopstvenog servera."
+      },
+      "check-protected-alliance": {
+        "prompt": "Da li smete da napadnete savez sa Top 10 liste ili da regrutujete njegove članove?",
+        "options": [
+          "Da, ako prvo pitate",
+          "Ne",
+          "Samo tokom događaja"
+        ],
+        "explanation": "Napadanje saveza sa Top 10 liste i regrutovanje ili preotimanje njihovih članova su zabranjeni."
+      }
+    }
+  },
+  "rule-06-conflict-and-diplomacy": {
+    "title": "Rešavanje sukoba i diplomatija",
+    "body": "Članovi nisu ovlašćeni da započinju ratove niti da prete u ime BF2. Ako vam drugi igrač ili savez pravi problem, obratite se rukovodstvu saveza pre nego što se sukob zaoštri. Ne predstavljajte se kao portparol rukovodstva BF2 bez ovlašćenja.",
+    "questions": {
+      "check-diplomacy": {
+        "prompt": "Igrač iz drugog saveza pravi problem. Šta treba da uradite?",
+        "options": [
+          "Da zapretite njegovom savezu u ime BF2",
+          "Da se obratite rukovodstvu saveza pre zaoštravanja",
+          "Da sami objavite rat"
+        ],
+        "explanation": "Članovi ne mogu da započinju ratove niti da prete u ime BF2. Obratite se rukovodstvu."
+      }
+    }
+  },
+  "rule-07-cross-server-targets": {
+    "title": "Karavani i specijalne operacije sa drugih servera",
+    "body": "Razumite razliku između ciljeva sa vašeg servera, ciljeva sa drugog servera, ciljeva zaštićenih pravilima servera i ciljeva koje dozvoljavaju trenutna pravila saveza. Ne pljačkajte karavane ni specijalne operacije koje dolaze sa vašeg servera. Navigacija interfejsom igre i detalji o podobnosti moraju da prođu proveru rukovodstva pre nego što se objave kao merodavna uputstva. Ako niste sigurni, zatražite pomoć oficira.",
+    "questions": {
+      "check-target-server": {
+        "prompt": "Šta morate da proverite pre interakcije sa mogućim ciljem sa drugog servera?",
+        "options": [
+          "Njegov server i podobnost prema trenutnim pravilima",
+          "Samo da li izgleda vredno",
+          "Ništa, ako ga je podelio drugi član"
+        ],
+        "explanation": "Proverite server cilja i trenutnu podobnost; pitajte rukovodstvo ako vam mehanika igre ili pravila nisu jasni."
+      }
+    }
+  },
+  "rule-08-alliance-location": {
+    "title": "Lokacija saveza i okupljanje",
+    "body": "Ostanite razumno blizu oznake saveza BF2 i područja okupljanja. Ako ste daleko, koristite navedenu putanju u igri: Savez → Tačka okupljanja → Preseli se. Sajt ne može samostalno da proveri preseljenje u igri. Ako ne možete da pronađete tačku okupljanja, zatražite pomoć.",
+    "questions": {
+      "check-assembly": {
+        "prompt": "Koja je navedena putanja u igri za povratak na područje okupljanja?",
+        "options": [
+          "Savez → Tačka okupljanja → Preseli se",
+          "Mapa → Prodavnica → Kupi",
+          "Čet → Profil → Premesti"
+        ],
+        "explanation": "Navedena putanja je Savez → Tačka okupljanja → Preseli se. Sajt ne može da proveri preseljenje."
+      }
+    }
+  },
+  "rule-09-direct-relocates": {
+    "title": "Direktna preseljenja",
+    "body": "Direktna preseljenja mogu biti dostupna u prodavnici saveza. Naučite gde da ih pronađete i kada je premeštanje prikladno. Trošenje pravog novca nije potrebno.",
+    "questions": {
+      "check-relocate-purchase": {
+        "prompt": "Da li su za premeštanje potrebne kupovine pravim novcem?",
+        "options": [
+          "Da",
+          "Ne",
+          "Samo za regrute"
+        ],
+        "explanation": "Direktna preseljenja mogu biti dostupna u prodavnici saveza; trošenje pravog novca nije potrebno."
+      }
+    }
+  },
+  "rule-10-rallies-and-digs": {
+    "title": "Okupljanja i iskopavanja saveza",
+    "body": "Kada započnete okupljanje (rally) ili iskopavanje saveza, najavite to u četu saveza kako bi i drugi članovi mogli da učestvuju. Komunicirajte, sarađujte, pozivajte savez na učešće i podržavajte zajednički napredak. Ne obavljajte iskopavanja saveza krišom i sami kada bi učešće trebalo ponuditi celom savezu.",
+    "questions": {
+      "check-announcement": {
+        "prompt": "Šta treba da uradite kada započnete okupljanje ili iskopavanje saveza?",
+        "options": [
+          "Da to najavite u četu saveza kako bi drugi mogli da se pridruže",
+          "Da to zadržite za sebe",
+          "Da to pomenete tek kada se završi"
+        ],
+        "explanation": "Najavljivanje okupljanja i iskopavanja daje članovima priliku da učestvuju i podržava zajednički napredak."
+      }
+    }
+  },
+  "rule-11-weekly-research": {
+    "title": "Nedeljno istraživanje saveza",
+    "body": "Minimalni nedeljni doprinos istraživanju saveza iznosi 3.200. Donirajte istraživanju koje je izabralo rukovodstvo saveza. Koristite pomoć saveza, pridružujte se okupljanjima kada možete, učestvujte u aktivnostima saveza i podržavajte napredak istraživanja. Dijamanti i kupovine pravim novcem nikada nisu obavezni.",
+    "questions": {
+      "check-research-minimum": {
+        "prompt": "Koliki je minimalni nedeljni doprinos istraživanju saveza?",
+        "options": [
+          "320",
+          "3.200",
+          "32.000"
+        ],
+        "explanation": "Minimum je 3.200. Dijamanti i kupovine pravim novcem nikada nisu obavezni."
+      }
+    }
+  },
+  "rule-12-ranks-and-advancement": {
+    "title": "Činovi u savezu i napredovanje",
+    "body": "Činovi se zarađuju učešćem i doprinosom, uključujući donacije za istraživanje, pomoć saveza, učešće u okupljanjima i iskopavanjima saveza, aktivnost, saradnju i uključenost u rukovodstvo. R2 je redovan član saveza; R3 i viši su uloge u rukovodstvu. Aktivnost na sajtu ili rešavanje kviza nikoga ne unapređuje automatski. Možete da izrazite interesovanje da u budućnosti postanete oficir R3; interesovanje nije odobrenje prijave ni unapređenje.",
+    "questions": {
+      "check-promotion": {
+        "prompt": "Da li rešavanje kviza na sajtu automatski unapređuje člana?",
+        "options": [
+          "Da, u R3",
+          "Ne. Čin se zarađuje učešćem i doprinosom",
+          "Da, ako koristi spoljni čet"
+        ],
+        "explanation": "Aktivnost na sajtu i rešavanje kviza ne unapređuju članove automatski."
+      }
+    }
+  },
+  "cross-server-plundering-covert-ops": {
+    "title": "Protokol za pljačku između servera i tajne operacije",
+    "body": "Osnovno pravilo: nikada ne delite cilj tajne operacije nakon što je već dvaput pogođen. Pre deljenja bilo kog cilja proverite njegov server, podobnost i podatke o napadima ili pogocima. Ne pljačkajte karavane sa sopstvenog servera. Ne napadajte i ne delite ciljeve koji nisu podobni prema pravilima servera ili trenutnim pravilima saveza. Ako dođe do spora, obratite se rukovodstvu; ne pretite drugom savezu u ime BF2. Ako vam treba pomoć, koristite materijale za obuku BF2 ili pitajte oficira. Detaljna navigacija interfejsom igre i mehanika ciljeva označene su za pregled rukovodstva jer još nisu nezavisno proverene.",
+    "questions": {
+      "check-own-caravan": {
+        "prompt": "Pronašli ste karavan sa sopstvenog servera. Šta treba da uradite?",
+        "options": [
+          "Da ga ne pljačkate",
+          "Da ga podelite da ga drugi opljačkaju",
+          "Da ga napadnete pre provere"
+        ],
+        "explanation": "Karavani sa istog servera ne smeju da se pljačkaju."
+      },
+      "check-two-hits": {
+        "prompt": "Cilj tajne operacije je već dvaput pogođen. Da li treba da ga podelite?",
+        "options": [
+          "Da, odmah",
+          "Ne",
+          "Samo sa oficirima"
+        ],
+        "explanation": "Ne delite cilj tajne operacije nakon što je već dvaput pogođen."
+      },
+      "check-target-checks": {
+        "prompt": "Šta treba da proverite pre deljenja mogućeg cilja sa drugog servera?",
+        "options": [
+          "Podobnost, server i relevantne podatke o napadima ili pogocima",
+          "Samo ime cilja",
+          "Da li je već popularan"
+        ],
+        "explanation": "Proverite njegovu podobnost i server, kao i relevantne podatke o napadima ili pogocima."
+      },
+      "check-threats": {
+        "prompt": "Da li treba da pretite drugom savezu u ime BF2?",
+        "options": [
+          "Ne. Obratite se rukovodstvu",
+          "Da, ako ste uznemireni",
+          "Da, ako je drugi igrač počeo"
+        ],
+        "explanation": "Članovi nisu ovlašćeni da prete drugima niti da započinju ratove u ime BF2."
+      },
+      "check-request-help": {
+        "prompt": "Regrut ne zna kako da pristupi specijalnim operacijama između servera. Šta treba da uradi?",
+        "options": [
+          "Da koristi vodič za obuku BF2 ili pita oficira",
+          "Da pogađa dok ne uspe",
+          "Da zamoli nekoga da podeli neprovereni cilj"
+        ],
+        "explanation": "Koristite odobrenu obuku BF2 ili zamolite oficira za pomoć."
+      }
+    }
+  }
+}

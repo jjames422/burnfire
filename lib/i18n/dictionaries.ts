@@ -13,6 +13,10 @@ const loaders = {
   ko: () => Promise.all([import("./ui/ko.json"), import("./messages/ko.json")]),
   pt: () => Promise.all([import("./ui/pt.json"), import("./messages/pt.json")]),
   ar: () => Promise.all([import("./ui/ar.json"), import("./messages/ar.json")]),
+  "sr-Latn": () => Promise.all([import("./ui/sr-Latn.json"), import("./messages/sr-Latn.json")]),
+  "sr-Cyrl": () => Promise.all([import("./ui/sr-Cyrl.json"), import("./messages/sr-Cyrl.json")]),
+  bs: () => Promise.all([import("./ui/bs.json"), import("./messages/bs.json")]),
+  hr: () => Promise.all([import("./ui/hr.json"), import("./messages/hr.json")]),
 };
 
 export async function getDictionary(locale: Locale): Promise<Dictionary> {

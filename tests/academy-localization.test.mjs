@@ -6,7 +6,7 @@ import {
 } from "../lib/i18n/content/localize.ts";
 import { scoreQuiz } from "../lib/academy/quiz-score.ts";
 
-const locales = ["en", "ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar"];
+const locales = ["en", "ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar", "sr-Latn", "sr-Cyrl", "bs", "hr"];
 const source = JSON.parse(await readFile(new URL("../lib/i18n/content/en.json", import.meta.url), "utf8"));
 const manifest = JSON.parse(await readFile(new URL("../lib/i18n/content/manifest.json", import.meta.url), "utf8"));
 const catalogs = Object.fromEntries(await Promise.all(locales.filter((locale) => locale !== "en").map(async (locale) => [

@@ -12,6 +12,10 @@ import de from "@/lib/i18n/content/de.json";
 import ko from "@/lib/i18n/content/ko.json";
 import pt from "@/lib/i18n/content/pt.json";
 import ar from "@/lib/i18n/content/ar.json";
+import srLatn from "@/lib/i18n/content/sr-Latn.json";
+import srCyrl from "@/lib/i18n/content/sr-Cyrl.json";
+import bs from "@/lib/i18n/content/bs.json";
+import hr from "@/lib/i18n/content/hr.json";
 
 // The manifest approves exact source hashes, including the two verified v2
 // publications whose text still matches the seed. CMS changes fail closed.
@@ -19,6 +23,6 @@ export const {
   localizeContent, localizeQuestion, localizeTrainingSection, localizeContentTitle,
 } = createAcademyLocalizer(
   en as SourceSection[],
-  { ru, fil, fr, "zh-CN": zhCN, "zh-TW": zhTW, ja, es, de, ko, pt, ar },
+  { ru, fil, fr, "zh-CN": zhCN, "zh-TW": zhTW, ja, es, de, ko, pt, ar, "sr-Latn": srLatn, "sr-Cyrl": srCyrl, bs, hr },
   manifest,
 );

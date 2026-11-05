@@ -1,0 +1,1587 @@
+{
+  "arthur": {
+    "sourceHash": "de27f4b06959cbdb262d82eb35a4b40ce6b7976bda6278a24af8c4a359fc4e2a",
+    "tierLists": "S na 6 od 7 ljestvica",
+    "summary": "Početni tenk kojeg svi dobiju prvog i koji je i dalje jedan od najboljih stupova prve linije u igri.",
+    "unlock": "Dostupan od prvog dana, bez uvjeta starosti poslužitelja. Otključava ga 10 Arthurovih krhotina; one padaju iz novačenja u Taverni, trgovine saveza i nagrada događaja, a svako 50. novačenje jamči 10 krhotina jednog UR heroja.",
+    "overview": [
+      "Arthur je heroj kojeg gradite prije svih ostalih. Dostupan je od prvog dana, besplatan je i ne zastarijeva. Njegov posao je jednostavan: stajati naprijed, primati udarce i otežati neprijatelju da ubije sve iza njega.",
+      "Earthshattering ga čini posebnim. To je snažan udarac po području, ali prava vrijednost je aura smanjenja štete koju spušta na cijeli odred. Rock Solid ga održava na životu između ultimativnih vještina, a Strong Will tiho čini i svaki drugi tenk u postavi otpornijim, pa dobro igra uz drugog tenka umjesto da se s njim natječe.",
+      "Jednako je koristan u PvE farmanju (valovi Rat Swarm, Rat King, povrat teritorija) kao i u PvP-u, zbog čega ga gotovo svaki vodič stavlja na vrh popisa tenkova."
+    ],
+    "investment": "Dovedite ga do 8★ (40. korak zvjezdice) — tada se otključava Tenacity, njegov najveći pojedinačni skok statistika. Većina vodiča savjetuje da ga dovedete do 5–6★ prije nego što počnete ulagati krhotine u Marlenu. Značke vještina najprije idu u Earthshattering.",
+    "squadFit": "Arthur i Marlena osnovni su par oko kojeg bi svaki novi račun trebao graditi. Kao Ratnik on dobiva i Harperov Warrior's Anthem, a njegovo smanjenje fizičke štete pokriva drugu vrstu štete od Shadowova smanjenja energetske štete ako ih koristite zajedno.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne štitom i nanosi 105% do 300% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 315% do 900%"
+      },
+      "1": {
+        "effect": "Udari štitom o tlo, nanosi 591,15% do 1.689% ATK fizičke štete neprijateljima u dometu i smanjuje fizičku štetu koju primaju saveznici u dometu za 10,25% do 20% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: smanjenje fizičke štete povećava se za 3%",
+          "Zvjezdica 30: smanjenje fizičke štete povećava se za 4,5%",
+          "Zvjezdica 50: smanjenje fizičke štete povećava se za 7,5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 591,15% / 25,25% do 1.689% / 35%"
+      },
+      "2": {
+        "effect": "Daje štit jednak 5,25% do 15% trenutačnog maksimalnog HP-a koji upija 50% primljene štete pri svakom udarcu, a traje 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak štita povećava se za 20%",
+          "Zvjezdica 35: učinak štita povećava se za 30%",
+          "Zvjezdica 45: učinak štita povećava se za 50%"
+        ],
+        "maxStars": "Na zvjezdici 45: 10,5% do 30%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje svu štetu koju primaju saveznički tenkovi za 3,08% do 6%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 0,6%",
+          "Zvjezdica 45: učinak se povećava za 0,9%",
+          "Zvjezdica 50: učinak se povećava za 1,5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 6,08% do 9%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "shadow": {
+    "sourceHash": "ab3db8a5d6afdfb523ae2f97b07ee5cce1b6d83e20b4b849ce21be8220729122",
+    "tierLists": "S na 2 od 3 ljestvica",
+    "summary": "Tenk koji topi neprijateljski DEF i smanjuje njihovu energetsku štetu, a pritom i sam nanosi ozbiljnu štetu.",
+    "unlock": "Ulazi u Tavernu kad je poslužitelj star 6 dana, a otključava ga 10 Shadowovih krhotina. Više ljestvica smatra ga premium herojem: njegove krhotine uglavnom dolaze iz nagrada za nadoplatu i plaćenih paketa, a obična prizivanja rijetko ga daju.",
+    "overview": [
+      "Shadow ne tenkira kao Arthur. Umjesto da štiti odred, slabi neprijatelja. Shadow Strike smanjuje neprijateljski DEF do 30% tijekom 3 sekunde (54% s punim zvjezdicama), što svakog nositelja štete iza njega čini većom prijetnjom, a Shadow Hunt spušta energetsku štetu cijele neprijateljske linije do 13% (22% s punim zvjezdicama).",
+      "To smanjenje energetske štete važno je jer većina najboljih nositelja štete u igri — Marlena, Cynthia, Red Lady, Annie — nanosi energetsku štetu. Dodajte njegov pasivni otpor na energetsku štetu (do 20%, odnosno 35% s punim zvjezdicama) i tim ga nositeljima štete vrlo je teško probiti.",
+      "Udara i jače nego što bi tenk trebao. Dimne bombe i obje vještine po području znače da pridonosi šteti tijekom cijele borbe, a ne samo da je upija."
+    ],
+    "investment": "Kad trošite UR Omni krhotine, uobičajeni redoslijed je najprije Marlena, zatim Harper, zatim Cynthia, pa Shadow. 8★ otključava Tenacity, a smanjenje DEF-a vještine Shadow Strike dobiva najveće poboljšanje na zvjezdici 45.",
+    "squadFit": "On je izbor za prvu liniju u BF2-ovu odredu s punim sastavom (Shadow + Daskal + Harper + Marlena + Cynthia). Ta postava odriče se punog bonusa frakcije, ali smanjenje DEF-a vrijedi te zamjene. I Bell ima koristi od njega u odredu sastavljenom samo od Lovaca.",
+    "skills": {
+      "0": {
+        "effect": "Nasumično baca 3 dimne bombe, svaka nanosi 29,4% do 84% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 88,2% do 252%"
+      },
+      "1": {
+        "effect": "Oslobađa valjajuću crnu maglu koja nanosi 387,45% do 1.107% ATK fizičke štete svim neprijateljima i smanjuje njihovu energetsku štetu za 5,2% do 13% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak se povećava za 3%",
+          "Zvjezdica 30: učinak se povećava za 3%",
+          "Zvjezdica 50: učinak se povećava za 3%"
+        ],
+        "maxStars": "Na zvjezdici 50: 387,45% / 14,2% do 1.107% / 22%"
+      },
+      "2": {
+        "effect": "Baca veliki dimni uložak koji nanosi 194,25% do 555% ATK fizičke štete neprijateljima u dometu i smanjuje njihov DEF za 15,38% do 30% tijekom 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak se povećava za 4,5%",
+          "Zvjezdica 35: učinak se povećava za 7,5%",
+          "Zvjezdica 45: učinak se povećava za 12%"
+        ],
+        "maxStars": "Na zvjezdici 45: 194,25% / 39,38% do 555% / 54%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje primljenu energetsku štetu za 8,3% do 20%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 5%",
+          "Zvjezdica 45: učinak se povećava za 5%",
+          "Zvjezdica 50: učinak se povećava za 5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 23,3% do 35%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "daskal": {
+    "sourceHash": "a80440a8c4257258290c07ef7e6e17ba7e0ded364746cdf3bbd3bf98b859f35e",
+    "summary": "Tenk koji se sam liječi, štiti cijeli odred i uskače kad vašem nositelju štete ponestane zdravlja.",
+    "unlock": "Dolazi kad je poslužitelj star 27 dana, a otključava ga 10 Daskalovih krhotina. Krhotine dolaze iz novačenja, a svako 50. novačenje jamči 10 UR krhotina.",
+    "overview": [
+      "Daskal je sav u preživljavanju. Liječi se vještinom Deadly Pierce, daje štit svakom savezniku vještinom Bloodshed Defense — s 6,4 sekunde to je najkraće obnavljanje ultimativne vještine od svih tenkova — a Resolute Fight daje hitni štit kad vaš nositelj štete padne ispod 50% HP-a.",
+      "Zato je najbolji u PvP-u i duljim borbama, u kojima početni nalet uništava odrede. Njegov čisti doprinos statistikama manje je impresivan u PvE-u, pa je više ratni tenk nego tenk za farmanje."
+    ],
+    "investment": "Igrači koji malo troše trebali bi ga dovesti do 8★ — tada se otključava Tenacity i to je njegov najveći skok. Oni koji puno troše mogu ga gurnuti do 10★ za veće štitove i liječenje, ali to nije nužno osim ako niste jako uloženi u PvP.",
+    "squadFit": "Njegovi štitovi kupuju vrijeme u BF2-ovu odredu s punim sastavom, gdje stoji uz Shadowa ispred Harpera, Marlene i Cynthije. Uz Arthura čini gustu prvu liniju Ratnika: Arthur smanjuje fizičku štetu koju primaju saveznici, a Daskalov štit djeluje protiv svake vrste štete.",
+    "skills": {
+      "0": {
+        "effect": "Zasiječe metu i nanosi 87,15% do 249% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Zvjezdica ekskluzivnog oružja 20: dodatna šteta raste na 300%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Koncentrira energiju i svakom savezniku daje štit jednak 126% do 360% njegova maksimalnog DEF-a koji upija 50% dolazne štete tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak štita povećava se za 30%",
+          "Zvjezdica 30: učinak štita povećava se za 30%",
+          "Zvjezdica 50: učinak štita povećava se za 30%. Zvjezdica ekskluzivnog oružja 50: učinak štita povećava se za 30%"
+        ],
+        "maxStars": "Na zvjezdici 50: 239,4% do 684%"
+      },
+      "2": {
+        "effect": "Probode metu dvoručnim mačem, nanosi 323,4% do 924% ATK fizičke štete i obnavlja HP jednak 42% do 120% ATK-a.",
+        "starUpgrades": [
+          "Zvjezdica 15: obnavlja dodatnih 60% HP-a",
+          "Zvjezdica 35: dodatno obnavljanje HP-a raste na 150%",
+          "Zvjezdica 45: dodatno obnavljanje HP-a raste na 300%. Zvjezdica ekskluzivnog oružja 40: dodatno obnavljanje HP-a raste na 400%"
+        ],
+        "maxStars": "Na zvjezdici 45: 323,4% / 168% do 924% / 480%"
+      },
+      "3": {
+        "effect": "Kad HP vašeg DPS heroja padne ispod 50%, dobiva štit jednak 5,25% do 15% maksimalnog HP-a koji upija 50% štete tijekom 5 s",
+        "starUpgrades": [
+          "Zvjezdica 20: trajanje štita +2 s",
+          "Zvjezdica 45: učinak štita povećava se za 20%",
+          "Zvjezdica 50: učinak štita povećava se za 30%. Zvjezdica ekskluzivnog oružja 30: i heroj podrške dobiva štit kad mu HP padne ispod 50%"
+        ],
+        "maxStars": "Na zvjezdici 50: 7,88% do 22,5%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "billy": {
+    "sourceHash": "b35900a012a741c4bfbeb160536bb917ecb85b2e1316c4f19bace88241722a46",
+    "summary": "Tenk lutkar koji štiti vaše nositelje štete od omamljivanja i energetskih naleta umjesto da samo upija štetu.",
+    "unlock": "Otključava se kad je poslužitelj star 83 dana, s 10 Billyjevih krhotina. Od UR heroja kasnije stiže samo Nicole, pa većina računa do Billyja dođe s već izgrađenom jezgrom tenkova.",
+    "overview": [
+      "Billy je obrambeni tenk s korisnim dodatkom. Sam je izdržljiv zahvaljujući vještini Puppet, ali svoje mjesto zarađuje time kako štiti vaše nositelje štete — njegova ultimativna vještina daje vašim trima herojima s najvećim ATK-om 70% šanse da izbjegnu omamljivanje, a Fate's Thread smanjuje energetsku štetu koju primaju vaša dva heroja s najvećim ATK-om do 24% (36% s punim zvjezdicama).",
+      "Zato je izravan odgovor na neprijatelje koji se oslanjaju na kontrolu. Ultimativna vještina Red Lady temelji se na omamljivanju vaša dva najjača napadača, a Billy je jedan od rijetkih heroja koji to može isključiti. Vrijedan je i u PvP-u i u dugim borbama."
+    ],
+    "investment": "8★ je preporuka za sve — to je velik skok preživljavanja. Oni koji puno troše mogu ići do 10★ za potpunu optimizaciju, ali to nije nužno.",
+    "squadFit": "Najbolji je u odredima u kojima su vaši nositelji štete meta. Uklapa se u postavu s mnogo Vještaca uz Annie, Jokera i Nicole, a snažan je protuodabir protiv neprijatelja koji koriste Red Lady.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne marionetom i nanosi 87,15% do 249% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Podigne postolje marionete i tresne ga o tlo, nanosi 510,3% do 1.458% ATK štete neprijateljima u dometu i daje 3 saveznika s najvećim ATK-om 70% šanse za imunitet na omamljivanje.",
+        "starUpgrades": [
+          "Zvjezdica 10: sva šteta koju primaju saveznički obrambeni heroji smanjuje se za 15% tijekom 5 s",
+          "Zvjezdica 30: šansa za imunitet na omamljivanje +30%",
+          "Zvjezdica 50: nanosi 100% dodatne štete i povećava štetu koju prima 3 nasumičnih neprijateljskih heroja za 15% tijekom 5 s"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.020,6% do 2.916%"
+      },
+      "2": {
+        "effect": "Zamahne marionetom, nanosi 216,3% do 618% ATK fizičke štete jednoj meti i smanjuje energetsku štetu koju primaju 2 saveznika s najvećim ATK-om za 12,3% do 24% tijekom 4 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: smanjenje štete povećava se za 6%",
+          "Zvjezdica 35: saveznička meta +1",
+          "Zvjezdica 45: smanjenje štete povećava se za 6%"
+        ],
+        "maxStars": "Na zvjezdici 45: 216,3% / 24,3% do 618% / 36%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje svu primljenu štetu za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 3%",
+          "Zvjezdica 45: učinak se povećava za 5%",
+          "Zvjezdica 50: dodatno smanjuje primljenu energetsku štetu za 8%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "ulfrid": {
+    "sourceHash": "c72951978ddd3b42b6e86d8e4da8d1881df4370ccee008f0eedb8467f3201ce3",
+    "summary": "Tenk vučje krvi koji kažnjava svakoga tko ga napadne vraćajući mu štetu ravno natrag.",
+    "unlock": "Dostupan kad je poslužitelj star 41 dan, a otključava ga 10 Ulfridovih krhotina. Krhotine dolaze iz novačenja i događaja.",
+    "overview": [
+      "Ulfrid je protunapadač. Umjesto da se oslanja na vlastitu štetu, tjera neprijatelja da plati što ga napada — tijekom vještine Lunar Howl 3 sekunde vraća napadaču do 120% svakog primljenog udarca (162% s punim zvjezdicama). Dodajte tome smanjenje štete iz Wolf Bloodline i smanjenje štete za cijeli tim iz ultimativne vještine i doista ga je teško ubiti.",
+      "Kvaka je u tajmingu. Njegova najveća vrijednost leži u prozoru od 3 sekunde, pa je njegov utjecaj više situacijski i lakše ga je zaobići nego kod najboljih tenkova. Zato je stepenicu ispod Arthura i Shadowa, a ne uz njih."
+    ],
+    "investment": "Igrači koji malo troše mogu stati na 8★. Oni koji puno troše trebali bi ga gurnuti do 10★.",
+    "squadFit": "Najbolje radi u dugim borbama u kojima neprijatelj mora napadati kroz njega. U odredu Vještaca slaže se s Billyjem u vrlo izdržljivu prvu liniju, a pomaže mu i Nicolein pasiv (+8% ATK za svakog Vještaca).",
+    "skills": {
+      "0": {
+        "effect": "Zamahne oštrim pandžama i nanosi 87,15% do 249% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Zvjezdica ekskluzivnog oružja 20: dodatna šteta raste na 300%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Nabije snagu, zatim skoči naprijed i ugrize metu, nanosi 632,1% do 1.806% ATK fizičke štete i smanjuje svu štetu koju primaju svi saveznički heroji za 5,13% do 10% tijekom 4 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak se povećava za 2%",
+          "Zvjezdica 30: učinak se povećava za 3%",
+          "Zvjezdica 50: učinak se povećava za 5%. Zvjezdica ekskluzivnog oružja 50: učinak se povećava za 7%"
+        ],
+        "maxStars": "Na zvjezdici 50: 632,1% / 15,13% do 1.806% / 20%"
+      },
+      "2": {
+        "effect": "Zavija prema nebu i ulazi u stanje Berserk: pri primanju štete vraća napadaču 61,5% do 120% te štete. Učinak traje 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak se povećava za 12%",
+          "Zvjezdica 35: trajanje učinka +1 s",
+          "Zvjezdica 45: učinak se povećava za 30%. Zvjezdica ekskluzivnog oružja 40: u stanju Berserk DEF se povećava za 10%"
+        ],
+        "maxStars": "Na zvjezdici 45: 103,5% do 162%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje svu primljenu štetu za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%. Zvjezdica ekskluzivnog oružja 30: učinak se povećava za 5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "louis": {
+    "sourceHash": "bbcddfc6a79fe7090e32712f8c37e3ed6896e28b7937192f76d61a87ab0303aa",
+    "summary": "Tenk s lancem-bičem koji se oslanja na smanjenje štete, samoliječenje i odbijanje da umre u najgorem trenutku.",
+    "unlock": "Pojavljuje se kad je poslužitelj star 62 dana, a otključava ga 10 Louisovih krhotina. Peti je od šest UR tenkova koji stižu.",
+    "overview": [
+      "Louis je stup prve linije čiji je cijeli komplet usmjeren na kupovanje vremena za stražnju liniju. Cross Whip udara, liječi ga i cijelom odredu daje velik prozor smanjenja štete. Force Link štiti vaše druge izdržljive heroje od energetske štete, a Indomitable Spirit mu jednom po borbi daje spas od smrtonosnog udarca.",
+      "Jako ovisi o zvjezdicama. S malo zvjezdica manje je pouzdan i mogu ga nadmašiti tenkovi poput Shadowa, ali njegova učinkovitost znatno raste kako ulažete."
+    ],
+    "investment": "Igrači koji malo troše mogu stati na 7★, iako se preporučuje 8★. Oni koji puno troše trebali bi ciljati 9–10★ da vide njegov puni potencijal.",
+    "squadFit": "Kao Lovac uklapa se u odred sastavljen samo od Lovaca sa Shadowom, Cynthijom, Red Lady i Bell. Force Link cilja vaše saveznike s najvećim DEF-om, pa je najbolji uz drugog tenka.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne željeznim lancem i nanosi 87,15% do 249% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Zvjezdica ekskluzivnog oružja 20: dodatna šteta raste na 300%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Istodobno zamahne s 2 lanca prema naprijed, nanosi 299,25% do 855% ATK štete neprijateljima u dometu, liječi sebe za 150% ATK-a i smanjuje svu primljenu štetu za 15,38% do 30% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: smanjenje štete dodatno se primjenjuje na 1 najbližeg saveznika",
+          "Zvjezdica 30: smanjenje štete primjenjuje se na sve saveznike",
+          "Zvjezdica 50: nanosi 60% dodatne štete. Zvjezdica ekskluzivnog oružja 50: smanjenje štete povećava se za 5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 478,8% / 15,38% do 1.368% / 30%"
+      },
+      "2": {
+        "effect": "Nabije obje ruke i stvara energetsko polje koje smanjuje energetsku štetu koju primaju 2 saveznika s najvećim DEF-om u dometu za 9,23% do 18% tijekom 4 s",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak se povećava za 8%",
+          "Zvjezdica 35: učinak se povećava za 12%",
+          "Zvjezdica 45: meta +1. Zvjezdica ekskluzivnog oružja 40: meta +1"
+        ],
+        "maxStars": "Na zvjezdici 45: 21,23% do 30%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje svu primljenu štetu za 15,38% do 30% i pri smrtonosnoj šteti aktivira stanje neumiranja te zadržava 1 HP tijekom 2 s. Stanje se može aktivirati samo jednom.",
+        "starUpgrades": [
+          "Zvjezdica 20: trajanje +1 s",
+          "Zvjezdica 45: trajanje +1 s",
+          "Zvjezdica 50: trajanje +1 s. Zvjezdica ekskluzivnog oružja 30: trajanje +1 s"
+        ],
+        "maxStars": "Na zvjezdici 50: 15,38% do 30%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "marlena": {
+    "sourceHash": "ca7d1c9ca33d3cdb94ce03d4cd92a79e00781dc42887c934a9da12348f67cfe5",
+    "tierLists": "S na 5 od 6 ljestvica",
+    "summary": "Glavni UR nositelj štete za svaki račun — dostupna od prvog dana i prvo mjesto u koje većina vodiča ulaže UR Omni krhotine.",
+    "unlock": "Dostupna od prvog dana, bez uvjeta starosti poslužitelja. Njezine krhotine padaju iz novačenja u Taverni, besplatnih izvlačenja na bannerima i nagrada događaja, a paket First Top Up (oko 1 US$) uključuje nju.",
+    "overview": [
+      "Marlena je nositelj štete kojeg većina vodiča gradi prvog, a razlog je kako se njezin komplet nadograđuje. Peerless Blade baca tri mač-vjetra na nasumične neprijatelje, svaki do 1.020% ATK energetske štete (3.382,5% s punim zvjezdicama), Crimson Bloom dodaje udarac po području svakih 5 sekundi, a War God's Will povećava svu njezinu energetsku štetu do 16% (24% s punim zvjezdicama). Tenacity povrh toga dodaje +20% ATK-a, HP-a i DEF-a.",
+      "Dostupna je i od prvog dana, zbog čega se gotovo svi vodiči slažu da bi u nju trebale ići vaše prve UR Omni krhotine."
+    ],
+    "investment": "Ona je prvi prioritet za UR Omni krhotine, ispred Harpera, Cynthije i Shadowa. Počnite ulagati u nju kad Arthur bude na oko 5–6★, a 8★ (Tenacity) smatrajte prvom pravom prekretnicom.",
+    "squadFit": "Arthur i Marlena osnovni su par za svaki novi račun. Ona je i Ratnik, pa je Harperov Warrior's Anthem izravno pojačava, a uz Cynthiju je glavna šteta u BF2-ovu odredu s punim sastavom.",
+    "skills": {
+      "0": {
+        "effect": "Oslobađa mač-vjetar koji nanosi 91,35% do 261% ATK energetske štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Razina buđenja 1: ispaljuje 1 mač-vjetar na jednog neprijatelja i nanosi 783% ATK energetske štete. Pri kritičnom pogotku Marlena dobiva 1 sloj Battle Will, najviše 2× broj heroja frakcije Ratnik u timu. Svaki sloj daje 1% više nanesene i 1% manje primljene štete"
+        ],
+        "maxStars": "Na zvjezdici 50: 274,05% do 783%"
+      },
+      "1": {
+        "effect": "Ispaljuje 3 mač-vjetra, svaki nasumično cilja neprijatelja i nanosi 357% do 1.020% ATK energetske štete.",
+        "starUpgrades": [
+          "Zvjezdica 10: mač-vjetar +1; svaki nanosi 20% dodatne štete",
+          "Zvjezdica 30: svaki nanosi 100% dodatne štete",
+          "Zvjezdica 50: mač-vjetar +1; svaki nanosi 140% dodatne štete. Razina buđenja 40: ispaljuje 3 mač-vjetra, svaki nasumično cilja neprijatelja i nanosi 3.382,5% ATK energetske štete. Dodatno ispaljuje još 5 mač-vjetra s 60% izvorne štete"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.183,88% do 3.382,5%"
+      },
+      "2": {
+        "effect": "Baca grimizni cvijet koji eksplodira pri udaru i nanosi 204,75% do 585% ATK energetske štete metama u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 20% dodatne štete i povećava ATK za 12% tijekom 3 s",
+          "Zvjezdica 35: dodatna šteta raste na 70%",
+          "Zvjezdica 45: dodatna šteta raste na 150%. Razina buđenja 10: baca 1 Crimson Blossom koji eksplodira pri udaru i nanosi 1.462,5% ATK energetske štete svim neprijateljima. Ako Marlenin Battle Will prijeđe 5 slojeva, svim neprijateljima nanosi Dread i smanjuje njihovu štetu za 5%"
+        ],
+        "maxStars": "Na zvjezdici 45: 511,88% do 1.462,5%"
+      },
+      "3": {
+        "effect": "U borbi povećava nanesenu energetsku štetu za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%. Razina buđenja 20: u borbi energetska šteta +24%. Na početku borbe Marlena napada 3 neprijatelja s najviše HP-a i nanosi 2500% ATK energetske štete. Pri pogotku Marlena dobiva 3 sloja Battle Will"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "zoya": {
+    "sourceHash": "372f6e9a729f33757ecb6b19979f80916e26f0eaa93cd03d80f737308b13f79b",
+    "summary": "Marlenina rođakinja usmjerena na kritične pogotke — snažni udarci bodežima koji drukčije rastu u kasnoj igri.",
+    "unlock": "Pridružuje se kad je poslužitelj star 55 dana, a otključava je 10 Zoyinih krhotina. Posljednja je UR heroina frakcije Ratnik koja se pojavljuje.",
+    "overview": [
+      "Zoyin komplet građen je vrlo slično Marleninom, ali dok Marlenin pasiv pojačava energetsku štetu, Zoyin povećava šansu za kritični pogodak. To znači da drukčije raste kako igra napreduje i kako se oprema i pojačanja gomilaju.",
+      "Mountain God Wrath ima dvostruku ulogu: daje stalnu štetu tijekom tri sekunde i čini da sve što dotakne prima više energetske štete od ostatka vašeg odreda. Tri bodeža vještine Forest Hunter svaki udaraju do 1.668% ATK-a, odnosno 3.669,6% s punim zvjezdicama."
+    ],
+    "investment": "Ovisi o zvjezdicama i mnogo je bolja s više zvjezdica. Igrači koji malo troše trebali bi je dovesti do 8★, a ostatak UR Omni krhotina sačuvati za buduće heroje. Oni koji puno troše mogu je gurnuti do 10★.",
+    "squadFit": "Nositelj štete frakcije Ratnik, pa se uklapa uz Marlenu, a Harperovo pojačanje pokriva obje. Njezino pojačanje energetske štete čini da svaki drugi energetski nositelj štete u timu udara jače.",
+    "skills": {
+      "0": {
+        "effect": "Baca šumski bodež na metu i nanosi 87,15% do 249% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Brzo baca 3 posebna bodeža koja nasumično ciljaju 3 neprijatelja i svakom nanose 583,8% do 1.668% ATK štete.",
+        "starUpgrades": [
+          "Zvjezdica 10: oštrica +1",
+          "Zvjezdica 30: nanosi 60% dodatne štete",
+          "Zvjezdica 50: dodatna šteta raste na 120%; +1 oštrica"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.284,36% do 3.669,6%"
+      },
+      "2": {
+        "effect": "Čvrsto sklopi ruke i priziva vihor zelenog lišća koji neprijateljima u dometu nanosi 73,5% do 210% ATK energetske štete u sekundi tijekom 3 s. Za to vrijeme neprijatelji u vihoru primaju 20% dodatne energetske štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 60% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 130%",
+          "Zvjezdica 45: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 45: 220,5% do 630%"
+      },
+      "3": {
+        "effect": "U borbi povećava šansu za kritični pogodak za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "cynthia": {
+    "sourceHash": "a665e08be8417aed15f02a00a270d41f3eda570b5f60735582ac26b1a1f903c7",
+    "summary": "Energetski nositelj štete s mjesečevim oštricama, snažnim udarcima na jednu metu i pojačanjem kritičnih pogodaka koje raste sa svakom zvjezdicom.",
+    "unlock": "Može se otključati kad je poslužitelj star 6 dana, s 10 Cynthijinih krhotina. Više ljestvica smatra je premium heroinom: njezine krhotine uglavnom dolaze iz plaćenih paketa, pa je obična izvlačenja rijetko daju. Svako 50. novačenje i dalje jamči 10 UR krhotina.",
+    "overview": [
+      "Cynthia je snažan nositelj energetske štete koji pojačava i vlastite kritične pogotke. Lunar Hunt je njezin glavni alat — tri navođene oštrice do 600% ATK-a svaka (1.800% s punim zvjezdicama), svakih 5 sekundi — a Moonfall Dance joj omogućuje da pogodi više neprijatelja i dodatno poveća šansu za kritični pogodak povrh pasiva.",
+      "Vrlo dobro raste sa zvjezdicama. Uz isto ulaganje Marlena je obično nadmaši, ali Cynthia je prirodan drugi nositelj štete kad vam je glavni odred složen."
+    ],
+    "investment": "Vrijedi UR Omni krhotina, ali igrači koji ne troše ili malo troše trebali bi najprije završiti Marlenu. 8★ je snažno i stabilno za one koji malo troše; oni koji puno troše mogu je dovesti do 10★ za puni nalet.",
+    "squadFit": "Ona je drugi nositelj štete u BF2-ovu odredu s punim sastavom, uz Marlenu. Kao Lovac uklapa se i u odred sastavljen samo od Lovaca sa Shadowom, Louisom, Red Lady i Bell, gdje je pojačava Bellin Battle Anthem.",
+    "skills": {
+      "0": {
+        "effect": "Mjesečevom oštricom nanosi 87,15% do 249% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Razina buđenja 1: baca mjesečevu oštricu na jednog neprijatelja, nanosi 747% ATK energetske štete i dobiva 1 sloj Moonlight. Najveći broj slojeva jednak je 4× broj heroja frakcije Lovac u timu. Svaki sloj daje Cynthiji 1% bonusa energetske štete"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Povećava šansu za kritični pogodak za 8,2% do 16%. Ispaljuje divovsku mjesečevu oštricu koja nanosi 520,8% do 1.488% ATK energetske štete neprijateljima u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 40% dodatne štete",
+          "Zvjezdica 30: nanosi štetu svim neprijateljima",
+          "Zvjezdica 50: dodatna šteta raste na 100%. Razina buđenja 20: povećava šansu za kritični pogodak za 16%. Ispaljuje 1 divovsku mjesečevu oštricu koja nanosi 2.976% ATK energetske štete neprijateljima u dometu i troši do 10 slojeva Moonlight. Neprijateljima nanosi dodatnu energetsku štetu od 60% ATK × potrošeni slojevi Moonlight"
+        ],
+        "maxStars": "Na zvjezdici 50: 8,2% / 1.041,6% do 16% / 2.976%"
+      },
+      "2": {
+        "effect": "Nasumično cilja 3 mete i ispaljuje 3 mjesečeve oštrice, svaka nanosi 210% do 600% ATK energetske štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 40% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 100%",
+          "Zvjezdica 45: dodatna šteta raste na 200%. Razina buđenja 10: nasumično cilja 3 mete i ispaljuje 3 mjesečeve oštrice, svaka nanosi 1.800% ATK energetske štete. Nanosi dodatnih 20% štete i daje 2 sloja Moonlight"
+        ],
+        "maxStars": "Na zvjezdici 45: 630% do 1.800%"
+      },
+      "3": {
+        "effect": "U borbi povećava šansu za kritični pogodak za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%. Razina buđenja 40: u borbi povećava šansu za kritični pogodak za 24%. Kritični pogoci nanose dodatnih 20% štete"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "red-lady": {
+    "sourceHash": "0002d8f0b8a80b3ac8bd521c6dc5e3c8d31a575017caedb16c642dcc24940826",
+    "summary": "Nositelj štete za brze nalete koji cilja najjače neprijateljske napadače, povećava štetu koju primaju i omamljuje ih.",
+    "unlock": "Ulazi na popis heroja kad je poslužitelj star 34 dana, a otključava je 10 krhotina Red Lady.",
+    "overview": [
+      "Red Lady jedna je od najdosljednijih nositeljica štete u igri, i u PvE-u i u PvP-u. Njezin komplet stvoren je da pronađe važne mete: Crimson Rose ide ravno na dva neprijateljska heroja s najvećim ATK-om, uz 35% šanse da ih omami na 5 sekundi — a omamljeni nositelj štete može odlučiti borbu.",
+      "Bloodthirsty Slaughter je sam po sebi snažan, a uz to čini da meta prima više štete od svih ostalih, pa ona i priprema i završava ubojstva."
+    ],
+    "investment": "Igrači koji malo troše mogu stati na 8★ i sačuvati UR Omni krhotine. Srednji ulagači trebali bi ići do 9★ za jači rast, a oni koji puno troše do 10★ za punu štetu i najjači učinak omamljivanja.",
+    "squadFit": "Nositelj štete frakcije Lovac koji se uklapa uz Cynthiju, Shadowa, Louisa i Bell. Bellin Inspiration cilja vaša dva saveznika s najvećim ATK-om, a to je obično ona. Pazite na neprijateljskog Billyja, čija ultimativna vještina daje otpor na omamljivanje.",
+    "skills": {
+      "0": {
+        "effect": "Baca skalpel i nanosi 87,15% do 249% ATK energetske štete jednom neprijatelju",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Priziva Crimson Rose koja nanosi 628,95% do 1.797% ATK energetske štete 2 neprijatelja s najvećim ATK-om, uz 35% šanse da ih omami na 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 40% dodatne štete",
+          "Zvjezdica 30: meta napada +1",
+          "Zvjezdica 50: dodatna šteta raste na 140%"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.592,64% do 4.550,4%"
+      },
+      "2": {
+        "effect": "Cilja jednu metu, nanosi joj 342,3% do 978% ATK energetske štete i povećava štetu koju prima za 8,2% do 16% tijekom 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 40% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 100%",
+          "Zvjezdica 45: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 45: 1.026,9% / 8,2% do 2.934% / 16%"
+      },
+      "3": {
+        "effect": "U borbi povećava ATK za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "annie": {
+    "sourceHash": "57735f2e10e53ff51a22cc79b50e0d80f9565143192a50ce88ccffd5760b8c11",
+    "summary": "Stručnjakinja za gorenje po području koja čisti valove i nastavlja nanositi štetu dugo nakon napada.",
+    "unlock": "Otključava se kad je poslužitelj star 13 dana — istog dana kad i Joker — s 10 Annienih krhotina. Ne zahtijeva premium paket, pa je besplatan račun može dobiti štednjom krhotina.",
+    "overview": [
+      "Annie se oslanja na dosljednost, a ne na nalete. Obje njezine glavne vještine pogađaju široko i ostavljaju gorenje, pa neprijatelji nastavljaju primati štetu nakon udarca. Surprise Gift ima i brže obnavljanje od većine aktivnih vještina, 4,5 sekunde.",
+      "Zato je pouzdana nositeljica štete u PvE-u koja učinkovito čisti valove. U PvP-u i dalje radi, ali tamo joj je šteta manja od najboljih nositelja štete za nalete."
+    ],
+    "investment": "7–8★ sasvim je dovoljno ako većinu ulaganja usmjeravate u PvP. Ako ste usmjereni na PvE, tek joj se 9–10★ doista isplati.",
+    "squadFit": "Njezino gorenje čini da Nicole udara jače — Inferno Array nanosi do 40% dodatne štete metama koje gore (45% s punim zvjezdicama) — pa su njih dvije prirodan par. U odredu Vještaca Joker, koji cilja mete s najmanje HP-a, dovršava ono što je njezino gorenje oslabilo.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne čarobnim štapićem i stvori slatkiš koji nanosi 87,15% do 249% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%. Razina buđenja 1: zamahne štapićem i stvori slatkiš koji jednom neprijatelju nanosi 747% ATK energetske štete uz 50% šanse da izazove gorenje tijekom 2 s, od 200% ATK energetske štete u sekundi. Kad tim uspješno nanese gorenje, dodatno nanosi 1 sloj Scorch. Razina buđenja 40: zamahne štapićem i stvori slatkiš koji jednom neprijatelju nanosi 747% ATK energetske štete uz 50% šanse da izazove gorenje na meti i na 1 neprijateljskog DPS heroja tijekom 2 s, od 200% ATK energetske štete u sekundi. Kad tim uspješno nanese gorenje, dodatno nanosi 1 sloj Scorch"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Priziva 2 eksplozivne staklenke slatkiša koje ciljaju 2 neprijatelja s najvećim ATK-om, nanose 414,54% do 1.184,4% ATK štete i izazivaju gorenje od 100% ATK štete u sekundi tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: meta napada +1",
+          "Zvjezdica 30: ako meta gori, jednom nanosi dodatnih 900% štete od napada",
+          "Zvjezdica 50: nanosi 200% dodatne štete. Razina buđenja 20: priziva 2 eksplozivne staklenke slatkiša koje ciljaju 2 neprijatelja s najvećim ATK-om, nanose 3.553,2% ATK štete i izazivaju gorenje od 100% ATK štete u sekundi tijekom 5 s. Dodatno nanosi 1 put energetsku štetu jednaku 250% Annienog ATK-a × broj Scorch slojeva na meti svim neprijateljima koji imaju Scorch"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.243,62% do 3.553,2%"
+      },
+      "2": {
+        "effect": "Baca kutiju s darom koja nanosi 187,95% do 537% ATK energetske štete neprijateljima u dometu i izaziva gorenje od 100% ATK energetske štete u sekundi tijekom 2 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: trajanje gorenja +2 s",
+          "Zvjezdica 35: nanosi 100% dodatne štete",
+          "Zvjezdica 45: dodatna šteta raste na 200%. Razina buđenja 10: baca kutiju s darom koja nanosi 1.611% ATK energetske štete neprijateljima u dometu i izaziva gorenje od 100% ATK energetske štete u sekundi tijekom 2 s. Šteta je veća za dodatnih 15%, plus 4% za svaki sloj Scorch na meti"
+        ],
+        "maxStars": "Na zvjezdici 45: 563,85% do 1.611%"
+      },
+      "3": {
+        "effect": "U borbi povećava nanesenu energetsku štetu za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "joker": {
+    "sourceHash": "a7b8ce8fc6a8f9c40e97bee07580a8b9bcb4bf28a6a49dad5db42f459f259ab2",
+    "summary": "Krvnik koji baca karte i ide ravno na neprijatelje s najmanje HP-a te ih dokrajčuje.",
+    "unlock": "Dostupan kad je poslužitelj star 13 dana, istog dana kad i Annie, a otključava ga 10 Jokerovih krhotina. Ne zahtijeva premium paket. Neki izvori ga još zovu Jester.",
+    "overview": [
+      "Joker je dovršavatelj. Njegov automatski napad i ultimativna vještina ciljaju neprijatelje s najmanje preostalog HP-a, a Joker Ace pogađa dva neprijatelja s najmanje HP-a do 2.019% ATK-a svakog (5.047,5% s punim zvjezdicama) — dovoljno da izbriše već oslabljenog heroja.",
+      "Najjači je u ranoj i srednjoj fazi igre, kad takav nalet može brzo završiti borbe. Dobar je i u PvP-u, ali ovisi o zvjezdicama. Ujedno je jedini UR nositelj štete koji nanosi fizičku štetu, što je važno kad neprijatelj gomila otpor na energetsku štetu (Shadow, Billy, Louis)."
+    ],
+    "investment": "Ovisi o zvjezdicama, pa napola izgrađen Joker podbacuje. 8★ za Tenacity prvi je cilj prije odluke hoćete li ići dalje.",
+    "squadFit": "Dovršava ono što ostatak odreda oslabi — i automatski napad i ultimativna vještina ciljaju neprijatelje s najmanje HP-a — a prirodno se slaže s Annie i Nicole u odredu Vještaca. Njegova fizička šteta dobar je odgovor na postave otporne na energetsku štetu.",
+    "skills": {
+      "0": {
+        "effect": "Baca kartu i nanosi 87,15% do 249% ATK fizičke štete meti s najmanje HP-a.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Baca 2 džokerove karte i nanosi 706,65% do 2.019% ATK fizičke štete 2 neprijatelja s najmanje HP-a.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 40% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 150%",
+          "Zvjezdica 50: meta napada +1"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.766,63% do 5.047,5%"
+      },
+      "2": {
+        "effect": "Baca kartu srca i nanosi 283,5% do 810% ATK fizičke štete 2 nasumične mete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 40% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 100%",
+          "Zvjezdica 45: izaziva gorenje na meti od 400% štete od napada u sekundi tijekom 3 s"
+        ],
+        "maxStars": "Na zvjezdici 45: 567% do 1.620%"
+      },
+      "3": {
+        "effect": "U borbi povećava šansu za kritični pogodak za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "harper": {
+    "sourceHash": "cb6cb547faf611d4eba6e6a836eda19c57f94ce98744b62ae3febfb7a6d68af9",
+    "summary": "Najbolja ofenzivna podrška u igri — ponavljajuće pojačanje ATK-a za cijeli odred i još više za Ratnike.",
+    "unlock": "Pojavljuje se kad je poslužitelj star 20 dana, a otključava ga 10 Harperovih krhotina. Ne ovisi o premium paketu.",
+    "overview": [
+      "Harper sam ne nanosi mnogo štete — on čini da svi ostali nanose više. War Flute Sound povećava ATK svakog saveznika do 30% tijekom 5 sekundi, svakih 14 sekundi (34,5% s punim zvjezdicama), a Warrior's Anthem trajno dodaje do 12% ATK-a svakom Ratniku u timu (18% s punim zvjezdicama). Ta se dva pojačanja zbrajaju.",
+      "Vitality Bubble je mali dodatak koji vašeg najslabijeg heroja održi na životu malo dulje. Sve zajedno, on je najbolja ofenzivna podrška u igri."
+    ],
+    "investment": "Drugi je na redu za UR Omni krhotine, nakon Marlene. Dovedite ga do 8★ za Tenacity, što ujedno skraćuje razmak između njegovih pojačanja ATK-a.",
+    "squadFit": "Najbolji je s onoliko Ratnika koliko možete postaviti — Arthur, Daskal, Marlena i Zoya svi dobivaju njegov pasiv. On je podrška u BF2-ovu odredu s punim sastavom. Dok se ne otključa 20. dana poslužitelja, mjesto podrške mogu držati Celia ili Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Svira frulu i stvara mjehuriće koji nanose 87,15% do 249% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Harper svira ratnu frulu i nadahnjuje saveznike te povećava ATK svih savezničkih heroja za 15,38% do 30% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: nakon korištenja povećava energetsku štetu svih saveznika za 4,5% tijekom 7 s",
+          "Zvjezdica 30: bonus ATK povećava se za 4,5%",
+          "Zvjezdica 50: trajanje bonusa ATK +5 s"
+        ],
+        "maxStars": "Na zvjezdici 50: 19,88% do 34,5%"
+      },
+      "2": {
+        "effect": "Harper stvara mjehurić koji smanjuje štetu koju prima saveznik s najmanje HP-a za 8,2% do 16% tijekom 4 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak se povećava za 1,6%",
+          "Zvjezdica 35: učinak se povećava za 2,4%",
+          "Zvjezdica 45: meta +1"
+        ],
+        "maxStars": "Na zvjezdici 45: 12,2% do 20%"
+      },
+      "3": {
+        "effect": "U borbi povećava ATK svih savezničkih heroja frakcije Ratnik za 6,15% do 12%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,2%",
+          "Zvjezdica 45: učinak se povećava za 1,8%",
+          "Zvjezdica 50: učinak se povećava za 3%"
+        ],
+        "maxStars": "Na zvjezdici 50: 12,15% do 18%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "bell": {
+    "sourceHash": "fc333b92200ae59abcef48c426863173c44bf0c032d77cf75a3e718389c8d101",
+    "summary": "Harperova zrcalna slika za Lovce — izravno pojačava vaša dva najjača napadača i liječi najslabijeg saveznika.",
+    "unlock": "Ulazi na popis heroja kad je poslužitelj star 69 dana, a otključava je 10 Bellinih krhotina.",
+    "overview": [
+      "Bell za Lovce čini ono što Harper čini za Ratnike. Battle Anthem daje svakom Lovcu u timu do +12% ATK-a (18% s punim zvjezdicama), a Inspiration daje vašim dvama herojima s najvećim ATK-om do +50% ATK-a tijekom 5 sekundi (55% s punim zvjezdicama) — uže pojačanje od Harperova, ali mnogo jače na herojima koji su važni.",
+      "Healing Sound joj daje nešto što Harper nema: pravo liječenje svakih 5 sekundi za saveznika s najmanje HP-a."
+    ],
+    "investment": "U našim bilješkama još nema konkretnog cilja zvjezdica. 8★ za Tenacity siguran je prvi korak, a ujedno i ubrzava ciklus njezinih pojačanja.",
+    "squadFit": "Najbolja je u odredu sastavljenom samo od Lovaca sa Shadowom, Cynthijom, Red Lady i Louisom, gdje njezin pasiv pojačava sve, a Inspiration pada na Cynthiju i Red Lady.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne zvonom i oslobađa note koje nanose 87,15% do 249% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 100%",
+          "Zvjezdica 50: dodatna šteta raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Nadahnjuje 2 saveznika s najvećim ATK-om i povećava im ATK za 25,63% do 50% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak se povećava za 5%",
+          "Zvjezdica 30: trajanje učinka +2 s",
+          "Zvjezdica 50: meta +1"
+        ],
+        "maxStars": "Na zvjezdici 50: 30,63% do 55%"
+      },
+      "2": {
+        "effect": "Liječi saveznika s najmanje HP-a za 63% do 180% ATK-a.",
+        "starUpgrades": [
+          "Zvjezdica 15: obnavlja dodatnih 40% HP-a",
+          "Zvjezdica 35: dodatno obnavljanje HP-a raste na 100%",
+          "Zvjezdica 45: dodatno obnavljanje HP-a raste na 200%"
+        ],
+        "maxStars": "Na zvjezdici 45: 189% do 540%"
+      },
+      "3": {
+        "effect": "Tijekom borbe povećava ATK svih savezničkih heroja frakcije Lovac za 6,15% do 12%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,2%",
+          "Zvjezdica 45: učinak se povećava za 1,8%",
+          "Zvjezdica 50: učinak se povećava za 3%"
+        ],
+        "maxStars": "Na zvjezdici 50: 12,15% do 18%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "nicole": {
+    "sourceHash": "a7228a782f042fa3d6670d0394c7e4226b2fa28b688a18b93ead46d60f666b58",
+    "summary": "Posvećena iscjeliteljica s ofenzivnom oštricom — njezina ultimativna vještina udara mnogo jače po neprijateljima koji gore.",
+    "unlock": "Posljednja UR heroina koja stiže: pojavljuje se kad je poslužitelj star 97 dana, a otključava je 10 Nicoleinih krhotina.",
+    "overview": [
+      "Nicole je najposvećenija iscjeliteljica u igri. Svaki njezin automatski napad nekoga liječi, a Heartwarming Flame liječi vaša dva heroja s najmanje HP-a svakih 5 sekundi. No nije samo iscjeliteljica — Inferno Array pogađa sve neprijatelje i nanosi do 40% više štete svemu što već gori (45% s punim zvjezdicama).",
+      "Njezin pasiv je razlog zašto pripada baš odredu Vještaca. Flame Soul Power daje svakom savezničkom Vještacu do +8% ATK-a (10% s punim zvjezdicama), pa je najbolja kad većina postave dijeli njezinu frakciju."
+    ],
+    "investment": "U našim bilješkama još nema konkretnog cilja zvjezdica. 8★ za Tenacity prvi je korak; idite dalje ako je ona stalni dio vašeg odreda Vještaca.",
+    "squadFit": "Posebno se dobro slaže s Annie, čije gorenje priprema dodatnu štetu njezine ultimativne vještine, i s Jokerom. Prvu liniju popunite Billyjem ili Ulfridom kako bi njezin bonus ATK-a za Vještace vrijedio na svakom mjestu.",
+    "skills": {
+      "0": {
+        "effect": "Oslobađa plamen koji nanosi 87,15% do 249% ATK fizičke štete jednoj meti i liječi saveznika s najmanje HP-a za 10k + 50% ATK-a.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 40% dodatne štete i obnavlja 5k HP-a",
+          "Zvjezdica 25: dodatna šteta raste na 100%, dodatno obnavljanje HP-a raste na 15k",
+          "Zvjezdica 50: dodatna šteta raste na 200%, dodatno obnavljanje HP-a raste na 30k"
+        ],
+        "maxStars": "Na zvjezdici 50: 261,45% do 747%"
+      },
+      "1": {
+        "effect": "Priziva vatreni stup koji nanosi 367,5% do 1.050% ATK fizičke štete svim neprijateljima. Ako mete gore, šteta se povećava za 20,5% do 40%.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 100% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 200%",
+          "Zvjezdica 50: šteta od gorenja povećava se za 5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.102,5% / 25,5% do 3.150% / 45%"
+      },
+      "2": {
+        "effect": "Baca 2 vatrene kugle koje liječe 2 saveznika s najmanje HP-a za 80k + 27,3% do 78% ATK-a.",
+        "starUpgrades": [
+          "Zvjezdica 15: obnavlja dodatnih 80k HP-a, bonus ATK za liječenje povećava se za dodatnih 70%",
+          "Zvjezdica 35: obnavlja dodatnih 150k HP-a, bonus ATK za liječenje povećava se za dodatnih 140%",
+          "Zvjezdica 45: obnavlja dodatnih 250k HP-a, bonus ATK za liječenje povećava se za dodatnih 210%"
+        ],
+        "maxStars": "Na zvjezdici 45: 84,63% do 241,8%"
+      },
+      "3": {
+        "effect": "U borbi ATK svih savezničkih heroja frakcije Vještac +4,1% do 8%",
+        "starUpgrades": [
+          "Zvjezdica 20: brzina napada svih savezničkih heroja frakcije Vještac +3,5%",
+          "Zvjezdica 45: bonus ATK povećava se za 2%",
+          "Zvjezdica 50: brzina napada svih heroja frakcije Vještac +6,5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 6,1% do 10%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +20%; brzina obnavljanja vještina +10%."
+      }
+    }
+  },
+  "bella": {
+    "sourceHash": "6a2f993cbbde50ef9f12c7d301a1e26c2bd269ee6932ea713037b29ca496004c",
+    "summary": "Besplatna tenkica sa sjekirom koja odbija štetu čudovišta — glavna zamjena dok vaši UR tenkovi ne budu izgrađeni.",
+    "unlock": "Dostupna od prvog dana, a otključava je 10 Bellinih krhotina. Krhotine padaju iz novačenja u Taverni i nagrada događaja, a trgovina saveza mijenja Bellina krhotine.",
+    "overview": [
+      "Bella je stvorena za PvE. Pasivom i vještinom Crimson Prayer može golemo smanjiti štetu od čudovišta, pa drži prvu liniju kroz farmanje u ranoj i srednjoj fazi igre znatno dulje nego što bi njezina rijetkost dala naslutiti.",
+      "Potpuno izgrađena doseže 773.500 snage, što je među najvišima od svih SSR heroja, ali njezine vlastite statistike ostaju znatno ispod onih UR tenka (oko 1,97M HP-a s punim zvjezdicama, prema Arthurovih 3,0M). Komplet joj se uglavnom vrti oko čudovišta — Bloody Requiem uz to smanjuje neprijateljski ATK za 6% — pa u PvP-u nudi mnogo manje."
+    ],
+    "investment": "Korisna je početna tenkica ako još nemate drugog tenka s mnogo zvjezdica, ali zamijenite je čim ga dobijete. Kupnja njezinih krhotina u trgovini saveza ne preporučuje se — ti se novčići mogu bolje potrošiti.",
+    "squadFit": "Koristite je za drugo mjesto tenka uz Arthura dok čekate UR tenkove. Zamijenite je čim Daskal, Shadow ili neki drugi UR tenk bude spreman.",
+    "skills": {
+      "0": {
+        "effect": "Jednom rukom zamahne divovskom sjekirom i nanosi 81,9% do 234% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 180,18% do 514,8%"
+      },
+      "1": {
+        "effect": "Objema rukama vitla dvjema sjekirama, nanosi 459,27% do 1.312,2% ATK štete metama u dometu i smanjuje im ATK za 6% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.010,39% do 2.886,84%"
+      },
+      "2": {
+        "effect": "Sklopi ruke u molitvi i smanjuje štetu od čudovišta za 15,38% do 30% tijekom 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: učinak se povećava za 3%",
+          "Zvjezdica 35: učinak se povećava za 4,5%",
+          "Zvjezdica 45: učinak se povećava za 7,5%"
+        ],
+        "maxStars": "Na zvjezdici 45: 30,38% do 45%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje štetu primljenu od čudovišta za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "lucius": {
+    "sourceHash": "ebabe35c7623f997871d5035c929dbea73d5ff47bd7c632d123660edab17556c",
+    "summary": "Tenk s dvoručnom sjekirom i snažnim udarcima na jednu metu — pouzdano mjesto za SSR Omni krhotine.",
+    "unlock": "Dostupan od prvog dana, a otključava ga 10 Luciusovih krhotina. Krhotine dolaze iz Taverne i događaja, a SSR Omni krhotine popunjavaju svaki manjak.",
+    "overview": [
+      "Lucius je solidan tenk bez komplikacija koji odgovara i igračima koji ne troše i onima koji plaćaju. Whirlwind Cut i Decapitation snažni su udarci na jednog neprijatelja, a s 778.239 ima najveću snagu pri punoj izgradnji od svih SSR heroja.",
+      "Njegov pasiv, kao i Bellin, usmjeren je na čudovišta, pa je najjači u PvE-u. Timu donosi manje koristi od Arthura ili Griffitha, zbog čega ga ljestvice ocjenjuju oko razine B."
+    ],
+    "investment": "Vrijedi u njega ulagati SSR Omni krhotine. Većina njegovih krhotina dolazi iz Taverne, pa ga je lako nastaviti razvijati.",
+    "squadFit": "Dobro privremeno rješenje za drugo mjesto tenka uz Arthura dok vaši UR tenkovi ne budu izgrađeni. Kao Ratnik ima koristi i od Harperova Warrior's Anthem.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne velikom sjekirom i nanosi 81,9% do 234% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 180,18% do 514,8%"
+      },
+      "1": {
+        "effect": "Snažno zamahne velikom sjekirom i nanosi 373,8% do 1.068% ATK fizičke štete jednom neprijatelju ispred sebe.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: omamljuje neprijatelje dodatnih 1,5 s",
+          "Zvjezdica 50: dodatna šteta raste na 90%"
+        ],
+        "maxStars": "Na zvjezdici 50: 710,22% do 2.029,2%"
+      },
+      "2": {
+        "effect": "Objema rukama podigne veliku sjekiru i udari prema dolje, nanosi 298,2% do 852% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 656,04% do 1.874,4%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje štetu primljenu od čudovišta za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "griffith": {
+    "sourceHash": "bba961991a5ccad95d3fc52e9a4032abc442c08884886b4d37dc5764a78af94c",
+    "summary": "Tenk sa zmijskom frulom koji štiti odred od štete čudovišta i zadaje snažan ugriz jednoj meti.",
+    "unlock": "Bez uvjeta starosti poslužitelja, a otključava ga 10 Griffithovih krhotina. Krhotine dolaze iz događaja, trgovine saveza i novačenja u Taverni.",
+    "overview": [
+      "Griffithova snaga je PvE. Serpent Veil oko njega okreće duha-zmiju koji smanjuje štetu od čudovišta koju primaju obližnji saveznici do 30% tijekom 4 sekunde (39% s punim zvjezdicama), a njegov pasiv povrh toga smanjuje njegovu vlastitu štetu od čudovišta do 16%.",
+      "Venomous Bite snažan je udarac na jednu metu, do 2.303,4% ATK-a s punim zvjezdicama. Njegova smanjenja djeluju samo protiv čudovišta, pa je slabiji u PvP-u, ali ga više ljestvica ocjenjuje s A za PvE i borbe s bossovima."
+    ],
+    "investment": "Dobra upotreba SSR krhotina ako je vaš račun usmjeren na PvE — snažan je drugi tenk za Rat King i druge borbe s bossovima. Završite njegove rane zvjezdice prije nego što počnete s drugim tenkom.",
+    "squadFit": "Drži mjesto u prvoj liniji uz Arthura ili Bellu u odredima za bossove, a može popuniti odred s više Lovaca dok Shadow ili Louis ne budu izgrađeni.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne zmijskom frulom. Duh-zmija nanosi 88,2% do 252% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 194,04% do 554,4%"
+      },
+      "1": {
+        "effect": "Zapovijeda duhu-zmiji da kruži oko njega i smanjuje štetu od čudovišta koju primaju saveznički heroji u određenom dometu za 15,38% do 30% tijekom 4 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak se povećava za 3%",
+          "Zvjezdica 30: trajanje +1 s",
+          "Zvjezdica 50: učinak se povećava za 6%"
+        ],
+        "maxStars": "Na zvjezdici 50: 24,38% do 39%"
+      },
+      "2": {
+        "effect": "Zmijskom frulom vodi duha-zmiju da snažno ugrize metu i nanosi 366,45% do 1.047% ATK štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 806,19% do 2.303,4%"
+      },
+      "3": {
+        "effect": "U borbi smanjuje štetu primljenu od čudovišta za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "hastar": {
+    "sourceHash": "414ce2ddbc58eb80d1b5b721de54b64f50ba5d38e6ec52a1a28b76cd191d7b04",
+    "summary": "Tenk Vještac s pipcima koji omamljuje, snažno udara i štiti se kad postane kritično.",
+    "unlock": "Bez uvjeta starosti poslužitelja, a otključava ga 10 Hastarovih krhotina. Krhotine dolaze iz izvlačenja u Taverni i događaja, a SSR Omni krhotina može zamijeniti onu koja nedostaje.",
+    "overview": [
+      "Hastar je jedan od potpunijih SSR tenkova. Kombinira kontrolu, snažnu ultimativnu vještinu usmjerenu prema naprijed i hitni štit koji se aktivira upravo kad bi inače pao.",
+      "Kratko omamljivanje vještine Undercurrent izdvaja ga od tenkova koji samo smanjuju štetu čudovišta — čini ga korisnim za ometanje neprijatelja, a ne samo za preživljavanje."
+    ],
+    "investment": "Razumno mjesto za SSR krhotine ako gradite odred Vještaca, ali on je i dalje privremeno rješenje dok ne stignu Billy ili Ulfrid.",
+    "squadFit": "Prirodan rani tenk za postavu Vještaca s Grenwaldom, Stellar i kasnije Annie, Jokerom i Nicole.",
+    "skills": {
+      "0": {
+        "effect": "Šiba jednog neprijatelja pipcima i nanosi 85,05% do 243% ATK energetske štete.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 187,11% do 534,6%"
+      },
+      "1": {
+        "effect": "Udari o tlo golemim pipkom i nanosi 576,45% do 1.647% ATK energetske štete neprijateljima ispred sebe.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 1.268,19% do 3.623,4%"
+      },
+      "2": {
+        "effect": "Pipci izranjaju iz tla i bacaju neprijatelja u zrak, nanose 207,9% do 594% ATK energetske štete jednom neprijatelju i omamljuju ga na 1 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 457,38% do 1.306,8%"
+      },
+      "3": {
+        "effect": "Kad mu HP u borbi prvi put padne ispod 40%, dobiva štit jednak 3,15% do 9% trenutačnog maksimalnog HP-a koji upija 50% dolazne štete tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak štita povećava se za 25%",
+          "Zvjezdica 45: trajanje štita +2 s",
+          "Zvjezdica 50: učinak štita povećava se za 55%"
+        ],
+        "maxStars": "Na zvjezdici 50: 5,67% do 16,2%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "claire": {
+    "sourceHash": "012b837a15f0bdc797ec267d2bdc813e0a1267604337861445631e1ed2095ce8",
+    "summary": "Jedna od najboljih SSR nositeljica štete — snažni naleti, stalna šteta i pojačanje štete protiv čudovišta za druge Ratnike.",
+    "unlock": "Bez uvjeta starosti poslužitelja ili premium paketa, a otključava je 10 Claireinih krhotina. Claire's Advanced Mark, upotrijebljen na određenom zaslonu događaja, kasnije je unapređuje u UR oblik.",
+    "overview": [
+      "Claire je SSR nositeljica štete koju bi većina igrača trebala izgraditi. Rain of Arrows zadaje pet pogodaka svakih pet sekundi, Celestial Judgment dodaje snažan udarac po području, a njezin pasiv čini da vaša tri Ratnika s najvećim ATK-om nanose do 16% više štete čudovištima (24% s punim zvjezdicama).",
+      "Pouzdana je i u PvE-u i u PvP-u, a uz pravo ulaganje znatno nadmašuje Celiju. Ujedno je jedina heroina s drugim oblikom: Claire's Advanced Mark unapređuje je u Claire UR. Promjena je jednosmjerna, izvori se ne slažu koliko napretka prelazi, a jedan vodič je veže uz drugi tjedan događaja Era of Revival."
+    ],
+    "investment": "Vrijedi ulagati SSR Omni krhotine, osobito jer se kasnije može unaprijediti u UR. Ne treba joj dan poslužitelja ni premium paket, pa je lako početi.",
+    "squadFit": "Najbolja je u timu s mnogo Ratnika, gdje njezin pasiv pojačava Arthura, Marlenu i ostale Ratnike protiv čudovišta. Snažna je druga nositeljica štete uz Marlenu u ranoj fazi.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne zastavom i nanosi 94,5% do 270% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 207,9% do 594%"
+      },
+      "1": {
+        "effect": "Objema rukama podiže bojnu zastavu i priziva divovski sveti mač koji probija tlo, nanoseći 406,77% do 1.162,2% ATK fizičke štete neprijateljima u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 10: povećava štetu prema čudovištima za 8% tijekom 7 s",
+          "Zvjezdica 30: svaki put nanosi 35% dodatne štete",
+          "Zvjezdica 50: dodatna šteta po pogotku raste na 95%"
+        ],
+        "maxStars": "Na zvjezdici 50: 793,2% do 2.266,29%"
+      },
+      "2": {
+        "effect": "Mahne bojnom zastavom i ispaljuje strijele u 5 brzih napada na jednu metu, svaki nanosi 96,6% do 276% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 212,52% do 607,2%"
+      },
+      "3": {
+        "effect": "U borbi 3 heroja frakcije Ratnik s najvećim ATK-om u timu nanose 8,2% do 16% više štete čudovištima.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "kesso": {
+    "sourceHash": "31a1c285d9111fa44f6499f2d1501926db63170b7207b7888a0bb0c6cb91099d",
+    "summary": "Bacač koplja koji priziva ratnog orla i naglo povećava ATK kad je pred padom.",
+    "unlock": "Besplatan od početka, a otključava ga 10 Kessovih krhotina. Krhotine dolaze iz Taverne i događaja, a SSR Omni krhotine pokrivaju ono što nedostaje.",
+    "overview": [
+      "Kesso je dobar i u PvP-u i u PvE-u. Njegov Warhawk raste s njegovim HP-om kao i s ATK-om, a Hunting Skills svakih pet sekundi šalje dva koplja.",
+      "Wild Survival je zabavni dio: kad mu HP prvi put padne ispod 30%, dobiva do +40% ATK-a tijekom 5 sekundi (56% s punim zvjezdicama). Dobro tempirano, to izgubljenu razmjenu pretvara u pobjedu."
+    ],
+    "investment": "Ljestvice ga ocjenjuju oko razine B, pa neka bude vaš četvrti ili peti SSR za zvjezdice, a ne rani prioritet.",
+    "squadFit": "Nositelj štete frakcije Ratnik, pa na njega djeluju i Harperov pasiv i Claireino pojačanje protiv čudovišta.",
+    "skills": {
+      "0": {
+        "effect": "Baca koplje i nanosi 94,5% do 270% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 207,9% do 594%"
+      },
+      "1": {
+        "effect": "Puhne u zviždaljku i priziva ratnog orla koji napada sa 105% do 300% Kessova ATK-a i 25% HP-a tijekom 10 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: naslijeđeni ATK Rexa povećava se za 40%",
+          "Zvjezdica 30: naslijeđeni ATK Rexa povećava se za 60%",
+          "Zvjezdica 50: naslijeđeni ATK Rexa povećava se za 100%"
+        ],
+        "maxStars": "Na zvjezdici 50: 305% do 500%"
+      },
+      "2": {
+        "effect": "Brzo baca 2 koplja koja nasumično napadaju 2 neprijatelja, svako nanosi 350,7% do 1.002% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 20% dodatne štete",
+          "Zvjezdica 35: raspršeni hitac +1",
+          "Zvjezdica 45: dodatna šteta raste na 50%"
+        ],
+        "maxStars": "Na zvjezdici 45: 526,05% do 1.503%"
+      },
+      "3": {
+        "effect": "Kad mu HP u borbi prvi put padne ispod 30%, povećava ATK za 20,5% do 40% tijekom 5 s.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 4%",
+          "Zvjezdica 45: učinak se povećava za 2%, a trajanje +1 s",
+          "Zvjezdica 50: učinak se povećava za 10%"
+        ],
+        "maxStars": "Na zvjezdici 50: 36,5% do 56%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "sivir": {
+    "sourceHash": "fe09edd4020f211835ca3fd9f97ba745408358936027a06cce484a4228e587fb",
+    "summary": "Borkinja sa slomljenim kopljem i stalnim pasivom ATK-a — jednostavna svestrana nositeljica štete za PvP.",
+    "unlock": "Dostupna od prvog dana, a otključava je 10 Sivirinih krhotina. Krhotine dolaze iz Taverne i događaja.",
+    "overview": [
+      "Sivir je svestrana nositeljica štete za PvP. Hunter Bloodline je stalno povećanje ATK-a — do 16%, odnosno 24% s punim zvjezdicama — koje djeluje posvuda, a ne samo protiv čudovišta, zbog čega je Sivir prikladnija za borbe protiv igrača od SSR nositelja štete usmjerenih na PvE.",
+      "Shield Strike je pouzdan udarac na jednu metu, a Wild Pursuit ultimativnoj vještini dodaje dva nasumična udarca kopljem."
+    ],
+    "investment": "Pristojan SSR za izgradnju ako želite nositelja štete usmjerenog na PvP prije nego što vaši UR heroji budu spremni.",
+    "squadFit": "Uklapa se u odred Ratnika uz Marlenu i Harpera.",
+    "skills": {
+      "0": {
+        "effect": "Baca slomljeno koplje i nanosi 78,75% do 225% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 173,25% do 495%"
+      },
+      "1": {
+        "effect": "Baca 2 slomljena koplja koja nasumično napadaju 2 neprijatelja, svako nanosi 350,7% do 1.002% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 20% dodatne štete",
+          "Zvjezdica 30: meta napada +1",
+          "Zvjezdica 50: dodatna šteta raste na 50%"
+        ],
+        "maxStars": "Na zvjezdici 50: 526,05% do 1.503%"
+      },
+      "2": {
+        "effect": "Baca štit i nanosi 300,3% do 858% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 660,66% do 1.887,6%"
+      },
+      "3": {
+        "effect": "U borbi povećava ATK za 8,2% do 16%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 1,6%",
+          "Zvjezdica 45: učinak se povećava za 2,4%",
+          "Zvjezdica 50: učinak se povećava za 4%"
+        ],
+        "maxStars": "Na zvjezdici 50: 16,2% do 24%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "ash": {
+    "sourceHash": "2fe5b97109d87379d323cec3b3285eadd6c660412e6fe048682b08f83cee5e26",
+    "summary": "Pouzdana strijelkinja za jednu metu koja blista u PvE-u i borbama s bossovima te pojačava vaše najbolje Lovce protiv čudovišta.",
+    "unlock": "Dostupna od prvog dana, a otključava je 10 Ashinih krhotina. Krhotine padaju iz novačenja u Taverni i događaja, bez uvjeta starosti poslužitelja ili premium paketa.",
+    "overview": [
+      "Ash je lako dobiti i dobro raste, što je čini odličnim ulaganjem za ranu i srednju fazu igre. Stvorena je za uklanjanje prioritetnih meta i posebno dobro podnosi borbe s bossovima.",
+      "Ažuriranje pasiva učinilo ju je vrlo korisnom u PvE-u — vaša dva Lovca s najvećim ATK-om nanose do 24% više štete čudovištima (33% s punim zvjezdicama). Slabost joj je nedostatak štete po području i korisnih učinaka, pa se može mučiti u sadržaju s mnogo PvP-a."
+    ],
+    "investment": "Odlično ulaganje za ranu i srednju fazu igre, osobito ako je vaš račun usmjeren na PvE.",
+    "squadFit": "Najbolja je u odredu Lovaca, gdje njezin pasiv pada na Cynthiju, Red Lady ili Shadowa.",
+    "skills": {
+      "0": {
+        "effect": "Ispaljuje strijelu i nanosi 81,9% do 234% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 180,18% do 514,8%"
+      },
+      "1": {
+        "effect": "Ispaljuje divovsku strijelu i nanosi 445,2% do 1.272% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 979,44% do 2.798,4%"
+      },
+      "2": {
+        "effect": "Ispaljuje 2 posebne strijele koje nasumično napadaju 2 mete, svaka nanosi 252% do 720% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 554,4% do 1.584%"
+      },
+      "3": {
+        "effect": "U borbi 2 heroja frakcije Lovac s najvećim ATK-om u timu nanose 12,3% do 24% više štete čudovištima",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 3%",
+          "Zvjezdica 45: učinak se povećava za 3%",
+          "Zvjezdica 50: učinak se povećava za 3%"
+        ],
+        "maxStars": "Na zvjezdici 50: 21,3% do 33%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "bestar": {
+    "sourceHash": "71a090b301f8ede85f6e32b8eca324a5537ecf57c465f48f34e796e36e2f02a2",
+    "summary": "Stručnjakinja za krvarenje s napadima sablasnih mačaka koja postaje sve jača što borba dulje traje.",
+    "unlock": "Besplatna od početka, a otključava je 10 Bestarinih krhotina. Krhotine dolaze iz izvlačenja u Taverni i događaja, a SSR Omni krhotina popunjava manjak.",
+    "overview": [
+      "Bestar postupno razara neprijatelje. Obje njezine vještine izazivaju krvarenje, a njezin pasiv dodaje do 30% štete (45% s punim zvjezdicama) protiv svega što krvari — pa kad se zahukta, sve što pogodi prima mnogo više.",
+      "Zato je najjača u dugim borbama i borbama s bossovima, a najbolje raste kad može stalno održavati krvarenje."
+    ],
+    "investment": "Vrijedi je izgraditi ako igrate mnogo sadržaja s bossovima ili dugih PvE borbi.",
+    "squadFit": "Nositeljica štete frakcije Lovac koja se slaže s Ash u ranom odredu Lovaca.",
+    "skills": {
+      "0": {
+        "effect": "Baca mačje zvonce i nanosi 81,9% do 234% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 180,18% do 514,8%"
+      },
+      "1": {
+        "effect": "Priziva skupinu mačjih duhova koji nanose 314,37% do 898,2% ATK štete neprijateljima u dometu i izazivaju krvarenje od 15% ATK fizičke štete u sekundi tijekom 7 s.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 691,61% do 1.976,04%"
+      },
+      "2": {
+        "effect": "Priziva 1 crnu mačku koja nanosi 138,6% do 396% ATK fizičke štete jednoj meti i izaziva krvarenje od 30% ATK fizičke štete u sekundi tijekom 3 s.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 304,92% do 871,2%"
+      },
+      "3": {
+        "effect": "U borbi povećava štetu nanesenu neprijateljima koji krvare za 15,38% do 30%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 3%",
+          "Zvjezdica 45: učinak se povećava za 4,5%",
+          "Zvjezdica 50: učinak se povećava za 7,5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 30,38% do 45%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "grenwald": {
+    "sourceHash": "bc659b173189a9cf1d64560e5be9c2819a21f67ccf19d674e58563710e62fff0",
+    "summary": "Vještac koji baca čarolije sa snažnim naletima na jednu metu i dodatnom štetom protiv čudovišta.",
+    "unlock": "Dostupan od prvog dana, a otključava ga 10 Grenwaldovih krhotina. Krhotine padaju iz Taverne, trgovine saveza i događaja. Neki izvori njegovo ime pišu Greenwald.",
+    "overview": [
+      "Grenwald je specijaliziran za snažne nalete na jednu metu i posebno je učinkovit u PvE-u, gdje njegov pasiv dodaje do 20% štete protiv čudovišta (30% s punim zvjezdicama).",
+      "Popularna je rana zamjena za nositelja štete ako Marlenu ne možete odmah razviti, ali ima slabu obranu i treba tenka poput Arthura ispred sebe da bi preživio."
+    ],
+    "investment": "Dobar rani nositelj štete dok čekate UR heroje, osobito za PvE.",
+    "squadFit": "Ispred njega stavite Arthura ili drugog čvrstog tenka. U odredu Vještaca radi s Hastarom i Stellar.",
+    "skills": {
+      "0": {
+        "effect": "Zamahne štapićem i oslobađa munju koja nanosi 72,45% do 207% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 159,39% do 455,4%"
+      },
+      "1": {
+        "effect": "Podigne štapić i istjera duhove iz tijela neprijatelja u dometu, nanoseći 332,85% do 951% ATK energetske štete svim metama.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 20% dodatne štete i povećava ATK za 7,5% tijekom 7 s",
+          "Zvjezdica 30: dodatna šteta raste na 55%",
+          "Zvjezdica 50: dodatna šteta raste na 115%"
+        ],
+        "maxStars": "Na zvjezdici 50: 715,63% do 2.044,65%"
+      },
+      "2": {
+        "effect": "Priziva kandžu duše koja nanosi 292,95% do 837% ATK energetske štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 644,49% do 1.841,4%"
+      },
+      "3": {
+        "effect": "U borbi povećava štetu nanesenu čudovištima za 10,25% do 20%.",
+        "starUpgrades": [
+          "Zvjezdica 20: učinak se povećava za 2%",
+          "Zvjezdica 45: učinak se povećava za 3%",
+          "Zvjezdica 50: učinak se povećava za 5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 20,25% do 30%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "celia": {
+    "sourceHash": "1e9be506ff5150c32273e0a9fc20dd82e114bb44e098441d38c3e1f8467495d7",
+    "summary": "PvE podrška koja baca bodeže i povećava štetu protiv čudovišta te resurse od ubijenih čudovišta.",
+    "unlock": "Dostupna od prvog dana, a otključava je 10 Celijinih krhotina. Krhotine padaju iz novačenja u Taverni i događaja.",
+    "overview": [
+      "Celia je zapravo PvE hibrid. Njezina šteta dolazi u nasumičnim naletima, a njezin pasiv razlog je da je koristite: do +40% resursa (60% s punim zvjezdicama) od ubijenih čudovišta Resource i Elite velik je poticaj za farmanje.",
+      "Oslanjanje na nasumično ciljanje i slabiji rast čine je dugoročno manje pouzdanom od pravog nositelja štete poput Claire."
+    ],
+    "investment": "Besplatna je, pa je vrijedi koristiti rano, ali ne ulažite u nju puno.",
+    "squadFit": "Drži mjesto podrške dok se Harper ne otključa 20. dana poslužitelja, a ostaje korisna u odredu za farmanje zbog bonusa resursa.",
+    "skills": {
+      "0": {
+        "effect": "Baca bodež i nanosi 47,25% do 135% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 103,95% do 297%"
+      },
+      "1": {
+        "effect": "Baca bodež koji se odbija 3 puta i nanosi 311,22% do 889,2% ATK fizičke štete 3 nasumične mete.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 25% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 684,68% do 1.956,24%"
+      },
+      "2": {
+        "effect": "Istodobno baca 2 bodeža i nanosi 214,2% do 612% ATK fizičke štete 2 nasumične mete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 25% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 60%",
+          "Zvjezdica 45: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 45: 471,24% do 1.346,4%"
+      },
+      "3": {
+        "effect": "U borbi povećava štetu nanesenu čudovištima za 6,15% do 12%; povećava 3 vrste resursa dobivenih porazom čudovišta Resource i Elite za 20,5% do 40% za vaš odred.",
+        "starUpgrades": [
+          "Zvjezdica 20: bonus štete povećava se za 1,2%. Bonus resursa povećava se za 4%",
+          "Zvjezdica 45: bonus štete povećava se za 1,8%. Bonus resursa povećava se za 6%",
+          "Zvjezdica 50: bonus štete povećava se za 3%. Bonus resursa povećava se za 10%"
+        ],
+        "maxStars": "Na zvjezdici 50: 12,15% / 40,5% do 18% / 60%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "stellar": {
+    "sourceHash": "a76cf80010dde369c2cb8cfde70e7c9121671726be1b997932da44dcec15e3b2",
+    "summary": "Podrška sa zvjezdanom tematikom, pravom štetom, snažnim pojačanjem štete protiv čudovišta za najbolje Vještace i spasonosnim liječenjem pri smrti.",
+    "unlock": "Dostupna od prvog dana, a otključava je 10 Stellarinih krhotina. Krhotine dolaze iz trgovine saveza, događaja i izvlačenja u Taverni.",
+    "overview": [
+      "Stellar je SSR podrška s pravom ofenzivnom snagom. Destructive Comet snažan je udarac po području, a Wishing Star daje vašim dvama najboljim savezničkim Vješcima do 48% više štete protiv čudovišta tijekom 5 sekundi (59,2% s punim zvjezdicama), što je čini izvrsnom u PvE odredima Vještaca.",
+      "Final Starlight joj daje jedinstvenu spasonosnu vrijednost — kad primi smrtonosnu štetu, liječi saveznika s najmanje HP-a do 600% ATK-a (1.320% s punim zvjezdicama)."
+    ],
+    "investment": "7–8★ dobar je omjer štete i pojačanja. Odlazak na 9★+ maksimizira njezinu vrijednost i rast u PvE-u.",
+    "squadFit": "Pokriva mjesto podrške dok se Harper ne otključa i ostaje snažna u PvE odredima. Prirodno se uklapa u ranu postavu Vještaca s Hastarom i Grenwaldom.",
+    "skills": {
+      "0": {
+        "effect": "Ispaljuje zvjezdanu prašinu i nanosi 94,5% do 270% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 25% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 60%",
+          "Zvjezdica 50: dodatna šteta raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 207,9% do 594%"
+      },
+      "1": {
+        "effect": "Priziva kišu meteora koja povećava štetu 2 najjača saveznika frakcije Vještac prema čudovištima za 24,6% do 48% tijekom 5 s",
+        "starUpgrades": [
+          "Zvjezdica 10: učinak se povećava za 4,2%",
+          "Zvjezdica 30: trajanje +2 s",
+          "Zvjezdica 50: učinak se povećava za 5,5%"
+        ],
+        "maxStars": "Na zvjezdici 50: 35,8% do 59,2%"
+      },
+      "2": {
+        "effect": "Priziva kometu koja nanosi 346,5% do 990% ATK štete neprijateljima u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 15: povećava štetu koju primaju čudovišta za 8% tijekom 3 s",
+          "Zvjezdica 35: nanosi 35% dodatne štete",
+          "Zvjezdica 45: dodatna šteta raste na 95%"
+        ],
+        "maxStars": "Na zvjezdici 45: 675,68% do 1.930,5%"
+      },
+      "3": {
+        "effect": "Kad Stellar u borbi primi smrtonosnu štetu, prije smrti troši svoju posljednju zvjezdanu svjetlost i liječi saveznika s najmanje HP-a za 210% do 600% ATK-a.",
+        "starUpgrades": [
+          "Zvjezdica 20: obnavlja dodatnih 25% HP-a",
+          "Zvjezdica 45: dodatno obnavljanje HP-a raste na 60%",
+          "Zvjezdica 50: dodatno obnavljanje HP-a raste na 120%"
+        ],
+        "maxStars": "Na zvjezdici 50: 462% do 1.320%"
+      },
+      "4": {
+        "effect": "ATK, HP i DEF +10%"
+      }
+    }
+  },
+  "durant": {
+    "sourceHash": "609c592772be41a2b0c434d9b92294b582526e19e06865cca3799390a2b027f0",
+    "summary": "Slabiji tenk s velikim mačem koji je i dalje koristan za obranu teritorija u ranoj fazi.",
+    "unlock": "Besplatni početni heroj: 10 Durantovih krhotina otključava ga od prvog dana. Krhotine padaju iz novačenja u Taverni i događaja, bez uvjeta starosti poslužitelja ili premium paketa.",
+    "overview": [
+      "Durant je jedan od četiri SR početna heroja i jedini SR tenk. Besplatan je, na popisu heroja je od prvog dana i drži prvu liniju u prvim poglavljima — ali ga svaka ljestvica ocjenjuje s C, a SR vještine ograničene su na razinu 30 umjesto 40.",
+      "Komplet mu je jednostavan: Blade Fury svakih 7 sekundi dvaput zamahne velikim mačem po svemu ispred njega, a Leap Slash svakih 5 dodaje snažan udarac na jednu metu. Njegov ATK najniži je od svih 31 heroja, pa je tu da upija udarce, a ne da nanosi štetu.",
+      "I dalje je koristan za obranu teritorija dok nemate tenkove s mnogo zvjezdica, ali svaki SSR tenk frakcije Ratnik — Bella ili Lucius — potpuno ga zamjenjuje."
+    ],
+    "investment": "Podižite mu razinu samo koliko zahtijeva trenutačna faza. Ako uopće trošite SR krhotine, on je SR heroj kojeg vrijedi imati, ali značke vještina i prave materijale za nadogradnju čuvajte za SSR i UR heroje. Ako podižete vještinu, Blade Fury ide prvi.",
+    "squadFit": "U ranoj fazi popunjava drugo mjesto u prvoj liniji uz Arthura ili vodi odred samih Ratnika od prvog dana (Durant, Celia, Sivir, Kesso, William) za puni bonus frakcije. Zamijenite ga čim Bella, Lucius ili Daskal budu spremni.",
+    "skills": {
+      "0": {
+        "effect": "Zasiječe mačem i nanosi 73,5% do 175% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 15% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 132,3% do 315%"
+      },
+      "1": {
+        "effect": "Dvaput zamahne velikim mačem objema rukama, svaki put nanosi 285,6% do 680% ATK fizičke štete neprijateljima ispred sebe.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 15% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 514,08% do 1.224%"
+      },
+      "2": {
+        "effect": "Skoči s mačem i snažno udari, nanosi 246,75% do 587,5% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 15% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 444,15% do 1.057,5%"
+      },
+      "3": {
+        "effect": "ATK, HP i DEF +5%"
+      }
+    }
+  },
+  "william": {
+    "sourceHash": "e2f675cfa60d9990b9ce80125edd1665d099095914e465294d848550697345a9",
+    "summary": "Mačevalac za klupu. U redu ga je imati na početku, ali ne vrijedi ga razvijati.",
+    "unlock": "Besplatni početni heroj: 10 Williamovih krhotina otključava ga na bilo kojem poslužitelju, bilo koje starosti. Krhotine dolaze iz novačenja u Taverni.",
+    "overview": [
+      "William je SR nositelj štete frakcije Ratnik i jedan od četiri besplatna početna heroja. Svaka ga ljestvica ocjenjuje s C: njegova snaga pri punoj izgradnji (524.421) 29. je od 31 heroja, a ograničenje vještina mu je 30.",
+      "Twin Wind svakih 5 sekundi ispaljuje dva udarca mač-vjetrom, a Whirlwind Blade svakih 10 pogađa skupinu, pa je jedino mjesto gdje je koristan čišćenje ranih valova čudovišta.",
+      "Smatrajte ga privremenim rješenjem dok ne dobijete bilo kojeg SSR ili UR nositelja štete frakcije Ratnik — Claire (besplatna od početka), Kessa, Sivir, Marlenu ili Zoyu. Svi su Ratnici, pa bonus frakcije ostaje i nakon zamjene."
+    ],
+    "investment": "Ne ulažite više nego što zahtijevaju rane faze. Ako mu ipak podižete vještine, Twin Wind ide prvi, a zatim Whirlwind Blade.",
+    "squadFit": "Popunjava mjesto nositelja štete frakcije Ratnik u odredu samih Ratnika od prvog dana s Durantom, Celijom, Sivir i Kessom. Pošaljite ga na klupu čim Claire ili Marlena budu izgrađene.",
+    "skills": {
+      "0": {
+        "effect": "Oslobađa mač-vjetar koji nanosi 73,5% do 175% ATK fizičke štete jednoj meti.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 15% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 132,3% do 315%"
+      },
+      "1": {
+        "effect": "Zamahne mač-vjetrom prema naprijed i nanosi 259,35% do 617,5% ATK fizičke štete neprijateljima u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 15% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 466,83% do 1.111,5%"
+      },
+      "2": {
+        "effect": "Brzo oslobađa 2 mač-vjetra koji dvaput pogađaju metu, svaki nanosi 165,9% do 395% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 15% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 298,62% do 711%"
+      },
+      "3": {
+        "effect": "ATK, HP i DEF +5%"
+      }
+    }
+  },
+  "robin": {
+    "sourceHash": "8f7554785f625ba34094ccbc9d8fa3369b0797a3da8d657fc7e6d41c9e72f13a",
+    "summary": "Strijelac za klupu čija brza paljba ne može pratiti prave nositelje štete frakcije Lovac.",
+    "unlock": "Besplatni početni heroj: 10 Robinovih krhotina otključava ga od prvog dana na bilo kojem poslužitelju. Krhotine dolaze iz novačenja u Taverni, a SR Omni krhotine ih mogu zamijeniti.",
+    "overview": [
+      "Robin je SR nositelj štete frakcije Lovac i jedan od četiri besplatna početna heroja. Svaka ga ljestvica ocjenjuje s C, njegova snaga pri punoj izgradnji (523.779) 30. je od 31 heroja, a ograničenje vještina mu je 30.",
+      "Arrow of Retribution njegova je najbolja vještina — do 936% ATK-a na jednog neprijatelja svakih 5 sekundi s punim zvjezdicama — a sedam strijela vještine Rapid Fire čini ga prihvatljivim protiv ranih bossova.",
+      "Pravi je izbor samo prvog dana, prije nego što imate SSR Lovca. Ash i Bestar obje su besplatne od početka i bolje u svemu, a Cynthia stiže kad je poslužitelj star 6 dana."
+    ],
+    "investment": "Podižite mu razinu samo koliko zahtijeva trenutačna faza, a krhotine i značke prebacite na SSR ili UR Lovca čim ga dobijete.",
+    "squadFit": "Popunjava mjesto nositelja štete frakcije Lovac na potpuno novom računu. Zamijenite ga s Ash ili Bestar.",
+    "skills": {
+      "0": {
+        "effect": "Ispaljuje drvenu strijelu i nanosi 65,1% do 155% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 15% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 117,18% do 279%"
+      },
+      "1": {
+        "effect": "Brzo gađa jednog neprijatelja 7 puta, svaki pogodak nanosi 60,9% do 145% ATK fizičke štete.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 15% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 109,62% do 261%"
+      },
+      "2": {
+        "effect": "Ispaljuje posebnu strijelu i zadaje snažan udarac, nanosi 218,4% do 520% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 15% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 393,12% do 936%"
+      },
+      "3": {
+        "effect": "ATK, HP i DEF +5%"
+      }
+    }
+  },
+  "kafa": {
+    "sourceHash": "12abc9a377f48ae6bce925aa8d5556df117091c41afd154ea9de477709f78fcf",
+    "summary": "Heroina za klupu koja baca kavu — šarmantna, ali preslaba za borbu.",
+    "unlock": "Besplatna početna heroina: 10 Kafinih krhotina otključava je na bilo kojem poslužitelju, bilo koje starosti. Krhotine dolaze iz novačenja u Taverni, a SR Omni krhotine popunjavaju manjak.",
+    "overview": [
+      "Kafa je jedina SR nositeljica štete frakcije Vještac i jedna od četiri besplatna početna heroja. Svaka je ljestvica ocjenjuje s C, a njezina snaga pri punoj izgradnji (523.217) najniža je od svih 31 heroja.",
+      "Double Expresso nanosi do 900% ATK-a jednom neprijatelju svakih 5 sekundi s punim zvjezdicama, a lonci za kavu vještine Love Infusion pogađaju skupinu do 1.220,4%. Njezina šteta je fizička.",
+      "Jedina joj je korist popuniti mjesto Vještaca prije nego što imate drugog Vještaca. Grenwald je besplatan od početka i mnogo jači, a Annie i Joker stižu kad je poslužitelj star 13 dana."
+    ],
+    "investment": "Ne vrijedi joj podizati razinu iznad onoga što zahtijevaju prva poglavlja. Ako podižete vještinu, Double Expresso ide prvi.",
+    "squadFit": "U ranoj fazi popunjava usamljeno mjesto Vještaca, iza tenka poput Arthura ili Belle, s Celijom kao podrškom. Zamijenite je Grenwaldom.",
+    "skills": {
+      "0": {
+        "effect": "Baca zrno kave i nanosi 69,3% do 165% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 5: nanosi 15% dodatne štete",
+          "Zvjezdica 25: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 124,74% do 297%"
+      },
+      "1": {
+        "effect": "Priziva 2 lonca za kavu i polijeva metu vrućom kavom po glavi, nanoseći 284,76% do 678% ATK fizičke štete neprijateljima u dometu.",
+        "starUpgrades": [
+          "Zvjezdica 10: nanosi 15% dodatne štete",
+          "Zvjezdica 30: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 512,57% do 1.220,4%"
+      },
+      "2": {
+        "effect": "Baca 1 šalicu kave i nanosi 210% do 500% ATK fizičke štete jednom neprijatelju.",
+        "starUpgrades": [
+          "Zvjezdica 15: nanosi 15% dodatne štete",
+          "Zvjezdica 35: dodatna šteta raste na 40%",
+          "Zvjezdica 50: dodatna šteta raste na 80%"
+        ],
+        "maxStars": "Na zvjezdici 50: 378% do 900%"
+      },
+      "3": {
+        "effect": "ATK, HP i DEF +5%"
+      }
+    }
+  }
+}

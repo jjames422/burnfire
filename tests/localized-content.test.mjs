@@ -14,7 +14,7 @@ import { isLocale } from "../lib/i18n/locales.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceGuidesDir = path.join(root, "content/burnfire/guides");
-const locales = ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar"];
+const locales = ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar", "sr-Latn", "sr-Cyrl", "bs", "hr"];
 
 test("every available localized guide compiles as MDX", async (t) => {
   for (const locale of locales) {

@@ -81,7 +81,7 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     assert.equal((await request("/api/command/members", "PATCH", officer.cookie, { user_id: member.id, game_rank: "r2" })).response.status, 403, "Officers cannot decide site-admin signup tasks");
     assert.equal((await request("/api/academy", "GET", member.cookie)).response.status, 200);
     if (process.env.NEXT_PUBLIC_LOCALIZATION_ENABLED === "true") {
-      for (const locale of ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar"]) {
+      for (const locale of ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar", "sr-Latn", "sr-Cyrl", "bs", "hr"]) {
         const localized = await request("/api/academy", "GET", `${member.cookie}; bf_locale=${locale}`);
         assert.equal(localized.response.status, 200);
         for (const section of localized.data.content) {

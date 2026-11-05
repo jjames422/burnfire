@@ -1,4 +1,4 @@
-export const locales = ["en", "ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar"] as const;
+export const locales = ["en", "ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar", "sr-Latn", "sr-Cyrl", "bs", "hr"] as const;
 export type Locale = typeof locales[number];
 export const LOCALE_COOKIE = "bf_locale";
 
@@ -15,6 +15,10 @@ export const languageNames: Record<Locale, string> = {
   ko: "한국어",
   pt: "Português",
   ar: "العربية",
+  "sr-Latn": "Srpski (latinica)",
+  "sr-Cyrl": "Српски (ћирилица)",
+  bs: "Bosanski",
+  hr: "Hrvatski",
 };
 
 export function isLocale(value: unknown): value is Locale {
@@ -31,6 +35,9 @@ export function matchLocale(value: string): Locale | null {
     return parts.some((part) => ["tw", "hk", "mo"].includes(part)) ? "zh-TW" : "zh-CN";
   }
   if (parts[0] === "tl") return "fil";
+  if (parts[0] === "sh") return "sr-Latn";
+  // Plain "sr" follows the CLDR default script for Serbian, which is Cyrillic.
+  if (parts[0] === "sr") return parts.includes("latn") ? "sr-Latn" : "sr-Cyrl";
   return locales.find((locale) => locale === parts[0]) ?? null;
 }
 
