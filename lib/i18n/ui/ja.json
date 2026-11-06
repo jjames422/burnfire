@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "選択は申請であり、幹部権限ではありません。管理者が承認または修正します。",
   "YOUR TRAINING SQUAD": "あなたの訓練隊",
   "Your training, your alliance, your next move.": "あなたの訓練、同盟、次の一手。",
-  "YourName": "あなたの名前"
+  "YourName": "あなたの名前",
+  "All officers": "すべての士官",
+  "Assigned to me": "自分に割り当て",
+  "Assignment saved.": "割り当てを保存しました。",
+  "Assign officers →": "士官を割り当てる →",
+  "+{count} more in the Command Center": "コマンドセンターにあと {count} 件",
+  "{count} recruits have no officer yet.": "{count} 人の新兵にまだ士官がいません。",
+  "Filter by officer": "士官で絞り込む",
+  "Help this recruit →": "この新兵を支援 →",
+  "Needs help with": "支援が必要な項目",
+  "Your recruits": "あなたの新兵"
 }

@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "Ваш выбор — заявка, а не права офицера. Администратор одобрит или исправит её.",
   "YOUR TRAINING SQUAD": "ВАШ УЧЕБНЫЙ ОТРЯД",
   "Your training, your alliance, your next move.": "Ваше обучение, ваш альянс, ваш следующий шаг.",
-  "YourName": "ВашеИмя"
+  "YourName": "ВашеИмя",
+  "All officers": "Все офицеры",
+  "Assigned to me": "Назначены мне",
+  "Assignment saved.": "Назначение сохранено.",
+  "Assign officers →": "Назначить офицеров →",
+  "+{count} more in the Command Center": "Ещё {count} в командном центре",
+  "{count} recruits have no officer yet.": "Рекрутов без офицера: {count}.",
+  "Filter by officer": "Фильтр по офицеру",
+  "Help this recruit →": "Помочь рекруту →",
+  "Needs help with": "Нужна помощь с",
+  "Your recruits": "Ваши рекруты"
 }

@@ -28,7 +28,10 @@ type Recruit = {
   last_activity: string;
   officer_interest: string | null;
   game_identifier: string | null;
+  assigned_officer: string | null;
+  assigned_officer_name: string | null;
 };
+type OfficerOption = { id: string; in_game_name: string; game_rank: string; assigned_count?: number };
 type Attention = {
   user_id: string;
   in_game_name: string;
@@ -171,6 +174,10 @@ export function CommandPanel() {
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("started");
+  const [officerFilter, setOfficerFilter] = useState("all");
+  const [officers, setOfficers] = useState<OfficerOption[]>([]);
+  const [canAssignList, setCanAssignList] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [inviteEmail, setInviteEmail] = useState("");
@@ -188,20 +195,23 @@ export function CommandPanel() {
     setError(null);
   }
 
-  async function loadRecruits(nextPage = 1, nextSearch = search, nextSort = sort) {
+  async function loadRecruits(nextPage = 1, nextSearch = search, nextSort = sort, nextOfficer = officerFilter) {
     const params = new URLSearchParams({
       q: nextSearch,
       page: String(nextPage),
       sort: nextSort,
       direction: "desc",
+      officer: nextOfficer,
     });
-    const result = await api<{ recruits: Recruit[]; total: number }>(`/api/command/recruits?${params}`);
+    const result = await api<{ recruits: Recruit[]; total: number; can_assign: boolean; officers: OfficerOption[] }>(`/api/command/recruits?${params}`);
     if (result.error || !result.data) {
       setError(result.error ?? "Recruit records could not be loaded.");
       return;
     }
     setRecruits(result.data.recruits);
     setTotal(result.data.total);
+    setCanAssignList(result.data.can_assign);
+    setOfficers(result.data.officers);
     setPage(nextPage);
     setError(null);
   }
@@ -286,6 +296,14 @@ export function CommandPanel() {
     return () => {
       active = false;
     };
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedTab = params.get("tab");
+    if (requestedTab && TABS.some((item) => item.id === requestedTab)) setTab(requestedTab as Tab);
+    const requestedRecruit = params.get("recruit");
+    if (requestedRecruit && /^[0-9a-f-]{36}$/i.test(requestedRecruit)) setSelectedId(requestedRecruit);
   }, []);
 
   useEffect(() => {
@@ -385,7 +403,23 @@ export function CommandPanel() {
       setError(null);
       const refreshed = await api<RecruitDetail>(`/api/command/recruits/${encodeURIComponent(selectedId)}`);
       if (!refreshed.error && refreshed.data) setDetail(refreshed.data);
+      await loadRecruits(page);
+      setNotice(t("Assignment saved."));
     }
+  }
+
+  async function assignFromList(userId: string, assignedTo: string) {
+    const result = await api(`/api/command/recruits/${encodeURIComponent(userId)}/assignment`, {
+      method: "PATCH",
+      body: JSON.stringify({ assigned_to: assignedTo || null }),
+    });
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+    setError(null);
+    setNotice(t("Assignment saved."));
+    await Promise.all([loadRecruits(page), loadOverview()]);
   }
 
   async function addNote(event: SubmitEvent<HTMLFormElement>) {
@@ -609,12 +643,26 @@ export function CommandPanel() {
                   <option value="name"><Text>{"Player name"}</Text></option>
                   <option value="identity"><Text>{"Identity status"}</Text></option>
                 </select>
+                {canAssignList && (
+                  <select
+                    value={officerFilter}
+                    onChange={(event) => { setOfficerFilter(event.target.value); void loadRecruits(1, search, sort, event.target.value); }}
+                    className="border border-border bg-surface px-3 py-2"
+                    aria-label={t("Filter by officer")}
+                  >
+                    <option value="all">{t("All officers")}</option>
+                    <option value="unassigned">{t("Unassigned")}</option>
+                    <option value="me">{t("Assigned to me")}</option>
+                    {officers.map((item) => <option key={item.id} value={item.id}>{item.in_game_name} · {item.game_rank.toUpperCase()} ({item.assigned_count ?? 0})</option>)}
+                  </select>
+                )}
                 <button className="border border-border bg-surface px-4 py-2"><Text>{"Search"}</Text></button>
               </form>
+              {notice && <p role="status" className="mb-3 text-sm text-tip">{notice}</p>}
               <div className="overflow-x-auto border border-border">
                 <table className="w-full min-w-[900px] border-collapse text-start text-sm">
                   <thead className="bg-surface text-xs uppercase text-text-secondary">
-                    <tr>{[t("Player"), t("Preference"), t("Invitation opened"), t("Identity"), t("Training acknowledgments"), t("Quiz"), t("Follow-ups"), t("Last activity")].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
+                    <tr>{[t("Player"), t("Assigned officer"), t("Preference"), t("Invitation opened"), t("Identity"), t("Training acknowledgments"), t("Quiz"), t("Follow-ups"), t("Last activity")].map((item) => <th key={item} className="px-3 py-3">{item}</th>)}</tr>
                   </thead>
                   <tbody>
                     {recruits.map((recruit) => (
@@ -625,6 +673,19 @@ export function CommandPanel() {
                           </button>
                           {recruit.email && <small className="block text-text-secondary">{recruit.email}</small>}
                         </td>
+                        <td className="px-3 py-3" style={{ minWidth: 200 }}>
+                          {canAssignList ? (
+                            <select
+                              value={recruit.assigned_officer ?? ""}
+                              onChange={(event) => { void assignFromList(recruit.user_id, event.target.value); }}
+                              className="w-full border border-border bg-bg px-2 py-1"
+                              aria-label={t("Assigned officer")}
+                            >
+                              <option value="">{t("Unassigned")}</option>
+                              {officers.map((item) => <option key={item.id} value={item.id}>{item.in_game_name} · {item.game_rank.toUpperCase()}</option>)}
+                            </select>
+                          ) : (recruit.assigned_officer_name ?? t("Unassigned"))}
+                        </td>
                         <td className="px-3 py-3"><Status>{recruit.communication_preference ?? t("not selected")}</Status></td>
                         <td className="px-3 py-3">{recruit.invitation_opened_at ? t("Yes") : t("No")}</td>
                         <td className="px-3 py-3"><Status>{recruit.identity_status}</Status></td>
@@ -634,7 +695,7 @@ export function CommandPanel() {
                         <td className="px-3 py-3">{dateLabel(recruit.last_activity, locale)}</td>
                       </tr>
                     ))}
-                    {recruits.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={8}><Text>{"No matching recruit records."}</Text></td></tr>}
+                    {recruits.length === 0 && <tr><td className="px-3 py-8 text-center text-text-secondary" colSpan={9}><Text>{"No matching recruit records."}</Text></td></tr>}
                   </tbody>
                 </table>
               </div>

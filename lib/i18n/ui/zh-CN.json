@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "你的选择仅为申请，不授予军官工具权限。网站管理员将批准或更正。",
   "YOUR TRAINING SQUAD": "你的训练小队",
   "Your training, your alliance, your next move.": "你的训练、你的联盟、你的下一步。",
-  "YourName": "你的名字"
+  "YourName": "你的名字",
+  "All officers": "所有军官",
+  "Assigned to me": "分配给我",
+  "Assignment saved.": "分配已保存。",
+  "Assign officers →": "分配军官 →",
+  "+{count} more in the Command Center": "指挥中心还有 {count} 项",
+  "{count} recruits have no officer yet.": "{count} 名新兵尚未分配军官。",
+  "Filter by officer": "按军官筛选",
+  "Help this recruit →": "帮助这名新兵 →",
+  "Needs help with": "需要帮助的内容",
+  "Your recruits": "你的新兵"
 }

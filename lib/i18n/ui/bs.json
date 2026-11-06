@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "Vaš izbor je zahtjev, a ne dozvola za pristup oficirskim alatima. Administrator stranice će ga odobriti ili ispraviti.",
   "YOUR TRAINING SQUAD": "VAŠ ODRED ZA OBUKU",
   "Your training, your alliance, your next move.": "Vaša obuka, vaš savez, vaš sljedeći potez.",
-  "YourName": "VašeIme"
+  "YourName": "VašeIme",
+  "All officers": "Svi oficiri",
+  "Assigned to me": "Dodijeljeni meni",
+  "Assignment saved.": "Dodjela je sačuvana.",
+  "Assign officers →": "Dodijeli oficire →",
+  "+{count} more in the Command Center": "Još {count} u Komandnom centru",
+  "{count} recruits have no officer yet.": "Regruta bez oficira: {count}.",
+  "Filter by officer": "Filtriraj po oficiru",
+  "Help this recruit →": "Pomozi ovom regrutu →",
+  "Needs help with": "Treba pomoć sa",
+  "Your recruits": "Vaši regruti"
 }

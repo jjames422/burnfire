@@ -87,6 +87,17 @@
 .portal-admin-tasks h3 { margin-top: 24px; }
 .portal-admin-tasks ul { margin-top: 12px; }
 .portal-admin-tasks li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid #35313b; }
+.portal-recruits { margin-top: 24px; }
+.portal-recruits > ul { margin-top: 12px; }
+.portal-recruits > ul > li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid #35313b; }
+.portal-recruit-main { flex: 1 1 320px; min-width: 0; }
+.portal-recruit-main > p { margin-top: 4px; color: #9b9294; font-size: 13px; }
+.portal-recruit-bar { height: 4px; margin-top: 10px; border-radius: 2px; background: #2c282e; overflow: hidden; }
+.portal-recruit-bar span { display: block; height: 100%; background: #f4a16d; }
+.portal-recruit-help { margin-top: 10px; padding: 10px 12px; border-left: 2px solid #f4a16d; background: #151318; }
+.portal-recruit-help small { color: #f4a16d; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.portal-recruit-help ul { margin-top: 6px; padding-left: 16px; list-style: disc; color: #d8cbb8; font-size: 13px; line-height: 1.6; }
+.portal-recruits-unassigned { margin-top: 10px; color: #f4a16d; }
 .portal-shell input:not([type="radio"]):not([type="checkbox"]), .portal-shell select, .portal-shell textarea { border: 1px solid #ffffff20; background: #121317; border-radius: 7px; padding: 12px 14px; color: #f3efe9; font: inherit; font-size: 12px; min-width: 0; }
 .portal-shell label { font-size: 12px; }
 .portal-page-heading { padding: 12px 0 32px; }

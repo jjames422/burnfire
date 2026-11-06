@@ -10,6 +10,7 @@ import { api, apiPost } from "@/lib/api/client";
 import type { AllianceTitle, GameRank } from "@/lib/api/types";
 import { TITLE_LABELS } from "@/lib/identity";
 import { RankRequestFields } from "./RankRequestFields";
+import { MyRecruits } from "./MyRecruits";
 
 type Access = {
   in_game_name: string;
@@ -95,6 +96,7 @@ export function PortalHome() {
           <Link className="portal-secondary" href={`/portal/members?q=${encodeURIComponent(task.in_game_name)}`}><Text>{"Review / change"}</Text></Link>
         </li>)}</ul>}
       </section>}
+      {officer && <MyRecruits leadership={access.is_site_admin || Boolean(access.verified_at && ["r4", "r5"].includes(access.game_rank ?? ""))} />}
       {access.can_request_rank && !access.is_site_admin && !access.request_status ? (
         <section className="portal-panel portal-apply">
           <div><span className="portal-kicker"><Text>{"START YOUR JOURNEY"}</Text></span><h2>{access.enrolled ? t("Request your alliance rank.") : t("Join the academy.")}</h2><p><Text>{"No invitation? Submit your game ID and in-game rank. A site administrator will approve or correct your request before granting alliance permissions."}</Text></p></div>

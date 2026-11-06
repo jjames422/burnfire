@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "Tu selección es una solicitud, no un permiso. Un administrador la aprobará o corregirá.",
   "YOUR TRAINING SQUAD": "TU EQUIPO DE ENTRENAMIENTO",
   "Your training, your alliance, your next move.": "Tu entrenamiento, tu alianza, tu próximo paso.",
-  "YourName": "TuNombre"
+  "YourName": "TuNombre",
+  "All officers": "Todos los oficiales",
+  "Assigned to me": "Asignados a mí",
+  "Assignment saved.": "Asignación guardada.",
+  "Assign officers →": "Asignar oficiales →",
+  "+{count} more in the Command Center": "+{count} más en el Centro de Mando",
+  "{count} recruits have no officer yet.": "{count} reclutas aún no tienen oficial.",
+  "Filter by officer": "Filtrar por oficial",
+  "Help this recruit →": "Ayudar a este recluta →",
+  "Needs help with": "Necesita ayuda con",
+  "Your recruits": "Tus reclutas"
 }

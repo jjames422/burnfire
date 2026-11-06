@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "اختيارك طلب وليس صلاحية لأدوات الضباط. يوافق مسؤول الموقع أو يصححه.",
   "YOUR TRAINING SQUAD": "فريق تدريبك",
   "Your training, your alliance, your next move.": "تدريبك وتحالفك وخطوتك القادمة.",
-  "YourName": "اسمك"
+  "YourName": "اسمك",
+  "All officers": "كل الضباط",
+  "Assigned to me": "المسندون إليّ",
+  "Assignment saved.": "تم حفظ الإسناد.",
+  "Assign officers →": "إسناد الضباط ←",
+  "+{count} more in the Command Center": "+{count} أخرى في مركز القيادة",
+  "{count} recruits have no officer yet.": "{count} من المجندين بلا ضابط بعد.",
+  "Filter by officer": "التصفية حسب الضابط",
+  "Help this recruit →": "ساعد هذا المجند ←",
+  "Needs help with": "يحتاج مساعدة في",
+  "Your recruits": "مجندوك"
 }

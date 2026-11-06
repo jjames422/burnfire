@@ -22,17 +22,29 @@ export async function GET(request: NextRequest) {
     return jsonError("Invalid recruit search or page.");
   }
   if (!(sort in SORT_COLUMNS)) return jsonError("Invalid recruit sort.");
+  const leadership = canManageLeadership(officer);
+  // R3 trainers are always limited to their own recruits; leadership may filter by officer.
+  const officerFilter = request.nextUrl.searchParams.get("officer") ?? "all";
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  if (!["all", "unassigned", "me"].includes(officerFilter) && !uuidPattern.test(officerFilter)) {
+    return jsonError("Invalid recruit search or page.");
+  }
+  const scope = leadership
+    ? officerFilter === "me" ? user.id : uuidPattern.test(officerFilter) ? officerFilter : null
+    : trainingScope(officer, user.id);
+  const unassignedOnly = leadership && officerFilter === "unassigned";
 
   const searchPattern = `%${search}%`;
   const whereSql = `where ($1::uuid is null or e.assigned_officer = $1)
+    and (not $3::boolean or e.assigned_officer is null)
     and (p.in_game_name ilike $2 or e.game_identifier ilike $2)`;
-  const params = [trainingScope(officer, user.id), searchPattern];
+  const params: unknown[] = [scope, searchPattern, unassignedOnly];
   const offset = (page - 1) * 30;
-  const emailColumn = canManageLeadership(officer) ? "u.email," : "";
-  const emailGroup = canManageLeadership(officer) ? ", u.email" : "";
+  const emailColumn = leadership ? "u.email," : "";
+  const emailGroup = leadership ? ", u.email" : "";
   const orderColumn = SORT_COLUMNS[sort];
 
-  const [total, recruits] = await Promise.all([
+  const [total, recruits, officers] = await Promise.all([
     queryOne<{ total: string }>(
       `select count(*)::text as total
        from academy_enrollments e
@@ -98,6 +110,16 @@ export async function GET(request: NextRequest) {
        limit 30 offset $${params.length + 1}`,
       [...params, offset],
     ),
+    leadership
+      ? query(
+        `select p.id, p.in_game_name, am.game_rank,
+                (select count(*)::int from academy_enrollments x where x.assigned_officer = p.id) as assigned_count
+         from alliance_members am join profiles p on p.id = am.user_id
+         where am.alliance = 'burnfire' and am.verified_at is not null
+           and am.game_rank in ('r3', 'r4', 'r5')
+         order by am.game_rank, p.in_game_name`,
+      )
+      : Promise.resolve([]),
   ]);
 
   return NextResponse.json({
@@ -106,5 +128,7 @@ export async function GET(request: NextRequest) {
     page,
     page_size: 30,
     has_more: offset + recruits.length < Number(total?.total ?? 0),
+    can_assign: leadership,
+    officers,
   });
 }

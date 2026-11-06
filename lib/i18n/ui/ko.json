@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "선택은 신청이며 간부 도구 권한이 아닙니다. 관리자가 승인 또는 수정합니다.",
   "YOUR TRAINING SQUAD": "내 훈련 분대",
   "Your training, your alliance, your next move.": "내 훈련, 내 연맹, 내 다음 행동.",
-  "YourName": "내이름"
+  "YourName": "내이름",
+  "All officers": "모든 장교",
+  "Assigned to me": "나에게 배정됨",
+  "Assignment saved.": "배정이 저장되었습니다.",
+  "Assign officers →": "장교 배정 →",
+  "+{count} more in the Command Center": "커맨드 센터에 {count}개 더 있음",
+  "{count} recruits have no officer yet.": "장교가 없는 신병 {count}명",
+  "Filter by officer": "장교별 필터",
+  "Help this recruit →": "이 신병 돕기 →",
+  "Needs help with": "도움이 필요한 항목",
+  "Your recruits": "내 신병"
 }

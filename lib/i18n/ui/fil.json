@@ -876,5 +876,15 @@
   "Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it.": "Hiling lang ito, hindi pahintulot sa officer tools. Aaprubahan o itatama ng admin.",
   "YOUR TRAINING SQUAD": "IYONG PANGKAT SA PAGSASANAY",
   "Your training, your alliance, your next move.": "Pagsasanay mo, alyansa mo, susunod mong hakbang.",
-  "YourName": "PangalanMo"
+  "YourName": "PangalanMo",
+  "All officers": "Lahat ng opisyal",
+  "Assigned to me": "Nakatalaga sa akin",
+  "Assignment saved.": "Na-save ang pagtatalaga.",
+  "Assign officers →": "Magtalaga ng mga opisyal →",
+  "+{count} more in the Command Center": "+{count} pa sa Command Center",
+  "{count} recruits have no officer yet.": "{count} recruit ang wala pang opisyal.",
+  "Filter by officer": "I-filter ayon sa opisyal",
+  "Help this recruit →": "Tulungan ang recruit na ito →",
+  "Needs help with": "Kailangan ng tulong sa",
+  "Your recruits": "Ang iyong mga recruit"
 }
