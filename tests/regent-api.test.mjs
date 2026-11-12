@@ -3,6 +3,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 const baseUrl = process.env.BURNFIRE_API_TEST_URL;
@@ -25,7 +26,7 @@ test("Regent appointments preserve title uniqueness, leadership permissions, and
     await client.query(`SET search_path TO "${schema}", pg_catalog`);
     await client.query(await readFile(new URL("../db/schema.sql", import.meta.url), "utf8"));
     async function member(name, rank, title = null, admin = false) {
-      const { rows: [user] } = await client.query("insert into users (email) values ($1) returning id", [`${name}@example.invalid`]);
+      const { rows: [user] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(`${name}@example.invalid`));
       await client.query("insert into profiles (id, in_game_name) values ($1, $2)", [user.id, name]);
       if (admin) await client.query("insert into platform_admins (user_id) values ($1)", [user.id]);
       await client.query(

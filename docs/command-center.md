@@ -86,6 +86,30 @@ verified alliance membership records; members accepted through the existing alli
 flow are enrolled automatically. Existing acknowledgments reference a specific content version
 and are retained when a new version is published.
 
+## Email privacy
+
+Member email addresses are never stored or displayed in plaintext. Each address is kept as an
+AES-256-GCM ciphertext (`email_encrypted`) plus a keyed HMAC lookup value (`email_hash`), both
+derived from the `EMAIL_ENCRYPTION_KEY` environment variable (see `lib/server/email-privacy.ts`).
+Command Center and portal APIs never return another member's address; members only see their own.
+Recruit invitations show a masked hint such as `f•••@gmail.com`. Site administrators can still find
+an account by typing its exact address into the member search.
+
+`EMAIL_ENCRYPTION_KEY` must be identical in every environment that shares the database and must be
+backed up outside the server. Losing it makes stored addresses unreadable and existing accounts
+unreachable through email sign-in.
+
+Databases created before encryption are upgraded in three steps:
+
+```bash
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/schema.sql
+node --env-file=.env.local --experimental-strip-types scripts/encrypt-emails.mjs
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/schema.sql
+```
+
+The first run adds the encrypted columns; the script encrypts existing addresses and clears the
+plaintext; the second run drops the plaintext columns.
+
 ## Officer access
 
 Every Command Center API checks the signed-in account against its verified `alliance_members` row

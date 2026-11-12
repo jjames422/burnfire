@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { getSessionUser } from "@/lib/server/auth";
 import { withTransaction } from "@/lib/server/db";
+import { emailIndex } from "@/lib/server/email-privacy";
 import { jsonError } from "@/lib/server/http";
 
 function hashToken(token: string): string {
@@ -55,10 +56,10 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   const result = await withTransaction(async (client) => {
     const invitationResult = await client.query<{
       id: string;
-      email: string;
+      email_hash: string;
       created_by: string;
     }>(
-      `select id, email, created_by from command_invitations
+      `select id, email_hash, created_by from command_invitations
        where token_hash = $1 and revoked_at is null and redeemed_at is null
          and expires_at > now()
        for update`,
@@ -66,7 +67,7 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
     );
     const invitation = invitationResult.rows[0];
     if (!invitation) return { error: "This invitation is invalid or expired.", status: 404 };
-    if (user.email.toLowerCase() !== invitation.email) {
+    if (emailIndex(user.email) !== invitation.email_hash) {
       return {
         error: "Sign in with the email address that received this invitation.",
         status: 403,

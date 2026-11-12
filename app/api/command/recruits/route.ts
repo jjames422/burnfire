@@ -40,8 +40,6 @@ export async function GET(request: NextRequest) {
     and (p.in_game_name ilike $2 or e.game_identifier ilike $2)`;
   const params: unknown[] = [scope, searchPattern, unassignedOnly];
   const offset = (page - 1) * 30;
-  const emailColumn = leadership ? "u.email," : "";
-  const emailGroup = leadership ? ", u.email" : "";
   const orderColumn = SORT_COLUMNS[sort];
 
   const [total, recruits, officers] = await Promise.all([
@@ -53,7 +51,7 @@ export async function GET(request: NextRequest) {
       params,
     ),
     query(
-      `select e.user_id, p.in_game_name, ${emailColumn}
+      `select e.user_id, p.in_game_name,
               e.game_identifier, e.communication_preference, e.identity_status,
               e.started_at, e.completed_at, e.current_step, e.officer_interest,
               e.assigned_officer, assigned.in_game_name as assigned_officer_name,
@@ -100,7 +98,7 @@ export async function GET(request: NextRequest) {
          from academy_progress p where p.user_id = e.user_id
        ) activity on true
        ${whereSql}
-       group by e.user_id, p.in_game_name ${emailGroup}, e.game_identifier,
+       group by e.user_id, p.in_game_name, e.game_identifier,
                 e.communication_preference, e.identity_status, e.started_at,
                 e.completed_at, e.current_step, e.officer_interest, e.assigned_officer,
                 assigned.in_game_name, i.opened_at, ack.acknowledged, required.total,

@@ -6,6 +6,13 @@ import { canAppointRegent, canAssignRank, isAllianceRank, permissionForRank } fr
 import type { AllianceRank } from "@/lib/command/access";
 import type { AllianceTitle } from "@/lib/api/types";
 import { validTitleForRank } from "@/lib/identity";
+import { emailIndex } from "@/lib/server/email-privacy";
+import { normalizeEmail } from "@/lib/server/auth";
+
+function searchEmailHash(search: string): string | null {
+  const email = normalizeEmail(search);
+  return email ? emailIndex(email) : null;
+}
 
 export async function GET(request: NextRequest) {
   const { user, officer, response } = await requireCommandOfficer("r4");
@@ -16,7 +23,6 @@ export async function GET(request: NextRequest) {
   const members = await query(
     `select u.id, coalesce(p.in_game_name, 'Profile not completed') as in_game_name,
             p.id is not null as profile_complete, u.created_at as signed_up_at,
-            case when $2 then u.email end as email,
             am.game_rank, am.alliance_title, coalesce(am.is_regent, false) as is_regent, am.verified_at,
             is_platform_admin(u.id) as is_site_admin,
             case when $2 then mr.requested_rank end as requested_rank,
@@ -33,10 +39,12 @@ export async function GET(request: NextRequest) {
      left join profiles sponsor on sponsor.id = e.assigned_officer
      where ($2 or am.alliance = 'burnfire' or (am.user_id is null and e.user_id is not null))
        and ($1 = '' or coalesce(p.in_game_name, 'Profile not completed') ilike '%' || $1 || '%'
-            or ($2 and u.email ilike '%' || $1 || '%'))
+            or ($2 and u.email_hash = $4))
      order by (mr.status = 'pending') desc nulls last, u.created_at desc, u.id
      limit 101 offset $3`,
-    [search, officer.is_site_admin, (page - 1) * 100],
+    // Addresses are encrypted at rest and never listed. Administrators can
+    // still locate an account by typing its exact address (blind index match).
+    [search, officer.is_site_admin, (page - 1) * 100, searchEmailHash(search)],
   );
   const history = await query(
     `select h.id, p.in_game_name as member_name, actor.in_game_name as actor_name,

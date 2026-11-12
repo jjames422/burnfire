@@ -3,6 +3,7 @@ import { randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 
@@ -23,7 +24,7 @@ test("isolated schema keeps chat, academy, rank changes, and site administration
     const schema = await readFile(new URL("../db/schema.sql", import.meta.url), "utf8");
     await client.query(schema);
     await client.query(schema);
-    const { rows: [user] } = await client.query("insert into users (email) values ('portal-test@example.invalid') returning id");
+    const { rows: [user] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail("portal-test@example.invalid"));
     await client.query("insert into profiles (id, in_game_name) values ($1, 'Test player')", [user.id]);
     await client.query("insert into alliance_members (user_id, alliance, game_rank) values ($1, 'burnfire', 'r1')", [user.id]);
     const { rows: [enrollment] } = await client.query("select identity_status from academy_enrollments where user_id = $1", [user.id]);
@@ -44,7 +45,7 @@ test("isolated schema keeps chat, academy, rank changes, and site administration
     assert.equal(admin.permission_role, "admin");
     assert.equal(admin.role, "admin");
     assert.equal(admin.is_admin, true);
-    const { rows: [legacyUser] } = await client.query("insert into users (email) values ('legacy-invite-test@example.invalid') returning id");
+    const { rows: [legacyUser] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail("legacy-invite-test@example.invalid"));
     await client.query("insert into profiles (id, in_game_name) values ($1, 'Legacy invitation test')", [legacyUser.id]);
     const { rows: [invitation] } = await client.query(
       "insert into alliance_invitations (alliance, invitee_id, invited_by, game_rank, permission_role) values ('burnfire', $1, $2, 'r3', 'member') returning id",

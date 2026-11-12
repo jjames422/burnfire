@@ -3,6 +3,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { get as httpGet } from "node:http";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 const baseUrl = process.env.BURNFIRE_API_TEST_URL;
@@ -30,7 +31,7 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     return { response, data };
   }
   async function signIn(email, name) {
-    await client.query("insert into login_codes (email, code_hash, expires_at) values ($1,$2,now()+interval '2 minutes')", [email, hash("164829")]);
+    await client.query("insert into login_codes (email_hash, code_hash, expires_at) values ($1,$2,now()+interval '2 minutes')", [emailIndex(email), hash("164829")]);
     const { response, data } = await request("/api/auth/verify", "POST", "", { email, code: "164829" });
     assert.equal(response.status, 200);
     const cookie = response.headers.getSetCookie().find((value) => value.startsWith("bf_session="))?.split(";")[0];
@@ -57,15 +58,24 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     await client.query("insert into alliance_members (alliance,user_id,game_rank,verified_at) values ('burnfire',$1,'r4',now())", [admin.id]);
     const officer = await signIn(emails[2], "Portal test officer");
     await client.query("insert into alliance_members (alliance,user_id,game_rank,verified_at) values ('burnfire',$1,'r4',now())", [officer.id]);
-    const incomplete = await client.query("insert into users (email) values ($1) returning id", [emails[4]]);
+    const incomplete = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(emails[4]));
+    const stored = await client.query("select * from users where id = $1", [incomplete.rows[0].id]);
+    assert.equal(Object.hasOwn(stored.rows[0], "email"), false, "No plaintext email column remains");
+    assert.ok(!JSON.stringify(stored.rows[0]).includes(emails[4]), "Stored account data never contains the address");
     const initialTasks = await request("/api/portal", "GET", admin.cookie);
     assert.ok(initialTasks.data.tasks.some((task) => task.user_id === member.id), "New signups create a task even before requesting rank");
     assert.ok(initialTasks.data.tasks.some((task) => task.user_id === incomplete.rows[0].id), "Incomplete signups are visible to site admins");
     const initialRoster = await request("/api/command/members", "GET", admin.cookie);
-    assert.ok(initialRoster.data.members.some((item) => item.id === incomplete.rows[0].id && !item.profile_complete && item.email === emails[4]));
+    assert.ok(initialRoster.data.members.some((item) => item.id === incomplete.rows[0].id && !item.profile_complete));
+    assert.ok(initialRoster.data.members.every((item) => !Object.hasOwn(item, "email")), "Administrators never receive member addresses");
+    assert.ok(!JSON.stringify(initialRoster.data).includes("@example.invalid"), "No address leaks through the roster");
+    const exact = await request(`/api/command/members?q=${encodeURIComponent(emails[4].toUpperCase())}`, "GET", admin.cookie);
+    assert.deepEqual(exact.data.members.map((item) => item.id), [incomplete.rows[0].id], "Exact address search still finds the account");
+    const partial = await request(`/api/command/members?q=${encodeURIComponent("example.invalid")}`, "GET", admin.cookie);
+    assert.equal(partial.data.members.some((item) => item.id === incomplete.rows[0].id), false, "Partial address search cannot enumerate accounts");
     assert.equal((await request("/api/command/members?page=-1", "GET", admin.cookie)).response.status, 400);
     const officerRoster = await request("/api/command/members", "GET", officer.cookie);
-    assert.ok(officerRoster.data.members.every((item) => item.email === null && item.requested_rank === null));
+    assert.ok(officerRoster.data.members.every((item) => !Object.hasOwn(item, "email") && item.requested_rank === null));
     assert.equal(officerRoster.data.members.some((item) => item.id === incomplete.rows[0].id), false);
     const privateTasks = await request("/api/portal", "GET", officer.cookie);
     assert.deepEqual(privateTasks.data.tasks, []);
@@ -122,7 +132,13 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     const pending = await request("/api/channels", "GET", member.cookie);
     assert.equal(pending.data.channels.some((channel) => channel.scope === "alliance"), false);
     const invitationToken = randomBytes(32).toString("base64url");
-    await client.query("insert into command_invitations (email,token_hash,created_by) values ($1,$2,$3)", [emails[0], hash(invitationToken), admin.id]);
+    await client.query("insert into command_invitations (email_hash,email_encrypted,token_hash,created_by) values ($1,$2,$3,$4)", [...storedEmail(emails[0]), hash(invitationToken), admin.id]);
+    const listed = await request("/api/command/invitations", "GET", admin.cookie);
+    assert.ok(listed.data.invitations.some((item) => item.email === "p•••@example.invalid"), "Invitations show only a masked hint");
+    assert.ok(!JSON.stringify(listed.data).includes(emails[0]), "Invitation list never contains a full address");
+    const wrongToken = randomBytes(32).toString("base64url");
+    await client.query("insert into command_invitations (email_hash,email_encrypted,token_hash,created_by) values ($1,$2,$3,$4)", [...storedEmail(emails[3]), hash(wrongToken), admin.id]);
+    assert.equal((await request(`/api/academy/invitations/${wrongToken}`, "POST", member.cookie, { in_game_name: "Portal test applicant" })).response.status, 403, "An invitation only works for the invited address");
     const redeemed = await request(`/api/academy/invitations/${invitationToken}`, "POST", member.cookie, { in_game_name: "Portal test applicant" });
     assert.equal(redeemed.response.status, 200, "Existing applicant enrollment is preserved when a personal invitation is redeemed");
     assert.equal((await request(`/api/academy/invitations/${invitationToken}`, "POST", member.cookie, { in_game_name: "Portal test applicant" })).response.status, 404);
@@ -174,7 +190,7 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     assert.equal((await request("/api/command/content", "GET", admin.cookie)).response.status, 200);
 
     const token = randomBytes(32).toString("base64url");
-    await client.query("insert into auth_links(token_hash,email,return_to,expires_at) values($1,$2,'/academy',now()+interval '2 minutes')", [hash(token), emails[0]]);
+    await client.query("insert into auth_links(token_hash,email_hash,email_encrypted,return_to,expires_at) values($1,$2,$3,'/academy',now()+interval '2 minutes')", [hash(token), ...storedEmail(emails[0])]);
     assert.equal((await fetch(new URL("/api/auth/consume-link", origin))).status, 405, "GET cannot consume a sign-in link");
     const consumed = await request("/api/auth/consume-link", "POST", "", { token });
     assert.equal(consumed.response.status, 200);
@@ -183,10 +199,11 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     const rejected = await fetch(new URL("/api/auth/passkeys/authenticate/options", origin), { method: "POST", headers: { Origin: "https://example.invalid", "Content-Type": "application/json" }, body: "{}" });
     assert.equal(rejected.status, 403);
   } finally {
-    await client.query("delete from command_invitations where email = any($1::text[])", [emails]);
-    await client.query("delete from auth_links where email = any($1::text[])", [emails]);
-    await client.query("delete from login_codes where email = any($1::text[])", [emails]);
-    await client.query("delete from users where email = any($1::text[])", [emails]);
+    const hashes = emails.map(emailIndex);
+    await client.query("delete from command_invitations where email_hash = any($1::text[])", [hashes]);
+    await client.query("delete from auth_links where email_hash = any($1::text[])", [hashes]);
+    await client.query("delete from login_codes where email_hash = any($1::text[])", [hashes]);
+    await client.query("delete from users where email_hash = any($1::text[])", [hashes]);
     await client.end();
   }
 });

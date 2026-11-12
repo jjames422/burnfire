@@ -29,7 +29,6 @@ type Member = {
   requested_rank: AllianceRank | null;
   requested_title: AllianceTitle | null;
   request_status: string | null;
-  email: string | null;
 };
 type Roster = {
   members: Member[];
@@ -111,7 +110,6 @@ export function MemberManager() {
             <div className="portal-member-heading"><span className="portal-avatar">{member.in_game_name.slice(0, 2).toUpperCase()}</span><div><h3>{member.in_game_name}</h3><span>{member.game_rank === "r5" ? t("Alliance Leader") : member.game_rank?.toUpperCase() ?? t("APPLICANT")}{member.is_site_admin ? t(" / SITE ADMIN") : ""}</span></div></div>
             <p className={member.verified_at ? "portal-approved" : "portal-pending"}>{member.verified_at ? t("Verified alliance member") : t("Awaiting officer approval")}</p>
             <p className="portal-detail"><Text values={{ value1: String(new Date(member.signed_up_at).toLocaleString(locale) ?? "") }}>{"Signed up: {value1}"}</Text></p>
-            {member.email && <p className="portal-detail">{member.email}</p>}
             {data.actor.is_site_admin && <button className="portal-secondary portal-support-button" onClick={() => { setSupportUserId(member.id); setPending(null); }}><Text>{"Account support / reset"}</Text></button>}
             {!member.profile_complete && <p className="portal-pending"><Text>{"Waiting for this user to complete their player profile."}</Text></p>}
             {member.alliance_title && <p className="portal-detail"><Text values={{ value1: String(t(TITLE_LABELS[member.alliance_title]) ?? "") }}>{"Title: {value1}"}</Text></p>}

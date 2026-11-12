@@ -27,7 +27,7 @@ export async function GET() {
     [user.id],
   );
   const tasks = access?.is_site_admin ? await query(
-    `select u.id as user_id, coalesce(p.in_game_name, 'Profile not completed') as in_game_name, u.email,
+    `select u.id as user_id, coalesce(p.in_game_name, 'Profile not completed') as in_game_name,
             r.requested_rank, r.requested_title, u.created_at
      from users u left join profiles p on p.id = u.id
      left join membership_requests r on r.user_id = u.id

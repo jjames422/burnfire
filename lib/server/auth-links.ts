@@ -1,7 +1,8 @@
 import { configuredPortalOrigin, hashAuthToken, newAuthToken, safeReturnTo, validAuthToken } from "../auth/security";
-import { createSession, normalizeEmail, type SessionUser } from "./auth";
+import { createSession, normalizeEmail, upsertUserByEmail } from "./auth";
 import { query, queryOne, withTransaction } from "./db";
 import { sendLoginLink } from "./email";
+import { decryptEmail, emailIndex, encryptEmail } from "./email-privacy";
 import { logAuthFailure } from "../auth/logging";
 
 export async function requestLoginLink(rawEmail: string, returnTo: unknown, origin?: string): Promise<{ error?: string }> {
@@ -9,15 +10,17 @@ export async function requestLoginLink(rawEmail: string, returnTo: unknown, orig
   if (!email) return { error: "Enter a valid email address." };
   const token = newAuthToken();
   const tokenHash = hashAuthToken(token);
+  const emailHash = emailIndex(email);
   const created = await withTransaction(async (client) => {
-    await client.query("select pg_advisory_xact_lock(hashtext($1))", [`auth-link:${email}`]);
+    await client.query("select pg_advisory_xact_lock(hashtext($1))", [`auth-link:${emailHash}`]);
     const { rows: [count] } = await client.query<{ recent: string }>(
-      `select count(*)::text as recent from auth_links where email = $1 and created_at > now() - interval '15 minutes'`, [email],
+      `select count(*)::text as recent from auth_links where email_hash = $1 and created_at > now() - interval '15 minutes'`, [emailHash],
     );
     if (Number(count.recent) >= 5) return false;
     await client.query(
-      `insert into auth_links(token_hash, email, return_to, expires_at) values ($1,$2,$3,now() + interval '10 minutes')`,
-      [tokenHash, email, safeReturnTo(returnTo)],
+      `insert into auth_links(token_hash, email_hash, email_encrypted, return_to, expires_at)
+       values ($1,$2,$3,$4,now() + interval '10 minutes')`,
+      [tokenHash, emailHash, encryptEmail(email), safeReturnTo(returnTo)],
     );
     return true;
   });
@@ -37,14 +40,14 @@ export async function requestLoginLink(rawEmail: string, returnTo: unknown, orig
 
 export async function consumeLoginLink(token: unknown): Promise<{ returnTo?: string; error?: string }> {
   if (!validAuthToken(token)) return { error: "This sign-in link is invalid or expired. Request a new one." };
-  const link = await queryOne<{ email: string; return_to: string }>(
-    `delete from auth_links where token_hash = $1 and expires_at > now() returning email, return_to`,
+  const link = await queryOne<{ email_encrypted: string; return_to: string }>(
+    `delete from auth_links where token_hash = $1 and expires_at > now() returning email_encrypted, return_to`,
     [hashAuthToken(token)],
   );
   if (!link) return { error: "This sign-in link was already used or expired. Request a new one." };
-  const user = await queryOne<SessionUser>(
-    `insert into users(email) values ($1) on conflict(email) do update set email = excluded.email returning id,email`,
-    [link.email],
+  const user = await upsertUserByEmail(
+    async (text, params) => ({ rows: await query(text, params) }),
+    decryptEmail(link.email_encrypted),
   );
   if (!user) return { error: "Sign-in could not be completed. Request a new link." };
   await createSession(user.id);

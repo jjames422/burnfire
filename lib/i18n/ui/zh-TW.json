@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "由BurnFire聯盟營運 · Last Asylum: Plague非官方社群",
   "How to get {name}": "如何取得 {name}",
   "HP": "生命",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "我確認：為 {in_game_name}（{email}）執行{label}。我了解上述影響。",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "我確認：為 {in_game_name}執行{label}。我了解上述影響。",
   "I have read and understand this version": "我已閱讀並理解此版本",
   "I need officer help": "我需要軍官協助",
   "Identity": "身分",

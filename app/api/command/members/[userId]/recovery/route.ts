@@ -15,7 +15,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { userId } = await params;
   if (!UUID.test(userId)) return jsonError("User not found.", 404);
   const user = await queryOne(
-    `select u.id, u.email, coalesce(p.in_game_name, 'Profile not completed') as in_game_name,
+    `select u.id, coalesce(p.in_game_name, 'Profile not completed') as in_game_name,
             e.user_id is not null as enrolled, e.identity_status, am.game_rank,
             (select count(*)::int from sessions where user_id = u.id and expires_at > now()) as sessions,
             (select count(*)::int from passkeys where user_id = u.id) as passkeys,
@@ -35,7 +35,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
     ),
     query(
       `select h.id::text, h.action, h.reason, h.created_at,
-              coalesce(p.in_game_name, u.email) as actor_name
+              coalesce(p.in_game_name, 'Unnamed member') as actor_name
        from user_recovery_history h left join users u on u.id = h.actor_id
        left join profiles p on p.id = h.actor_id
        where h.user_id = $1 order by h.created_at desc, h.id desc limit 20`, [userId],

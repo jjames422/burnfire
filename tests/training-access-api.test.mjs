@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash, randomBytes } from "node:crypto";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 const baseUrl = process.env.BURNFIRE_API_TEST_URL;
@@ -21,7 +22,7 @@ test("trainers manage only assigned recruits, R4 tracks all, and only R5/site ad
   const contentIds = [];
   await client.connect();
   async function account(label, rank, admin = false) {
-    const { rows: [user] } = await client.query("insert into users (email) values ($1) returning id", [`training-${label}-${suffix}@example.invalid`]);
+    const { rows: [user] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(`training-${label}-${suffix}@example.invalid`));
     ids.push(user.id);
     await client.query("insert into profiles (id,in_game_name) values ($1,$2)", [user.id, `Training ${label} ${suffix}`]);
     if (admin) await client.query("insert into platform_admins (user_id) values ($1)", [user.id]);

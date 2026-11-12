@@ -2,6 +2,7 @@ import { createHash, randomBytes, randomInt, timingSafeEqual } from "node:crypto
 import { cookies, headers } from "next/headers";
 import { query, queryOne, withTransaction } from "./db";
 import { sendLoginCode } from "./email";
+import { decryptEmail, emailIndex, encryptEmail } from "./email-privacy";
 import { logAuthFailure } from "../auth/logging";
 import { ACCOUNT_HINT_COOKIE, accountHintOptions } from "../auth/account-hint";
 
@@ -13,7 +14,28 @@ const MAX_CODES_PER_WINDOW = 5;
 
 export interface SessionUser {
   id: string;
+  /** The signed-in member's own address, decrypted only for them. */
   email: string;
+}
+
+type StoredUser = { id: string; email_encrypted: string };
+
+export function toSessionUser(row: StoredUser): SessionUser {
+  return { id: row.id, email: decryptEmail(row.email_encrypted) };
+}
+
+/** Finds or creates the account for an address without storing plaintext. */
+export async function upsertUserByEmail(
+  run: (text: string, params: unknown[]) => Promise<{ rows: StoredUser[] }>,
+  email: string,
+): Promise<SessionUser | null> {
+  const { rows: [row] } = await run(
+    `insert into users (email_hash, email_encrypted) values ($1, $2)
+     on conflict (email_hash) do update set email_hash = excluded.email_hash
+     returning id, email_encrypted`,
+    [emailIndex(email), encryptEmail(email)],
+  );
+  return row ? toSessionUser(row) : null;
 }
 
 function sha256(value: string): string {
@@ -33,18 +55,19 @@ export async function requestLoginCode(rawEmail: string): Promise<{ error?: stri
   if (!email) return { error: "Enter a valid email address." };
 
   const code = String(randomInt(0, 1_000_000)).padStart(6, "0");
+  const emailHash = emailIndex(email);
   const created = await withTransaction(async (client) => {
-    await client.query("select pg_advisory_xact_lock(hashtext($1))", [`auth-code:${email}`]);
+    await client.query("select pg_advisory_xact_lock(hashtext($1))", [`auth-code:${emailHash}`]);
     const { rows: [{ recent }] } = await client.query<{ recent: string }>(
       `select count(*)::text as recent from login_codes
-       where email = $1 and created_at > now() - interval '15 minutes'`,
-      [email],
+       where email_hash = $1 and created_at > now() - interval '15 minutes'`,
+      [emailHash],
     );
     if (Number(recent) >= MAX_CODES_PER_WINDOW) return false;
     await client.query(
-      `insert into login_codes (email, code_hash, expires_at)
+      `insert into login_codes (email_hash, code_hash, expires_at)
        values ($1, $2, now() + interval '${CODE_TTL_MINUTES} minutes')`,
-      [email, sha256(code)],
+      [emailHash, sha256(code)],
     );
     return true;
   });
@@ -75,9 +98,9 @@ export async function verifyLoginCode(
   const result = await withTransaction(async (client) => {
     const { rows: [pending] } = await client.query<{ id: string; code_hash: string; attempts: number }>(
       `select id, code_hash, attempts from login_codes
-       where email = $1 and consumed_at is null and expires_at > now()
+       where email_hash = $1 and consumed_at is null and expires_at > now()
        order by created_at desc limit 1 for update`,
-      [email],
+      [emailIndex(email)],
     );
     if (!pending || pending.attempts >= MAX_CODE_ATTEMPTS) {
       return { error: "This code is invalid or expired. Request a new one." };
@@ -92,12 +115,7 @@ export async function verifyLoginCode(
 
     await client.query(`update login_codes set consumed_at = now() where id = $1`, [pending.id]);
 
-    const { rows: [user] } = await client.query<SessionUser>(
-      `insert into users (email) values ($1)
-       on conflict (email) do update set email = excluded.email
-       returning id, email`,
-      [email],
-    );
+    const user = await upsertUserByEmail((text, params) => client.query<StoredUser>(text, params), email);
     if (!user) return { error: "Account could not be created." };
     return { user };
   });
@@ -135,13 +153,13 @@ export async function recentSession(): Promise<{ user: SessionUser; sessionHash:
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   if (!token) return null;
   const sessionHash = sha256(token);
-  const user = await queryOne<SessionUser>(
-    `select u.id, u.email from sessions s join users u on u.id = s.user_id
+  const row = await queryOne<StoredUser>(
+    `select u.id, u.email_encrypted from sessions s join users u on u.id = s.user_id
      where s.token_hash = $1 and s.expires_at > now()
        and s.created_at > now() - interval '10 minutes'`,
     [sessionHash],
   );
-  return user ? { user, sessionHash } : null;
+  return row ? { user: toSessionUser(row), sessionHash } : null;
 }
 
 /** Resolves the signed-in user from the session cookie, or null. */
@@ -150,13 +168,14 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (!token) return null;
 
-  return queryOne<SessionUser>(
+  const row = await queryOne<StoredUser>(
     `update sessions s set last_seen_at = now()
      from users u
      where s.token_hash = $1 and s.expires_at > now() and u.id = s.user_id
-     returning u.id, u.email`,
+     returning u.id, u.email_encrypted`,
     [sha256(token)],
   );
+  return row ? toSessionUser(row) : null;
 }
 
 /** Ends the current session and clears the cookie. */

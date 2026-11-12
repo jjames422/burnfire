@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "BurnFire 연맹 운영 · Last Asylum: Plague 비공식 커뮤니티",
   "How to get {name}": "{name} 획득 방법",
   "HP": "체력",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "확인: {in_game_name}({email})에 {label} 적용. 위 영향을 이해합니다.",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "확인: {in_game_name}에 {label} 적용. 위 영향을 이해합니다.",
   "I have read and understand this version": "이 버전을 읽고 이해했습니다",
   "I need officer help": "간부 도움이 필요합니다",
   "Identity": "신원",

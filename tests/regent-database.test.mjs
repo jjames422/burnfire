@@ -3,6 +3,7 @@ import { randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 
@@ -22,7 +23,7 @@ test("Regent constraints, combined identity, and alliance access survive schema 
     await client.query(sql);
     await client.query(sql);
     async function member(name, rank, title, regent = false) {
-      const { rows: [user] } = await client.query("insert into users (email) values ($1) returning id", [`${name.toLowerCase()}@example.invalid`]);
+      const { rows: [user] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(`${name.toLowerCase()}@example.invalid`));
       await client.query("insert into profiles (id, in_game_name) values ($1, $2)", [user.id, name]);
       await client.query(
         `insert into alliance_members (alliance, user_id, game_rank, alliance_title, is_regent, verified_at)

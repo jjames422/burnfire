@@ -15,7 +15,6 @@ type Overview = { metrics: Metrics; officer_rank: "r1" | "r2" | "r3" | "r4" | "r
 type Recruit = {
   user_id: string;
   in_game_name: string;
-  email?: string;
   communication_preference: "external_chat" | "website" | "both" | null;
   identity_status: string;
   started_at: string;
@@ -671,7 +670,6 @@ export function CommandPanel() {
                           <button type="button" className="font-medium text-accent-bright underline" onClick={() => void openRecruit(recruit.user_id)}>
                             {recruit.in_game_name}
                           </button>
-                          {recruit.email && <small className="block text-text-secondary">{recruit.email}</small>}
                         </td>
                         <td className="px-3 py-3" style={{ minWidth: 200 }}>
                           {canAssignList ? (
@@ -833,7 +831,6 @@ function RecruitDetailPanel({
           <div>
             <span className="eyebrow"><Text>{"Recruit record"}</Text></span>
             <h2 className="mt-1 font-display text-3xl font-semibold">{String(recruit.in_game_name)}</h2>
-            {typeof recruit.email === "string" && <p className="mt-1 text-sm text-text-secondary">{recruit.email}</p>}
           </div>
           <button onClick={onClose} className="border border-border px-3 py-2 text-sm"><Text>{"Close"}</Text></button>
         </header>

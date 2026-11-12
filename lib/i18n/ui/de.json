@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "Betrieben von BurnFire · Inoffizielle Last Asylum: Plague-Community",
   "How to get {name}": "So erhältst du {name}",
   "HP": "LP",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "Ich bestätige: {label} für {in_game_name} ({email}). Die Folgen sind mir klar.",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "Ich bestätige: {label} für {in_game_name}. Die Folgen sind mir klar.",
   "I have read and understand this version": "Diese Version habe ich gelesen und verstanden",
   "I need officer help": "Ich brauche Offiziershilfe",
   "Identity": "Identität",

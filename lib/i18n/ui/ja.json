@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "運営：BurnFire同盟 · Last Asylum: Plague非公式コミュニティ",
   "How to get {name}": "{name} の入手方法",
   "HP": "HP",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "確認：{in_game_name}（{email}）に {label} を実行します。上記の影響を理解しています。",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "確認：{in_game_name}に {label} を実行します。上記の影響を理解しています。",
   "I have read and understand this version": "この版を読み理解しました",
   "I need officer help": "幹部の助けが必要",
   "Identity": "本人情報",

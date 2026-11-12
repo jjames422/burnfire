@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "Домаћин: BurnFire Alliance · Незванична заједница игре Last Asylum: Plague",
   "How to get {name}": "Како добити хероја {name}",
   "HP": "HP",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "Потврђујем: {label} за {in_game_name} ({email}). Разумем горе наведени ефекат.",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "Потврђујем: {label} за {in_game_name}. Разумем горе наведени ефекат.",
   "I have read and understand this version": "Прочитао сам и разумем ову верзију",
   "I need officer help": "Треба ми помоћ официра",
   "Identity": "Идентитет",

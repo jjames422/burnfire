@@ -70,7 +70,6 @@ export function UserRecovery({ userId, onClose, onSaved }: {
     {message && <p className="portal-notice" role="status">{t(message)}</p>}
     {!data && !error && <p role="status"><Text>{"Loading account details..."}</Text></p>}
     {data && <>
-      <p className="portal-detail">{data.user.email}</p>
       <p><Text values={{ value1: String(data.user.game_rank?.toUpperCase() ?? t("No alliance rank") ?? ""), value2: t(data.user.identity_status ?? "Not enrolled"), sessions: data.user.sessions.toLocaleString(locale), passkeys: data.user.passkeys.toLocaleString(locale) }}>{"{value1}  · Identity: {value2} · {sessions}  active sessions · {passkeys}  passkeys"}</Text></p>
       <p><Text values={{ quiz_attempts: data.user.quiz_attempts.toLocaleString(locale), acknowledgments: data.user.acknowledgments.toLocaleString(locale), length: data.followups.length.toLocaleString(locale) }}>{"{quiz_attempts}  quiz attempts · {acknowledgments}  acknowledgments · {length}  open issues"}</Text></p>
       <form onSubmit={submit}>
@@ -98,7 +97,7 @@ export function UserRecovery({ userId, onClose, onSaved }: {
         </fieldset>}
         <label htmlFor="recovery-reason"><Text>{"Reason for this action (recorded in audit history)"}</Text></label>
         <textarea id="recovery-reason" required minLength={3} maxLength={1000} rows={3} disabled={busy} value={reason} onChange={(event) => setReason(event.target.value)} />
-        <label className="portal-recovery-issue"><input type="checkbox" required disabled={busy} checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} /><span><Text values={{ label: t(RECOVERY_ACTIONS[action].label), in_game_name: String(data.user.in_game_name ?? ""), email: String(data.user.email ?? "") }}>{"I confirm: {label}  for {in_game_name} ({email}). I understand the effect above."}</Text></span></label>
+        <label className="portal-recovery-issue"><input type="checkbox" required disabled={busy} checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} /><span><Text values={{ label: t(RECOVERY_ACTIONS[action].label), in_game_name: String(data.user.in_game_name ?? "") }}>{"I confirm: {label}  for {in_game_name}. I understand the effect above."}</Text></span></label>
         <button className="portal-primary" disabled={busy || !confirmed || reason.trim().length < 3 || Boolean(unavailable) || (action === "resolve_followups" && (selected.length === 0 || selected.length > 100))}>{busy ? t("Applying...") : t("Confirm support action")}</button>
       </form>
       <h3><Text>{"Recent support history"}</Text></h3>

@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "باستضافة تحالف BurnFire · مجتمع غير رسمي لـ Last Asylum: Plague",
   "How to get {name}": "كيفية الحصول على {name}",
   "HP": "صحة",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "أؤكد: {label} لـ {in_game_name} ({email}). أفهم الأثر المذكور.",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "أؤكد: {label} لـ {in_game_name}. أفهم الأثر المذكور.",
   "I have read and understand this version": "قرأت هذه النسخة وفهمتها",
   "I need officer help": "أحتاج مساعدة ضابط",
   "Identity": "الهوية",

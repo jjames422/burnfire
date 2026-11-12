@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 
 const connectionString = process.env.BURNFIRE_TEST_DATABASE_URL;
 const baseUrl = process.env.BURNFIRE_API_TEST_URL;
@@ -22,7 +23,7 @@ test("site-admin account support resets only the chosen user and records each co
   await client.connect();
   async function account(label, rank, siteAdmin = false) {
     const email = `support-${label}-${suffix}@example.invalid`;
-    const { rows: [user] } = await client.query("insert into users (email) values ($1) returning id", [email]);
+    const { rows: [user] } = await client.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(email));
     users.push(user.id);
     if (rank) {
       await client.query("insert into profiles (id,in_game_name) values ($1,$2)", [user.id, `Support ${label}`]);
@@ -154,7 +155,7 @@ test("site-admin account support resets only the chosen user and records each co
     assert.equal(revoked.data.details.sessions, 2);
     assert.equal((await request("/api/auth/session", "GET", target.cookie)).data.user, null);
     assert.equal((await request("/api/auth/session", "GET", officer.cookie)).data.user.id, officer.id);
-    await client.query("insert into login_codes (email,code_hash,expires_at) values ($1,$2,now()+interval '2 minutes')", [target.email, hash("164829")]);
+    await client.query("insert into login_codes (email_hash,code_hash,expires_at) values ($1,$2,now()+interval '2 minutes')", [emailIndex(target.email), hash("164829")]);
     assert.equal((await request("/api/auth/verify", "POST", "", { email: target.email, code: "164829" })).status, 200, "Email recovery remains available");
     const audit = await request(endpoint, "GET", admin.cookie);
     assert.equal(audit.data.history.length, 5, "Only successful actions create audit entries");
@@ -166,7 +167,7 @@ test("site-admin account support resets only the chosen user and records each co
     assert.equal((await request("/api/auth/session", "GET", admin.cookie)).data.user, null);
   } finally {
     try {
-      await client.query("delete from login_codes where email = any(select email from users where id=any($1::uuid[]))", [users]);
+      await client.query("delete from login_codes where email_hash = any(select email_hash from users where id=any($1::uuid[]))", [users]);
       await client.query("delete from command_followup_history where followup_id in (select id from command_followups where user_id=any($1::uuid[]))", [users]);
       await client.query("delete from command_followups where user_id=any($1::uuid[])", [users]);
       await client.query("delete from users where id=any($1::uuid[])", [users]);

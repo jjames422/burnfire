@@ -331,7 +331,7 @@
   "Hosted by BurnFire Alliance · An unofficial Last Asylum: Plague community": "Хост — альянс BurnFire · Неофициальное сообщество Last Asylum: Plague",
   "How to get {name}": "Как получить {name}",
   "HP": "ОЗ",
-  "I confirm: {label}  for {in_game_name} ({email}). I understand the effect above.": "Подтверждаю: {label} для {in_game_name} ({email}). Последствия понятны.",
+  "I confirm: {label}  for {in_game_name}. I understand the effect above.": "Подтверждаю: {label} для {in_game_name}. Последствия понятны.",
   "I have read and understand this version": "Я прочитал и понял эту версию",
   "I need officer help": "Мне нужна помощь офицера",
   "Identity": "Личность",

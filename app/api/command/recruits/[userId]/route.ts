@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { canManageLeadership, requireCommandOfficer, trainingScope } from "@/lib/server/command";
+import { requireCommandOfficer, trainingScope } from "@/lib/server/command";
 import { query, queryOne } from "@/lib/server/db";
 import { jsonError } from "@/lib/server/http";
 import { localizeTrainingRows, type TrainingSourceRow } from "@/lib/server/training-localization";
@@ -14,14 +14,12 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
     return jsonError("Recruit was not found.", 404);
   }
 
-  const emailColumn = canManageLeadership(officer) ? ", u.email" : "";
   const recruit = await queryOne<Record<string, string | number | null>>(
     `select e.user_id, p.in_game_name, e.game_identifier, e.communication_preference,
             e.alliance_mail_help, e.officer_interest, e.identity_status,
             e.identity_verified_at, verifier.in_game_name as verified_by_name,
             e.started_at, e.completed_at, e.current_step, e.assigned_officer,
             assigned.in_game_name as assigned_officer_name
-            ${emailColumn}
      from academy_enrollments e
      join profiles p on p.id = e.user_id
      join users u on u.id = e.user_id

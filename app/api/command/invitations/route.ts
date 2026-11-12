@@ -5,6 +5,7 @@ import { canManageLeadership, requireCommandOfficer } from "@/lib/server/command
 import { query, withTransaction } from "@/lib/server/db";
 import { sendRecruitInvitation } from "@/lib/server/email";
 import { jsonError } from "@/lib/server/http";
+import { decryptEmail, emailIndex, encryptEmail, maskEmail } from "@/lib/server/email-privacy";
 
 function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("hex");
@@ -14,8 +15,8 @@ export async function GET() {
   const { user, officer, response } = await requireCommandOfficer();
   if (response) return response;
   const creatorFilter = canManageLeadership(officer) ? "" : "and created_by = $1";
-  const invitations = await query(
-    `select id, email, created_at, expires_at, opened_at, redeemed_at,
+  const rows = await query<{ email_encrypted: string } & Record<string, unknown>>(
+    `select id, email_encrypted, created_at, expires_at, opened_at, redeemed_at,
             case
               when redeemed_at is not null then 'redeemed'
               when revoked_at is not null then 'revoked'
@@ -28,6 +29,11 @@ export async function GET() {
      limit 100`,
     canManageLeadership(officer) ? [] : [user.id],
   );
+  // Only a masked hint (e.g. "f•••@gmail.com") ever leaves the server.
+  const invitations = rows.map(({ email_encrypted, ...row }) => ({
+    ...row,
+    email: maskEmail(decryptEmail(email_encrypted)),
+  }));
   return NextResponse.json({ invitations });
 }
 
@@ -43,20 +49,21 @@ export async function POST(request: NextRequest) {
   }
 
   const token = randomBytes(32).toString("base64url");
+  const emailHash = emailIndex(email);
   const invitation = await withTransaction(async (client) => {
     await client.query(
       `update command_invitations set revoked_at = now()
-       where email = $1 and redeemed_at is null and revoked_at is null`,
-      [email],
+       where email_hash = $1 and redeemed_at is null and revoked_at is null`,
+      [emailHash],
     );
     const result = await client.query<{
       id: string;
       expires_at: string;
     }>(
-      `insert into command_invitations (email, token_hash, created_by)
-       values ($1, $2, $3)
+      `insert into command_invitations (email_hash, email_encrypted, token_hash, created_by)
+       values ($1, $2, $3, $4)
        returning id, expires_at`,
-      [email, hashToken(token), user.id],
+      [emailHash, encryptEmail(email), hashToken(token), user.id],
     );
     return result.rows[0];
   });
@@ -81,7 +88,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     invitation: {
       id: invitation.id,
-      email,
+      email: maskEmail(email),
       expires_at: invitation.expires_at,
       invitation_url: invitationUrl,
       email_sent: emailSent,

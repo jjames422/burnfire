@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash, randomBytes } from "node:crypto";
 import test from "node:test";
 import pg from "pg";
+import { emailIndex, storedEmail } from "./email-fixtures.mjs";
 import { ACCOUNT_HINT_COOKIE, accountHintOptions } from "../lib/auth/account-hint.ts";
 
 const baseUrl = process.env.BURNFIRE_API_TEST_URL;
@@ -60,8 +61,8 @@ test("verified accounts receive the hint, existing sessions backfill it, and sig
   const code = "164829";
   await client.connect();
   try {
-    await client.query("insert into login_codes (email, code_hash, expires_at) values ($1,$2,now()+interval '2 minutes')",
-      [email, createHash("sha256").update(code).digest("hex")]);
+    await client.query("insert into login_codes (email_hash, code_hash, expires_at) values ($1,$2,now()+interval '2 minutes')",
+      [emailIndex(email), createHash("sha256").update(code).digest("hex")]);
     const verified = await fetch(new URL("/api/auth/verify", origin), {
       method: "POST", headers: { Origin: "https://burnfire2.com", "Content-Type": "application/json" },
       body: JSON.stringify({ email, code }),
@@ -91,8 +92,8 @@ test("verified accounts receive the hint, existing sessions backfill it, and sig
     assert.match(signedOut, /Sign in/);
     assert.doesNotMatch(signedOut, /Create account|Enter member portal/);
   } finally {
-    await client.query("delete from users where email = $1", [email]);
-    await client.query("delete from login_codes where email = $1", [email]);
+    await client.query("delete from users where email_hash = $1", [emailIndex(email)]);
+    await client.query("delete from login_codes where email_hash = $1", [emailIndex(email)]);
     await client.end();
   }
 });

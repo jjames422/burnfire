@@ -27,23 +27,27 @@ exception when duplicate_object then null; end $$;
 
 -- === Auth ==================================================================
 
+-- Email privacy: addresses are never stored in plaintext. email_hash is a
+-- keyed HMAC (blind index) used for sign-in lookups; email_encrypted is
+-- AES-256-GCM ciphertext. Both use EMAIL_ENCRYPTION_KEY, which only the
+-- application server holds (see lib/server/email-privacy.ts).
 create table if not exists users (
   id uuid primary key default gen_random_uuid(),
-  email text not null unique check (email = lower(email)),
+  email_hash text not null unique,
+  email_encrypted text not null,
   created_at timestamptz not null default now()
 );
 
 -- Six-digit email login codes, hashed at rest.
 create table if not exists login_codes (
   id bigint generated always as identity primary key,
-  email text not null check (email = lower(email)),
+  email_hash text not null,
   code_hash text not null,
   attempts integer not null default 0,
   expires_at timestamptz not null,
   consumed_at timestamptz,
   created_at timestamptz not null default now()
 );
-create index if not exists login_codes_email_idx on login_codes (email, created_at desc);
 
 create table if not exists sessions (
   id uuid primary key default gen_random_uuid(),
@@ -57,12 +61,51 @@ create index if not exists sessions_user_idx on sessions (user_id);
 
 create table if not exists auth_links (
   token_hash text primary key,
-  email text not null,
+  email_hash text not null,
+  email_encrypted text not null,
   return_to text not null default '/portal',
   expires_at timestamptz not null,
   created_at timestamptz not null default now()
 );
-create index if not exists auth_links_email_idx on auth_links (email, created_at desc);
+
+-- Upgrade databases created before email encryption. Login codes and links
+-- are short-lived, so pending ones are discarded. Existing accounts keep a
+-- nullable plaintext column until scripts/encrypt-emails.mjs has filled the
+-- encrypted columns; the next run of this file then drops it.
+alter table users add column if not exists email_hash text;
+alter table users add column if not exists email_encrypted text;
+create unique index if not exists users_email_hash_key on users (email_hash);
+do $$ begin
+  if exists (select 1 from information_schema.columns where table_schema = current_schema()
+             and table_name = 'users' and column_name = 'email') then
+    alter table users alter column email drop not null;
+    if not exists (select 1 from users where email_hash is null or email_encrypted is null) then
+      alter table users drop column email;
+    end if;
+  end if;
+  if not exists (select 1 from users where email_hash is null or email_encrypted is null) then
+    alter table users alter column email_hash set not null;
+    alter table users alter column email_encrypted set not null;
+  end if;
+end $$;
+
+do $$ begin
+  if exists (select 1 from information_schema.columns where table_schema = current_schema()
+             and table_name = 'login_codes' and column_name = 'email') then
+    delete from login_codes;
+    alter table login_codes drop column email;
+    alter table login_codes add column email_hash text not null;
+  end if;
+  if exists (select 1 from information_schema.columns where table_schema = current_schema()
+             and table_name = 'auth_links' and column_name = 'email') then
+    delete from auth_links;
+    alter table auth_links drop column email;
+    alter table auth_links add column email_hash text not null;
+    alter table auth_links add column email_encrypted text not null;
+  end if;
+end $$;
+create index if not exists login_codes_email_hash_idx on login_codes (email_hash, created_at desc);
+create index if not exists auth_links_email_hash_idx on auth_links (email_hash, created_at desc);
 
 create table if not exists passkeys (
   credential_id text primary key,
@@ -410,7 +453,8 @@ create table if not exists fan_art (
 
 create table if not exists command_invitations (
   id uuid primary key default gen_random_uuid(),
-  email text not null check (email = lower(email) and char_length(email) <= 254),
+  email_hash text not null,
+  email_encrypted text not null,
   token_hash text not null unique,
   created_by uuid not null references users (id) on delete restrict,
   expires_at timestamptz not null default (now() + interval '14 days'),
@@ -420,10 +464,26 @@ create table if not exists command_invitations (
   revoked_at timestamptz,
   created_at timestamptz not null default now()
 );
-create index if not exists command_invitations_email_idx
-  on command_invitations (email, created_at desc);
-create unique index if not exists command_invitations_one_active_email
-  on command_invitations (email) where redeemed_at is null and revoked_at is null;
+-- Upgrade invitations created before email encryption (see users above).
+alter table command_invitations add column if not exists email_hash text;
+alter table command_invitations add column if not exists email_encrypted text;
+do $$ begin
+  if exists (select 1 from information_schema.columns where table_schema = current_schema()
+             and table_name = 'command_invitations' and column_name = 'email') then
+    alter table command_invitations alter column email drop not null;
+    if not exists (select 1 from command_invitations where email_hash is null or email_encrypted is null) then
+      alter table command_invitations drop column email;
+    end if;
+  end if;
+  if not exists (select 1 from command_invitations where email_hash is null or email_encrypted is null) then
+    alter table command_invitations alter column email_hash set not null;
+    alter table command_invitations alter column email_encrypted set not null;
+  end if;
+end $$;
+create index if not exists command_invitations_email_hash_idx
+  on command_invitations (email_hash, created_at desc);
+create unique index if not exists command_invitations_one_active_email_hash
+  on command_invitations (email_hash) where redeemed_at is null and revoked_at is null;
 
 create table if not exists academy_enrollments (
   user_id uuid primary key references users (id) on delete cascade,

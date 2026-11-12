@@ -29,7 +29,7 @@ type Access = {
   can_request_rank: boolean;
   game_identifier: string | null;
 };
-type ApprovalTask = { user_id: string; in_game_name: string; email: string; requested_rank: GameRank | null; requested_title: AllianceTitle | null; created_at: string };
+type ApprovalTask = { user_id: string; in_game_name: string; requested_rank: GameRank | null; requested_title: AllianceTitle | null; created_at: string };
 type AdminSummary = { total_accounts: number; pending_approvals: number; incomplete_profiles: number };
 
 export function PortalHome() {
@@ -92,7 +92,7 @@ export function PortalHome() {
         <p><Text values={{ total_accounts: summary.total_accounts.toLocaleString(locale), pending_approvals: summary.pending_approvals.toLocaleString(locale), incomplete_profiles: summary.incomplete_profiles.toLocaleString(locale) }}>{"{total_accounts}  signed-up accounts · {pending_approvals}  awaiting approval · {incomplete_profiles}  incomplete profiles"}</Text></p>
         <h3><Text>{"Membership approval tasks"}</Text></h3>
         {tasks.length === 0 ? <p><Text>{"No membership approvals waiting."}</Text></p> : <ul>{tasks.map((task) => <li key={task.user_id}>
-          <div><strong>{task.in_game_name}</strong><p>{task.email}</p><p>{task.requested_rank ? t("Requests {value1}{value2}", { value1: task.requested_rank.toUpperCase(), value2: task.requested_title ? ` / ${t(TITLE_LABELS[task.requested_title])}` : "" }) : t("New signup - rank not yet requested")} · {new Date(task.created_at).toLocaleDateString(locale)}</p></div>
+          <div><strong>{task.in_game_name}</strong><p>{task.requested_rank ? t("Requests {value1}{value2}", { value1: task.requested_rank.toUpperCase(), value2: task.requested_title ? ` / ${t(TITLE_LABELS[task.requested_title])}` : "" }) : t("New signup - rank not yet requested")} · {new Date(task.created_at).toLocaleDateString(locale)}</p></div>
           <Link className="portal-secondary" href={`/portal/members?q=${encodeURIComponent(task.in_game_name)}`}><Text>{"Review / change"}</Text></Link>
         </li>)}</ul>}
       </section>}
