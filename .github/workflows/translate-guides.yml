@@ -1,0 +1,112 @@
+name: Translate Guides
+
+# When an English guide is added or edited on main, translate it into every
+# site locale and open (or update) a pull request with the results. English
+# goes live immediately; translations go live when the PR is merged. Until
+# then the site shows the English guide with its "not translated yet" note.
+#
+# Uses Google Gemini, like the universal translator bot. Needs the
+# GEMINI_API_KEY repository secret (the bot's key works), and "Allow GitHub Actions to
+# create and approve pull requests" enabled under Settings > Actions > General.
+
+on:
+  push:
+    branches: [main]
+    paths: ["content/burnfire/guides/**"]
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Only this guide slug (blank = every guide that needs it)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: translate-guides
+  cancel-in-progress: false
+
+env:
+  BRANCH: translations/auto
+  TRANSLATION_MODELS: gemini-3.8-flash,gemini-3.5-flash,gemini-3.5-flash-lite
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # Reuse translations already waiting in an open PR. The manifest hashes
+      # decide what is still stale, so only new or changed guides are redone.
+      - name: Carry over pending translations
+        run: |
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            git fetch origin "$BRANCH"
+            git checkout "origin/$BRANCH" -- content/burnfire/locales
+          fi
+
+      - name: Translate
+        id: translate
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SLUG: ${{ inputs.slug }}
+        run: |
+          set +e
+          args=(--summary "$RUNNER_TEMP/summary.md")
+          if [ -n "$SLUG" ]; then args+=(--slug "$SLUG"); fi
+          node scripts/translate-guides.mjs "${args[@]}"
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Detect changes
+        id: diff
+        run: |
+          git fetch origin main
+          if [ -n "$(git diff origin/main --name-only -- content/burnfire/locales)$(git ls-files --others --exclude-standard content/burnfire/locales)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run tests
+        if: steps.diff.outputs.changed == 'true'
+        run: npm test
+
+      - name: Open or update pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add content/burnfire/locales
+          git commit -m "Translate new and updated guides"
+          git push --force origin "$BRANCH"
+
+          {
+            echo "Automatic translations for guides added or changed on main. Merging this PR publishes them; until then those guides show in English."
+            echo
+            echo "Every file passed the translation checks and \`npm test\`. Worth a quick read: numbers, times and schedule tables."
+            echo
+            cat "$RUNNER_TEMP/summary.md" 2>/dev/null || true
+          } > "$RUNNER_TEMP/body.md"
+
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')" ]; then
+            gh pr edit "$BRANCH" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --base main --head "$BRANCH" --title "Translate new and updated guides" --body-file "$RUNNER_TEMP/body.md"
+          fi
+
+      - name: Fail if any translation failed
+        if: steps.translate.outputs.status != '0'
+        run: |
+          echo "::error::Some translations failed; see the Translate step log. Those guides keep showing English."
+          exit 1

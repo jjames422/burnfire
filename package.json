@@ -11,7 +11,8 @@
     "check:localization": "node --experimental-strip-types scripts/check-localization.mjs",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "ci": "npm run typecheck && npm run check:source && npm run check:localization && npm run check:migrations && npm run test && npm run build",
-    "start": "next start"
+    "start": "next start",
+    "translate:guides": "node scripts/translate-guides.mjs"
   },
   "dependencies": {
     "@simplewebauthn/browser": "^14.0.0",
