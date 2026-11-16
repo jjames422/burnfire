@@ -8,6 +8,7 @@ import { getGuideBySlug, getGuideSlugs } from "@/lib/content/guides";
 import { site } from "@/config/site";
 import { Callout } from "@/components/mdx/Callout";
 import { Figure } from "@/components/mdx/Figure";
+import { Video } from "@/components/mdx/Video";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@/components/mdx/MdxTable";
 import { createHeading } from "@/components/mdx/Heading";
 import { TagChip } from "@/components/guides/TagChip";
@@ -41,6 +42,7 @@ export default async function GuidePage({
     components: {
       Callout,
       Figure,
+      Video,
       table: Table,
       thead: Thead,
       tbody: Tbody,
