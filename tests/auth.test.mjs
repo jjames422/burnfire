@@ -113,3 +113,38 @@ test("auth exception handlers record sanitized context before returning errors",
   const auth = await readFile(new URL("../lib/server/auth.ts", import.meta.url), "utf8");
   assert.match(auth, /catch\s*\{\s*logAuthFailure\("CODE_DELIVERY_FAILED"\)/);
 });
+
+test("Resend rejections log status and error type only, never recipient or provider message", async () => {
+  const { sendLoginLink } = await import("../lib/server/email.ts");
+  const logged = [];
+  const previousError = console.error;
+  const previousFetch = globalThis.fetch;
+  const previousKey = process.env.RESEND_API_KEY;
+  process.env.RESEND_API_KEY = "re_test_secret";
+  console.error = (...args) => logged.push(args);
+  try {
+    globalThis.fetch = async () => new Response(JSON.stringify({
+      statusCode: 403,
+      name: "validation_error",
+      message: "You can only send testing emails to your own email address (owner@example.test).",
+    }), { status: 403 });
+    await assert.rejects(sendLoginLink("private@example.test", "https://example.test/auth/link#token=secret"));
+
+    globalThis.fetch = async () => new Response("<html>bad gateway private@example.test</html>", { status: 502 });
+    await assert.rejects(sendLoginLink("private@example.test", "https://example.test/auth/link#token=secret"));
+
+    globalThis.fetch = async () => { throw new Error("connect failed re_test_secret"); };
+    await assert.rejects(sendLoginLink("private@example.test", "https://example.test/auth/link#token=secret"));
+
+    assert.deepEqual(logged, [
+      ["[email] RESEND_REJECTED kind=login_link status=403 type=validation_error"],
+      ["[email] RESEND_REJECTED kind=login_link status=502 type=unknown"],
+      ["[email] RESEND_UNREACHABLE kind=login_link"],
+    ]);
+  } finally {
+    console.error = previousError;
+    globalThis.fetch = previousFetch;
+    if (previousKey === undefined) delete process.env.RESEND_API_KEY;
+    else process.env.RESEND_API_KEY = previousKey;
+  }
+});
