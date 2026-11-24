@@ -166,5 +166,8 @@
   "Moderator required": "مطلوب مشرف",
   "Pending invitation not found": "الدعوة المعلقة غير موجودة",
   "Community profile required": "مطلوب ملف شخصي للمجتمع",
-  "Invalid comment length": "طول التعليق غير صالح"
+  "Invalid comment length": "طول التعليق غير صالح",
+  "Translation is not set up.": "لم يتم إعداد الترجمة.",
+  "Translation is busy right now. Try again in a minute.": "خدمة الترجمة مشغولة الآن. حاول مرة أخرى بعد دقيقة.",
+  "Translation limit reached. Try again later.": "تم بلوغ حد الترجمة. حاول مرة أخرى لاحقًا."
 }

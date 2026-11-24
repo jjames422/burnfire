@@ -886,5 +886,10 @@
   "Filter by officer": "Filtrar por oficial",
   "Help this recruit →": "Ajudar este recruta →",
   "Needs help with": "Precisa de ajuda com",
-  "Your recruits": "Seus recrutas"
+  "Your recruits": "Seus recrutas",
+  "Translate": "Traduzir",
+  "Translating…": "Traduzindo…",
+  "Show original": "Ver original",
+  "Translated · Show original": "Traduzido · Ver original",
+  "Translation unavailable: {error}": "Tradução indisponível: {error}"
 }

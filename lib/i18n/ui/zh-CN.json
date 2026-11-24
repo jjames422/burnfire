@@ -886,5 +886,10 @@
   "Filter by officer": "按军官筛选",
   "Help this recruit →": "帮助这名新兵 →",
   "Needs help with": "需要帮助的内容",
-  "Your recruits": "你的新兵"
+  "Your recruits": "你的新兵",
+  "Translate": "翻译",
+  "Translating…": "正在翻译…",
+  "Show original": "显示原文",
+  "Translated · Show original": "已翻译 · 显示原文",
+  "Translation unavailable: {error}": "翻译不可用：{error}"
 }

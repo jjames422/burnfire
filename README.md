@@ -52,8 +52,10 @@ overrides that choice and saves the `bf_locale` preference for one year. On
 sign-in sessions, quiz answers, and permissions do not change when choosing a language.
 
 Interface translations are stored in `lib/i18n/ui`, with server/API message translations
-in `lib/i18n/messages`. Member-written chat messages, names, and other user-authored
-text are not translated. Arabic uses right-to-left layout; email addresses and code
+in `lib/i18n/messages`. Member names and other user-authored text are not translated.
+Chat messages have a Translate button that machine-translates one message into the
+reader's language on request (Google Gemini, `GEMINI_API_KEY`); results are cached in
+`message_translations` and each member can request 60 new translations an hour. Arabic uses right-to-left layout; email addresses and code
 fields remain left-to-right.
 Hero, skill, and exclusive-weapon proper names stay in their canonical game spelling
 so dossier headings and skill-priority lists match. Rarity/stat abbreviations stay

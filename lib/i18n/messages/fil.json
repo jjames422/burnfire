@@ -166,5 +166,8 @@
   "Moderator required": "Kailangan ang tagapamagitan",
   "Pending invitation not found": "Hindi makita ang nakabinbing imbitasyon",
   "Community profile required": "Kailangan ang profile ng komunidad",
-  "Invalid comment length": "Hindi wastong haba ng komento"
+  "Invalid comment length": "Hindi wastong haba ng komento",
+  "Translation is not set up.": "Hindi pa naka-set up ang pagsasalin.",
+  "Translation is busy right now. Try again in a minute.": "Abala ang pagsasalin ngayon. Subukan ulit pagkalipas ng isang minuto.",
+  "Translation limit reached. Try again later.": "Naabot na ang limitasyon sa pagsasalin. Subukan ulit mamaya."
 }

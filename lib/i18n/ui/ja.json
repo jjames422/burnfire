@@ -886,5 +886,10 @@
   "Filter by officer": "士官で絞り込む",
   "Help this recruit →": "この新兵を支援 →",
   "Needs help with": "支援が必要な項目",
-  "Your recruits": "あなたの新兵"
+  "Your recruits": "あなたの新兵",
+  "Translate": "翻訳",
+  "Translating…": "翻訳中…",
+  "Show original": "原文を表示",
+  "Translated · Show original": "翻訳済み · 原文を表示",
+  "Translation unavailable: {error}": "翻訳できません：{error}"
 }

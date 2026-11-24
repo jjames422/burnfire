@@ -166,5 +166,8 @@
   "Moderator required": "É necessário um moderador",
   "Pending invitation not found": "Convite pendente não encontrado",
   "Community profile required": "É necessário um perfil da comunidade",
-  "Invalid comment length": "Tamanho do comentário inválido"
+  "Invalid comment length": "Tamanho do comentário inválido",
+  "Translation is not set up.": "A tradução não está configurada.",
+  "Translation is busy right now. Try again in a minute.": "O serviço de tradução está ocupado. Tente novamente em um minuto.",
+  "Translation limit reached. Try again later.": "Limite de traduções atingido. Tente novamente mais tarde."
 }

@@ -886,5 +886,10 @@
   "Filter by officer": "التصفية حسب الضابط",
   "Help this recruit →": "ساعد هذا المجند ←",
   "Needs help with": "يحتاج مساعدة في",
-  "Your recruits": "مجندوك"
+  "Your recruits": "مجندوك",
+  "Translate": "ترجمة",
+  "Translating…": "جارٍ الترجمة…",
+  "Show original": "عرض النص الأصلي",
+  "Translated · Show original": "مترجمة · عرض النص الأصلي",
+  "Translation unavailable: {error}": "الترجمة غير متاحة: {error}"
 }

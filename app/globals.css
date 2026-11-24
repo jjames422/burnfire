@@ -228,6 +228,8 @@ body::after {
 .message-copy { min-width:0; } .message-meta { display:flex; align-items:baseline; gap:8px; }
 .message-meta strong { color:#f4eadd; font-size:12px; } .message-meta time,.message-meta span { color:#5f5960; font-size:9px; }
 .message-copy>p { margin-top:2px; color:#bbb3ae; font-size:13px; line-height:1.48; white-space:pre-wrap; }
+.message-copy>p.message-translation { color:#d8d0ca; }
+.translation-toggle { margin-top:2px; padding:0; color:#8d8580; font-size:10px; } .translation-toggle:hover { color:#ff8a2a; }
 .message-actions { height:30px; display:flex; align-items:center; gap:2px; padding:3px; opacity:0; transform:translateY(4px); border:1px solid #302c33; border-radius:8px; background:#201e23; transition:.16s; }
 .message-row:hover .message-actions { opacity:1; transform:none; } .message-actions button { padding:2px 4px; color:#aaa2a8; font-size:11px; }
 .message-menu{position:absolute;z-index:10;top:38px;right:10px;width:185px;padding:6px;border:1px solid #3c353d;border-radius:10px;background:#211f25;box-shadow:0 18px 45px rgba(0,0,0,.48)}.message-menu button{display:block;width:100%;padding:8px 9px;border-radius:6px;color:#cfc5c0;font-size:10px;text-align:left}.message-menu button:hover{color:#fff4df;background:#302b32}.message-menu button.danger{color:#ff8275}.message-menu button.danger:hover{background:#3a2225}

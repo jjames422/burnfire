@@ -166,5 +166,8 @@
   "Moderator required": "モデレーター権限が必要です",
   "Pending invitation not found": "保留中の招待が見つかりません",
   "Community profile required": "コミュニティプロフィールが必要です",
-  "Invalid comment length": "コメントの長さが無効です"
+  "Invalid comment length": "コメントの長さが無効です",
+  "Translation is not set up.": "翻訳機能が設定されていません。",
+  "Translation is busy right now. Try again in a minute.": "翻訳サービスが混み合っています。1分後にもう一度お試しください。",
+  "Translation limit reached. Try again later.": "翻訳の上限に達しました。しばらくしてからもう一度お試しください。"
 }

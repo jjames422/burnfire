@@ -886,5 +886,10 @@
   "Filter by officer": "Фильтр по офицеру",
   "Help this recruit →": "Помочь рекруту →",
   "Needs help with": "Нужна помощь с",
-  "Your recruits": "Ваши рекруты"
+  "Your recruits": "Ваши рекруты",
+  "Translate": "Перевести",
+  "Translating…": "Перевод…",
+  "Show original": "Показать оригинал",
+  "Translated · Show original": "Переведено · Показать оригинал",
+  "Translation unavailable: {error}": "Перевод недоступен: {error}"
 }

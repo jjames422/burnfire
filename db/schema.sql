@@ -327,6 +327,21 @@ create table if not exists pinned_messages (
   primary key (channel_id, message_id)
 );
 
+-- Machine translations of chat messages, made on request from the chat's
+-- Translate button. source_hash ties a translation to the exact text it was
+-- made from, so an edited message is translated again.
+create table if not exists message_translations (
+  message_id uuid not null references messages (id) on delete cascade,
+  locale text not null,
+  source_hash text not null,
+  body text not null,
+  requested_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  primary key (message_id, locale)
+);
+create index if not exists message_translations_requester_idx
+  on message_translations (requested_by, created_at desc);
+
 create table if not exists chat_attachments (
   id uuid primary key default gen_random_uuid(),
   message_id uuid references messages (id) on delete cascade,

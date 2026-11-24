@@ -166,5 +166,8 @@
   "Moderator required": "需要版主权限",
   "Pending invitation not found": "找不到待处理邀请",
   "Community profile required": "需要社区个人资料",
-  "Invalid comment length": "评论长度无效"
+  "Invalid comment length": "评论长度无效",
+  "Translation is not set up.": "尚未配置翻译功能。",
+  "Translation is busy right now. Try again in a minute.": "翻译服务繁忙，请一分钟后再试。",
+  "Translation limit reached. Try again later.": "已达到翻译次数上限，请稍后再试。"
 }

@@ -25,6 +25,10 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
   const [reportReason, setReportReason] = useState("");
   const [reportError, setReportError] = useState<string | null>(null);
   const [threadRootId, setThreadRootId] = useState<string | null>(null);
+  // Translations shown in place of the original, keyed by message id. `source`
+  // is the text that was translated, so an edited message drops its translation.
+  const [translations, setTranslations] = useState<Map<string, { source: string; locale: string; text: string }>>(new Map());
+  const [translating, setTranslating] = useState<Set<string>>(new Set());
   const bottom = useRef<HTMLDivElement | null>(null);
 
   const load = useCallback(async () => {
@@ -100,6 +104,25 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
     else { setStatus(shouldPin ? "Message pinned." : "Message unpinned."); await load(); }
   }
 
+  async function translateMessage(message: ChatMessageRow) {
+    setOpenMenu(null);
+    if (translating.has(message.id)) return;
+    setTranslating((current) => new Set(current).add(message.id));
+    const { data, error } = await apiPost<{ translation: string }>(`/api/messages/${message.id}/translation`, { locale });
+    setTranslating((current) => { const next = new Set(current); next.delete(message.id); return next; });
+    if (error || !data) { setStatus(t("Translation unavailable: {error}", { error: t(error || "Translation is busy right now. Try again in a minute.") })); return; }
+    setTranslations((current) => new Map(current).set(message.id, { source: message.body, locale, text: data.translation }));
+  }
+
+  function showOriginal(id: string) {
+    setTranslations((current) => { const next = new Map(current); next.delete(id); return next; });
+  }
+
+  function translationOf(message: ChatMessageRow) {
+    const translation = translations.get(message.id);
+    return translation && translation.source === message.body && translation.locale === locale ? translation.text : null;
+  }
+
   function beginReport(message: ChatMessageRow) {
     setReportMessage(message);setReportReason("");setReportError(null);setOpenMenu(null);
   }
@@ -123,18 +146,19 @@ export function MessageList({ channelId, refreshVersion, onReply }: { channelId:
           <div className="avatar-flame">{message.identity_label.slice(0, 1).toUpperCase()}</div>
           <div className="message-copy">
             <div className="message-meta"><strong dir="auto">{message.identity_label}</strong><time>{new Date(message.created_at).toLocaleString(locale)}</time>{message.edited_at && <span><Text>{"edited"}</Text></span>}{pinnedIds.has(message.id) && <span className="pin-label"><Text>{"◆ Pinned"}</Text></span>}</div>
-            {editing === message.id ? <div className="edit-row"><input dir="auto" value={editBody} onChange={(event) => setEditBody(event.target.value)} /><button onClick={() => save(message.id)}><Text>{"Save"}</Text></button><button onClick={() => setEditing(null)}><Text>{"Cancel"}</Text></button></div> : <p dir="auto">{message.body}</p>}
+            {editing === message.id ? <div className="edit-row"><input dir="auto" value={editBody} onChange={(event) => setEditBody(event.target.value)} /><button onClick={() => save(message.id)}><Text>{"Save"}</Text></button><button onClick={() => setEditing(null)}><Text>{"Cancel"}</Text></button></div> : translationOf(message) !== null ? <><p dir="auto" className="message-translation">{translationOf(message)}</p><button className="translation-toggle" onClick={() => showOriginal(message.id)}><Text>{"Translated · Show original"}</Text></button></> : <p dir="auto">{message.body}</p>}
             {(attachments.get(message.id)??[]).map((attachment)=><a key={attachment.id} href={attachment.url} target="_blank" rel="noreferrer" className={`message-attachment ${attachment.mime_type.startsWith("image/")?"is-image":""}`}>{attachment.mime_type.startsWith("image/")&&attachment.url?<img src={attachment.url} alt={attachment.file_name}/>:<span>◆</span>}<div><strong>{attachment.file_name}</strong><small><Text values={{ value1: String((attachment.size_bytes/1024/1024).toFixed(2) ?? "") }}>{"{value1}  MB"}</Text></small></div></a>)}
             <div className="reaction-row">
               {Object.entries(message.reactions ?? {}).map(([emoji, total]) => <button key={emoji} onClick={() => react(message, emoji)} className="reaction-chip">{emoji} {<LocalizedNumber value={total} />}</button>)}
             </div>
             {!message.parent_message_id&&messages.some((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id)&&<button className="thread-link" onClick={()=>setThreadRootId(message.id)}><Text values={{ length: messages.filter((reply)=>reply.parent_message_id===message.id||reply.thread_root_id===message.id).length.toLocaleString(locale) }}>{"{length}  replies · View thread"}</Text></button>}
           </div>
-          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)} title={t("React {emoji}", { emoji: emoji })}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)} title={t("Reply")}>↩</button><button onClick={(event) => { event.stopPropagation(); setOpenMenu(openMenu === message.id ? null : message.id); }} title={t("More actions")}>•••</button>{message.author_id === userId && <><button onClick={() => { setEditing(message.id); setEditBody(message.body); }} title={t("Edit")}>✎</button><button onClick={() => remove(message.id)} title={t("Delete")}>⌫</button></>}</div>
+          <div className="message-actions">{QUICK_EMOJI.map((emoji) => <button key={emoji} onClick={() => react(message, emoji)} title={t("React {emoji}", { emoji: emoji })}>{emoji}</button>)}<button onClick={() => onReply(message.id, message.identity_label)} title={t("Reply")}>↩</button>{message.author_id !== userId && <button onClick={() => translationOf(message) !== null ? showOriginal(message.id) : translateMessage(message)} disabled={translating.has(message.id)} title={translating.has(message.id) ? t("Translating…") : translationOf(message) !== null ? t("Show original") : t("Translate")}>文A</button>}<button onClick={(event) => { event.stopPropagation(); setOpenMenu(openMenu === message.id ? null : message.id); }} title={t("More actions")}>•••</button>{message.author_id === userId && <><button onClick={() => { setEditing(message.id); setEditBody(message.body); }} title={t("Edit")}>✎</button><button onClick={() => remove(message.id)} title={t("Delete")}>⌫</button></>}</div>
           {openMenu === message.id && <div className="message-menu" onClick={(event) => event.stopPropagation()}>
             <button onClick={() => copyText(message)}><Text>{"Copy text"}</Text></button>
             <button onClick={() => copyLink(message)}><Text>{"Copy message link"}</Text></button>
             <button onClick={() => { onReply(message.id, message.identity_label); setOpenMenu(null); }}><Text>{"Reply"}</Text></button>
+            {message.author_id !== userId && (translationOf(message) !== null ? <button onClick={() => { showOriginal(message.id); setOpenMenu(null); }}><Text>{"Show original"}</Text></button> : <button onClick={() => translateMessage(message)} disabled={translating.has(message.id)}>{translating.has(message.id) ? t("Translating…") : t("Translate")}</button>)}
             <button onClick={() => markUnread(message)}><Text>{"Mark unread"}</Text></button>
             <button onClick={() => pin(message)}>{pinnedIds.has(message.id) ? t("Unpin message") : t("Pin message")}</button>
             <button className="danger" onClick={() => beginReport(message)}><Text>{"Report message"}</Text></button>

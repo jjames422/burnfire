@@ -886,5 +886,10 @@
   "Filter by officer": "I-filter ayon sa opisyal",
   "Help this recruit →": "Tulungan ang recruit na ito →",
   "Needs help with": "Kailangan ng tulong sa",
-  "Your recruits": "Ang iyong mga recruit"
+  "Your recruits": "Ang iyong mga recruit",
+  "Translate": "Isalin",
+  "Translating…": "Isinasalin…",
+  "Show original": "Ipakita ang orihinal",
+  "Translated · Show original": "Isinalin · Ipakita ang orihinal",
+  "Translation unavailable: {error}": "Hindi available ang pagsasalin: {error}"
 }

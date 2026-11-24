@@ -166,5 +166,8 @@
   "Moderator required": "Потребан је модератор",
   "Pending invitation not found": "Позивница на чекању није пронађена",
   "Community profile required": "Потребан је профил заједнице",
-  "Invalid comment length": "Неисправна дужина коментара"
+  "Invalid comment length": "Неисправна дужина коментара",
+  "Translation is not set up.": "Превођење није подешено.",
+  "Translation is busy right now. Try again in a minute.": "Услуга превођења је тренутно заузета. Покушајте поново за минут.",
+  "Translation limit reached. Try again later.": "Достигнуто је ограничење превода. Покушајте поново касније."
 }

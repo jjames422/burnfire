@@ -166,5 +166,8 @@
   "Moderator required": "중재자 권한이 필요합니다",
   "Pending invitation not found": "대기 중인 초대를 찾을 수 없습니다",
   "Community profile required": "커뮤니티 프로필이 필요합니다",
-  "Invalid comment length": "댓글 길이가 유효하지 않습니다"
+  "Invalid comment length": "댓글 길이가 유효하지 않습니다",
+  "Translation is not set up.": "번역 기능이 설정되지 않았습니다.",
+  "Translation is busy right now. Try again in a minute.": "번역 서비스가 혼잡합니다. 1분 후에 다시 시도하세요.",
+  "Translation limit reached. Try again later.": "번역 한도에 도달했습니다. 나중에 다시 시도하세요."
 }

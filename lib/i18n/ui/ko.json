@@ -886,5 +886,10 @@
   "Filter by officer": "장교별 필터",
   "Help this recruit →": "이 신병 돕기 →",
   "Needs help with": "도움이 필요한 항목",
-  "Your recruits": "내 신병"
+  "Your recruits": "내 신병",
+  "Translate": "번역",
+  "Translating…": "번역 중…",
+  "Show original": "원문 보기",
+  "Translated · Show original": "번역됨 · 원문 보기",
+  "Translation unavailable: {error}": "번역할 수 없습니다: {error}"
 }

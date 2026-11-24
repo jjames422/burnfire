@@ -886,5 +886,10 @@
   "Filter by officer": "Filtriraj po oficiru",
   "Help this recruit →": "Pomozi ovom regrutu →",
   "Needs help with": "Treba pomoć sa",
-  "Your recruits": "Vaši regruti"
+  "Your recruits": "Vaši regruti",
+  "Translate": "Prevedi",
+  "Translating…": "Prevođenje…",
+  "Show original": "Prikaži original",
+  "Translated · Show original": "Prevedeno · Prikaži original",
+  "Translation unavailable: {error}": "Prevod nije dostupan: {error}"
 }

@@ -166,5 +166,8 @@
   "Moderator required": "Требуется модератор",
   "Pending invitation not found": "Ожидающее приглашение не найдено",
   "Community profile required": "Требуется профиль сообщества",
-  "Invalid comment length": "Недопустимая длина комментария"
+  "Invalid comment length": "Недопустимая длина комментария",
+  "Translation is not set up.": "Перевод не настроен.",
+  "Translation is busy right now. Try again in a minute.": "Сервис перевода сейчас занят. Попробуйте через минуту.",
+  "Translation limit reached. Try again later.": "Достигнут лимит переводов. Попробуйте позже."
 }
