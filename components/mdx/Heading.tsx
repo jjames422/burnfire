@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type GithubSlugger from "github-slugger";
+import GithubSlugger from "github-slugger";
 import { getTranslator } from "@/lib/i18n/server";
 
 type HeadingLevel = 2 | 3;
@@ -16,17 +16,18 @@ function extractText(node: ReactNode): string {
 }
 
 /**
- * Builds an h2/h3 override bound to a single slugger instance so anchor ids
- * stay unique (and dedup correctly on repeated headings) within one guide
- * render — instantiate a fresh GithubSlugger per page, not at module scope.
+ * Builds an h2/h3 override. Anchor ids are assigned once per guide at compile
+ * time (lib/content/heading-ids.ts), so they stay unique and stable however
+ * many times the compiled guide is rendered. The fallback only covers a
+ * heading compiled without that plugin.
  */
-export function createHeading(level: HeadingLevel, slugger: GithubSlugger) {
+export function createHeading(level: HeadingLevel) {
   const sizeClass =
     level === 2 ? "text-2xl md:text-3xl mt-12 mb-4" : "text-xl md:text-2xl mt-8 mb-3";
 
-  return async function Heading({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
+  return async function Heading({ children, id: compiledId, ...props }: ComponentPropsWithoutRef<"h2">) {
     const t = await getTranslator();
-    const id = slugger.slug(extractText(children));
+    const id = compiledId ?? new GithubSlugger().slug(extractText(children));
     const Tag = `h${level}` as "h2" | "h3";
 
     return (
