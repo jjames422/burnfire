@@ -85,6 +85,7 @@
   "Choose a valid title for this rank.": "Выберите допустимый титул для этого ранга.",
   "Member not found.": "Участник не найден.",
   "A site administrator must review this membership request.": "Эту заявку на вступление должен проверить администратор сайта.",
+  "This request has already been reviewed.": "Этот запрос уже рассмотрен.",
   "Member belongs to another alliance.": "Участник принадлежит другому альянсу.",
   "You may only manage ranks below your own. Site administrators manage leadership appointments.": "Можно управлять только рангами ниже своего. Назначениями руководства управляют администраторы сайта.",
   "An alliance leader already exists. Change that appointment first.": "Лидер альянса уже назначен. Сначала измените это назначение.",

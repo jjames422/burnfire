@@ -85,6 +85,7 @@
   "Choose a valid title for this rank.": "このランクで有効な役職名を選択してください。",
   "Member not found.": "メンバーが見つかりません。",
   "A site administrator must review this membership request.": "この加入申請はサイト管理者の審査が必要です。",
+  "This request has already been reviewed.": "この申請はすでに審査されています。",
   "Member belongs to another alliance.": "メンバーは別の同盟に所属しています。",
   "You may only manage ranks below your own. Site administrators manage leadership appointments.": "自分より下のランクのみ管理できます。指導部の任命はサイト管理者が行います。",
   "An alliance leader already exists. Change that appointment first.": "同盟リーダーはすでに存在します。先にその任命を変更してください。",

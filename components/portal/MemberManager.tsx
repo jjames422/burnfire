@@ -47,6 +47,7 @@ export function MemberManager() {
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [pending, setPending] = useState<{ member: Member; rank: AllianceRank; title: AllianceTitle | null; isRegent: boolean } | null>(null);
+  const [rejectingMember, setRejectingMember] = useState<Member | null>(null);
   const [supportUserId, setSupportUserId] = useState<string | null>(null);
 
   async function load(query = "", page = 1) {
@@ -62,6 +63,9 @@ export function MemberManager() {
   useEffect(() => {
     if (pending) document.getElementById("membership-confirmation")?.focus();
   }, [pending?.member.id]);
+  useEffect(() => {
+    if (rejectingMember) document.getElementById("membership-rejection")?.focus();
+  }, [rejectingMember?.id]);
   function eligibleRanks(member: Member) {
     if (!data || !member.profile_complete || (member.request_status === "pending" && !data.actor.is_site_admin)) return [];
     return ranks.filter((rank) => canAssignRank(data.actor.game_rank, data.actor.is_site_admin, member.game_rank, rank, data.actor.is_regent)
@@ -85,12 +89,30 @@ export function MemberManager() {
     }
     setBusy(false);
   }
+  async function rejectRequest() {
+    if (!rejectingMember) return;
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    const result = await api(`/api/command/members/${rejectingMember.id}/request`, {
+      method: "PATCH",
+      body: JSON.stringify({ confirmed: true }),
+    });
+    if (result.error) setError(result.error);
+    else {
+      setMessage(t("Membership request rejected"));
+      setRejectingMember(null);
+      await load(search);
+    }
+    setBusy(false);
+  }
   return (
     <div className="portal-members">
       <header className="portal-page-heading"><span className="portal-kicker"><Text>{"LEADERSHIP WORKSPACE"}</Text></span><h1><Text>{"People make"}</Text><br /><em><Text>{"the alliance."}</Text></em></h1><p><Text>{"One membership. One rank. Consistent access across chat, academy, and command."}</Text></p></header>
       {error && <p className="portal-alert" role="alert">{t(error)}</p>}
       {message && <p className="portal-notice" role="status">{t(message)}</p>}
       {data?.actor.is_site_admin && supportUserId && <UserRecovery key={supportUserId} userId={supportUserId} onClose={() => setSupportUserId(null)} onSaved={() => load(search, data.page)} />}
+      {rejectingMember && <section id="membership-rejection" tabIndex={-1} className="portal-panel portal-confirm"><h2><Text values={{ in_game_name: String(rejectingMember.in_game_name ?? "") }}>{"Reject {in_game_name}'s membership request?"}</Text></h2><p><Text>{"Rejecting does not delete the portal account. The person can still sign in, but will not have alliance membership or private-channel access. A site administrator can approve them later."}</Text></p><div className="portal-actions"><button disabled={busy} onClick={() => void rejectRequest()} className="portal-primary">{busy ? t("Saving...") : t("Confirm rejection")}</button><button disabled={busy} onClick={() => setRejectingMember(null)} className="portal-secondary"><Text>{"Cancel"}</Text></button></div></section>}
       {pending && data && <section id="membership-confirmation" tabIndex={-1} className="portal-panel portal-confirm" aria-label={t("Confirm membership change")}><h2><Text values={{ in_game_name: String(pending.member.in_game_name ?? ""), value2: String(pending.rank.toUpperCase() ?? "") }}>{"Approve {in_game_name}  as {value2}?"}</Text></h2><p><Text>{"This verifies alliance membership and changes chat and Command Center permissions immediately. Site-admin privileges are separate and will not change."}</Text></p>
         <label className="portal-rank-select"><Text>{"Approve / change rank or title"}</Text><select disabled={busy} value={pending.rank} onChange={(event) => {
           const rank = eligibleRanks(pending.member).find((value) => value === event.target.value);
@@ -108,13 +130,20 @@ export function MemberManager() {
           const eligible = eligibleRanks(member);
           return <article className="portal-panel portal-member-card" key={member.id}>
             <div className="portal-member-heading"><span className="portal-avatar">{member.in_game_name.slice(0, 2).toUpperCase()}</span><div><h3>{member.in_game_name}</h3><span>{member.game_rank === "r5" ? t("Alliance Leader") : member.game_rank?.toUpperCase() ?? t("APPLICANT")}{member.is_site_admin ? t(" / SITE ADMIN") : ""}</span></div></div>
-            <p className={member.verified_at ? "portal-approved" : "portal-pending"}>{member.verified_at ? t("Verified alliance member") : t("Awaiting officer approval")}</p>
+            <p className={member.verified_at ? "portal-approved" : "portal-pending"}>{member.request_status === "rejected" ? t("Membership request rejected") : member.verified_at ? t("Verified alliance member") : t("Awaiting officer approval")}</p>
             <p className="portal-detail"><Text values={{ value1: String(new Date(member.signed_up_at).toLocaleString(locale) ?? "") }}>{"Signed up: {value1}"}</Text></p>
-            {data.actor.is_site_admin && <button className="portal-secondary portal-support-button" onClick={() => { setSupportUserId(member.id); setPending(null); }}><Text>{"Account support / reset"}</Text></button>}
+            {data.actor.is_site_admin && <button className="portal-secondary portal-support-button" onClick={() => { setSupportUserId(member.id); setPending(null); setRejectingMember(null); }}><Text>{"Account support / reset"}</Text></button>}
             {!member.profile_complete && <p className="portal-pending"><Text>{"Waiting for this user to complete their player profile."}</Text></p>}
             {member.alliance_title && <p className="portal-detail"><Text values={{ value1: String(t(TITLE_LABELS[member.alliance_title]) ?? "") }}>{"Title: {value1}"}</Text></p>}
             {member.is_regent && <p className="portal-detail"><Text>{"Regent"}</Text></p>}
             {member.request_status === "pending" && <p className="portal-pending"><Text>{"Site-admin task: requests"}</Text>{" "}{member.requested_rank?.toUpperCase()}{member.requested_title ? ` / ${t(TITLE_LABELS[member.requested_title])}` : ""}</p>}
+            {data.actor.is_site_admin && member.request_status === "pending" && <button className="portal-secondary" disabled={busy} onClick={() => {
+              setError(null);
+              setMessage(null);
+              setPending(null);
+              setSupportUserId(null);
+              setRejectingMember(member);
+            }}><Text>{"Reject membership request"}</Text></button>}
             {member.game_identifier && <p className="portal-detail"><Text values={{ game_identifier: String(member.game_identifier ?? "") }}>{"Game ID: {game_identifier}"}</Text></p>}
             {member.sponsor_name && <p className="portal-detail"><Text values={{ sponsor_name: String(member.sponsor_name ?? "") }}>{"Sponsor: {sponsor_name}"}</Text></p>}
             {["r3", "r4", "r5"].includes(member.game_rank ?? "") && <div className="portal-workload"><span><strong>{<LocalizedNumber value={member.assigned_recruits} />}</strong> {" "}<Text>{"assigned recruits"}</Text></span><span><strong>{<LocalizedNumber value={member.open_followups} />}</strong> {" "}<Text>{"open follow-ups"}</Text></span></div>}
@@ -124,6 +153,7 @@ export function MemberManager() {
               setError(null);
               setMessage(null);
               setSupportUserId(null);
+              setRejectingMember(null);
               setPending({ member, rank, title: rank === "r5" ? "alliance_leader" : rank === "r4" ? R4_TITLES.find((value) => value === existingTitle) ?? null : null, isRegent: rank === "r4" && member.is_regent });
             }}><Text>{"Approve / change rank or title"}</Text></button>}
           </article>;

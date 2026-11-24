@@ -85,6 +85,7 @@
   "Choose a valid title for this rank.": "请选择适用于此等级的有效头衔。",
   "Member not found.": "找不到成员。",
   "A site administrator must review this membership request.": "此入盟申请必须由网站管理员审核。",
+  "This request has already been reviewed.": "此请求已审核。",
   "Member belongs to another alliance.": "该成员属于其他联盟。",
   "You may only manage ranks below your own. Site administrators manage leadership appointments.": "你只能管理低于自身的等级。领导职位由网站管理员任命。",
   "An alliance leader already exists. Change that appointment first.": "联盟已有盟主。请先更改该任命。",

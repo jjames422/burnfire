@@ -85,6 +85,7 @@
   "Choose a valid title for this rank.": "Elige un título válido para este rango.",
   "Member not found.": "Miembro no encontrado.",
   "A site administrator must review this membership request.": "Un administrador del sitio debe revisar esta solicitud de membresía.",
+  "This request has already been reviewed.": "Esta solicitud ya fue revisada.",
   "Member belongs to another alliance.": "El miembro pertenece a otra alianza.",
   "You may only manage ranks below your own. Site administrators manage leadership appointments.": "Solo puedes gestionar rangos inferiores al tuyo. Los administradores del sitio gestionan los nombramientos del liderazgo.",
   "An alliance leader already exists. Change that appointment first.": "Ya existe un líder de la alianza. Cambia primero ese nombramiento.",

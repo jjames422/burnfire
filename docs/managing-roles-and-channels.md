@@ -24,6 +24,12 @@ administration, or use account-recovery tools. To demote a Regent, the Alliance
 Leader or a site administrator must remove the appointment as part of the change.
 Changes to rank, special title, and Regent are recorded in leadership activity.
 
+Site administrators can reject a pending membership request from its member card.
+Rejection removes it from the approval queue and is recorded on the request. It does
+not delete the person's portal account; they can still sign in and use public portal
+features, but are not granted alliance membership or private-channel access. A site
+administrator can approve the account later if needed.
+
 The database synchronizes website permissions from rank: R1/R2 are members, R3/R4 are
 officers (except Regent), and R5/Regent are alliance admins. Site administration is independent in `platform_admins`;
 an R4 site administrator retains R4 identity with full website access.

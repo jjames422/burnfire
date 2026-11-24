@@ -199,7 +199,7 @@ create table if not exists membership_requests (
   user_id uuid primary key references users (id) on delete cascade,
   requested_rank game_rank not null,
   requested_title alliance_title,
-  status text not null default 'pending' check (status in ('pending', 'approved')),
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now(),
   reviewed_by uuid references users (id) on delete set null,
   reviewed_at timestamptz,
@@ -211,6 +211,9 @@ create table if not exists membership_requests (
     or (requested_rank = 'r5' and requested_title = 'alliance_leader')
   )
 );
+alter table membership_requests drop constraint if exists membership_requests_status_check;
+alter table membership_requests add constraint membership_requests_status_check
+  check (status in ('pending', 'approved', 'rejected'));
 create index if not exists membership_requests_pending_idx
   on membership_requests (created_at) where status = 'pending';
 

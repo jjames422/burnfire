@@ -92,7 +92,7 @@ export async function PATCH(request: NextRequest) {
     );
     const member = target.rows[0];
     if (!member) return { error: "Member not found.", status: 404 };
-    const approval = await client.query("select 1 from membership_requests where user_id = $1 and status = 'pending' for update", [id]);
+    const approval = await client.query("select 1 from membership_requests where user_id = $1 and status in ('pending', 'rejected') for update", [id]);
     if (approval.rowCount && !actor.is_site_admin) return { error: "A site administrator must review this membership request.", status: 403 };
     if (member.alliance && member.alliance !== "burnfire") return { error: "Member belongs to another alliance.", status: 409 };
     if ((!actor.is_site_admin && member.site_admin) ||
@@ -149,7 +149,7 @@ export async function PATCH(request: NextRequest) {
     await client.query(
       `update membership_requests set status = 'approved', reviewed_by = $2, reviewed_at = now(),
          approved_rank = $3, approved_title = $4
-       where user_id = $1 and status = 'pending'`,
+       where user_id = $1 and status in ('pending', 'rejected')`,
       [id, user.id, rank, approvedTitle],
     );
     return { updated: true };

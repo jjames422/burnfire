@@ -116,6 +116,7 @@ export function PortalHome() {
         </section>
       )}
       {access.request_status === "pending" && <p className="portal-notice" role="status"><Text>{"Your request for"}</Text>{" "}{access.requested_rank?.toUpperCase()}{access.requested_title ? ` / ${t(TITLE_LABELS[access.requested_title])}` : ""} {" "}<Text>{"is awaiting site-admin approval. You can train while you wait."}</Text></p>}
+      {access.request_status === "rejected" && <p className="portal-alert" role="status"><Text>{"Your membership request was not approved. Your account is still active, but alliance membership and private-channel access are unavailable. Contact a site administrator if you think this is a mistake."}</Text></p>}
       <div className="portal-section-heading"><h2><Text>{"Your alliance toolkit"}</Text></h2><span><Text>{"CONNECTED BY ONE ACCOUNT"}</Text></span></div>
       <div className="portal-tile-grid">
         <Link href="/academy" className="portal-tile"><span className="portal-tile-number"><Text>{"01 / LEARN"}</Text></span><h3><Text>{"Academy"}</Text></h3><p><Text>{"Alliance essentials. Real confidence. Training at your own pace."}</Text></p><span className="portal-tile-action"><Text>{"Open your academy →"}</Text></span></Link>

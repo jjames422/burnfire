@@ -85,6 +85,7 @@
   "Choose a valid title for this rank.": "Изаберите исправну титулу за овај чин.",
   "Member not found.": "Члан није пронађен.",
   "A site administrator must review this membership request.": "Администратор сајта мора да прегледа овај захтев за чланство.",
+  "This request has already been reviewed.": "Овај захтев је већ прегледан.",
   "Member belongs to another alliance.": "Члан припада другом савезу.",
   "You may only manage ranks below your own. Site administrators manage leadership appointments.": "Можете да управљате само чиновима нижим од свог. Именовањима у руководству управљају администратори сајта.",
   "An alliance leader already exists. Change that appointment first.": "Вођа савеза већ постоји. Прво промените то именовање.",

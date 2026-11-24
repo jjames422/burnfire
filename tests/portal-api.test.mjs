@@ -19,7 +19,7 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
   assert.ok(["localhost", "127.0.0.1"].includes(new URL(origin).hostname));
   const client = new pg.Client({ connectionString });
   const suffix = randomBytes(8).toString("hex");
-  const emails = ["member", "admin", "officer", "leader-request", "incomplete"].map((kind) => `portal-${kind}-${suffix}@example.invalid`);
+  const emails = ["member", "admin", "officer", "leader-request", "incomplete", "rejected"].map((kind) => `portal-${kind}-${suffix}@example.invalid`);
   const hash = (value) => createHash("sha256").update(value).digest("hex");
   await client.connect();
   async function request(path, method = "GET", cookie = "", body) {
@@ -89,6 +89,30 @@ test("portal APIs preserve one identity across approval, academy, chat, demotion
     assert.equal(task.requested_rank, "r4");
     assert.equal(task.requested_title, "goddess");
     assert.equal((await request("/api/command/members", "PATCH", officer.cookie, { user_id: member.id, game_rank: "r2" })).response.status, 403, "Officers cannot decide site-admin signup tasks");
+
+    const rejectedMember = await signIn(emails[5], "Portal test rejected applicant");
+    assert.equal((await request("/api/portal/apply", "POST", rejectedMember.cookie, { game_identifier: "TEST-REJECTED-ID", requested_rank: "r2" })).response.status, 200);
+    const rejectionEndpoint = `/api/command/members/${rejectedMember.id}/request`;
+    assert.equal((await request(rejectionEndpoint, "PATCH", officer.cookie, { confirmed: true })).response.status, 403, "Only site administrators can reject membership requests");
+    assert.equal((await request("/api/command/members/not-a-user/request", "PATCH", admin.cookie, { confirmed: true })).response.status, 404);
+    assert.equal((await request(rejectionEndpoint, "PATCH", admin.cookie, {})).response.status, 400, "Rejection requires explicit confirmation");
+    assert.equal((await request(rejectionEndpoint, "PATCH", admin.cookie, { confirmed: true })).response.status, 200);
+    assert.equal((await request(rejectionEndpoint, "PATCH", admin.cookie, { confirmed: true })).response.status, 409, "A reviewed request cannot be rejected twice");
+    const rejectedRequest = await client.query("select status, reviewed_by from membership_requests where user_id = $1", [rejectedMember.id]);
+    assert.equal(rejectedRequest.rows[0].status, "rejected");
+    assert.equal(rejectedRequest.rows[0].reviewed_by, admin.id);
+    const rejectedAccess = await request("/api/portal", "GET", rejectedMember.cookie);
+    assert.equal(rejectedAccess.data.access.request_status, "rejected");
+    assert.equal(rejectedAccess.data.access.verified_at, null, "Rejection never verifies alliance membership");
+    const remainingTasks = await request("/api/portal", "GET", admin.cookie);
+    assert.equal(remainingTasks.data.tasks.some((item) => item.user_id === rejectedMember.id), false);
+    assert.equal((await request("/api/portal/apply", "POST", rejectedMember.cookie, { game_identifier: "TEST-REJECTED-ID", requested_rank: "r2" })).response.status, 409, "A rejected account cannot submit a duplicate request");
+    assert.equal((await request("/api/command/overview", "GET", rejectedMember.cookie)).response.status, 403, "Rejected applicants do not gain officer access");
+    assert.equal((await request("/api/command/members", "PATCH", officer.cookie, { user_id: rejectedMember.id, game_rank: "r2" })).response.status, 403, "Non-admin officers cannot bypass a rejected application");
+    assert.equal((await request("/api/command/members", "PATCH", admin.cookie, { user_id: rejectedMember.id, game_rank: "r2" })).response.status, 200, "A site administrator can approve the account later if needed");
+    const reinstatedRequest = await client.query("select status from membership_requests where user_id = $1", [rejectedMember.id]);
+    assert.equal(reinstatedRequest.rows[0].status, "approved");
+
     assert.equal((await request("/api/academy", "GET", member.cookie)).response.status, 200);
     if (process.env.NEXT_PUBLIC_LOCALIZATION_ENABLED === "true") {
       for (const locale of ["ru", "fil", "fr", "zh-CN", "zh-TW", "ja", "es", "de", "ko", "pt", "ar", "sr-Latn", "sr-Cyrl", "bs", "hr"]) {
