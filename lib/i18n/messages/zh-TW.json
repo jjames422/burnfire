@@ -214,5 +214,11 @@
   "Scheduler secret is not configured.": "排程器密鑰尚未設定。",
   "Check the values and try again.": "請檢查數值後重試。",
   "Retention settings belong to an alliance. Join one first.": "保留設定屬於聯盟。請先加入一個聯盟。",
-  "Only platform administrators can manage the integration.": "僅平台管理員可以管理整合功能。"
+  "Only platform administrators can manage the integration.": "僅平台管理員可以管理整合功能。",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "該玩家 ID 或名稱不在 BurnFire 的目前遊戲名單中。請檢查後重試。",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "有多位名單成員擁有該名稱。請改為輸入您的數字玩家 ID。",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "您個人檔案中的遊戲內名稱與該玩家的遊戲資料不符。請更新您的個人檔案名稱以與遊戲完全一致。",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "您選擇的階級與遊戲內階級不符。請選擇遊戲中顯示的階級。",
+  "Add a title and a start day (and an end day after it, if any).": "新增標題與開始日（若有，請一併新增其後的結束日）。",
+  "Milestone was not found.": "找不到里程碑。"
 }

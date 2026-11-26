@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "تم استنفاد ميزانية طلبات المُتتبع لهذا اليوم. أعد المحاولة بعد 00:00 UTC.",
   "Scheduler secret is not configured.": "كلمة سر المجدول غير مُكوّنة.",
   "Check the values and try again.": "تحقق من القيم وأعد المحاولة.",
-  "Retention settings belong to an alliance. Join one first.": "إعدادات الاحتفاظ تنتمي إلى حلف. انضم إلى حلف أولاً."
+  "Retention settings belong to an alliance. Join one first.": "إعدادات الاحتفاظ تنتمي إلى حلف. انضم إلى حلف أولاً.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "معرّف اللاعب أو الاسم غير موجود في قائمة لاعبي BurnFire الحاليين. تحقق منه وحاول مرة أخرى.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "يوجد أكثر من عضو في القائمة بهذا الاسم. أدخل معرّف اللاعب الرقمي الخاص بك بدلاً من ذلك.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "اسم داخل اللعبة في ملفك الشخصي لا يطابق اللعبة لهذا اللاعب. قم بتحديث اسم ملفك الشخصي ليتطابق مع اللعبة تماماً.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "الرتبة التي اخترتها لا تطابق رتبتك داخل اللعبة. اختر الرتبة التي تظهرها اللعبة.",
+  "Add a title and a start day (and an end day after it, if any).": "أضف عنواناً ويوماً للبدء (ويوماً للانتهاء بعده، إن وجد).",
+  "Milestone was not found.": "لم يتم العثور على الإنجاز."
 }

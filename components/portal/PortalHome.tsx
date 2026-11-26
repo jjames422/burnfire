@@ -6,7 +6,7 @@ import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
 
 import Link from "next/link";
 import { useEffect, useState, type SubmitEvent } from "react";
-import { api, apiPost } from "@/lib/api/client";
+import { api } from "@/lib/api/client";
 import type { AllianceTitle, GameRank } from "@/lib/api/types";
 import { TITLE_LABELS } from "@/lib/identity";
 import { RankRequestFields } from "./RankRequestFields";
@@ -42,6 +42,7 @@ export function PortalHome() {
   const [title, setTitle] = useState<AllianceTitle | null>(null);
   const [tasks, setTasks] = useState<ApprovalTask[]>([]);
   const [summary, setSummary] = useState<AdminSummary | null>(null);
+  const [rosterCheck, setRosterCheck] = useState<{ status: string; roster_name: string | null; roster_rank: string | null; as_of: string | null } | null>(null);
 
   async function load() {
     const result = await api<{ access: Access | null; tasks: ApprovalTask[]; summary: AdminSummary | null }>("/api/portal");
@@ -57,12 +58,22 @@ export function PortalHome() {
   }
   useEffect(() => { void load(); }, []);
 
-  async function apply(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function apply(event: SubmitEvent<HTMLFormElement> | null, requestReview = false) {
+    event?.preventDefault();
     setBusy(true);
-    const result = await apiPost("/api/portal/apply", { game_identifier: identifier, requested_rank: rank, requested_title: title });
-    if (result.error) setError(result.error);
-    else await load();
+    setRosterCheck(null);
+    const response = await fetch("/api/portal/apply", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ game_identifier: identifier, requested_rank: rank, requested_title: title, request_review: requestReview }),
+    }).catch(() => null);
+    const body = await response?.json().catch(() => null);
+    if (!response?.ok) {
+      setError(body?.error ?? "Network error. Check your connection.");
+      if (body?.roster_check) setRosterCheck(body.roster_check);
+    } else {
+      setError(null);
+      await load();
+    }
     setBusy(false);
   }
 
@@ -106,6 +117,14 @@ export function PortalHome() {
             <RankRequestFields rank={rank} title={title} onRank={setRank} onTitle={setTitle} />
             <p><Text>{"Your selection is a request, not permission to access officer tools. A site administrator will approve or correct it."}</Text></p>
             <button disabled={busy} className="portal-primary">{busy ? t("Submitting...") : t("Start my academy journey")}</button>
+            {rosterCheck && (
+              <div className="portal-notice" role="status">
+                {rosterCheck.roster_name && <p><Text values={{ name: rosterCheck.roster_name, rank: rosterCheck.roster_rank?.toUpperCase() ?? "?" }}>{"The game roster shows {name} as {rank}."}</Text></p>}
+                {rosterCheck.as_of && <p><Text values={{ time: new Date(rosterCheck.as_of).toLocaleString(locale) }}>{"Roster checked {time}."}</Text></p>}
+                <p><Text>{"Recently promoted or just joined? The roster refreshes hourly. You can send your request to an officer to check by hand."}</Text></p>
+                <button type="button" disabled={busy} className="portal-secondary" onClick={() => void apply(null, true)}><Text>{"Send to an officer for review"}</Text></button>
+              </div>
+            )}
           </form>
         </section>
       ) : (

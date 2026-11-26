@@ -1,5 +1,6 @@
 "use client";
 import { LocalizedNumber } from "@/components/layout/LocalizedNumber";
+import { RosterEvidence, type RosterCheck } from "./RosterEvidence";
 
 import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
 
@@ -29,10 +30,11 @@ type Member = {
   requested_rank: AllianceRank | null;
   requested_title: AllianceTitle | null;
   request_status: string | null;
+  roster_check?: RosterCheck | null;
 };
 type Roster = {
   members: Member[];
-  history: { id: string; member_name: string; actor_name: string | null; previous_rank: string | null; new_rank: string; previous_title: AllianceTitle | null; new_title: AllianceTitle | null; previous_regent: boolean | null; new_regent: boolean | null; created_at: string }[];
+  history: { id: string; member_name: string; actor_name: string | null; previous_rank: string | null; new_rank: string; previous_title: AllianceTitle | null; new_title: AllianceTitle | null; previous_regent: boolean | null; new_regent: boolean | null; created_at: string; source?: string }[];
   actor: { id: string; game_rank: AllianceRank | null; is_site_admin: boolean; is_regent: boolean };
   page: number;
   has_more: boolean;
@@ -114,6 +116,7 @@ export function MemberManager() {
       {data?.actor.is_site_admin && supportUserId && <UserRecovery key={supportUserId} userId={supportUserId} onClose={() => setSupportUserId(null)} onSaved={() => load(search, data.page)} />}
       {rejectingMember && <section id="membership-rejection" tabIndex={-1} className="portal-panel portal-confirm"><h2><Text values={{ in_game_name: String(rejectingMember.in_game_name ?? "") }}>{"Reject {in_game_name}'s membership request?"}</Text></h2><p><Text>{"Rejecting does not delete the portal account. The person can still sign in, but will not have alliance membership or private-channel access. A site administrator can approve them later."}</Text></p><div className="portal-actions"><button disabled={busy} onClick={() => void rejectRequest()} className="portal-primary">{busy ? t("Saving...") : t("Confirm rejection")}</button><button disabled={busy} onClick={() => setRejectingMember(null)} className="portal-secondary"><Text>{"Cancel"}</Text></button></div></section>}
       {pending && data && <section id="membership-confirmation" tabIndex={-1} className="portal-panel portal-confirm" aria-label={t("Confirm membership change")}><h2><Text values={{ in_game_name: String(pending.member.in_game_name ?? ""), value2: String(pending.rank.toUpperCase() ?? "") }}>{"Approve {in_game_name}  as {value2}?"}</Text></h2><p><Text>{"This verifies alliance membership and changes chat and Command Center permissions immediately. Site-admin privileges are separate and will not change."}</Text></p>
+        {!pending.member.verified_at && <RosterEvidence check={pending.member.roster_check} />}
         <label className="portal-rank-select"><Text>{"Approve / change rank or title"}</Text><select disabled={busy} value={pending.rank} onChange={(event) => {
           const rank = eligibleRanks(pending.member).find((value) => value === event.target.value);
           if (rank) setPending({ ...pending, rank, title: rank === "r5" ? "alliance_leader" : rank === "r4" ? R4_TITLES.find((value) => value === pending.member.alliance_title) ?? null : null, isRegent: rank === "r4" && pending.member.is_regent });
@@ -145,6 +148,7 @@ export function MemberManager() {
               setRejectingMember(member);
             }}><Text>{"Reject membership request"}</Text></button>}
             {member.game_identifier && <p className="portal-detail"><Text values={{ game_identifier: String(member.game_identifier ?? "") }}>{"Game ID: {game_identifier}"}</Text></p>}
+            {!member.verified_at && <RosterEvidence check={member.roster_check} />}
             {member.sponsor_name && <p className="portal-detail"><Text values={{ sponsor_name: String(member.sponsor_name ?? "") }}>{"Sponsor: {sponsor_name}"}</Text></p>}
             {["r3", "r4", "r5"].includes(member.game_rank ?? "") && <div className="portal-workload"><span><strong>{<LocalizedNumber value={member.assigned_recruits} />}</strong> {" "}<Text>{"assigned recruits"}</Text></span><span><strong>{<LocalizedNumber value={member.open_followups} />}</strong> {" "}<Text>{"open follow-ups"}</Text></span></div>}
             {eligible.length > 0 && <button className="portal-secondary" disabled={busy} onClick={() => {
@@ -161,7 +165,7 @@ export function MemberManager() {
         <div className="portal-actions"><button disabled={busy || data.page === 1} className="portal-secondary" onClick={() => void load(search, data.page - 1)}><Text>{"Previous page"}</Text></button><span><Text values={{ page: String(data.page ?? "") }}>{"Page {page}"}</Text></span><button disabled={busy || !data.has_more} className="portal-secondary" onClick={() => void load(search, data.page + 1)}><Text>{"Next page"}</Text></button></div>
         {data.members.length === 0 && <p className="portal-panel"><Text>{"No members match. New applicants appear here after joining the academy from the portal."}</Text></p>}
         <div className="portal-section-heading"><h2><Text>{"Leadership activity"}</Text></h2></div>
-        <div className="portal-panel portal-timeline">{data.history.length === 0 ? <p><Text>{"No rank changes recorded yet."}</Text></p> : data.history.map((item) => <div key={item.id}><span className="portal-timeline-dot" /><p><strong>{item.actor_name ?? t("Former officer")}</strong> {" "}<Text>{"approved"}</Text>{" "}<strong>{item.member_name}</strong>: {item.previous_rank?.toUpperCase() ?? t("Applicant")}{item.previous_title ? ` / ${t(TITLE_LABELS[item.previous_title])}` : ""}{item.previous_regent ? ` / ${t("Regent")}` : ""} → {item.new_rank.toUpperCase()}{item.new_title ? ` / ${t(TITLE_LABELS[item.new_title])}` : ""}{item.new_regent ? ` / ${t("Regent")}` : ""}<time dateTime={item.created_at}>{new Date(item.created_at).toLocaleString(locale)}</time></p></div>)}</div>
+        <div className="portal-panel portal-timeline">{data.history.length === 0 ? <p><Text>{"No rank changes recorded yet."}</Text></p> : data.history.map((item) => <div key={item.id}><span className="portal-timeline-dot" /><p><strong>{item.source === "roster" ? t("Game roster sync") : item.actor_name ?? t("Former officer")}</strong> {" "}<Text>{"approved"}</Text>{" "}<strong>{item.member_name}</strong>: {item.previous_rank?.toUpperCase() ?? t("Applicant")}{item.previous_title ? ` / ${t(TITLE_LABELS[item.previous_title])}` : ""}{item.previous_regent ? ` / ${t("Regent")}` : ""} → {item.new_rank.toUpperCase()}{item.new_title ? ` / ${t(TITLE_LABELS[item.new_title])}` : ""}{item.new_regent ? ` / ${t("Regent")}` : ""}<time dateTime={item.created_at}>{new Date(item.created_at).toLocaleString(locale)}</time></p></div>)}</div>
       </>}
     </div>
   );

@@ -214,5 +214,11 @@
   "Scheduler secret is not configured.": "Hindi naka-configure ang scheduler secret.",
   "Check the values and try again.": "Suriin ang mga value at subukang muli.",
   "Retention settings belong to an alliance. Join one first.": "Pagmamay-ari ng isang alliance ang mga setting ng retention. Sumali muna sa isa.",
-  "Unauthorized.": "Hindi awtorisado."
+  "Unauthorized.": "Hindi awtorisado.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "Ang player ID o pangalan na iyon ay wala sa kasalukuyang game roster ng BurnFire. Suriin ito at subukang muli.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "Higit sa isang miyembro sa roster ang may ganyang pangalan. Ilagay na lang ang iyong numeric player ID.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "Ang pangalan sa laro sa iyong profile ay hindi tumutugma sa laro para sa player na ito. I-update ang pangalan ng iyong profile para eksaktong tumugma sa laro.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "Ang rank na napili mo ay hindi tumutugma sa iyong rank sa laro. Piliin ang rank na ipinapakita ng laro.",
+  "Add a title and a start day (and an end day after it, if any).": "Magdagdag ng pamagat at araw ng simula (at araw ng pagtatapos pagkatapos nito, kung meron man).",
+  "Milestone was not found.": "Hindi nahanap ang milestone."
 }

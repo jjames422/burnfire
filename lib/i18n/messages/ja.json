@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "本日のトラッカーリクエストの割当量を使い切りました。00:00 UTC以降に再度お試しください。",
   "Scheduler secret is not configured.": "スケジューラーシークレットが設定されていません。",
   "Check the values and try again.": "値を確認して再度お試しください。",
-  "Retention settings belong to an alliance. Join one first.": "保持設定は同盟に紐づいています。まずは同盟に参加してください。"
+  "Retention settings belong to an alliance. Join one first.": "保持設定は同盟に紐づいています。まずは同盟に参加してください。",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "そのプレイヤーIDまたは名前はBurnFireの現在のゲームロスターにありません。確認して再度お試しください。",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "同名のロスターメンバーが複数います。代わりに数値のプレイヤーIDを入力してください。",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "プロフィール内のゲーム内ネームがこのプレイヤーのゲーム情報と一致していません。ゲームと完全に一致するようにプロフィール名を更新してください。",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "選択した階級がゲーム内の階級と一致していません。ゲームに表示されている階級を選択してください。",
+  "Add a title and a start day (and an end day after it, if any).": "タイトルと開始日（必要に応じてその後の終了日も）を追加してください。",
+  "Milestone was not found.": "マイルストーンが見つかりませんでした。"
 }

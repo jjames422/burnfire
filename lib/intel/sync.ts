@@ -13,6 +13,7 @@
 //   * the shared daily quota keeps a reserve for the tenant's own alliance.
 
 import { ProviderError, redactSecrets, type IntelProvider, type NormalizedAlliance, type ProviderResult } from "./types.ts";
+import { applyRosterToSite } from "./roster-sync.ts";
 
 export interface Sql {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -344,6 +345,8 @@ export async function writeResult(
       );
       left = departed.rowCount ?? 0;
     }
+    // Promotions, demotions, and renames in the game flow to linked site accounts.
+    await applyRosterToSite(client, alliance.tenant, alliance.id);
   }
 
   await client.query(

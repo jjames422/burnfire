@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useMemo, useState, type SubmitEvent } from "react";
 import { Text, useTranslation } from "@/components/i18n/LanguageProvider";
 import { api } from "@/lib/api/client";
-import { compact, day, full, percent, relative, signed } from "@/lib/intel/format";
+import { compact, day as dayLabel, full, percent, relative, signed } from "@/lib/intel/format";
 import { Delta, Freshness, IntelHeader, IntelNav, Loading, SERIES_COLORS, SyntheticBanner } from "./IntelChrome";
 import { LineChart } from "./LineChart";
+import { dateOfDay, progression, serverDay, type Milestone } from "@/lib/intel/progression";
 
 type Standing = {
   id: string; tag: string; name: string; is_home: boolean; level: number | null; total_power: number | null; member_count: number | null;
@@ -14,7 +15,8 @@ type Standing = {
   position: number | null; position_change_7d: number | null; last_success_at: string | null; last_observed_at: string | null; failing: boolean;
 };
 type Kingdom = {
-  kingdom: { number: number; name: string | null; opened_on: string | null; season: string | null; notes: string | null; updated_at: string | null };
+  kingdom: { number: number; name: string | null; opened_on: string | null; season: string | null; notes: string | null; updated_at: string | null; king_name: string | null; ruling_alliance: string | null };
+  milestones: Milestone[];
   synthetic: boolean; last_success_at: string | null; standings: Standing[];
   comparison: { id: string; points: { t: number; total: number | null; members: number; average: number | null }[]; coverage_start: number | null; gap_days: number }[];
   events: { id: string; occurred_at: string; kind: string; title: string; body: string | null; source: string; verification: string; visibility: string; alliance_tag: string | null }[];
@@ -97,7 +99,9 @@ export function KingdomIntel() {
   if (!data) return <Loading error={error} />;
   const tracked = data.standings.filter((row) => row.position !== null).length;
   const opened = data.kingdom.opened_on ? new Date(`${data.kingdom.opened_on}T00:00:00Z`) : null;
-  const age = opened ? Math.floor((Date.now() - opened.getTime()) / 86_400_000) : null;
+  const day = data.kingdom.opened_on ? serverDay(data.kingdom.opened_on) : null;
+  const state = day !== null ? progression(day, data.milestones) : null;
+  const day_ = (value: number | string) => new Intl.DateTimeFormat(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(value));
   const pageSize = 25;
   const visible = rows.slice(page * pageSize, (page + 1) * pageSize);
   const byId = new Map(data.standings.map((row) => [row.id, row]));
@@ -133,7 +137,17 @@ export function KingdomIntel() {
     event.preventDefault();
     const values = new FormData(event.currentTarget);
     const text = (key: string) => String(values.get(key) ?? "").trim() || null;
-    if (await send("/api/intel/kingdom", "PATCH", { name: text("name"), opened_on: text("opened_on"), season: text("season"), notes: text("notes") }, t("Kingdom details saved."))) setEditing(false);
+    if (await send("/api/intel/kingdom", "PATCH", { name: text("name"), opened_on: text("opened_on"), season: text("season"), notes: text("notes"), king_name: text("king_name"), ruling_alliance: text("ruling_alliance") }, t("Kingdom details saved."))) setEditing(false);
+  }
+  async function addMilestone(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const ok = await send("/api/intel/kingdom/milestones", "POST", {
+      title: values.title, kind: values.kind, certainty: values.certainty, notes: values.notes || null,
+      start_day: Number(values.start_day), end_day: values.end_day ? Number(values.end_day) : null,
+    }, t("Milestone saved."));
+    if (ok) form.reset();
   }
   async function addRecord(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -155,10 +169,12 @@ export function KingdomIntel() {
       {message && <p className="intel-message" role="status">{message}</p>}
 
       <dl className="intel-facts">
-        <div><dt><Text>{"Opened"}</Text></dt><dd>{opened ? day(opened.getTime(), locale) : "—"}</dd>{opened ? <Source kind="manual" /> : <Source kind="missing" />}</div>
-        <div><dt><Text>{"Kingdom age"}</Text></dt><dd>{age !== null ? t("{days} days", { days: age }) : "—"}</dd>{age !== null ? <Source kind="manual" /> : <Source kind="missing" />}</div>
-        <div><dt><Text>{"Season"}</Text></dt><dd>{data.kingdom.season ?? "—"}</dd>{data.kingdom.season ? <Source kind="manual" /> : <Source kind="missing" />}</div>
-        <div><dt><Text>{"King and ruling alliance"}</Text></dt><dd style={{ fontSize: 13, color: "var(--intel-ink-3)" }}><Text>{"Not exposed by the provider. Record throne changes below."}</Text></dd><Source kind="missing" /></div>
+        <div><dt><Text>{"Server day"}</Text></dt><dd>{day !== null ? t("Day {day}", { day }) : "—"}</dd>
+          {opened ? <><Source kind="manual" /><small className="intel-note" style={{ display: "block", marginTop: 6 }}><Text values={{ date: day_(opened.getTime()) }}>{"Opened {date}"}</Text></small></> : <Source kind="missing" />}</div>
+        <div><dt><Text>{"King"}</Text></dt><dd>{data.kingdom.king_name ?? "—"}{data.kingdom.ruling_alliance && <small className="intel-note" style={{ marginInlineStart: 8 }}>[{data.kingdom.ruling_alliance}]</small>}</dd>{data.kingdom.king_name ? <Source kind="manual" /> : <Source kind="missing" />}</div>
+        <div><dt><Text>{"Now"}</Text></dt><dd>{state?.current.length ? state.current.map((m) => m.title).join(" · ") : t("Between milestones")}</dd>
+          {state?.upcoming[0] && <small className="intel-note"><Text values={{ title: state.upcoming[0].title, days: state.upcoming[0].in_days }}>{"Next: {title} in {days} days"}</Text></small>}</div>
+        <div><dt><Text>{"Season"}</Text></dt><dd>{data.kingdom.season ?? (state?.current.find((m) => m.kind === "season")?.title ?? t("Pre-season"))}</dd>{data.kingdom.season ? <Source kind="manual" /> : null}</div>
       </dl>
       {data.viewer.leadership && (
         <div style={{ marginTop: -18, marginBottom: 30 }}>
@@ -168,12 +184,70 @@ export function KingdomIntel() {
                 <label><Text>{"Kingdom name"}</Text><input name="name" maxLength={80} defaultValue={data.kingdom.name ?? ""} /></label>
                 <label><Text>{"Opening date"}</Text><input name="opened_on" type="date" defaultValue={data.kingdom.opened_on ?? ""} /></label>
                 <label><Text>{"Season or progression"}</Text><input name="season" maxLength={80} defaultValue={data.kingdom.season ?? ""} /></label>
+                <label><Text>{"King"}</Text><input name="king_name" maxLength={60} defaultValue={data.kingdom.king_name ?? ""} /></label>
+                <label><Text>{"Ruling alliance tag"}</Text><input name="ruling_alliance" maxLength={40} defaultValue={data.kingdom.ruling_alliance ?? ""} /></label>
               </div>
               <label><Text>{"Notes"}</Text><textarea name="notes" maxLength={2000} defaultValue={data.kingdom.notes ?? ""} /></label>
               <div className="intel-form-actions"><button className="intel-button is-primary" disabled={busy}><Text>{"Save"}</Text></button><button type="button" className="intel-button" onClick={() => setEditing(false)}><Text>{"Cancel"}</Text></button></div>
             </form>
           )}
         </div>
+      )}
+
+      {day !== null && data.kingdom.opened_on && (
+        <section className="intel-section">
+          <div className="intel-section-head"><div>
+            <h2><Text>{"Server progression"}</Text></h2>
+            <p><Text>{"Server-age events and seasons maintained by leadership. Estimated days are marked; the game announces a new era about five days before it starts."}</Text></p>
+          </div></div>
+          {data.milestones.length > 0 && (() => {
+            const span = Math.max(day + 30, ...data.milestones.map((m) => m.end_day ?? m.start_day)) + 5;
+            const pct = (value: number) => `${Math.min(100, (value / span) * 100)}%`;
+            return (
+              <div className="intel-track" aria-hidden="true">
+                {data.milestones.map((m) => (
+                  <span key={m.id} className={`intel-track-item is-${m.kind} ${m.certainty === "estimated" ? "is-estimated" : ""}`}
+                    style={{ insetInlineStart: pct(m.start_day), width: m.end_day ? `calc(${pct(m.end_day - m.start_day + 1)})` : undefined }} title={m.title} />
+                ))}
+                <span className="intel-track-today" style={{ insetInlineStart: pct(day) }}><b>{t("Day {day}", { day })}</b></span>
+              </div>
+            );
+          })()}
+          <ol className="intel-timeline">
+            {data.milestones.map((m) => {
+              const status = (m.end_day ?? m.start_day) < day ? "past" : m.start_day > day ? "upcoming" : "current";
+              return (
+                <li key={m.id} className={`is-${status}`}>
+                  <time>{m.end_day ? t("Days {from}–{to}", { from: m.start_day, to: m.end_day }) : t("Day {day}", { day: m.start_day })}<small style={{ display: "block" }}>{day_(dateOfDay(data.kingdom.opened_on!, m.start_day))}</small></time>
+                  <div>
+                    <h3>{m.title}</h3>
+                    {m.notes && <p>{m.notes}</p>}
+                    <span className="intel-source">
+                      <span>{status === "past" ? t("Done") : status === "current" ? t("Now") : t("In {days} days", { days: m.start_day - day })}</span>
+                      <span className={m.certainty === "confirmed" ? "is-verified" : "is-missing"}>{m.certainty === "confirmed" ? t("Confirmed") : t("Estimated")}</span>
+                      {data.viewer.leadership && <button type="button" className="intel-button" style={{ minHeight: 24, padding: "0 8px" }} disabled={busy}
+                        aria-label={t("Remove {title}", { title: m.title })}
+                        onClick={() => void send(`/api/intel/kingdom/milestones?id=${m.id}`, "DELETE", {}, t("Milestone removed."))}>×</button>}
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+          {data.viewer.leadership && (
+            <form className="intel-form intel-panel" style={{ marginTop: 16 }} onSubmit={addMilestone}>
+              <div className="intel-form-row">
+                <label><Text>{"Title"}</Text><input name="title" required maxLength={80} /></label>
+                <label><Text>{"Start day"}</Text><input name="start_day" type="number" min={1} max={5000} required /></label>
+                <label><Text>{"End day (optional)"}</Text><input name="end_day" type="number" min={1} max={5000} /></label>
+                <label><Text>{"Type"}</Text><select name="kind" defaultValue="event"><option value="event">{t("Event")}</option><option value="season">{t("Season")}</option><option value="unlock">{t("Unlock")}</option><option value="other">{t("Other")}</option></select></label>
+                <label><Text>{"Certainty"}</Text><select name="certainty" defaultValue="estimated"><option value="estimated">{t("Estimated")}</option><option value="confirmed">{t("Confirmed")}</option></select></label>
+              </div>
+              <label><Text>{"Notes"}</Text><input name="notes" maxLength={300} /></label>
+              <div className="intel-form-actions"><button className="intel-button is-primary" disabled={busy}><Text>{"Add milestone"}</Text></button></div>
+            </form>
+          )}
+        </section>
       )}
 
       <section className="intel-section">
@@ -284,7 +358,7 @@ export function KingdomIntel() {
               <p className="intel-note" key={item.id}>
                 {item.coverage_start === null
                   ? t("[{tag}] has no history in this period.", { tag: byId.get(item.id)?.tag ?? "?" })
-                  : t("[{tag}] history starts {date}; the first {days} days of this period have no data.", { tag: byId.get(item.id)?.tag ?? "?", date: day(item.coverage_start, locale), days: item.gap_days })}
+                  : t("[{tag}] history starts {date}; the first {days} days of this period have no data.", { tag: byId.get(item.id)?.tag ?? "?", date: dayLabel(item.coverage_start, locale), days: item.gap_days })}
               </p>
             ))}
           </>
@@ -298,7 +372,7 @@ export function KingdomIntel() {
             <ol className="intel-timeline">
               {data.events.map((event) => (
                 <li key={event.id}>
-                  <time dateTime={event.occurred_at}>{day(event.occurred_at, locale)}</time>
+                  <time dateTime={event.occurred_at}>{dayLabel(event.occurred_at, locale)}</time>
                   <div>
                     <h3>{event.title}</h3>
                     {event.body && <p>{event.body}</p>}

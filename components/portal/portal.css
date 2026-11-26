@@ -203,3 +203,15 @@
 @media (prefers-reduced-motion: reduce) {
   .portal-shell *, .portal-shell *::before, .portal-shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+.portal-roster-evidence { margin: 14px 0; padding: 12px 14px; border-radius: 10px; border: 1px solid #ffffff1a; background: #ffffff05; font-size: 11px; line-height: 1.6; }
+.portal-roster-evidence.is-match { border-color: #0ca30c66; background: #0ca30c0d; }
+.portal-roster-evidence.is-partial { border-color: #fab21955; }
+.portal-roster-evidence.is-mismatch { border-color: #ec835a66; background: #ec835a0d; }
+.portal-roster-evidence strong { display: block; font-size: 12px; margin-bottom: 6px; color: #f2f1ee; }
+.portal-roster-evidence ul { display: grid; gap: 3px; margin-bottom: 6px; }
+.portal-roster-evidence li { display: flex; gap: 8px; color: #c4c3c9; }
+.portal-roster-evidence li > span { width: 14px; flex-shrink: 0; font-weight: 600; }
+.portal-roster-evidence li.is-ok > span { color: #8ad49a; }
+.portal-roster-evidence li.is-bad > span { color: #f29a8a; }
+.portal-roster-evidence li.is-unknown > span { color: #8e8f9a; }
+.portal-roster-evidence small { color: #8e8f9a; }

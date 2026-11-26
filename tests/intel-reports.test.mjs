@@ -57,3 +57,19 @@ test("axis ticks always cover the data so no mark rises above the top gridline",
   }
   assert.deepEqual(ticks(16, 17, 3, true), [16, 17], "integer data gets whole-number ticks");
 });
+
+test("server day counts the opening day as day 1 and classifies milestones", async () => {
+  const { serverDay, dateOfDay, progression } = await import("../lib/intel/progression.ts");
+  assert.equal(serverDay("2026-08-13", Date.parse("2026-11-26T04:00:00Z")), 106);
+  assert.equal(serverDay("2026-08-13", Date.parse("2026-08-13T23:59:00Z")), 1);
+  assert.equal(dateOfDay("2026-08-13", 120), "2026-12-10");
+  const milestones = [
+    { id: "a", start_day: 99, end_day: 105, title: "Test past", kind: "event", certainty: "confirmed", notes: null },
+    { id: "b", start_day: 100, end_day: 110, title: "Test current", kind: "event", certainty: "confirmed", notes: null },
+    { id: "c", start_day: 120, end_day: null, title: "Test next", kind: "unlock", certainty: "estimated", notes: null },
+  ];
+  const state = progression(106, milestones);
+  assert.deepEqual(state.past.map((m) => m.id), ["a"]);
+  assert.deepEqual(state.current.map((m) => m.id), ["b"]);
+  assert.deepEqual(state.upcoming.map((m) => [m.id, m.in_days]), [["c", 14]]);
+});

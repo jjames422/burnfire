@@ -242,8 +242,10 @@ export async function kingdomStandings(kingdom: number) {
 }
 
 export async function loadKingdom(kingdom: number, viewer: { tenant: string | null; leadership: boolean; publicOnly: boolean }, compare: string[], days: number) {
-  const meta = await queryOne<{ number: number; name: string | null; opened_on: string | null; season: string | null; notes: string | null; updated_at: string }>(
-    `select number, name, opened_on::text, season, notes, updated_at from intel_kingdoms where number = $1`, [kingdom]);
+  const meta = await queryOne<{ number: number; name: string | null; opened_on: string | null; season: string | null; notes: string | null; updated_at: string; king_name: string | null; ruling_alliance: string | null }>(
+    `select number, name, opened_on::text, season, notes, updated_at, king_name, ruling_alliance from intel_kingdoms where number = $1`, [kingdom]);
+  const milestones = await query<{ id: string; start_day: number; end_day: number | null; title: string; kind: string; certainty: string; notes: string | null }>(
+    `select id, start_day, end_day, title, kind, certainty, notes from intel_kingdom_milestones where kingdom = $1 order by start_day`, [kingdom]);
   const standings = await kingdomStandings(kingdom);
   const ids = compare.filter((id) => standings.some((row) => row.id === id)).slice(0, 6);
   const comparison = ids.length ? await query<{ alliance_id: string; observed_at: string; total_power: string | null; member_count: number; average_power: string | null }>(
@@ -276,7 +278,8 @@ export async function loadKingdom(kingdom: number, viewer: { tenant: string | nu
     `select alliance_id, stance from intel_relations where tenant = $1`, [viewer.tenant]) : [];
   const latestSync = standings.reduce<string | null>((max, row) => (row.last_success_at && (!max || row.last_success_at > max) ? row.last_success_at : max), null);
   return {
-    kingdom: meta ?? { number: kingdom, name: null, opened_on: null, season: null, notes: null, updated_at: null },
+    kingdom: meta ?? { number: kingdom, name: null, opened_on: null, season: null, notes: null, updated_at: null, king_name: null, ruling_alliance: null },
+    milestones,
     synthetic: activeProviderId() === "fixture",
     last_success_at: latestSync,
     standings,

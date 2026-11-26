@@ -254,3 +254,15 @@
 .intel-columns > div { flex: 1; height: 100%; display: flex; align-items: flex-end; max-width: 24px; }
 .intel-columns i { display: block; width: 100%; background: var(--portal-ember); border-radius: 3px 3px 0 0; }
 .intel-columns i.is-missing { background: none; }
+
+/* Server progression track */
+.intel-track { position: relative; height: 34px; margin: 6px 0 18px; border-bottom: 1px solid var(--intel-line-strong); }
+.intel-track-item { position: absolute; bottom: 6px; height: 8px; min-width: 8px; border-radius: 4px; background: #5a5b66; }
+.intel-track-item.is-season { background: var(--portal-ember); height: 10px; bottom: 5px; }
+.intel-track-item.is-event { background: #9cc4f5; }
+.intel-track-item.is-unlock { background: #cdc7ff; width: 8px; }
+.intel-track-item.is-estimated { opacity: .55; background-image: repeating-linear-gradient(135deg, #0004 0 3px, transparent 3px 6px); }
+.intel-track-today { position: absolute; top: 0; bottom: -1px; width: 2px; background: #f2f1ee; }
+.intel-track-today b { position: absolute; top: -2px; inset-inline-start: 6px; font-size: 10px; font-weight: 500; color: var(--intel-ink); white-space: nowrap; }
+.intel-timeline li.is-past h3 { color: var(--intel-ink-3); }
+.intel-timeline li.is-current { box-shadow: inset 2px 0 0 var(--portal-ember); padding-inline-start: 10px; }

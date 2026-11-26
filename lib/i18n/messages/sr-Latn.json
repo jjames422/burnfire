@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "Današnji budžet zahteva za praćenje je potrošen. Pokušajte ponovo posle 00:00 UTC.",
   "Scheduler secret is not configured.": "Tajni ključ planera nije podešen.",
   "Check the values and try again.": "Proverite vrednosti i pokušajte ponovo.",
-  "Retention settings belong to an alliance. Join one first.": "Podešavanja zadržavanja podataka pripadaju alijansi. Prvo se pridružite jednoj."
+  "Retention settings belong to an alliance. Join one first.": "Podešavanja zadržavanja podataka pripadaju alijansi. Prvo se pridružite jednoj.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "Taj ID ili ime igrača nisu na trenutnom spisku igrača za BurnFire. Proverite i pokušajte ponovo.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "Više članova na spisku ima to ime. Umesto toga unesite svoj numerički ID igrača.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "Ime u igri na vašem profilu se ne poklapa sa igrom za ovog igrača. Ažurirajte ime na profilu da se tačno poklapa sa igrom.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "Rang koji ste izabrali ne odgovara vašem ranku u igri. Izaberite rang koji igra prikazuje.",
+  "Add a title and a start day (and an end day after it, if any).": "Dodajte naziv i dan početka (i dan završetka nakon njega, ako postoji).",
+  "Milestone was not found.": "Prekretnica nije pronađena."
 }

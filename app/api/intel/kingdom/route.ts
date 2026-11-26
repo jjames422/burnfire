@@ -35,6 +35,8 @@ const metadata = z.object({
   opened_on: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable(),
   season: z.string().trim().max(80).nullable(),
   notes: z.string().trim().max(2000).nullable(),
+  king_name: z.string().trim().max(60).nullable().optional(),
+  ruling_alliance: z.string().trim().max(40).nullable().optional(),
 });
 
 /** Leadership maintains kingdom facts the provider does not expose. */
@@ -44,12 +46,13 @@ export async function PATCH(request: NextRequest) {
   const parsed = metadata.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return jsonError("Check the kingdom details and try again.");
   const kingdom = gate.access.kingdom ?? DEFAULT_KINGDOM;
-  const { name, opened_on, season, notes } = parsed.data;
+  const { name, opened_on, season, notes, king_name, ruling_alliance } = parsed.data;
   await query(
-    `insert into intel_kingdoms (number, name, opened_on, season, notes, source, updated_by, updated_at)
-     values ($1, $2, $3, $4, $5, 'manual', $6, now())
-     on conflict (number) do update set name = $2, opened_on = $3, season = $4, notes = $5, source = 'manual', updated_by = $6, updated_at = now()`,
-    [kingdom, name || null, opened_on, season || null, notes || null, gate.user.id],
+    `insert into intel_kingdoms (number, name, opened_on, season, notes, king_name, ruling_alliance, source, updated_by, updated_at)
+     values ($1, $2, $3, $4, $5, $7, $8, 'manual', $6, now())
+     on conflict (number) do update set name = $2, opened_on = $3, season = $4, notes = $5, king_name = $7, ruling_alliance = $8,
+       source = 'manual', updated_by = $6, updated_at = now()`,
+    [kingdom, name || null, opened_on, season || null, notes || null, gate.user.id, king_name || null, ruling_alliance || null],
   );
   await audit(gate.tenant, gate.user.id, "kingdom.update", `kingdom:${kingdom}`, { fields: Object.keys(parsed.data) });
   return NextResponse.json({ ok: true });

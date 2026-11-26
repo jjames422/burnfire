@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "El presupuesto de solicitudes del rastreador para hoy se ha agotado. Inténtalo de nuevo después de las 00:00 UTC.",
   "Scheduler secret is not configured.": "El secreto del programador no está configurado.",
   "Check the values and try again.": "Revisa los valores e inténtalo de nuevo.",
-  "Retention settings belong to an alliance. Join one first.": "Los ajustes de retención pertenecen a una alianza. Únete a una primero."
+  "Retention settings belong to an alliance. Join one first.": "Los ajustes de retención pertenecen a una alianza. Únete a una primero.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "Ese ID o nombre de jugador no está en la lista de jugadores actual de BurnFire. Verifícalo e inténtalo de nuevo.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "Más de un miembro de la lista tiene ese nombre. Introduce tu ID de jugador numérico en su lugar.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "El nombre en el juego de tu perfil no coincide con el juego para este jugador. Actualiza el nombre de tu perfil para que coincida exactamente con el juego.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "El rango que seleccionaste no coincide con tu rango en el juego. Elige el rango que muestra el juego.",
+  "Add a title and a start day (and an end day after it, if any).": "Añade un título y un día de inicio (y un día de finalización posterior, si aplica).",
+  "Milestone was not found.": "No se encontró el hito."
 }

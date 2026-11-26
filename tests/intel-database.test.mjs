@@ -238,3 +238,45 @@ test("an account failure on one provider does not stop other providers", { skip:
     assert.equal(run.requests_used, 0, "a missing key spends no quota");
   });
 });
+
+test("game roster promotions, demotions, and renames update linked site accounts only", { skip: !connectionString }, async () => {
+  await isolated(async (db, transaction) => {
+    const alliances = await ensureFixtureRows(db, "burnfire");
+    let tracked = alliances.get(FIXTURE_HOME_ID);
+    const sync = async (iso, mutate) => {
+      const date = at(iso);
+      const result = fixtureResult(mutate(syntheticAlliance(home, date)), date);
+      const { rows: [run] } = await db.query("insert into intel_sync_runs (provider, alliance_id, trigger) values ('fixture', $1, 'schedule') returning id", [tracked.id]);
+      await transaction((client) => writeResult(client, tracked, result, run.id));
+    };
+    await sync("2026-11-01T00:00:00Z", (data) => data);
+    const make = async (label, rank, title, uidSuffix, link = true) => {
+      const { rows: [user] } = await db.query("insert into users (email_hash, email_encrypted) values ($1, $2) returning id", storedEmail(`${label}@example.invalid`));
+      await db.query("insert into profiles (id, in_game_name) values ($1, $2)", [user.id, label]);
+      await db.query("insert into alliance_members (user_id, alliance, game_rank, alliance_title, verified_at) values ($1, 'burnfire', $2, $3, now())", [user.id, rank, title]);
+      if (link) await db.query("insert into intel_player_links (user_id, player_id, tenant) select $1, id, 'burnfire' from intel_players where external_uid = $2", [user.id, `${FIXTURE_HOME_ID}${uidSuffix}`]);
+      return user.id;
+    };
+    // Fixture ranks: index 0 = R5, 1-3 = R4, 4-9 = R3, 10-24 = R2, 25+ = R1.
+    const leader = await make("roster-leader", "r4", "diplomat", "000");
+    const demoted = await make("roster-demoted", "r4", "recruiter", "005");
+    const promoted = await make("roster-promoted", "r1", null, "012");
+    const unlinked = await make("roster-unlinked", "r1", null, "020", false);
+    await sync("2026-11-02T00:00:00Z", (data) => ({ ...data, members: data.members.map((m) => m.uid === `${FIXTURE_HOME_ID}005` ? { ...m, name: "Test Renamed Officer" } : m) }));
+    const rank = async (id) => (await db.query("select game_rank::text as rank, alliance_title::text as title, permission_role::text as role from alliance_members where user_id = $1", [id])).rows[0];
+    assert.deepEqual(await rank(leader), { rank: "r5", title: "alliance_leader", role: "admin" }, "promotion to leader takes the leader title");
+    assert.deepEqual(await rank(demoted), { rank: "r3", title: null, role: "officer" }, "demotion below R4 clears the title");
+    assert.deepEqual(await rank(promoted), { rank: "r2", title: null, role: "member" });
+    assert.deepEqual(await rank(unlinked), { rank: "r1", title: null, role: "member" }, "unlinked accounts are never changed");
+    const { rows: [profile] } = await db.query("select in_game_name from profiles where id = $1", [demoted]);
+    assert.equal(profile.in_game_name, "Test Renamed Officer", "the site name follows the game");
+    const { rows: history } = await db.query("select source, previous_rank::text, new_rank::text, changed_by from membership_history where user_id = $1", [demoted]);
+    assert.deepEqual(history, [{ source: "roster", previous_rank: "r4", new_rank: "r3", changed_by: null }]);
+    // A second leader in the game cannot take the single R5 slot while another account holds it.
+    const rival = await make("roster-rival", "r4", null, "001");
+    await db.query("update intel_memberships set rank_label = 'R5' where player_id = (select id from intel_players where external_uid = $1)", [`${FIXTURE_HOME_ID}001`]);
+    const { applyRosterToSite } = await import("../lib/intel/roster-sync.ts");
+    const outcome = await transaction((client) => applyRosterToSite(client, "burnfire", tracked.id));
+    assert.deepEqual(outcome.skipped, [{ userId: rival, reason: "leader_conflict" }]);
+  });
+});

@@ -214,5 +214,11 @@
   "Scheduler secret is not configured.": "计划任务密钥尚未配置。",
   "Check the values and try again.": "请检查数值后重试。",
   "Retention settings belong to an alliance. Join one first.": "保留设置属于联盟。请先加入一个联盟。",
-  "Only platform administrators can manage the integration.": "只有平台管理员可以管理集成。"
+  "Only platform administrators can manage the integration.": "只有平台管理员可以管理集成。",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "该玩家ID或名称不在 BurnFire 当前的游戏名单中。请检查后重试。",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "有多个名单成员使用了该名称。请输入您的数字玩家ID。",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "您个人资料中的游戏内名称与该玩家的游戏内名称不符。请更新您的个人资料名称以与游戏内完全一致。",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "您选择的阶级与您的游戏内阶级不符。请选择游戏显示的阶级。",
+  "Add a title and a start day (and an end day after it, if any).": "添加一个标题和开始日期（以及之后的结束日期，如有）。",
+  "Milestone was not found.": "未找到里程碑。"
 }

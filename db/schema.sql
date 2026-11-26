@@ -536,6 +536,9 @@ alter table membership_history add column if not exists previous_title alliance_
 alter table membership_history add column if not exists new_title alliance_title;
 alter table membership_history add column if not exists previous_regent boolean;
 alter table membership_history add column if not exists new_regent boolean;
+-- 'officer' for approvals, 'roster' for automatic changes from the synced game roster.
+alter table membership_history add column if not exists source text not null default 'officer'
+  check (source in ('officer', 'roster'));
 
 create table if not exists recruit_assignment_history (
   id bigint generated always as identity primary key,
@@ -1215,6 +1218,25 @@ create table if not exists intel_kingdoms (
   source text not null default 'manual' check (source in ('manual', 'provider')),
   updated_by uuid references users (id) on delete set null,
   updated_at timestamptz not null default now()
+);
+
+alter table intel_kingdoms add column if not exists king_name text check (char_length(king_name) <= 60);
+alter table intel_kingdoms add column if not exists ruling_alliance text check (char_length(ruling_alliance) <= 40);
+
+-- Server-age progression (events, seasons). Entered by leadership because the
+-- provider does not expose it; certainty says whether the day is confirmed.
+create table if not exists intel_kingdom_milestones (
+  id uuid primary key default gen_random_uuid(),
+  kingdom integer not null references intel_kingdoms (number) on delete cascade,
+  start_day integer not null check (start_day between 1 and 5000),
+  end_day integer check (end_day >= start_day and end_day <= 5000),
+  title text not null check (char_length(title) between 1 and 80),
+  kind text not null default 'event' check (kind in ('event', 'season', 'unlock', 'other')),
+  certainty text not null default 'estimated' check (certainty in ('confirmed', 'estimated')),
+  notes text check (char_length(notes) <= 300),
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  unique (kingdom, start_day, title)
 );
 
 create table if not exists intel_alliances (

@@ -44,7 +44,7 @@ async function missingMessages() {
       const source = await readFile(path.join(root, folder, file), "utf8");
       for (const match of source.matchAll(/(?:jsonError\(|throw new Error\(|error:\s*|message:\s*)(["'`])((?:(?!\1)[\s\S])*?)\1/g)) found.add(match[2]);
       // Provider error maps returned through jsonError(map[code]).
-      for (const match of source.matchAll(/^\s+[a-z_]+: "([A-Z][^"]+)",$/gm)) if (/Messages/.test(source)) found.add(match[1]);
+      for (const match of source.matchAll(/^\s+[a-z_]+: "([A-Z][^"]+)",$/gm)) if (/Messages|_ERRORS/.test(source)) found.add(match[1]);
     }
   }
   const keys = [...found].filter((key) => !Object.hasOwn(english, key) && !key.includes("${"));

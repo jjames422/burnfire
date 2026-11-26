@@ -1,3 +1,6 @@
+import { matchRoster } from "@/lib/intel/roster-match.ts";
+import type { SiteRank } from "@/lib/intel/roster-sync.ts";
+import { homeRoster } from "@/lib/server/roster";
 import { NextResponse, type NextRequest } from "next/server";
 import { requireCommandOfficer } from "@/lib/server/command";
 import { query, withTransaction } from "@/lib/server/db";
@@ -49,14 +52,28 @@ export async function GET(request: NextRequest) {
   const history = await query(
     `select h.id, p.in_game_name as member_name, actor.in_game_name as actor_name,
             h.previous_rank, h.new_rank, h.previous_title, h.new_title,
-            h.previous_regent, h.new_regent, h.created_at
+            h.previous_regent, h.new_regent, h.created_at, h.source
      from membership_history h
      join profiles p on p.id = h.user_id
      left join profiles actor on actor.id = h.changed_by
      order by h.created_at desc limit 30`,
   );
+  // Evidence for officers: does what the applicant submitted agree with the synced game roster?
+  const roster = await homeRoster("burnfire");
+  const withRoster = members.slice(0, 100).map((member) => {
+    if (member.verified_at || !roster.members.length) return { ...member, roster_check: null };
+    const check = matchRoster(roster.members, {
+      identifier: member.game_identifier as string | null,
+      name: member.profile_complete ? member.in_game_name as string : null,
+      rank: (member.requested_rank ?? null) as SiteRank | null,
+    });
+    return { ...member, roster_check: {
+      status: check.status, checks: check.checks, roster_name: check.entry?.name ?? null, roster_uid: check.entry?.uid ?? null,
+      roster_rank: check.rosterRank, as_of: roster.asOf, fresh: roster.usable,
+    } };
+  });
   return NextResponse.json({
-    members: members.slice(0, 100), history, page, has_more: members.length > 100,
+    members: withRoster, history, page, has_more: members.length > 100,
     actor: { id: user.id, game_rank: officer.game_rank, is_site_admin: officer.is_site_admin, is_regent: officer.is_regent },
   }, { headers: { "Cache-Control": "private, no-store" } });
 }
@@ -145,6 +162,20 @@ export async function PATCH(request: NextRequest) {
          (user_id, changed_by, previous_rank, new_rank, previous_title, new_title, previous_regent, new_regent)
        values ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [id, user.id, member.game_rank, rank, member.alliance_title, approvedTitle, member.is_regent, approvedRegent],
+    );
+    // Link the account to its in-game character when the submitted ID or name is on the roster,
+    // so later promotions, demotions, and renames in the game update this account automatically.
+    await client.query(
+      `insert into intel_player_links (user_id, player_id, tenant, linked_by)
+       select $1, p.id, 'burnfire', $2
+       from academy_enrollments e
+       join intel_players p on trim(e.game_identifier) = p.external_uid::text or lower(trim(e.game_identifier)) = lower(p.name)
+       join intel_memberships m on m.player_id = p.id and m.status = 'active'
+       join intel_alliances a on a.id = m.alliance_id and a.tenant = 'burnfire'
+       where e.user_id = $1
+       limit 1
+       on conflict do nothing`,
+      [id, user.id],
     );
     await client.query(
       `update membership_requests set status = 'approved', reviewed_by = $2, reviewed_at = now(),

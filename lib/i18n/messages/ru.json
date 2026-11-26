@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "Лимит запросов трекера на сегодня исчерпан. Попробуйте после 00:00 UTC.",
   "Scheduler secret is not configured.": "Секретный ключ планировщика не настроен.",
   "Check the values and try again.": "Проверьте значения и попробуйте снова.",
-  "Retention settings belong to an alliance. Join one first.": "Настройки хранения данных принадлежат альянсу. Сначала вступите в него."
+  "Retention settings belong to an alliance. Join one first.": "Настройки хранения данных принадлежат альянсу. Сначала вступите в него.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "Этот ID или имя игрока отсутствуют в текущем составе BurnFire. Проверьте данные и повторите попытку.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "Участников с таким именем несколько. Введите ваш числовой ID игрока.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "Имя в игре в вашем профиле не совпадает с игровыми данными этого игрока. Обновите имя в профиле в точности как в игре.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "Выбранное вами звание не соответствует вашему званию в игре. Выберите звание, отображаемое в игре.",
+  "Add a title and a start day (and an end day after it, if any).": "Добавьте название и день начала (а также день окончания, если он есть).",
+  "Milestone was not found.": "Веха не найдена."
 }

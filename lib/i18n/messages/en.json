@@ -214,5 +214,11 @@
   "Today's tracker request budget is used up. Try again after 00:00 UTC.": "Today's tracker request budget is used up. Try again after 00:00 UTC.",
   "Scheduler secret is not configured.": "Scheduler secret is not configured.",
   "Check the values and try again.": "Check the values and try again.",
-  "Retention settings belong to an alliance. Join one first.": "Retention settings belong to an alliance. Join one first."
+  "Retention settings belong to an alliance. Join one first.": "Retention settings belong to an alliance. Join one first.",
+  "That player ID or name is not in BurnFire's current game roster. Check it and try again.": "That player ID or name is not in BurnFire's current game roster. Check it and try again.",
+  "More than one roster member has that name. Enter your numeric player ID instead.": "More than one roster member has that name. Enter your numeric player ID instead.",
+  "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.": "The in-game name on your profile does not match the game for this player. Update your profile name to match the game exactly.",
+  "The rank you selected does not match your in-game rank. Choose the rank the game shows.": "The rank you selected does not match your in-game rank. Choose the rank the game shows.",
+  "Add a title and a start day (and an end day after it, if any).": "Add a title and a start day (and an end day after it, if any).",
+  "Milestone was not found.": "Milestone was not found."
 }
