@@ -5,19 +5,16 @@ monitoring, built into the existing member portal at `/intel`.
 
 ## Status
 
+Live in production since 2026-11-26.
+
 | Area | State |
 | --- | --- |
-| Provider abstraction, Last Asylum Tracker client, validation, retries | Done, unit-tested |
-| Synchronization engine (leases, quota budget, backoff, dedup, retention) | Done, tested against PostgreSQL |
-| Schema (`db/schema.sql`, "Kingdom intelligence" section) | Done, idempotent; applied to a scratch database only, **not production** |
-| Alliance dashboard, roster, member progression | Done, rendered at desktop, tablet, and phone widths with synthetic data |
-| Kingdom standings, comparison, kingdom records | Done, rendered with synthetic data |
-| Leadership desk (reviews, absences, diplomacy, notes, account links, settings) | Done, rendered with synthetic data |
-| Integration admin (health, quota, runs, intervals, retention, audit) | Done, rendered; manual sync exercised end to end |
-| Community-bot reports endpoint | Done, tested; the bot does not call it yet |
-| Real tracker data | **Blocked: needs an API key** |
-| Production schema, deployment, host timer | **Waiting for owner approval** |
-| Bot module that posts reports | Planned (changes the live bot) |
+| Schema | Applied to production (backup first: `/home/opc/backups/burnfire-db-before-intel-20261126-033559.dump`) |
+| Tracker key and secrets | Set in Vercel (Production); secret copies in root-only `/etc/burnfire/` |
+| Sync timer | `burnfire-intel-sync.timer` enabled on this host, every 10 minutes |
+| BurnFire data | Syncing hourly from the live tracker (first success 2026-11-26) |
+| Community bot | `burnfire-tag-bot` posts reports from `intel/index.js` after 14:00 UTC; leadership digest only to the private officer-alert channel (bot backup: `/home/opc/backups/burnfire-tag-bot-before-intel-20261126-040146.tar.gz`) |
+| Other alliances | None tracked yet; leadership adds them by tag on the Kingdom page |
 
 ## Existing application assessment
 
@@ -50,17 +47,19 @@ Checked on 2026-11-26 against `https://api.lastasylumtracker.com/docs` and `/ope
 | Alliance name, tag, level, member count | `GET /v1/alliances/{id}` | Yes | Key required (`401 missing_api_key` confirmed) |
 | Member uid, name, power, sanctuary level | Same roster | Yes | uid is stable across renames |
 | Weekly activity, daily honor, daily tech | Same roster | Yes | "Daily" counters; weekly totals are built from daily peaks |
-| Member joined_at, last_online_at | Same roster | Yes | last_online kept for own members only, latest value only |
+| Member joined_at, last_online_at | Same roster | **Field present, values empty** | Every live answer so far sends null. Inactivity review therefore relies on power growth and weekly activity, which can only raise "needs review". Values are picked up automatically if the tracker starts sending them. |
 | Member x/y, online flag | Same roster | Yes | **Deliberately discarded** at the provider boundary |
 | Alliance lookup by kingdom + tag | `GET /v1/alliances/{server}/{tag}` | Yes | Used when leadership adds an alliance |
 | Quota | Response body and `X-RateLimit-*` headers | Yes | 1,000/day free (2,000 Patreon), resets 00:00 UTC |
 | Freshness | `cached`, `age_seconds`, `refreshing`, `X-Cache` | Yes | Copies over 60 min are refreshed in the background; `?fresh=1` waits for a live read at the same cost |
-| Alliance total power | — | Derived | Sum of reported member power; partial coverage is shown |
-| Max membership / capacity | — | No | Leadership enters it |
+| Max membership / capacity | `capacity` | Yes | Synced; leadership can still set it if absent |
+| Alliance power total | `power` | Yes | Preferred over summing members |
+| Member in-game rank | `members[].rank_label` | Yes | Shown in the roster |
+| `rank.rank` / `rank.score` | Alliance answer | Present | Scope (kingdom or global) is undocumented, so it is not shown as a kingdom rank |
 | Kingdom list, king, ruling alliance, age, throne history | Tracker website only | **No** | Served by undocumented `/api/` routes that robots.txt disallows. Not used. Kingdom facts are leadership records. |
 | Official kingdom alliance ranking (top 100) | Tracker website only | **No** | Standings cover tracked alliances only and are labeled that way |
 | Kingdom map, events, KvK results | — | No | Leadership records |
-| Response schema | — | **Unpublished** | The parser accepts documented names plus close variants. Field names (never values) of every live answer are recorded for review on the Integration page. |
+| Response schema | — | **Unpublished** | Verified from live answers on 2026-11-26: alliance id is `union_id`, kingdom is `sid`, member name is `nick_name`, timestamps are Unix seconds. Field names and timestamp formats (never values) of every answer are recorded on the Integration page. |
 | Terms of use / data retention terms | — | **None published** | `/terms`, `/tos`, `/privacy` return 404. Confirm acceptable use with the tracker operator before production ingestion. |
 
 ## Architecture
@@ -142,11 +141,18 @@ host timer (10 min) ──POST /api/intel/cron──┐            leadership / 
 - `claim=1` records the period, so a second call for the same period returns 409.
 - Every report links back to the matching portal page.
 
-**Planned (needs approval, because it changes the live bot):** a small module in the existing
-`burnfire-tag-bot` that polls this endpoint on a schedule and posts to configured channels. That
-bot already refuses to post officer digests into channels visible to non-staff, and that same check
-must gate the `leadership` audience. No second bot is needed. Reports are English with the portal
-link; the universal translator bot handles channel translation.
+**Bot side (`burnfire-tag-bot/intel/index.js`, live).**
+- The module checks every 10 minutes. After 14:00 UTC it posts the daily summary and the
+  leadership digest; from Monday it posts the weekly performance and kingdom standings.
+- Alliance reports go to `INTEL_ALLIANCE_CHANNEL_ID`, defaulting to the bot's daily-posts channel.
+- The leadership digest goes to `INTEL_LEADERSHIP_CHANNEL_ID`, defaulting to the officer-alert
+  channel chosen with `/serverhelper setup`. It is posted only if that channel passes the
+  helper's private-officer check, and is otherwise withheld and logged.
+- Messages mention nobody. The module is off without `INTEL_REPORT_SECRET` in the bot's `.env`.
+  `INTEL_REPORTS=daily,weekly` limits which kinds are posted, and `INTEL_REPORT_UTC` changes the
+  posting time.
+- Reports are English with the portal link; the universal translator bot handles channel
+  translation.
 
 ## Configuration and deployment
 
@@ -223,13 +229,9 @@ Development: run a separate PostgreSQL database whose name ends in `_dev` on a p
 
 ## Unresolved dependencies
 
-- **Tracker API key.** Only the account owner can create it (Patreon login).
 - **Tracker terms.** No terms or retention policy is published. Ask the operator about storing
   history before production ingestion.
-- **Live response shape.** Confirm it on the first real sync from the Integration page. The parser
-  accepts documented names and variants, but no sample response is published.
 - **Game rules on third-party tools.** Not verified here; owner to confirm.
-- **Bot module.** Needs approval to change and restart `burnfire-tag-bot`.
 - **Translation review.** The new interface strings were machine-translated (Gemini free tier,
   validated for placeholders only). Terminology drifts between batches; for example, German uses
   both "Zuflucht" and "Sanctuary", and both "Stärke" and "Macht". A native-speaker or glossary
