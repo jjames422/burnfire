@@ -168,6 +168,13 @@ async function recordFailure(deps: SyncDeps, alliance: TrackedAlliance, runId: s
        where id = $1`,
       [alliance.provider, failure.code, failure.quota?.remaining ?? null, failure.quota?.limit ?? null],
     );
+    if (failure.shape?.length) {
+      // Unparseable answers still prove the key works and show what the provider sent.
+      await client.query(
+        `update intel_providers set response_shape = $2::jsonb, response_shape_at = now(), auth_status = 'ok', auth_checked_at = now() where id = $1`,
+        [alliance.provider, JSON.stringify(failure.shape)],
+      );
+    }
   });
   return failure.code;
 }

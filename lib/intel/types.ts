@@ -26,9 +26,11 @@ export class ProviderError extends Error {
   readonly quota: ProviderQuota | null;
   readonly attempts: number;
   readonly matches: unknown;
+  /** Field names of the answer that failed (never values), for schema review. */
+  readonly shape: string[] | null;
 
   constructor(code: ProviderErrorCode, message: string, options: {
-    status?: number | null; retryable?: boolean; quota?: ProviderQuota | null; attempts?: number; matches?: unknown;
+    status?: number | null; retryable?: boolean; quota?: ProviderQuota | null; attempts?: number; matches?: unknown; shape?: string[] | null;
   } = {}) {
     super(message);
     this.name = "ProviderError";
@@ -38,6 +40,7 @@ export class ProviderError extends Error {
     this.quota = options.quota ?? null;
     this.attempts = options.attempts ?? 1;
     this.matches = options.matches ?? null;
+    this.shape = options.shape ?? null;
   }
 }
 

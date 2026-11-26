@@ -154,19 +154,26 @@ export function normalizeAlliance(raw: unknown, warnings: string[] = []): Normal
   };
 }
 
-/** Field names only. Values never leave this function. */
+/**
+ * Field names only, up to three levels deep (arrays sampled as "[]").
+ * Values never leave this function.
+ */
 export function responseShape(raw: unknown): string[] {
   const keys = new Set<string>();
-  const add = (prefix: string, value: unknown) => {
-    if (value && typeof value === "object" && !Array.isArray(value)) {
-      for (const key of Object.keys(value as object).slice(0, 80)) keys.add(prefix + key);
+  const walk = (value: unknown, prefix: string, depth: number) => {
+    if (depth > 3 || keys.size > 200) return;
+    if (Array.isArray(value)) {
+      for (const item of value.slice(0, 20)) walk(item, `${prefix}[]`, depth);
+      return;
+    }
+    if (!value || typeof value !== "object") return;
+    for (const key of Object.keys(value as object).slice(0, 80)) {
+      const path = prefix ? `${prefix}.${key}` : key;
+      keys.add(path);
+      walk((value as Record<string, unknown>)[key], path, depth + 1);
     }
   };
-  add("", raw);
-  const alliance = (raw as Record<string, unknown> | null)?.alliance;
-  add("alliance.", alliance);
-  const members = ((alliance as Record<string, unknown> | undefined)?.members ?? (raw as Record<string, unknown> | null)?.members);
-  if (Array.isArray(members)) for (const member of members.slice(0, 20)) add("members[].", member);
+  walk(raw, "", 0);
   return [...keys].sort();
 }
 
@@ -260,7 +267,14 @@ export class LastAsylumTracker implements IntelProvider {
         throw failure;
       }
       const warnings: string[] = [];
-      const data = normalizeAlliance(body, warnings);
+      const shape = responseShape(body);
+      let data: NormalizedAlliance;
+      try {
+        data = normalizeAlliance(body, warnings);
+      } catch (error) {
+        if (!(error instanceof ProviderError)) throw error;
+        throw new ProviderError(error.code, error.message, { status: response.status, quota, attempts: attempt, shape });
+      }
       const meta = envelope.safeParse(body);
       const ageSeconds = meta.success ? Math.round(meta.data.age_seconds ?? 0) : 0;
       const fetchedAt = this.options.now();
@@ -274,7 +288,7 @@ export class LastAsylumTracker implements IntelProvider {
         quota,
         httpStatus: response.status,
         attempts: attempt,
-        shape: responseShape(body),
+        shape,
         warnings: [...new Set(warnings)],
       };
     }

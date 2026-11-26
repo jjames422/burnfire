@@ -98,7 +98,8 @@ test("timestamps accept seconds, milliseconds, and ISO; reject nonsense", () => 
 test("response shape lists field names only", () => {
   const shape = responseShape(body());
   assert.ok(shape.includes("alliance.members"));
-  assert.ok(shape.includes("members[].x"), "reviewers can see the provider sends coordinates");
+  assert.ok(shape.includes("alliance.members[].x"), "reviewers can see the provider sends coordinates");
+  assert.ok(responseShape({ data: { result: { aid: 1 } } }).includes("data.result.aid"), "nested envelopes are walked");
   assert.ok(!shape.some((key) => key.includes("Test One") || key.includes("1234567")));
 });
 
@@ -164,4 +165,10 @@ test("secrets are redacted from any stored or logged text", () => {
   assert.ok(!clean.includes("abc123XYZ"));
   assert.ok(!clean.includes("lap_zzz"));
   assert.ok(clean.length <= 300);
+});
+
+test("an unparseable answer reports its field names so the parser can be corrected", async () => {
+  const { provider } = client([response(200, { data: { alliance_info: { foo: 1 } } })]);
+  await assert.rejects(provider.fetchAlliance("1"), (error) =>
+    error.code === "invalid_response" && error.status === 200 && error.shape.includes("data.alliance_info.foo"));
 });
