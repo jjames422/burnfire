@@ -1,0 +1,11 @@
+[Unit]
+Description=Run BurnFire kingdom intelligence synchronization every 10 minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=10min
+RandomizedDelaySec=45s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

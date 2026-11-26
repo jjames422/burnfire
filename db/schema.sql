@@ -1176,3 +1176,423 @@ where not exists (
   where coalesce(c.alliance, '__community__') = coalesce(v.alliance, '__community__')
     and c.slug = v.slug
 );
+
+-- === Kingdom intelligence ==================================================
+-- Game statistics from external providers (first: Last Asylum Tracker).
+-- Privacy rules enforced by this model:
+--   * map coordinates and online/offline status are never stored;
+--   * last_online_at is kept only as the latest value for a tenant's own
+--     current members (inactivity review), never as a history;
+--   * member-level rows exist only for alliances linked to a site tenant
+--     (intel_alliances.tenant); every other alliance keeps aggregates only;
+--   * leadership tables are keyed by tenant, and platform administration
+--     does not grant access to them (see intel_is_leadership).
+
+create table if not exists intel_providers (
+  id text primary key check (id ~ '^[a-z][a-z0-9_]{1,30}$'),
+  name text not null,
+  base_url text not null,
+  enabled boolean not null default true,
+  daily_request_limit integer not null default 1000 check (daily_request_limit > 0),
+  reserve_requests integer not null default 100 check (reserve_requests >= 0),
+  quota_limit integer,
+  quota_remaining integer,
+  quota_resets text,
+  quota_observed_at timestamptz,
+  auth_status text check (auth_status in ('ok', 'missing', 'rejected')),
+  auth_checked_at timestamptz,
+  response_shape jsonb,
+  response_shape_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists intel_kingdoms (
+  number integer primary key check (number > 0),
+  name text check (char_length(name) <= 80),
+  opened_on date,
+  season text check (char_length(season) <= 80),
+  notes text check (char_length(notes) <= 2000),
+  source text not null default 'manual' check (source in ('manual', 'provider')),
+  updated_by uuid references users (id) on delete set null,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists intel_alliances (
+  id uuid primary key default gen_random_uuid(),
+  provider text not null references intel_providers (id),
+  external_id bigint not null check (external_id > 0),
+  kingdom integer not null references intel_kingdoms (number),
+  tag text not null check (char_length(tag) between 1 and 16),
+  name text not null check (char_length(name) between 1 and 80),
+  tenant text references alliances (slug) on delete set null,
+  level integer,
+  member_capacity integer check (member_capacity between 1 and 500),
+  tracked boolean not null default true,
+  sync_interval_minutes integer not null default 360 check (sync_interval_minutes between 30 and 10080),
+  next_sync_at timestamptz not null default now(),
+  last_attempt_at timestamptz,
+  last_success_at timestamptz,
+  last_observed_at timestamptz,
+  consecutive_failures integer not null default 0 check (consecutive_failures >= 0),
+  last_error text check (char_length(last_error) <= 300),
+  added_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  unique (provider, external_id)
+);
+create unique index if not exists intel_alliances_one_tenant_per_provider
+  on intel_alliances (tenant, provider) where tenant is not null;
+create index if not exists intel_alliances_due_idx on intel_alliances (next_sync_at) where tracked;
+create index if not exists intel_alliances_kingdom_idx on intel_alliances (kingdom);
+
+create table if not exists intel_alliance_identities (
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  tag text not null,
+  name text not null,
+  first_seen_at timestamptz not null,
+  last_seen_at timestamptz not null,
+  primary key (alliance_id, tag, name)
+);
+
+create table if not exists intel_sync_runs (
+  id uuid primary key default gen_random_uuid(),
+  provider text not null references intel_providers (id),
+  alliance_id uuid references intel_alliances (id) on delete set null,
+  trigger text not null check (trigger in ('schedule', 'manual')),
+  requested_by uuid references users (id) on delete set null,
+  started_at timestamptz not null default now(),
+  finished_at timestamptz,
+  status text not null default 'running'
+    check (status in ('running', 'success', 'unchanged', 'failed', 'skipped')),
+  attempts integer not null default 0,
+  requests_used integer not null default 0,
+  http_status integer,
+  error_code text check (char_length(error_code) <= 40),
+  error_message text check (char_length(error_message) <= 300),
+  provider_cached boolean,
+  provider_age_seconds integer,
+  quota_remaining integer,
+  members_seen integer
+);
+create index if not exists intel_sync_runs_started_idx on intel_sync_runs (started_at desc);
+create index if not exists intel_sync_runs_alliance_idx on intel_sync_runs (alliance_id, started_at desc);
+
+create table if not exists intel_alliance_snapshots (
+  id bigserial primary key,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  observed_at timestamptz not null,
+  fetched_at timestamptz not null,
+  sync_run_id uuid references intel_sync_runs (id) on delete set null,
+  tag text not null,
+  name text not null,
+  level integer,
+  member_count integer not null check (member_count >= 0),
+  members_with_power integer not null check (members_with_power >= 0),
+  total_power bigint,
+  average_power bigint,
+  sanctuary_levels jsonb not null default '{}'::jsonb,
+  unique (alliance_id, observed_at)
+);
+create index if not exists intel_alliance_snapshots_series_idx
+  on intel_alliance_snapshots (alliance_id, observed_at desc);
+
+create table if not exists intel_players (
+  id uuid primary key default gen_random_uuid(),
+  provider text not null references intel_providers (id),
+  external_uid bigint not null check (external_uid > 0),
+  name text not null check (char_length(name) between 1 and 80),
+  first_seen_at timestamptz not null default now(),
+  last_seen_at timestamptz not null default now(),
+  unique (provider, external_uid)
+);
+
+create table if not exists intel_player_names (
+  player_id uuid not null references intel_players (id) on delete cascade,
+  name text not null,
+  first_seen_at timestamptz not null,
+  last_seen_at timestamptz not null,
+  primary key (player_id, name)
+);
+
+create table if not exists intel_memberships (
+  id uuid primary key default gen_random_uuid(),
+  player_id uuid not null references intel_players (id) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  status text not null default 'active' check (status in ('active', 'left')),
+  provider_joined_at timestamptz,
+  first_seen_at timestamptz not null,
+  last_seen_at timestamptz not null,
+  left_detected_at timestamptz,
+  last_online_at timestamptz,
+  check ((status = 'left') = (left_detected_at is not null))
+);
+create unique index if not exists intel_memberships_one_active
+  on intel_memberships (player_id, alliance_id) where status = 'active';
+create index if not exists intel_memberships_alliance_idx on intel_memberships (alliance_id, status);
+
+create table if not exists intel_member_snapshots (
+  player_id uuid not null references intel_players (id) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  observed_at timestamptz not null,
+  power bigint,
+  sanctuary_level integer,
+  daily_honor bigint,
+  daily_tech bigint,
+  weekly_activity numeric,
+  primary key (player_id, alliance_id, observed_at)
+);
+create index if not exists intel_member_snapshots_alliance_idx
+  on intel_member_snapshots (alliance_id, observed_at desc);
+
+create table if not exists intel_player_links (
+  user_id uuid primary key references users (id) on delete cascade,
+  player_id uuid not null unique references intel_players (id) on delete cascade,
+  tenant text not null references alliances (slug) on delete cascade,
+  linked_by uuid references users (id) on delete set null,
+  linked_at timestamptz not null default now()
+);
+
+create table if not exists intel_settings (
+  tenant text primary key references alliances (slug) on delete cascade,
+  inactivity_days integer not null default 7 check (inactivity_days between 2 and 60),
+  member_hourly_days integer not null default 14 check (member_hourly_days between 1 and 90),
+  member_retention_days integer not null default 365 check (member_retention_days between 30 and 1095),
+  departed_retention_days integer not null default 90 check (departed_retention_days between 0 and 365),
+  kingdom_public boolean not null default false,
+  report_settings jsonb not null default '{}'::jsonb,
+  updated_by uuid references users (id) on delete set null,
+  updated_at timestamptz not null default now()
+);
+
+alter table intel_settings add column if not exists retention_ran_at timestamptz;
+
+create table if not exists intel_absences (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  player_id uuid not null references intel_players (id) on delete cascade,
+  starts_on date not null,
+  ends_on date not null,
+  reason text check (char_length(reason) <= 300),
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  cancelled_at timestamptz,
+  check (ends_on >= starts_on and ends_on - starts_on <= 120)
+);
+create index if not exists intel_absences_player_idx on intel_absences (tenant, player_id, ends_on desc);
+
+create table if not exists intel_reviews (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  player_id uuid not null references intel_players (id) on delete cascade,
+  status text not null default 'needs_review'
+    check (status in ('needs_review', 'monitoring', 'warned', 'excused', 'cleared', 'confirmed_inactive')),
+  opened_reason text not null check (char_length(opened_reason) <= 300),
+  evidence jsonb not null default '{}'::jsonb,
+  opened_by uuid references users (id) on delete set null,
+  opened_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  closed_at timestamptz,
+  closed_by uuid references users (id) on delete set null
+);
+create unique index if not exists intel_reviews_one_open
+  on intel_reviews (tenant, player_id) where closed_at is null;
+
+create table if not exists intel_review_events (
+  id uuid primary key default gen_random_uuid(),
+  review_id uuid not null references intel_reviews (id) on delete cascade,
+  kind text not null check (kind in ('opened', 'note', 'warning', 'status')),
+  body text check (char_length(body) <= 1000),
+  from_status text,
+  to_status text,
+  actor uuid references users (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+create index if not exists intel_review_events_review_idx on intel_review_events (review_id, created_at);
+
+create table if not exists intel_relations (
+  tenant text not null references alliances (slug) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  stance text not null check (stance in ('allied', 'nap', 'neutral', 'watch', 'rival', 'hostile')),
+  summary text check (char_length(summary) <= 500),
+  updated_by uuid references users (id) on delete set null,
+  updated_at timestamptz not null default now(),
+  primary key (tenant, alliance_id)
+);
+
+create table if not exists intel_relation_history (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  from_stance text,
+  to_stance text not null,
+  note text check (char_length(note) <= 500),
+  actor uuid references users (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+create index if not exists intel_relation_history_idx on intel_relation_history (tenant, alliance_id, created_at desc);
+
+create table if not exists intel_treaties (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  kind text not null check (kind in ('nap', 'alliance', 'merger', 'ceasefire', 'other')),
+  status text not null default 'proposed'
+    check (status in ('proposed', 'active', 'expired', 'ended', 'violated', 'rejected')),
+  title text not null check (char_length(title) between 1 and 120),
+  terms text check (char_length(terms) <= 2000),
+  starts_on date,
+  ends_on date,
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_by uuid references users (id) on delete set null,
+  updated_at timestamptz not null default now()
+);
+create index if not exists intel_treaties_tenant_idx on intel_treaties (tenant, alliance_id, created_at desc);
+
+create table if not exists intel_contacts (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  alliance_id uuid not null references intel_alliances (id) on delete cascade,
+  in_game_name text not null check (char_length(in_game_name) between 1 and 60),
+  role text check (char_length(role) <= 60),
+  notes text check (char_length(notes) <= 500),
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  removed_at timestamptz
+);
+
+create table if not exists intel_leadership_notes (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  alliance_id uuid references intel_alliances (id) on delete set null,
+  category text not null check (category in ('diplomacy', 'recruitment', 'merger', 'operations', 'event')),
+  title text not null check (char_length(title) between 1 and 120),
+  body text not null check (char_length(body) between 1 and 4000),
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  archived_at timestamptz
+);
+create index if not exists intel_leadership_notes_idx on intel_leadership_notes (tenant, created_at desc);
+
+create table if not exists intel_kingdom_events (
+  id uuid primary key default gen_random_uuid(),
+  kingdom integer not null references intel_kingdoms (number),
+  occurred_at timestamptz not null,
+  kind text not null check (kind in ('throne', 'merger', 'disband', 'ranking', 'kvk', 'season', 'diplomacy', 'rename', 'other')),
+  title text not null check (char_length(title) between 1 and 160),
+  body text check (char_length(body) <= 2000),
+  alliance_id uuid references intel_alliances (id) on delete set null,
+  source text not null check (source in ('manual', 'derived')),
+  verification text not null default 'reported' check (verification in ('verified', 'reported')),
+  visibility text not null default 'members' check (visibility in ('public', 'members', 'leadership')),
+  tenant text references alliances (slug) on delete cascade,
+  dedupe_key text unique,
+  created_by uuid references users (id) on delete set null,
+  created_at timestamptz not null default now(),
+  check (visibility <> 'leadership' or tenant is not null)
+);
+create index if not exists intel_kingdom_events_idx on intel_kingdom_events (kingdom, occurred_at desc);
+
+create table if not exists intel_report_deliveries (
+  id uuid primary key default gen_random_uuid(),
+  tenant text not null references alliances (slug) on delete cascade,
+  kind text not null,
+  period_key text not null,
+  created_at timestamptz not null default now(),
+  unique (tenant, kind, period_key)
+);
+
+create table if not exists intel_audit_log (
+  id bigserial primary key,
+  tenant text references alliances (slug) on delete cascade,
+  actor uuid references users (id) on delete set null,
+  action text not null check (char_length(action) <= 60),
+  target text check (char_length(target) <= 120),
+  detail jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+create index if not exists intel_audit_log_idx on intel_audit_log (tenant, created_at desc);
+
+-- Verified membership of a tenant (any rank).
+create or replace function intel_is_member(p_actor uuid, p_tenant text) returns boolean
+language sql stable as $$
+  select exists (select 1 from alliance_members
+    where user_id = p_actor and alliance = p_tenant and verified_at is not null);
+$$;
+
+-- Tenant leadership: verified R4/R5 of that tenant. Platform administration
+-- deliberately does not imply access to another alliance's private records.
+create or replace function intel_is_leadership(p_actor uuid, p_tenant text) returns boolean
+language sql stable as $$
+  select exists (select 1 from alliance_members
+    where user_id = p_actor and alliance = p_tenant and verified_at is not null
+      and game_rank in ('r4', 'r5'));
+$$;
+
+-- Thins and expires member-level history according to the tenant's
+-- settings. Alliance aggregates older than 30 days keep one row per day.
+create or replace function intel_apply_retention(p_tenant text) returns jsonb
+language plpgsql as $$
+declare
+  s intel_settings;
+  thinned integer := 0;
+  expired integer := 0;
+  departed integer := 0;
+  aggregates integer := 0;
+begin
+  select * into s from intel_settings where tenant = p_tenant;
+  if not found then return '{}'::jsonb; end if;
+
+  with ranked as (
+    select ms.player_id, ms.alliance_id, ms.observed_at,
+      row_number() over (partition by ms.player_id, ms.alliance_id, date_trunc('day', ms.observed_at at time zone 'UTC')
+                         order by ms.observed_at desc) as position
+    from intel_member_snapshots ms
+    join intel_alliances a on a.id = ms.alliance_id and a.tenant = p_tenant
+    where ms.observed_at < now() - make_interval(days => s.member_hourly_days)
+  )
+  delete from intel_member_snapshots ms using ranked r
+  where ms.player_id = r.player_id and ms.alliance_id = r.alliance_id
+    and ms.observed_at = r.observed_at and r.position > 1;
+  get diagnostics thinned = row_count;
+
+  delete from intel_member_snapshots ms using intel_alliances a
+  where a.id = ms.alliance_id and a.tenant = p_tenant
+    and ms.observed_at < now() - make_interval(days => s.member_retention_days);
+  get diagnostics expired = row_count;
+
+  delete from intel_member_snapshots ms using intel_memberships m, intel_alliances a
+  where m.player_id = ms.player_id and m.alliance_id = ms.alliance_id
+    and a.id = m.alliance_id and a.tenant = p_tenant
+    and m.status = 'left'
+    and m.left_detected_at < now() - make_interval(days => s.departed_retention_days)
+    and not exists (select 1 from intel_memberships active
+      where active.player_id = m.player_id and active.alliance_id = m.alliance_id and active.status = 'active');
+  get diagnostics departed = row_count;
+
+  with ranked as (
+    select sn.id, row_number() over (partition by sn.alliance_id, date_trunc('day', sn.observed_at at time zone 'UTC')
+                                     order by sn.observed_at desc) as position
+    from intel_alliance_snapshots sn
+    where sn.observed_at < now() - interval '30 days'
+  )
+  delete from intel_alliance_snapshots sn using ranked r where sn.id = r.id and r.position > 1;
+  get diagnostics aggregates = row_count;
+
+  return jsonb_build_object('member_thinned', thinned, 'member_expired', expired,
+    'departed_removed', departed, 'aggregate_thinned', aggregates);
+end;
+$$;
+
+insert into intel_providers (id, name, base_url, daily_request_limit, reserve_requests)
+values ('lat', 'Last Asylum Tracker', 'https://api.lastasylumtracker.com', 1000, 100)
+on conflict (id) do nothing;
+
+insert into intel_kingdoms (number, source) values (324, 'manual')
+on conflict (number) do nothing;
+
+insert into intel_alliances (provider, external_id, kingdom, tag, name, tenant, sync_interval_minutes)
+values ('lat', 67111261, 324, 'BF2', 'BurnFire', 'burnfire', 60)
+on conflict (provider, external_id) do nothing;
+
+insert into intel_settings (tenant) values ('burnfire')
+on conflict (tenant) do nothing;

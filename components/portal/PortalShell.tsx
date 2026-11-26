@@ -15,8 +15,9 @@ const links = [
   { href: "/chat", label: "Alliance chat", mark: "03" },
   { href: "/academy/announcements", label: "Announcements", mark: "04" },
   { href: "/command", label: "Command Center", mark: "05" },
-  { href: "/portal/members", label: "Members & oversight", mark: "06" },
-  { href: "/portal/security", label: "Sign-in & security", mark: "07" },
+  { href: "/intel", label: "Alliance intelligence", mark: "06" },
+  { href: "/portal/members", label: "Members & oversight", mark: "07" },
+  { href: "/portal/security", label: "Sign-in & security", mark: "08" },
 ];
 
 export function PortalShell({ children }: { children: ReactNode }) {
@@ -32,11 +33,14 @@ export function PortalShell({ children }: { children: ReactNode }) {
         </Link>
         <div className="portal-sidebar-label"><Text>{"YOUR ALLIANCE. ONE CONNECTION."}</Text></div>
         <nav aria-label={t("Member portal")}>
-          {links.map(({ href, label, mark }) => (
-            <Link key={href} href={href} className={pathname === href ? "is-current" : ""} aria-current={pathname === href ? "page" : undefined}>
+          {links.map(({ href, label, mark }) => {
+            const current = pathname === href || (href === "/intel" && pathname.startsWith("/intel/"));
+            return (
+            <Link key={href} href={href} className={current ? "is-current" : ""} aria-current={current ? "page" : undefined}>
               <span>{mark}</span>{t(label)}
             </Link>
-          ))}
+            );
+          })}
         </nav>
         <div className="portal-sidebar-bottom">
           <span className="portal-signal"><i /> {" "}<Text>{"KINGDOM #324"}</Text></span>

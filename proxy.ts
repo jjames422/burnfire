@@ -6,7 +6,7 @@ export function proxy(request: NextRequest) {
   const portal = new URL(portalOrigin);
   const hostname = request.headers.get("host")?.split(":")[0].toLowerCase() ?? request.nextUrl.hostname;
   const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
-  const isPortalPath = /^\/(portal|academy|command|chat|auth)(\/|$)/.test(pathname);
+  const isPortalPath = /^\/(portal|academy|command|chat|auth|intel)(\/|$)/.test(pathname);
 
   if (hostname === portal.hostname && pathname === "/") {
     return NextResponse.rewrite(new URL(`/portal${search}`, request.url));
@@ -18,5 +18,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/portal/:path*", "/academy/:path*", "/command/:path*", "/chat/:path*", "/auth/:path*"],
+  matcher: ["/", "/portal/:path*", "/academy/:path*", "/command/:path*", "/chat/:path*", "/auth/:path*", "/intel/:path*"],
 };

@@ -17,6 +17,9 @@ Planned and evolving areas include:
 
 The recruit and officer workflows are documented in
 [docs/command-center.md](./docs/command-center.md).
+Alliance statistics, Kingdom #324 standings, leadership operations, and the
+Last Asylum Tracker integration are documented in
+[docs/kingdom-intelligence.md](./docs/kingdom-intelligence.md).
 The member headquarters is available at `/portal` locally and is prepared for
 `portal.burnfire2.com`. It connects academy, chat, shared membership approvals, and officer
 tools with email-code, email-link, and passkey sign-in.

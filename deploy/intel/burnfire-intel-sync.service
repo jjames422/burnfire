@@ -1,0 +1,18 @@
+# Calls the BurnFire intelligence scheduler endpoint. Each call syncs at most
+# eight due alliances and applies retention once a day. Install only after the
+# schema and the application release are live (see docs/kingdom-intelligence.md).
+[Unit]
+Description=BurnFire kingdom intelligence synchronization
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Holds INTEL_CRON_SECRET and INTEL_SYNC_URL; mode 600, never committed.
+EnvironmentFile=/etc/burnfire/intel-sync.env
+ExecStart=/usr/bin/curl --fail --silent --show-error --max-time 90 -X POST \
+  -H "Authorization: Bearer ${INTEL_CRON_SECRET}" "${INTEL_SYNC_URL}"
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
