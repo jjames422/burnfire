@@ -8,13 +8,22 @@ import type { Sql } from "./sync.ts";
 export type SiteRank = "r1" | "r2" | "r3" | "r4" | "r5";
 const R4_TITLES = new Set(["diplomat", "recruiter", "goddess", "god_of_war"]);
 
-/** "R4", "r4", "4", or "Leader" to a site rank; anything else is unknown. */
+/**
+ * Game rank labels look like "R2" or "R4 · Militarist" (rank plus in-game title).
+ * Returns the site rank, or null when the label has no recognizable rank.
+ */
 export function normalizeRank(label: string | null | undefined): SiteRank | null {
   if (!label) return null;
   const clean = label.trim().toLowerCase();
-  if (clean === "leader" || clean === "r5" || clean === "5") return "r5";
-  const match = /^r?([1-4])$/.exec(clean);
+  if (clean === "leader" || clean.startsWith("leader ")) return "r5";
+  const match = /^r?([1-5])(?![0-9])/.exec(clean);
   return match ? (`r${match[1]}` as SiteRank) : null;
+}
+
+/** The in-game title after the rank ("R4 · Militarist" → "Militarist"), if any. */
+export function rosterTitle(label: string | null | undefined): string | null {
+  const part = label?.split(/[·•|]/).slice(1).join(" ").trim();
+  return part ? part.slice(0, 40) : null;
 }
 
 /** Titles and Regent that remain valid after a rank change (mirrors the schema checks). */
@@ -56,10 +65,11 @@ export async function applyRosterToSite(client: Sql, tenant: string, allianceId:
     .sort((a, b) => (order(a.target) - order(a.row.game_rank)) - (order(b.target) - order(b.row.game_rank)));
 
   for (const { row, target } of pending) {
-    if (target === "r5") {
-      const { rows: [leader] } = await client.query(
-        `select 1 from alliance_members where alliance = $1 and game_rank = 'r5' and user_id <> $2`, [tenant, row.user_id]);
-      if (leader) { skipped.push({ userId: row.user_id, reason: "leader_conflict" }); continue; }
+    // Leadership transfers grant or remove full alliance administration, so a change into or
+    // out of R5 is reported for an officer to confirm instead of being applied automatically.
+    if (target === "r5" || row.game_rank === "r5") {
+      skipped.push({ userId: row.user_id, reason: "leader_change_needs_officer" });
+      continue;
     }
     const next = titlesAfter(target, { rank: row.game_rank, title: row.alliance_title, regent: row.is_regent });
     await client.query(

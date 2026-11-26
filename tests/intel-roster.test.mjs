@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { matchRoster } from "../lib/intel/roster-match.ts";
-import { normalizeRank, titlesAfter } from "../lib/intel/roster-sync.ts";
+import { normalizeRank, rosterTitle, titlesAfter } from "../lib/intel/roster-sync.ts";
 
 // TEST DATA: synthetic roster rows.
 const roster = [
@@ -17,6 +17,11 @@ test("roster ranks normalize from game labels", () => {
   assert.equal(normalizeRank("5"), "r5");
   assert.equal(normalizeRank("Leader"), "r5");
   assert.equal(normalizeRank("R9"), null);
+  assert.equal(normalizeRank("R4 · Militarist"), "r4", "live labels carry an in-game title after the rank");
+  assert.equal(normalizeRank("R4 · Recruiter"), "r4");
+  assert.equal(normalizeRank("R10"), null);
+  assert.equal(rosterTitle("R4 · Militarist"), "Militarist");
+  assert.equal(rosterTitle("R2"), null);
   assert.equal(normalizeRank(null), null);
 });
 

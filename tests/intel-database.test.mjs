@@ -264,7 +264,7 @@ test("game roster promotions, demotions, and renames update linked site accounts
     const unlinked = await make("roster-unlinked", "r1", null, "020", false);
     await sync("2026-11-02T00:00:00Z", (data) => ({ ...data, members: data.members.map((m) => m.uid === `${FIXTURE_HOME_ID}005` ? { ...m, name: "Test Renamed Officer" } : m) }));
     const rank = async (id) => (await db.query("select game_rank::text as rank, alliance_title::text as title, permission_role::text as role from alliance_members where user_id = $1", [id])).rows[0];
-    assert.deepEqual(await rank(leader), { rank: "r5", title: "alliance_leader", role: "admin" }, "promotion to leader takes the leader title");
+    assert.deepEqual(await rank(leader), { rank: "r4", title: "diplomat", role: "officer" }, "a change to R5 waits for an officer");
     assert.deepEqual(await rank(demoted), { rank: "r3", title: null, role: "officer" }, "demotion below R4 clears the title");
     assert.deepEqual(await rank(promoted), { rank: "r2", title: null, role: "member" });
     assert.deepEqual(await rank(unlinked), { rank: "r1", title: null, role: "member" }, "unlinked accounts are never changed");
@@ -272,11 +272,11 @@ test("game roster promotions, demotions, and renames update linked site accounts
     assert.equal(profile.in_game_name, "Test Renamed Officer", "the site name follows the game");
     const { rows: history } = await db.query("select source, previous_rank::text, new_rank::text, changed_by from membership_history where user_id = $1", [demoted]);
     assert.deepEqual(history, [{ source: "roster", previous_rank: "r4", new_rank: "r3", changed_by: null }]);
-    // A second leader in the game cannot take the single R5 slot while another account holds it.
-    const rival = await make("roster-rival", "r4", null, "001");
-    await db.query("update intel_memberships set rank_label = 'R5' where player_id = (select id from intel_players where external_uid = $1)", [`${FIXTURE_HOME_ID}001`]);
+    // Changes into or out of R5 are reported for officers, never applied.
     const { applyRosterToSite } = await import("../lib/intel/roster-sync.ts");
     const outcome = await transaction((client) => applyRosterToSite(client, "burnfire", tracked.id));
-    assert.deepEqual(outcome.skipped, [{ userId: rival, reason: "leader_conflict" }]);
+    assert.deepEqual(outcome.skipped, [{ userId: leader, reason: "leader_change_needs_officer" }]);
+    const { rows: [audit] } = await db.query("select detail from intel_audit_log where action = 'roster.site_sync' order by id desc limit 1");
+    assert.equal(audit.detail.skipped[0].reason, "leader_change_needs_officer", "the skipped change is recorded for officers");
   });
 });

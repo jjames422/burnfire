@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { secretMatches } from "@/lib/intel/secret.ts";
-import { normalizeRank } from "@/lib/intel/roster-sync.ts";
+import { normalizeRank, rosterTitle } from "@/lib/intel/roster-sync.ts";
 import { homeRoster } from "@/lib/server/roster";
 import { jsonError } from "@/lib/server/http";
 
@@ -18,6 +18,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     as_of: roster.asOf,
     usable: roster.usable,
-    members: roster.members.map((member) => ({ uid: member.uid, name: member.name, rank: normalizeRank(member.rank_label) })),
+    members: roster.members.map((member) => ({ uid: member.uid, name: member.name, rank: normalizeRank(member.rank_label), game_title: rosterTitle(member.rank_label) })),
   }, { headers: { "Cache-Control": "no-store" } });
 }
