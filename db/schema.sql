@@ -1325,6 +1325,7 @@ create table if not exists intel_memberships (
   last_online_at timestamptz,
   check ((status = 'left') = (left_detected_at is not null))
 );
+alter table intel_memberships add column if not exists rank_label text check (char_length(rank_label) <= 20);
 create unique index if not exists intel_memberships_one_active
   on intel_memberships (player_id, alliance_id) where status = 'active';
 create index if not exists intel_memberships_alliance_idx on intel_memberships (alliance_id, status);

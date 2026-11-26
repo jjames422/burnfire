@@ -172,3 +172,28 @@ test("an unparseable answer reports its field names so the parser can be correct
   await assert.rejects(provider.fetchAlliance("1"), (error) =>
     error.code === "invalid_response" && error.status === 200 && error.shape.includes("data.alliance_info.foo"));
 });
+
+// TEST DATA: synthetic values in the field layout of a live answer observed on
+// 2026-11-26 (field names recorded by the integration; no real values used).
+test("parses the live answer layout: union_id, sid, nick_name, capacity, rank labels", () => {
+  const live = {
+    ok: true, cached: true, age_seconds: 300, cache_seconds: 3600, refreshing: false, live: false,
+    quota: { limit: 1000, used: 2, remaining: 998, resets: "00:00 UTC", patron: false },
+    union_id: 900000009, sid: 324, abbr: "TST", name: "Test Alliance", level: 6, member_count: 2, capacity: 60,
+    power: 123456789, rank: { rank: 12, score: 123456789 }, leader_id: 1, leader_name: "Test Leader",
+    join: { auto: true, castle_level: 10, power: 0 }, updated_at: "2026-11-26T03:00:00Z",
+    members: [
+      { uid: 1001, aid: 900000009, kid: 324, nick_name: "Test A", power: 5000000, lv: 21, rank_code: 5, rank_label: "R5",
+        active: 1200, daily_honor: 300, daily_tech: 20, joined_at: "2026-09-01T00:00:00Z", last_online_at: "2026-11-26T02:00:00Z",
+        online: true, x: 1, y: 2, kills: 10 },
+      { uid: 1002, aid: 900000009, kid: 324, nick_name: "Test B", power: 3000000, lv: 18, rank_label: "R1", online: false, x: 3, y: 4 },
+    ],
+  };
+  const alliance = normalizeAlliance(live);
+  assert.equal(alliance.externalId, "900000009");
+  assert.equal(alliance.kingdom, 324);
+  assert.equal(alliance.capacity, 60);
+  assert.equal(alliance.reportedPower, 123456789);
+  assert.deepEqual(alliance.members.map((member) => [member.name, member.sanctuaryLevel, member.rank]), [["Test A", 21, "R5"], ["Test B", 18, "R1"]]);
+  for (const member of alliance.members) assert.equal("x" in member || "online" in member, false);
+});

@@ -56,6 +56,8 @@ export interface NormalizedMember {
   joinedAt: string | null;
   /** Used only for a tenant's own current members; never stored as history. */
   lastOnlineAt: string | null;
+  /** In-game alliance rank label (e.g. "R4"), when the roster includes it. */
+  rank: string | null;
 }
 
 export interface NormalizedAlliance {
@@ -65,6 +67,10 @@ export interface NormalizedAlliance {
   name: string;
   level: number | null;
   memberCount: number;
+  /** Maximum membership reported by the provider. */
+  capacity: number | null;
+  /** Alliance power as reported by the provider (preferred over summing members). */
+  reportedPower: number | null;
   /** False when the provider answer had no roster array at all. */
   rosterIncluded: boolean;
   members: NormalizedMember[];

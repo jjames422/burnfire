@@ -110,3 +110,13 @@ test("quota reserve protects the home alliance; account errors pause instead of 
   assert.equal(failureDelayMinutes(60, 1, "rate_limited"), -1);
   assert.equal(minutesUntilQuotaReset(new Date(Date.UTC(2026, 10, 26, 23, 0))), 65);
 });
+
+test("the provider's own alliance total is preferred over summing members", () => {
+  const aggregate = aggregateRoster({
+    externalId: "1", kingdom: 324, tag: "T", name: "Test", level: 1, memberCount: 4, capacity: 60, reportedPower: 1000, rosterIncluded: true,
+    members: [{ uid: "1", name: "a", power: 100, sanctuaryLevel: 20 }],
+  });
+  assert.equal(aggregate.totalPower, 1000);
+  assert.equal(aggregate.averagePower, 250);
+  assert.equal(aggregate.membersWithPower, 4, "a provider total covers every member");
+});

@@ -60,7 +60,7 @@ export async function loadAllianceDashboard(tenant: string, access: IntelAccess,
        d1.power as p1, d7.power as p7, d30.power as p30, d7.observed_at as t7,
        dt.power as pt, dt.observed_at as tt,
        c.honor as honor_7d, c.tech as tech_7d, c.days as contribution_days,
-       am.game_rank::text as site_rank, link.user_id as linked_user,
+       coalesce(m.rank_label, am.game_rank::text) as site_rank, link.user_id as linked_user,
        exists (select 1 from intel_absences ab where ab.tenant = $2 and ab.player_id = m.player_id and ab.cancelled_at is null
          and current_date between ab.starts_on and ab.ends_on) as on_absence,
        rv.status as review_status, rv.id as review_id,

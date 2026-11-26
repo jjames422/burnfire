@@ -101,7 +101,7 @@ export function normalizeMember(raw: unknown, warnings: string[]): NormalizedMem
   if (!parsed.success) { warnings.push("member_not_object"); return null; }
   const source = parsed.data;
   const uid = idString(pick(source, ["uid", "id", "player_id"]));
-  const name = text(pick(source, ["name", "nick", "nickname"]), 80);
+  const name = text(pick(source, ["nick_name", "name", "nick", "nickname"]), 80);
   if (!uid || !name) { warnings.push("member_without_identity"); return null; }
   const rawPower = finiteNumber(pick(source, ["power", "might"]));
   const power = rawPower !== null && rawPower >= 0 && rawPower <= MAX_POWER ? Math.round(rawPower) : null;
@@ -116,6 +116,7 @@ export function normalizeMember(raw: unknown, warnings: string[]): NormalizedMem
     weeklyActivity: activity(pick(source, ["active", "weekly_active", "activity"])),
     joinedAt: timestamp(pick(source, ["joined_at", "join_time"])),
     lastOnlineAt: timestamp(pick(source, ["last_online_at", "last_online"])),
+    rank: text(pick(source, ["rank_label", "rank_code", "rank"]), 20),
   };
 }
 
@@ -124,7 +125,8 @@ export function normalizeAlliance(raw: unknown, warnings: string[] = []): Normal
   if (!outer.success) throw new ProviderError("invalid_response", "Provider answer was not a JSON object.");
   const nested = record.safeParse(outer.data.alliance);
   const source = nested.success ? nested.data : outer.data;
-  const externalId = idString(pick(source, ["aid", "alliance_id", "id"]));
+  // Live answers (verified 2026-11-26) use union_id and sid; the rest are documented aliases.
+  const externalId = idString(pick(source, ["union_id", "aid", "alliance_id", "id"]));
   const tag = text(pick(source, ["abbr", "abbreviation", "tag", "short_name"]), 16);
   const name = text(pick(source, ["name", "alliance_name"]), 80);
   if (!externalId || !tag || !name) {
@@ -144,11 +146,16 @@ export function normalizeAlliance(raw: unknown, warnings: string[] = []): Normal
   const declared = boundedInteger(pick(source, ["member_count", "members_count", "member_num", "count"]), 0, 500);
   return {
     externalId,
-    kingdom: boundedInteger(pick(source, ["kid", "server", "kingdom", "server_id"]), 1, 100000),
+    kingdom: boundedInteger(pick(source, ["sid", "kid", "server", "kingdom", "server_id"]), 1, 100000),
     tag,
     name,
     level: boundedInteger(pick(source, ["level", "lv"]), 1, 100),
     memberCount: declared ?? members.length,
+    capacity: boundedInteger(pick(source, ["capacity", "max_members"]), 1, 500),
+    reportedPower: (() => {
+      const power = finiteNumber(pick(source, ["power"]));
+      return power !== null && power >= 0 && power <= MAX_POWER * 100 ? Math.round(power) : null;
+    })(),
     rosterIncluded,
     members,
   };

@@ -190,16 +190,20 @@ export interface AggregateSnapshot {
 
 export function aggregateRoster(alliance: NormalizedAlliance): AggregateSnapshot {
   const powered = alliance.members.filter((member) => member.power !== null);
-  const totalPower = powered.length ? powered.reduce((sum, member) => sum + (member.power ?? 0), 0) : null;
+  const summed = powered.length ? powered.reduce((sum, member) => sum + (member.power ?? 0), 0) : null;
+  // Prefer the provider's own alliance total; fall back to summing reported members.
+  const reported = alliance.reportedPower ?? null;
+  const totalPower = reported ?? summed;
   const sanctuaryLevels: Record<string, number> = {};
   for (const member of alliance.members) {
     if (member.sanctuaryLevel !== null) sanctuaryLevels[member.sanctuaryLevel] = (sanctuaryLevels[member.sanctuaryLevel] ?? 0) + 1;
   }
   return {
     memberCount: alliance.memberCount,
-    membersWithPower: powered.length,
+    membersWithPower: reported !== null ? alliance.memberCount : powered.length,
     totalPower,
-    averagePower: totalPower !== null ? Math.round(totalPower / powered.length) : null,
+    averagePower: totalPower === null ? null
+      : Math.round(totalPower / Math.max(1, reported !== null ? alliance.memberCount : powered.length)),
     sanctuaryLevels,
     rosterComplete: alliance.rosterIncluded && alliance.members.length >= alliance.memberCount,
   };
@@ -235,12 +239,12 @@ export async function writeResult(
   );
   const renamed = data.tag !== alliance.tag || data.name !== alliance.name;
   await client.query(
-    `update intel_alliances set tag = $2, name = $3, level = coalesce($4, level),
+    `update intel_alliances set tag = $2, name = $3, level = coalesce($4, level), member_capacity = coalesce($7, member_capacity),
        kingdom = case when $5::int is not null and exists (select 1 from intel_kingdoms where number = $5) then $5 else kingdom end,
        last_success_at = now(), last_observed_at = greatest(last_observed_at, $6::timestamptz),
        consecutive_failures = 0, last_error = null, next_sync_at = now() + make_interval(mins => sync_interval_minutes)
      where id = $1`,
-    [alliance.id, data.tag, data.name, data.level, data.kingdom, observed],
+    [alliance.id, data.tag, data.name, data.level, data.kingdom, observed, data.capacity ?? null],
   );
   await client.query(
     `insert into intel_alliance_identities (alliance_id, tag, name, first_seen_at, last_seen_at)
@@ -306,16 +310,19 @@ export async function writeResult(
       [ids, members.map((member) => member.name), observed],
     );
     const { rows: membershipRows } = await client.query<{ inserted: boolean }>(
-      `insert into intel_memberships (player_id, alliance_id, provider_joined_at, first_seen_at, last_seen_at, last_online_at)
-       select t.id, $2, t.joined, $5, $5, t.online
-       from unnest($1::uuid[], $3::timestamptz[], $4::timestamptz[]) as t(id, joined, online)
+      `insert into intel_memberships (player_id, alliance_id, provider_joined_at, first_seen_at, last_seen_at, last_online_at, rank_label)
+       select t.id, $2, t.joined, $5, $5, t.online, t.rank
+       from unnest($1::uuid[], $3::timestamptz[], $4::timestamptz[], $6::text[]) as t(id, joined, online, rank)
        on conflict (player_id, alliance_id) where status = 'active' do update set
          provider_joined_at = coalesce(excluded.provider_joined_at, intel_memberships.provider_joined_at),
+         rank_label = case when excluded.last_seen_at >= intel_memberships.last_seen_at
+           then coalesce(excluded.rank_label, intel_memberships.rank_label) else intel_memberships.rank_label end,
          last_online_at = case when excluded.last_seen_at >= intel_memberships.last_seen_at
            then coalesce(excluded.last_online_at, intel_memberships.last_online_at) else intel_memberships.last_online_at end,
          last_seen_at = greatest(intel_memberships.last_seen_at, excluded.last_seen_at)
        returning (xmax = 0) as inserted`,
-      [ids, alliance.id, members.map((member) => member.joinedAt), members.map((member) => member.lastOnlineAt), observed],
+      [ids, alliance.id, members.map((member) => member.joinedAt), members.map((member) => member.lastOnlineAt), observed,
+        members.map((member) => member.rank ?? null)],
     );
     joined = membershipRows.filter((row) => row.inserted).length;
     await client.query(

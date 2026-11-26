@@ -71,6 +71,7 @@ export function syntheticAlliance(spec: FixtureAllianceSpec, atDate: Date): Norm
       weeklyActivity: idle ? 0 : Math.round(400 + noise(daySeed + 9) * 3000),
       joinedAt: new Date(home && index === spec.members ? Date.UTC(2026, 10, 14) : EPOCH - (index + 3) * 4 * DAY).toISOString(),
       lastOnlineAt: new Date(idle ? Date.UTC(2026, 10, 16, 6) : at - Math.round(noise(daySeed + 2) * 20) * 3_600_000).toISOString(),
+      rank: index === 0 ? "R5" : index < 4 ? "R4" : index < 10 ? "R3" : index < 25 ? "R2" : "R1",
     });
   }
   return {
@@ -80,6 +81,8 @@ export function syntheticAlliance(spec: FixtureAllianceSpec, atDate: Date): Norm
     name: renamed ? spec.renameAt!.name : spec.name,
     level: spec.level,
     memberCount: members.length,
+    capacity: null,
+    reportedPower: null,
     rosterIncluded: true,
     members,
   };
