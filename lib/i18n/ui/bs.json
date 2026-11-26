@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "Igra ne izvještava o činu ovog člana",
   "Roster from {time}.": "Popis od {time}.",
   "A match confirms the details agree with the game, not who submitted them.": "Podudaranje potvrđuje da su detalji usklađeni s igrom, a ne ko ih je poslao.",
-  "The roster is more than six hours old; confirm in game.": "Spisak igrača je stariji od šest sati; provjerite u igri."
+  "The roster is more than six hours old; confirm in game.": "Spisak igrača je stariji od šest sati; provjerite u igri.",
+  "Updates daily": "Ažurira se dnevno"
 }

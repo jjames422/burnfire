@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "Игра не сообщает звание этого участника",
   "Roster from {time}.": "Состав от {time}.",
   "The roster is more than six hours old; confirm in game.": "Состав устарел более чем на шесть часов; проверьте в игре.",
-  "A match confirms the details agree with the game, not who submitted them.": "Совпадение подтверждает, что данные соответствуют игре, а не то, кто их отправил."
+  "A match confirms the details agree with the game, not who submitted them.": "Совпадение подтверждает, что данные соответствуют игре, а не то, кто их отправил.",
+  "Updates daily": "Обновляется ежедневно"
 }

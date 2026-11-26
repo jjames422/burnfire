@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "Игра не пријављује чин овог члана",
   "Roster from {time}.": "Списак од {time}.",
   "The roster is more than six hours old; confirm in game.": "Списак је старији од шест сати; потврдите у игри.",
-  "A match confirms the details agree with the game, not who submitted them.": "Подударање потврђује да се детаљи слажу са игром, а не ко их је поднео."
+  "A match confirms the details agree with the game, not who submitted them.": "Подударање потврђује да се детаљи слажу са игром, а не ко их је поднео.",
+  "Updates daily": "Ажурира се дневно"
 }

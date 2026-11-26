@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "Hindi inuulat ng laro ang rank ng miyembrong ito",
   "Roster from {time}.": "Roster noong {time}.",
   "The roster is more than six hours old; confirm in game.": "Higit 6 na oras na ang nakalipas mula sa huling roster update; paki-kumpirma sa laro.",
-  "A match confirms the details agree with the game, not who submitted them.": "Binibigyang-kumpirma ng pagtutugma na pareho ang detalye sa laro, hindi kung sino ang nagsumite nito."
+  "A match confirms the details agree with the game, not who submitted them.": "Binibigyang-kumpirma ng pagtutugma na pareho ang detalye sa laro, hindi kung sino ang nagsumite nito.",
+  "Updates daily": "Araw-araw nag-a-update"
 }

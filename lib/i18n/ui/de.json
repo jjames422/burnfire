@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "Das Spiel meldet den Rang dieses Mitglieds nicht",
   "Roster from {time}.": "Spielerliste vom {time}.",
   "The roster is more than six hours old; confirm in game.": "Die Spielerliste ist älter als sechs Stunden; im Spiel bestätigen.",
-  "A match confirms the details agree with the game, not who submitted them.": "Eine Übereinstimmung bestätigt, dass die Details mit dem Spiel übereinstimmen, nicht wer sie eingereicht hat."
+  "A match confirms the details agree with the game, not who submitted them.": "Eine Übereinstimmung bestätigt, dass die Details mit dem Spiel übereinstimmen, nicht wer sie eingereicht hat.",
+  "Updates daily": "Täglich aktualisiert"
 }

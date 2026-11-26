@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "游戏未报告此成员的阶级",
   "Roster from {time}.": "花名册截至 {time}。",
   "The roster is more than six hours old; confirm in game.": "花名册已超过六小时未更新，请在游戏中确认。",
-  "A match confirms the details agree with the game, not who submitted them.": "匹配仅确认详细信息与游戏一致，并不代表提交者身份。"
+  "A match confirms the details agree with the game, not who submitted them.": "匹配仅确认详细信息与游戏一致，并不代表提交者身份。",
+  "Updates daily": "每日更新"
 }

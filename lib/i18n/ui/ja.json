@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "ゲームはこのメンバーの階級を報告していません",
   "Roster from {time}.": "{time}時点の名簿。",
   "The roster is more than six hours old; confirm in game.": "名簿が6時間以上更新されていません。ゲーム内で確認してください。",
-  "A match confirms the details agree with the game, not who submitted them.": "一致の確認は、詳細がゲームの内容と一致していることを示すものであり、誰が提出したかを示すものではありません。"
+  "A match confirms the details agree with the game, not who submitted them.": "一致の確認は、詳細がゲームの内容と一致していることを示すものであり、誰が提出したかを示すものではありません。",
+  "Updates daily": "毎日更新"
 }

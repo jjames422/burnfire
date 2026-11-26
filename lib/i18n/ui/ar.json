@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "لا تقر اللعبة رتبة هذا العضو",
   "Roster from {time}.": "القائمة من {time}.",
   "The roster is more than six hours old; confirm in game.": "القائمة أقدم من ست ساعات؛ يرجى التأكيد داخل اللعبة.",
-  "A match confirms the details agree with the game, not who submitted them.": "التطابق يؤكد أن التفاصيل تتفق مع اللعبة، وليس من قام بتقديمها."
+  "A match confirms the details agree with the game, not who submitted them.": "التطابق يؤكد أن التفاصيل تتفق مع اللعبة، وليس من قام بتقديمها.",
+  "Updates daily": "يُحدث يومياً"
 }

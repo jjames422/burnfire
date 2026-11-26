@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "遊戲未回報此成員的階級",
   "Roster from {time}.": "名單時間：{time}。",
   "The roster is more than six hours old; confirm in game.": "名單已超過六小時未更新；請在遊戲中確認。",
-  "A match confirms the details agree with the game, not who submitted them.": "相符僅確認詳細資訊與遊戲一致，不代表提交者的身份。"
+  "A match confirms the details agree with the game, not who submitted them.": "相符僅確認詳細資訊與遊戲一致，不代表提交者的身份。",
+  "Updates daily": "每日更新"
 }

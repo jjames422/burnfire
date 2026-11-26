@@ -26,10 +26,11 @@ type Kingdom = {
 type Metric = "total" | "members" | "average";
 type SortKey = "position" | "tag" | "total_power" | "member_count" | "average_power" | "growth_24h" | "growth_7d_pct" | "growth_30d_pct";
 
-function Source({ kind }: { kind: "synced" | "manual" | "missing" }) {
+function Source({ kind }: { kind: "synced" | "auto" | "manual" | "missing" }) {
   return (
     <span className="intel-source">
       {kind === "synced" && <span className="is-synced"><Text>{"Synced"}</Text></span>}
+      {kind === "auto" && <span className="is-synced"><Text>{"Updates daily"}</Text></span>}
       {kind === "manual" && <span className="is-manual"><Text>{"Leadership record"}</Text></span>}
       {kind === "missing" && <span className="is-missing"><Text>{"Not available"}</Text></span>}
     </span>
@@ -170,7 +171,7 @@ export function KingdomIntel() {
 
       <dl className="intel-facts">
         <div><dt><Text>{"Server day"}</Text></dt><dd>{day !== null ? t("Day {day}", { day }) : "—"}</dd>
-          {opened ? <><Source kind="manual" /><small className="intel-note" style={{ display: "block", marginTop: 6 }}><Text values={{ date: day_(opened.getTime()) }}>{"Opened {date}"}</Text></small></> : <Source kind="missing" />}</div>
+          {opened ? <><Source kind="auto" /><small className="intel-note" style={{ display: "block", marginTop: 6 }}><Text values={{ date: day_(opened.getTime()) }}>{"Opened {date}"}</Text></small></> : <Source kind="missing" />}</div>
         <div><dt><Text>{"King"}</Text></dt><dd>{data.kingdom.king_name ?? "—"}{data.kingdom.ruling_alliance && <small className="intel-note" style={{ marginInlineStart: 8 }}>[{data.kingdom.ruling_alliance}]</small>}</dd>{data.kingdom.king_name ? <Source kind="manual" /> : <Source kind="missing" />}</div>
         <div><dt><Text>{"Now"}</Text></dt><dd>{state?.current.length ? state.current.map((m) => m.title).join(" · ") : t("Between milestones")}</dd>
           {state?.upcoming[0] && <small className="intel-note"><Text values={{ title: state.upcoming[0].title, days: state.upcoming[0].in_days }}>{"Next: {title} in {days} days"}</Text></small>}</div>

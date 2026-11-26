@@ -1341,5 +1341,6 @@
   "The game does not report this member's rank": "게임에서 이 멤버의 계급을 제공하지 않습니다",
   "Roster from {time}.": "{time} 기준 명단.",
   "The roster is more than six hours old; confirm in game.": "명단이 6시간 이상 경과했습니다. 게임에서 확인하세요.",
-  "A match confirms the details agree with the game, not who submitted them.": "일치 여부는 세부 정보가 게임과 일치함을 확인하는 것이며, 제출자를 인증하는 것은 아닙니다."
+  "A match confirms the details agree with the game, not who submitted them.": "일치 여부는 세부 정보가 게임과 일치함을 확인하는 것이며, 제출자를 인증하는 것은 아닙니다.",
+  "Updates daily": "매일 업데이트"
 }
