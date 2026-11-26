@@ -177,7 +177,13 @@ export function responseShape(raw: unknown): string[] {
     for (const key of Object.keys(value as object).slice(0, 80)) {
       const path = prefix ? `${prefix}.${key}` : key;
       keys.add(path);
-      walk((value as Record<string, unknown>)[key], path, depth + 1);
+      const child = (value as Record<string, unknown>)[key];
+      // Timestamp fields also record a format signature (digits → 9, letters → a, numbers → digit count),
+      // which shows how dates are encoded without keeping any actual date.
+      if (/(_at|_time|time)$/.test(key) && child !== null && child !== undefined && keys.size < 200) {
+        keys.add(`${path}~${typeof child === "number" ? `number:${String(Math.trunc(child)).length}` : String(child).slice(0, 40).replace(/[0-9]/g, "9").replace(/[A-Za-z]/g, "a")}`);
+      }
+      walk(child, path, depth + 1);
     }
   };
   walk(raw, "", 0);

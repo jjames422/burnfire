@@ -197,3 +197,10 @@ test("parses the live answer layout: union_id, sid, nick_name, capacity, rank la
   assert.deepEqual(alliance.members.map((member) => [member.name, member.sanctuaryLevel, member.rank]), [["Test A", 21, "R5"], ["Test B", 18, "R1"]]);
   for (const member of alliance.members) assert.equal("x" in member || "online" in member, false);
 });
+
+test("timestamp fields record only a format signature, never the date", () => {
+  const shape = responseShape({ members: [{ joined_at: "2026-11-25T14:03:22Z", last_online_at: 1795000000 }] });
+  assert.ok(shape.includes("members[].joined_at~9999-99-99a99:99:99a"));
+  assert.ok(shape.includes("members[].last_online_at~number:10"));
+  assert.ok(!shape.some((key) => key.includes("2026") || key.includes("1795")));
+});
