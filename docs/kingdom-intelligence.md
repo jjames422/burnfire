@@ -154,6 +154,42 @@ host timer (10 min) ──POST /api/intel/cron──┐            leadership / 
 - Reports are English with the portal link; the universal translator bot handles channel
   translation.
 
+## Roster verification and rank sync
+
+The hourly roster sync also drives membership:
+
+- **Website applications.** The submitted player ID or name, profile name, and requested rank are
+  checked against the roster.
+  - A typo, a name mismatch, or a wrong rank returns an error so the applicant can correct it.
+    "Send to an officer for review" covers members promoted or recruited within the last hour.
+  - Officers see a roster evidence box on every pending member, and approving links the account to
+    its character.
+- **Site rank sync.** For linked accounts, in-game promotions, demotions, and renames update the
+  site on each sync and are recorded in membership history with source `roster`.
+  - Titles follow the schema's rank rules: they are cleared below R4.
+  - Changes into or out of **R5 are never automatic**. They are logged as
+    `leader_change_needs_officer` for an officer to confirm.
+- **Discord verification (`burnfire-tag-bot/roster/index.js`).**
+  - The typed name or player ID must be on the roster. The rank role comes from the game, and only
+    R4s pick an officer title, which officers are asked to confirm.
+  - A character already claimed by another Discord account is refused and reported.
+  - If the roster is unavailable or more than six hours old, nobody is admitted, and officers are
+    alerted to verify by hand.
+- **Discord rank sync.** Every 15 minutes, rank roles and nicknames follow the game.
+  - Titles are removed below R4, and Leader changes are flagged rather than applied.
+  - Departures are reported, never acted on.
+  - Members verified before this feature are linked once by an exact, unique name match.
+- **Limits.** A roster match shows the details agree with the game, not who submitted them,
+  because character IDs are public. The game reports some in-game titles inside the rank label
+  ("R4 · Militarist"). They are shown but not mapped to site titles, because the names differ.
+
+## Server progression
+
+The server day is computed from the kingdom's opening date, with day 1 as the opening day on UTC
+days. Leadership maintains milestones (events, unlocks, seasons) with a confirmed or estimated
+flag on the Kingdom page, along with the king and ruling alliance. The provider exposes none of
+these.
+
 ## Configuration and deployment
 
 Environment variables (server only; also listed in `.env.local.example`):
